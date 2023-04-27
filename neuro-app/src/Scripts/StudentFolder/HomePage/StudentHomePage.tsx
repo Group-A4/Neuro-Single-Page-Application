@@ -6,7 +6,7 @@ import photo_TakeAnExam from './Images/BoxTakeAnExam.png';
 import photo_ViewMaterials from './Images/BoxViewMaterials.png';
 
 import styles from '../../../CSS/Body.module.css'
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Nav from '../NavBarStudent/Nav';
 
 
@@ -24,9 +24,9 @@ const Body: React.FC<{}> = () => {
                 </ul>
 
                 <ul className={styles['link--image']} >
-                    {/* <Link to='/TakeAMockExam'> */}
+                    <Link to='/TakeAMockExam'>
                         <img src={photo_TakeAMockExam} alt="" className={styles['body--img']} />
-                    {/* </Link> */}
+                    </Link>
                 </ul>
 
                 <ul className={styles['link--image']} >
