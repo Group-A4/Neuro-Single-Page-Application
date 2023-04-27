@@ -1,0 +1,241 @@
+.body {
+    background-image: url("background-page.png");
+    min-height: 100%;
+    background-size: cover;
+    position: absolute;
+    width: 100%;
+    height: auto;
+}
+
+
+.textbox {
+    background-image: url("blue_band.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    margin-top: 3%;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    padding-left: 6%;
+    text-align: left;
+    justify-content: center;
+    font-weight: bold;
+    font-size: calc(20px + 1.0vw);
+}
+.body--second_text
+{
+    background-color:#D9D9D9;
+    height: 5%;
+    position:relative;
+    margin-top: 3%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    padding-left: 6%;
+    position: relative;
+    text-align: left;
+    justify-content: center;
+    font-size: calc(8px + 1.0vw);
+    text-decoration:overline gray;
+}
+.body--second_text--line
+{
+    background-color: black;
+    width:5%;
+    height: 0.5px;
+}
+.body .menu
+{
+    padding-top: 5%;
+    padding-bottom: 1%;
+    margin-left:20%;
+    margin-bottom: 20vb;
+}
+.body .menu button
+{
+    text-decoration: none;
+    font-family: Arial, sans-serif;
+    font-size: calc(16px + 1.0vw);
+    font-weight: bold;
+    color:white;
+    border: 3px solid;
+    background-color:#BF985D;
+    border: none;
+    border: 1px solid;
+    border-color: black;
+    border-radius: 7px;
+    visibility: visible;
+    cursor: pointer;
+    width: 15vw;
+    height: 150%;
+}
+
+.menu button:hover
+{
+    color: white;
+}
+
+.menu button:active
+{
+    visibility: visible;
+    color :white;
+}
+.menu ul li 
+{
+    all:unset;
+    border-color: #555;
+    text-decoration: none;
+    position: relative;
+    font-size: calc(15px + 1.0vw);
+    font-family: Open Sans;
+    text-decoration: none;
+    color:black;
+    cursor: pointer;
+    appearance:none;
+    margin-top: 2%;
+    margin-bottom:6%;
+    text-align:start;
+    margin-right: 6%;
+    margin-left:-2vb;
+}
+
+.menu ul li:hover
+{
+   background-color:rgb(109, 109, 109);
+   
+}
+.body .active{
+  background: white;
+  background-color: #555;
+}
+.menu ul
+{
+    background-color: #B8B8B8 ;
+    height: fit-content;
+    appearance:none;
+    text-decoration: none;
+    z-index: 10;
+    position: absolute;
+    border-radius: 5px;
+    border: 1px solid;
+    border-color: black;
+    width: 15%;
+    margin-top:0%;
+    margin-left:3%;
+    margin-right: 3%;
+    display: flex;
+    flex-direction: column;
+}
+
+.butoane
+{
+    display:flex;
+    flex-direction: row;
+    width: auto;
+    height: auto;
+}
+.but button
+{
+    background-color: #9DC7CC;
+    border-radius: 7px;
+    border: 1px solid;
+    border-color: black;
+    font-size: calc(18px + 1.0vw);
+    font-family: Open Sans;
+    font-weight: bold;
+    padding-left: 2%;
+    padding-right: 2%;
+    width: fit-content;
+    
+}
+.but button:hover
+{
+ background-color: #555;
+}
+.but
+{
+ 
+ align-content: right;
+ margin-top: 4%;
+ text-align: right;
+ margin-right: 5%;
+ align-self: baseline;
+}
+
+@media (max-width:600px) {
+    .butoane
+{
+    display:flex;
+    flex-direction: column;
+    width: auto;
+    height: auto;
+}
+.menu
+{
+    padding-top: 5%;
+    padding-bottom: 1%;
+    margin-bottom: 20vb;
+    margin-left:65%;
+}
+.body .menu button
+{
+    text-decoration: none;
+    font-family: Arial, sans-serif;
+    font-size: calc(25px + 1.0vw);
+    font-weight: bold;
+    color:white;
+    border: 3px solid;
+    background-color:#BF985D;
+    border: none;
+    border: 1px solid;
+    border-color: black;
+    border-radius: 7px;
+    visibility: visible;
+    cursor: pointer;
+    width: auto;
+    height: 150%;
+    margin-left:5%;
+   
+}
+.menu ul
+{
+    background-color: #B8B8B8 ;
+    height: fit-content;
+    appearance:none;
+    text-decoration: none;
+    z-index: 10;
+    position: absolute;
+    border-radius: 5px;
+    border: 1px solid;
+    border-color: black;
+    width: 30%;
+    margin-top:0%;
+    margin-left:9%;
+    margin-right: 3%;
+    display: flex;
+    flex-direction: column;
+}
+.but
+{
+ margin-top: -5%;
+ align-content: right;
+ font-size :20vi;
+ text-align: right;
+ margin-right: 5%;
+ align-self: baseline;
+
+}
+.but button
+{
+    background-color: #9DC7CC;
+    border-radius: 7px;
+    border: 1px solid;
+    border-color: black;
+    font-size: calc(25px + 1.0vw);
+    font-family: Open Sans;
+    font-weight: bold;
+    padding-left: 2%;
+    padding-right: 2%;
+    width: fit-content;
+    cursor: pointer;
+}
+}
