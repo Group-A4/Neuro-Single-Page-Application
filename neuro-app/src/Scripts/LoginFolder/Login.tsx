@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import AdminPage from "../AdminFolder/AdminPageRender";
-import Student from "../StudentFolder/StudentHomePage";
+import Student from "../StudentFolder/HomePage/StudentHomePage";
 
 
 function Login() {
