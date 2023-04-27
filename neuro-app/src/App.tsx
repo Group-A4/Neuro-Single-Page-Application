@@ -5,6 +5,7 @@ import "./CSS/NavBar.css";
 import Create from "./Scripts/AdminFolder/CreateAccount";
 import Login from "./Scripts/LoginFolder/Login";
 import Admin from "./Scripts/AdminFolder/AdminPageRender";
+import Student from "./Scripts/StudentFolder/StudentHomePage";
 import { Route, Routes } from "react-router-dom";
 
 
