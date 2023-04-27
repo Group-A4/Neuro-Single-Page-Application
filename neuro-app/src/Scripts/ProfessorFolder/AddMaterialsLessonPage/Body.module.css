@@ -12,13 +12,13 @@
     background-repeat: no-repeat;
     background-size: cover;
     height: 100%;
-    position:relative;
-    
+    position: relative;
+
     margin-top: 3%;
 
     padding-top: 2%;
     padding-bottom: 2%;
-    
+
     padding-left: 6%;
     position: relative;
     text-align: left;
@@ -49,8 +49,64 @@
     background-repeat: no-repeat;
     position: absolute;
     width: 60%;
-    margin-left:20%;
+    margin-left: 20%;
     margin-right: 20%;
 }
 
 
+.body--button--publish {
+    position: absolute;
+    background-color: #6AFFC7;
+
+    margin-top: 5%;
+
+    margin-left: calc(90% - 40px);
+
+    margin-right: 10%;
+
+    font-size: calc(10px + 1.0vw);
+    padding-top: 0.5%;
+    padding-bottom: 0.5%;
+    width: calc(45px + 5.0vw);
+
+    border-radius: 10px;
+    border-width: 1px;
+    border-color: black;
+    font-weight: bold;
+}
+
+.body--button--publish:hover {
+    background-color: #5a5757;
+}
+
+
+.body--button--add {
+    position: relative;
+    background-color: #6AFFC7;
+
+    margin-top: 40%;
+
+    margin-left: calc(80% - 60px);
+
+
+    font-size: calc(10px + 1.0vw);
+    padding-top: 0.5%;
+    padding-bottom: 0.5%;
+    width: calc(50px + 5.0vw);
+
+    border-radius: 10px;
+    border-width: 1px;
+    border-color: black;
+    font-weight: bold;
+}
+
+.body--button--add:hover {
+    background-color: #5a5757;
+}
+
+@media only screen and (max-width:790px) {
+    .body--button--add {
+        margin-top: 50%;
+    }
+
+}

@@ -1,7 +1,7 @@
 import React from 'react'
 
 import styles from './Body.module.css'
-import Button from './Button';
+import Buttons from './Button';
 import Nav from '../NavBarProfessor/Nav';
 // import { Link } from 'react-router-dom';
 
@@ -32,7 +32,7 @@ const AddMaterialsLesson: React.FC<{}> = () => {
         <>
             <Nav />
             <Body/>
-            <Button/>
+            <Buttons/>
         </>
     );
 }

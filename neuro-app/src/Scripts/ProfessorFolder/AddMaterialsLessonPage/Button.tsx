@@ -2,13 +2,19 @@ import React from 'react'
 import styles from './Body.module.css'
 import { Link } from "react-router-dom";
 
-const Button:React.FC<{}> = () => {
-    return(
-        <div className={styles['but']}> 
-        <Link to='/AddQuestion'>
-            <button>  Next step </button> 
-        </Link> 
-        </div>
+const Buttons: React.FC<{}> = () => {
+    return (
+        <>
+            <button type="submit" className={styles['body--button--publish']} >
+                Publish
+            </button>
+
+            <button type="submit" className={styles['body--button--add']} >
+                Add file
+            </button>
+        </>
+
+
     )
 }
-export default Button;
+export default Buttons;
