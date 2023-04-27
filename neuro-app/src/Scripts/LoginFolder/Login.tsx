@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import NavBar from "../NavBarFolder/NavBar";
 import AdminPage from "../AdminFolder/AdminPageRender";
+import Student from "../StudentFolder/HomePage/StudentHomePage";
+
 
 function Login() {
+
     const [inputValue, setInputValue] = useState('');
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -12,9 +14,9 @@ function Login() {
         if (inputValue === '1') {
           window.location.href = '/Admin';
         } else if (inputValue === '2') {
-          window.location.href = '/pagina2';
+          window.location.href = '/Professor';
         } else if (inputValue === '3') {
-          window.location.href = '/pagina3';
+          window.location.href = '/Student';
         };
   }
 
