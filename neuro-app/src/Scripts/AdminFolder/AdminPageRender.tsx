@@ -18,6 +18,7 @@ function App() {
   };
 
   return (
+
       <div className="admin-properties-container">
         <Link to="/CreateAccount">
           <button className="create-account" onClick={handleCreateAccountClick}>
@@ -28,22 +29,26 @@ function App() {
 
         <button className="view-materials" onClick={handleViewMaterialsClick}>
           <p> View materials </p>
-          <img src="images/background.png" alt="icon-view-materials" width="130" height="130" />
+          <img src="images/icon-view-materials.png" alt="icon-view-materials" width="130" height="130" />
         </button>
 
-        <button className="modify-account" onClick={handleModifyAccountClick}>
-          <p>Modify an account</p>
-          <br />
-          <img src="images/icon-modify-account.png" alt="modify" width="130" height="130" />
-          <br />
-        </button>
+        <Link to="/ModifyAccount">
+          <button className="modify-account" onClick={handleModifyAccountClick}>
+            <p>Modify an account</p>
+            <br />
+            <img src="images/icon-modify-account.png" alt="modify" width="130" height="130" />
+            <br />
+          </button>
+        </Link>
 
-        <button className="delete-account" onClick={handleDeleteAccountClick}>
-          <p>Delete an account</p>
-          <br />
-          <img src="images/icon-delete-account.png" alt="delete" width="130" height="130" />
-          <br />
-        </button>
+        <Link to="/DeleteAccount">
+          <button className="delete-account" onClick={handleDeleteAccountClick}>
+            <p>Delete an account</p>
+            <br />
+            <img src="images/icon-delete-account.png" alt="delete" width="130" height="130" />
+            <br />
+          </button>
+        </Link>
       </div>
   );
 }

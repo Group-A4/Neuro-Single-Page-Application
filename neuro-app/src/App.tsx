@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import "./CSS/App.css";
 import "./CSS/AdminPage.css";
-import "./CSS/NavBar.css";
+import "./CSS/CreateAcc.css";
 import Create from "./Scripts/AdminFolder/CreateAccount";
 import Login from "./Scripts/LoginFolder/Login";
 import Admin from "./Scripts/AdminFolder/AdminPageRender";
 import Student from "./Scripts/StudentFolder/StudentHomePage";
+import Modify from "./Scripts/AdminFolder/ModifyAccount";
+import DeleteAccount from "./Scripts/AdminFolder/DeleteAccount";
+
+
 import { Route, Routes } from "react-router-dom";
 
 
@@ -42,6 +46,8 @@ function App() {
       <Route path="/AddQuestionsQuiz" element={<AddQuestionsQuiz />} />
       <Route path="/AddMaterialsLesson" element={<AddMaterialsLesson />} />
       <Route path="/ViewQuestionAnswer" element={<ViewQuestionAnswer />} />
+      <Route path="ModifyAccount" element={<Modify />}></Route>
+      <Route path="DeleteAccount" element={<DeleteAccount />}></Route>
     </Routes>
   );
 }
