@@ -1,0 +1,47 @@
+.body {
+    min-height: 100%;
+    background-size: cover;
+    position: absolute;
+    width: 100%;
+    height: auto;
+}
+
+.question {
+    font-size: 24px;
+    margin-bottom: 20px;
+
+}
+
+.choices {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+.choice {
+    margin-bottom: 10px;
+}
+
+.choice input[type='radio'] {
+    margin-right: 10px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.button-container button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    color: #fff;
+    background-color: #0077cc;
+    cursor: pointer;
+}
+
+.button-container button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
