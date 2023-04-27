@@ -1,7 +1,13 @@
 import React from 'react'
-import Nav from '../../components/nav/Nav';
-import styles from '../../CSS/Body.module.css';
-import { Link } from "react-router-dom";
+
+import photo_upload from './box_upload.png';
+import photo_view from './box_view.png';
+import photo_exams from './exams.png';
+import photo_create_exam from './create_exam.png';
+
+import styles from './Body.module.css'
+import { Link } from 'react-router-dom';
+import Nav from '../NavBarProfessor/Nav';
 
 
 const Body: React.FC<{}> = () => {
@@ -13,25 +19,25 @@ const Body: React.FC<{}> = () => {
 
                 <ul className={styles['link--image']} >
                     <Link to='/UploadMaterials'>
-                        <img src="./box_upload.png" alt="" className={styles['body--img']} />
+                        <img src={photo_upload} alt="" className={styles['body--img']} />
                     </Link>
                 </ul>
 
                 <ul className={styles['link--image']} >
                     <Link to='/ViewMaterials'>
-                        <img src="./box_view.png" alt="" className={styles['body--img']} />
+                        <img src={photo_view} alt="" className={styles['body--img']} />
                     </Link>
                 </ul>
 
                 <ul className={styles['link--image']} >
                     {/* <Link to='./UploadMaterials'> */}
-                    <img src="./exams.png" alt="" className={styles['body--img']} />
+                    <img src={photo_exams} alt="" className={styles['body--img']} />
                     {/* </Link> */}
                 </ul>
 
                 <ul className={styles['link--image']} >
                     {/* <Link to='./UploadMaterials'> */}
-                    <img src="./create_exam.png" alt="" className={styles['body--img']} />
+                    <img src={photo_create_exam} alt="" className={styles['body--img']} />
                     {/* </Link> */}
                 </ul>
 
@@ -42,22 +48,13 @@ const Body: React.FC<{}> = () => {
     )
 }
 
-const StudentHomePage: React.FC<{}> = () => {
+function Home() {
     return (
-        <>
+        <body className={styles['body']}>
             <Nav />
             <Body />
-        </>
+        </body>
     );
 }
 
-// function Home() {
-//     return (
-//         <body className={styles['body']}>
-//             <Nav />
-//             <Body />
-//         </body>
-//     );
-// }
-
-export default StudentHomePage;
+export default Home;
