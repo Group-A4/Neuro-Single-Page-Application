@@ -14,7 +14,7 @@ const Body: React.FC<{}> = () => {
             </div>
 
             <p className={styles['body--explication']}>
-                Add content to your lesson.
+                Add content to your lecture.
             </p>
 
             <div className={styles['body--content']}>

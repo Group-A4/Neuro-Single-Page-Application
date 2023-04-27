@@ -10,7 +10,7 @@ const ViewLessonMaterials: React.FC<{}> = () => {
             <Nav />
             <body className={styles['body']}>
                 <div className={styles['body--text'] }>
-                    View lesson materials
+                    View lecture materials
                 </div>
 
                 <div className={styles['body--content']}>

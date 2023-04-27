@@ -13,7 +13,7 @@ const Body: React.FC<{}> = () => {
             </div>
 
             <p className={styles['body--explication']}>
-                To attach materials to a lesson, click on it or click add materials
+                To attach materials to a lecture, click on it or click add materials
             </p>
 
             <div className={styles['body--section--container']}>
@@ -25,7 +25,7 @@ const Body: React.FC<{}> = () => {
                 <div className={styles['body--lesson--container']}>
                     <div className={styles['body--text--lesson']}>
                         <Link to='/AddMaterialsLesson'>
-                            First lesson
+                            First lecture
                         </Link>
                     </div>
 
@@ -40,7 +40,7 @@ const Body: React.FC<{}> = () => {
                 <div className={styles['body--lesson--container']}>
                     <div className={styles['body--text--lesson']}>
                         <Link to='/AddMaterialsLesson'>
-                            Second lesson
+                            Second lecture
                         </Link>
                     </div>
 
@@ -61,7 +61,7 @@ const Body: React.FC<{}> = () => {
                 <div className={styles['body--lesson--container']}>
                     <div className={styles['body--text--lesson']}>
                         <Link to='/AddMaterialsLesson'>
-                            First lesson
+                            First lecture
                         </Link>
                     </div>
 
@@ -76,7 +76,7 @@ const Body: React.FC<{}> = () => {
                 <div className={styles['body--lesson--container']}>
                     <div className={styles['body--text--lesson']}>
                         <Link to='/AddMaterialsLesson'>
-                            Second lesson
+                            Second lecture
                         </Link>
                     </div>
 

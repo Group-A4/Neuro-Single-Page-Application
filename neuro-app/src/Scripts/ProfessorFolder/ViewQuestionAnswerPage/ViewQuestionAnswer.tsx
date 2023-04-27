@@ -15,7 +15,7 @@ const Body: React.FC<{}> = () => {
             
             <div className={styles['container']}>
                 <div className={styles['body--explication']}>
-                    Click on the lesson for which materials are associated.
+                    Click on the lecture for which materials are associated.
                 </div>
              <Questions/>
             </div>
