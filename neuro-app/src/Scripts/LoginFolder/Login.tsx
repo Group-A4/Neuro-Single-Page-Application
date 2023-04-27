@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import AdminPage from "../AdminFolder/AdminPageRender";
+import Student from "../StudentFolder/StudentHomePage";
+
 
 function Login() {
 
@@ -14,7 +16,7 @@ function Login() {
         } else if (inputValue === '2') {
           window.location.href = '/Professor';
         } else if (inputValue === '3') {
-          window.location.href = '/pagina3';
+          window.location.href = '/Student';
         };
   }
 
