@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./CSS/App.css";
 import "./CSS/AdminPage.css";
 import "./CSS/NavBar.css";
+import "./Scripts/StudentFolder/QuestionMockExamPage/QuestionMockExamPage.css"
 import Create from "./Scripts/AdminFolder/CreateAccount";
 import Login from "./Scripts/LoginFolder/Login";
 import Admin from "./Scripts/AdminFolder/AdminPageRender";

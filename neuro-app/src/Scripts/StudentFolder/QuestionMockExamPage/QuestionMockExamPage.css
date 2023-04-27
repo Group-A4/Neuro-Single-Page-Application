@@ -1,35 +1,66 @@
-.body {
-    min-height: 100%;
-    background-size: cover;
-    position: absolute;
-    width: 100%;
-    height: auto;
+.body 
+{
+    background-color:cre
+
+ 
+ }
+
+.questionPart{
+
+    display: flex;
+    flex-direction: column;
+    margin-top: 2rem;
+    margin-left: 4rem;
+    margin-right:4rem;
+    background-color: #002F35;
+    border-radius: 10px;
+}
+
+.questionQuery{
+    background-color: #C49C60;
+    border-radius: 10px;
+    margin-top: 1rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+     
+}
+
+ul{
+    list-style: none;
 }
 
 .question {
-    font-size: 24px;
-    margin-bottom: 20px;
-
-}
+    font-size: 1.6rem;
+ 
+ }
 
 .choices {
-    list-style: none;
-    padding: 0;
-    margin-bottom: 20px;
+     margin-bottom: 1rem;
 }
 
 .choice {
-    margin-bottom: 10px;
+    margin-top: 1rem;
+    margin-right: 2rem;
+    background-color: #bd9d6d;
+    border-radius: 10px;
+    font-size: 1.5rem;
 }
 
 .choice input[type='radio'] {
     margin-right: 10px;
-}
+    font-size: 1.8rem;
+  }
 
 .button-container {
     display: flex;
     justify-content: space-between;
-}
+    align-items: flex-end;
+    margin-left: 5rem;
+    margin-right: 5rem;
+    margin-top: 5rem;
+ }
 
 .button-container button {
     padding: 10px 20px;
@@ -37,7 +68,7 @@
     border-radius: 5px;
     font-size: 18px;
     color: #fff;
-    background-color: #0077cc;
+    background-color: #002F35;
     cursor: pointer;
 }
 

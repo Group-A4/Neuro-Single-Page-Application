@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Nav from '../NavBarStudent/Nav';
-import styles from './QuestionMockExamPage.css'
+import  './QuestionMockExamPage.css';
 
 interface Questions {
     id: number;
@@ -41,38 +41,49 @@ const Body: React.FC<{}> = () => {
         // handle the user's choice here
     };
     return (
-        <div>
-            <h1>Question {currentQuestion.id}</h1>
-            <h2>{currentQuestion.question}</h2>
-            <ul>
-                {currentQuestion.choices.map((choice, index) => (
-                    <li key={index}>
-                        <label>
-                            <input
-                                type="radio"
-                                name="choice"
-                                value={choice}
-                                onChange={() => handleChoiceSelect(choice)}
-                            />
-                            {choice}
-                        </label>
-                    </li>
-                ))}
+        <div className="body">
+            <div className='questionPart'>
+                <div className='questionQuery'> 
+                    <h1 className='question'> {currentQuestion.id}/{questions.length}  {currentQuestion.question} </h1>
+                 </div>
+                
+                <div className='questionAnswers'>
+                <ul>
+                    {currentQuestion.choices.map((choice, index) => (
+                        <li key={index} className="choice">
+                            <label>
+                                <input
+                                    type="radio"
+                                    name="choice"
+                                    value={choice}
+                                    onChange={() => handleChoiceSelect(choice)}
+                                />
+                                {choice}
+                            </label>
+                        </li>
+                    ))}
 
-            </ul>
-            <button onClick={handlePreviousQuestion} disabled={currentQuestionIndex === 0}>
+                </ul>
+                </div>
+
+                </div>
+            
+           
+            <div className="button-container">
+                <button className="button" onClick={handlePreviousQuestion} disabled={currentQuestionIndex === 0}>
                 Previous Question
             </button>
             <button onClick={handleNextQuestion} disabled={currentQuestionIndex === questions.length - 1}>
                 Next Question
             </button>
+            </div>
         </div>
 
     );
 }
 function Question() {
     return (
-        <body className={styles['body']}>
+        <body >
             <Nav />
             <Body />
         </body>
