@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import NavBar from "../NavBarFolder/NavBar";
 import AdminPage from "../AdminFolder/AdminPageRender";
+import Student from "../StudentFolder/StudentHomePage";
+
 
 function Login() {
     const [inputValue, setInputValue] = useState('');
@@ -14,7 +16,7 @@ function Login() {
         } else if (inputValue === '2') {
           window.location.href = '/pagina2';
         } else if (inputValue === '3') {
-          window.location.href = '/pagina3';
+          window.location.href = '/Student';
         };
   }
 
