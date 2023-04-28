@@ -9,7 +9,7 @@ import Student from "./Scripts/StudentFolder/HomePage/StudentHomePage";
 import { Route, Routes } from "react-router-dom";
 import Home from "./Scripts/ProfessorFolder/HomePage/Home";
 import UploadMaterials from "./Scripts/ProfessorFolder/UploadMaterialsPage/UploadMaterials";
-import ResultMockExam from "./Scripts/StudentFolder/ResultMockExamPage/Result";
+import ResultMockExam from "./Scripts/StudentFolder/ResultMockExamPage/ResultPage";
 
 function App() {
   return (
