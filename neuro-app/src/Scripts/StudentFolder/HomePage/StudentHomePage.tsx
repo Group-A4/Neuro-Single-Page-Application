@@ -24,19 +24,19 @@ const Body: React.FC<{}> = () => {
                 </ul>
 
                 <ul className={styles['link--image']} >
-                    {/* <Link to='/ResultMockExam'> */}
+                    <Link to='/TakeAMockExam'>
                         <img src={photo_TakeAMockExam} alt="" className={styles['body--img']} />
-                    {/* </Link> */}
+                    </Link>
                 </ul>
 
                 <ul className={styles['link--image']} >
-                    {/* <Link to='./UploadMaterials'> */}
-                    <img src={photo_TakeAnExam} alt="" className={styles['body--img']} />
-                    {/* </Link> */}
+                    <Link to='/QuestionMockExam'>
+                        <img src={photo_TakeAnExam} alt="" className={styles['body--img']} />
+                    </Link>
                 </ul>
 
                 <ul className={styles['link--image']} >
-                    {/* <Link to='./UploadMaterials'> */}
+                    {/* <Link to='./UploadMaterial'> */}
                     <img src={photo_MyExamResult} alt="" className={styles['body--img']} />
                     {/* </Link> */}
                 </ul>
