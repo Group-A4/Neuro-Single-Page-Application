@@ -26,9 +26,9 @@ const Body: React.FC<{}> = () => {
                                 Subject title 1
                         </div> 
                         <div className={styles['course-edit']}>
-                            {/* {<Link to='/Question'>} */}
+                            <Link to='/QuestionMockExam'>
                                 Start
-                            {/* </Link> */}
+                            </Link>
                         </div> 
                     </div>  
 
@@ -37,9 +37,9 @@ const Body: React.FC<{}> = () => {
                         Subject title 2
                         </div>
                         <div className={styles['course-edit']}>
-                            {/* <Link to='/Question'> */}
+                            <Link to='/QuestionMockExam'>
                                 Start
-                            {/* </Link> */}
+                            </Link>
                         </div> 
                     </div>  
 
@@ -48,9 +48,9 @@ const Body: React.FC<{}> = () => {
                             Subject title 3
                         </div>
                         <div className={styles['course-edit']}>
-                            {/* <Link to='/Question'> */}
+                            <Link to='/QuestionMockExam'>
                                 Start
-                            {/* </Link> */}
+                            </Link>
                         </div> 
                     </div>  
 
@@ -59,9 +59,9 @@ const Body: React.FC<{}> = () => {
                             Subject title 4
                         </div>
                         <div className={styles['course-edit']}>
-                            {/* <Link to='/Question'> */}
+                            <Link to='/QuestionMockExam'>
                                 Start
-                            {/* </Link> */}
+                            </Link>
                         </div> 
                     </div>  
                 </div> 

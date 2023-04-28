@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import Nav from '../NavBarStudent/Nav';
 import  './QuestionMockExamPage.css';
+import { Link } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
+
+ 
 
 interface Questions {
     id: number;
@@ -8,6 +12,8 @@ interface Questions {
     choices: string[];
     answer: string;
 }
+
+
 
 const questions: Questions[] = [
     {
@@ -28,6 +34,7 @@ const questions: Questions[] = [
 const Body: React.FC<{}> = () => {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const currentQuestion = questions[currentQuestionIndex];
+ 
 
     const handleNextQuestion = () => {
         setCurrentQuestionIndex(currentQuestionIndex + 1);
@@ -40,6 +47,11 @@ const Body: React.FC<{}> = () => {
     const handleChoiceSelect = (choice: string) => {
         // handle the user's choice here
     };
+    function handleFinishMockExam ()  {
+        // handle the user's finish exam here
+        
+    }
+
     return (
         <div className="body">
             <div className='questionPart'>
@@ -70,12 +82,18 @@ const Body: React.FC<{}> = () => {
             
            
             <div className="button-container">
+
                 <button className="button" onClick={handlePreviousQuestion} disabled={currentQuestionIndex === 0}>
-                Previous Question
-            </button>
-            <button onClick={handleNextQuestion} disabled={currentQuestionIndex === questions.length - 1}>
-                Next Question
-            </button>
+                    Previous Question
+                </button>
+                 
+              
+                <button onClick={currentQuestionIndex < questions.length - 1 ?  handleNextQuestion : handleFinishMockExam} >
+                   
+                    {currentQuestionIndex === questions.length - 1 ? <Link to='/ResultMockExam'> Finish the mock exam</Link> : 'Next Question' }
+
+                </button>
+            
             </div>
         </div>
 
