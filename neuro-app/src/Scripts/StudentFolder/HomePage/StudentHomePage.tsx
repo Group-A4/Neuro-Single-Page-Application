@@ -6,7 +6,7 @@ import photo_TakeAnExam from './Images/BoxTakeAnExam.png';
 import photo_ViewMaterials from './Images/BoxViewMaterials.png';
 
 import styles from '../../../CSS/Body.module.css'
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Nav from '../NavBarStudent/Nav';
 
 
@@ -30,13 +30,13 @@ const Body: React.FC<{}> = () => {
                 </ul>
 
                 <ul className={styles['link--image']} >
-                    {/* <Link to='./UploadMaterials'> */}
-                    <img src={photo_TakeAnExam} alt="" className={styles['body--img']} />
-                    {/* </Link> */}
+                    <Link to='/QuestionMockExam'>
+                        <img src={photo_TakeAnExam} alt="" className={styles['body--img']} />
+                    </Link>
                 </ul>
 
                 <ul className={styles['link--image']} >
-                    {/* <Link to='./UploadMaterials'> */}
+                    {/* <Link to='./UploadMaterial'> */}
                     <img src={photo_MyExamResult} alt="" className={styles['body--img']} />
                     {/* </Link> */}
                 </ul>
