@@ -10,6 +10,7 @@ import Student from "./Scripts/StudentFolder/HomePage/StudentHomePage";
 import { Route, Routes } from "react-router-dom";
 import Home from "./Scripts/ProfessorFolder/HomePage/Home";
 import UploadMaterials from "./Scripts/ProfessorFolder/UploadMaterialsPage/UploadMaterials";
+import TakeAMockExam from "./Scripts/StudentFolder/TakeAMockExam/TakeAMockExamPage";
 import Question from "./Scripts/StudentFolder/QuestionMockExamPage/QuestionMockExamPage";
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
       <Route path="CreateAccount" element={<Create />}></Route>
       <Route path="UploadMaterials" element={<UploadMaterials />} />
       <Route path="Student" element={<Student />}></Route>
+      <Route path="TakeAMockExam" element={<TakeAMockExam />}></Route>
       <Route path="QuestionMockExam" element={<Question />}></Route>
 
     </Routes>
