@@ -53,7 +53,7 @@ const Body: React.FC<{}> = () => {
                         <li key={index} className="choice">
                             <label>
                                 <input
-                                    type="radio"
+                                    type="checkbox"
                                     name="choice"
                                     value={choice}
                                     onChange={() => handleChoiceSelect(choice)}
