@@ -3,7 +3,7 @@
 }
 
 .body--text {
-    background-image: url("../Scripts/StudentFolder/TakeAMockExam/Images/background_for_title.png");
+    background-image: url("./Images/background_for_title.png");
     background-size: cover;
     min-height: 30%;
     position: fixed;
@@ -33,7 +33,7 @@
 }
 
 .body--line{
-    background-image: url("../Scripts/StudentFolder/TakeAMockExam/Images/line.png");
+    background-image: url("./Images/line.png");
     margin-left: 7%;
     min-height: 1%;
     position: absolute;

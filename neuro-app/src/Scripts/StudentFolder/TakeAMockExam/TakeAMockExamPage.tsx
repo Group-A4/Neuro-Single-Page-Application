@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from '../../../CSS/MockExam.module.css';
+import styles from './MockExam.module.css';
 import Nav from '../NavBarStudent/Nav';
 import { Link } from 'react-router-dom';
 
