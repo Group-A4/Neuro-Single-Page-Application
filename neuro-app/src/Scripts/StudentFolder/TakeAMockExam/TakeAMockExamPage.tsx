@@ -6,14 +6,68 @@ import { Link } from 'react-router-dom';
 
 const Body: React.FC<{}> = () => {
     return (
-
         <>
+            <div className={styles['body--container']}>
+                <div className={styles['column']}>
+                    <div className={styles['body--title']}>
+                        Let’s prepare you for exams!
+                    </div>
+                </div>
+                <div className={styles['column']}>
+                    <div className={styles['body--subtitle']}>
+                        Subject
+                    </div>
+                </div>
+                <div className={styles['column']}>
+                    <div className={styles['body--line']}></div>
+                </div>
 
-            <div className={styles['body--text']}>
-                Take a mock exam
-            </div>        
+                <div className={styles['course-container']}>
+                    <div className={styles['course-title']}>
+                                ana
+                    </div>
+                    <div className={styles['course-title']}>
+                                ana
+                    </div>
+                </div>
+                <div className={styles['course-container']}>
+                    <div className={styles['course-title']}>
+                                ana
+                    </div>
+                    <div className={styles['course-title']}>
+                                ana
+                    </div>
+                </div>
+                <div className={styles['course-container']}>
+                    <div className={styles['course-title']}>
+                                ana
+                    </div>
+                    <div className={styles['course-title']}>
+                                ana
+                    </div>
+                </div>
+                <div className={styles['course-container']}>
+                    <div className={styles['course-title']}>
+                                ana
+                    </div>
+                    <div className={styles['course-title']}>
+                                ana
+                    </div>
+                </div>
+                <div className={styles['course-container']}>
+                    <div className={styles['course-title']}>
+                                ana
+                    </div>
+                    <div className={styles['course-title']}>
+                                ana
+                    </div>
+                </div>
+            </div> 
 
-            <div>
+
+
+
+            {/* <div>
                 <div className={styles['body--subtitle']}>
                     Subject
                 </div>   
@@ -65,7 +119,7 @@ const Body: React.FC<{}> = () => {
                         </div> 
                     </div>  
                 </div> 
-            </div>
+            </div> */}
         </>
     )
 }
