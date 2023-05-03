@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import Nav from "../NavBarFolder/Nav";
+import "./DeleteAccount.css"
 
 interface FormValues {
     id: string;
@@ -51,16 +53,24 @@ function DeleteAccount (){
       
 
     return (
-        <div className="delete-account-container">
+    <div className="delete-account-page">
+      <div>
+        <Nav />
+      </div>
+      <div className="body-text">
+        Please enter the id of the user you wish to delete        </div>
+      <div className="delete-account-container">
         <div>
-            <form onSubmit={handleSubmit} className="create-form">
+            <form onSubmit={handleSubmit} className="create-form-delete">
             <label>
-                Please enter the id of the user you wish to delete: <br />
-                <input type="text" name="id" value={formValues.id} onChange={handleChange} />
+              <input type="text" name="id" value={formValues.id} onChange={handleChange} />
             </label>
-            <button type="submit">Submit</button>
+              <div className="but">
+                  <button type="submit">Submit</button>
+                </div>
             </form>
         </div>
+      </div>
     </div>
     )   
 }

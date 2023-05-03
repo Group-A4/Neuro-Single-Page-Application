@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import Nav from "../NavBarFolder/Nav";
+import "./CreateAccount.css"
 
 interface FormValues {
   firstName: string;
@@ -65,38 +67,48 @@ const CreateAccount = () => {
 
 
   return (
-     
-    <div className="create-account-container">
-      <div>
-        <form onSubmit={handleSubmit} className="create-form">
-          <label>
-            First Name: <br />
-            <input type="text" name="firstName" value={formValues.firstName} onChange={handleChange} />
-          </label>
-          <label>
-            Last Name: <br />
-            <input type="text" name="lastName" value={formValues.lastName} onChange={handleChange} />
-          </label>
-          <label>
-            Password: <br />
-            <input type="password" name="password" value={formValues.password} onChange={handleChange} />
-          </label>
-          <label>
-            Email Faculty: <br />
-            <input type="text" name="emailFaculty" value={formValues.emailFaculty} onChange={handleChange} />
-          </label>
-          <label>
-            Email Personal: <br />
-            <input type="text" name="emailPersonal" value={formValues.emailPersonal} onChange={handleChange} />
-          </label>
-          <label>
-            Role: <br />
-            <input type="text" name="role" value={formValues.role} onChange={handleChange} />
-          </label>
-          <button type="submit">Submit</button>
-        </form>
+      <div className="create-account-page">
+        <div>
+          <Nav />
+        </div>
+        <div className="body-text">
+                Please insert the information for creating an account
+        </div>
+        <div className="create-account-container">
+          <div>
+            <form onSubmit={handleSubmit} className="create-form">
+              <label className="lab">
+                First Name
+                <input className="inp" type="text" name="firstName" value={formValues.firstName} onChange={handleChange} />
+              </label>
+              <label className="lab">
+                Last Name 
+                <input className="inp" type="text" name="lastName" value={formValues.lastName} onChange={handleChange} />
+              </label>
+              <label className="lab">
+                Password 
+                <input className="inp" type="password" name="password" value={formValues.password} onChange={handleChange} />
+              </label>
+              <label className="lab">
+                Email Faculty
+                <input className="inp" type="text" name="emailFaculty" value={formValues.emailFaculty} onChange={handleChange} />
+              </label>
+              <label className="lab">
+                Email Personal 
+                <input className="inp" type="text" name="emailPersonal" value={formValues.emailPersonal} onChange={handleChange} />
+              </label>
+              <label className="lab">
+                Role
+                <input className="inp" type="text" name="role" value={formValues.role} onChange={handleChange} />
+              </label>
+              <div className="but">
+                <button type="submit">Submit</button>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
-    </div>
+    
     
   );
 };

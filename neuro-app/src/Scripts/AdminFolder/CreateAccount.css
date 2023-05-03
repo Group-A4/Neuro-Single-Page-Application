@@ -1,0 +1,89 @@
+.create-account-page{
+    background-image: url("background-page.png");
+    min-height: 100%;
+    background-size: cover;
+    position: absolute;
+    width: 100%;
+    height: auto;
+}
+
+.body-text{
+    background-image: url("blue_band.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 50%;
+    position: relative;
+
+    margin-top: 1%;
+
+    padding-top: 2%;
+    padding-bottom: 2%;
+
+    padding-left: 6%;
+    position: relative;
+    text-align: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: calc(20px + 1.0vw);
+}
+
+.create-account-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    height: 80%;
+  }
+  
+  .create-form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: #c0b6b6;
+    padding: 20px;
+    padding-left: 80px;
+    padding-right: 80px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.2);
+  }
+  
+  .lab {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+  }
+  
+  .inp {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    margin-top: 5px;
+  }
+  
+  button[type="submit"] {
+    background-color: #4b4c4b;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 7px;
+    margin-top: 7px;
+    cursor: pointer;
+    display: flex;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .but{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  button[type="submit"]:hover {
+    background-color: #000000; 
+    transform: translateY(-4px); 
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2); 
+  }
+  
+  
