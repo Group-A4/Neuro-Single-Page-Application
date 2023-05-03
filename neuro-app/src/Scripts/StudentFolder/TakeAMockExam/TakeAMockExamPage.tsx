@@ -10,12 +10,12 @@ const Body: React.FC<{}> = () => {
             <div className={styles['body--container']}>
                 <div className={styles['column']}>
                     <div className={styles['body--title']}>
-                        Let’s prepare you for exams!
+                            Let’s prepare you for exams!
                     </div>
                 </div>
                 <div className={styles['column']}>
                     <div className={styles['body--subtitle']}>
-                        Subject
+                            Subject 
                     </div>
                 </div>
                 <div className={styles['column']}>
@@ -24,7 +24,13 @@ const Body: React.FC<{}> = () => {
 
                 <div className={styles['course-container']}>
                     <div className={styles['course-title']}>
-                                ana
+                        Subject title 1
+                    </div>
+                    <button> Start </button> 
+                </div>
+                <div className={styles['course-container']}>
+                    <div className={styles['course-title']}>
+                        Subject title 2
                     </div>
                     <div className={styles['course-title']}>
                                 ana
@@ -32,7 +38,7 @@ const Body: React.FC<{}> = () => {
                 </div>
                 <div className={styles['course-container']}>
                     <div className={styles['course-title']}>
-                                ana
+                        Subject title 3
                     </div>
                     <div className={styles['course-title']}>
                                 ana
@@ -40,15 +46,7 @@ const Body: React.FC<{}> = () => {
                 </div>
                 <div className={styles['course-container']}>
                     <div className={styles['course-title']}>
-                                ana
-                    </div>
-                    <div className={styles['course-title']}>
-                                ana
-                    </div>
-                </div>
-                <div className={styles['course-container']}>
-                    <div className={styles['course-title']}>
-                                ana
+                        Subject title 4
                     </div>
                     <div className={styles['course-title']}>
                                 ana
