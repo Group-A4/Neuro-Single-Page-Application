@@ -18,15 +18,15 @@ const Body: React.FC<{}> = () => {
             <div className={styles['body--img--container']}>
 
                 <ul className={styles['link--image']} >
-                    {/* <Link to='/ViewMaterials'> */}
+                    <Link to='/ResultMockExam'>
                         <img src={photo_ViewMaterials} alt="" className={styles['body--img']} />
-                    {/* </Link> */}
+                    </Link>
                 </ul>
 
                 <ul className={styles['link--image']} >
-                    {/* <Link to='/TakeAMockExam'> */}
+                    <Link to='/TakeAMockExam'>
                         <img src={photo_TakeAMockExam} alt="" className={styles['body--img']} />
-                    {/* </Link> */}
+                    </Link>
                 </ul>
 
                 <ul className={styles['link--image']} >
