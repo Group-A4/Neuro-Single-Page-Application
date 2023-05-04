@@ -1,0 +1,13 @@
+ .examHeading {
+     font-size: 3em;
+     font-weight: bold;
+     color: #002F35;
+     margin-top: -0.5rem;     
+ }
+
+ .content {
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     justify-content: center;
+ }

@@ -1,9 +1,3 @@
-.body 
-{
-    background-color:cre
-
- 
- }
 
 .questionPart{
 
@@ -75,4 +69,44 @@ ul{
 .button-container button:disabled {
     background-color: #ccc;
     cursor: not-allowed;
+}
+
+.loading{
+    font-size: 3rem;
+    text-align: center;
+    font-weight: bold;
+}
+ 
+.questionAnswers {
+    margin-top: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.questionAnswers ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.questionAnswers li {
+    margin-bottom: 10px;
+}
+
+.questionAnswers input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.questionAnswers label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.questionAnswers input[type="checkbox"] {
+    margin-right: 5px;
 }
