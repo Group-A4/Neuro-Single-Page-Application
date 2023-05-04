@@ -1,41 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Nav from '../NavBarStudent/Nav';
 import  './QuestionMockExamPage.css';
 import { Link } from 'react-router-dom';
-// import { useHistory } from 'react-router-dom';
+import Frame from '../Components/Frame';
 
- 
-
-interface Questions {
-    id: number;
-    question: string;
-    choices: string[];
-    answer: string;
+interface QuizQuestion {
+    idCourse: number;
+    idProfessor: number;
+    questionText: string;
+    answersQuestion: QuizAnswer[];
 }
 
-
-
-const questions: Questions[] = [
-    {
-        id: 1,
-        question: 'What is the capital of France?',
-        choices: ['Paris', 'London', 'Berlin', 'Madrid'],
-        answer: 'Paris',
-    },
-    {
-        id: 2,
-        question: 'What is the largest country in the world by land area?',
-        choices: ['Russia', 'Canada', 'China', 'USA'],
-        answer: 'Russia',
-    },
-    // add more questions here
-];
+interface QuizAnswer {
+    idQuestion: number;
+    answerText: string;
+    correct: boolean;
+}
 
 const Body: React.FC<{}> = () => {
+    const [questions, setQuestions] = useState<QuizQuestion[]>([]);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const currentQuestion = questions[currentQuestionIndex];
- 
-
     const handleNextQuestion = () => {
         setCurrentQuestionIndex(currentQuestionIndex + 1);
     };
@@ -47,39 +32,54 @@ const Body: React.FC<{}> = () => {
     const handleChoiceSelect = (choice: string) => {
         // handle the user's choice here
     };
+
     function handleFinishMockExam ()  {
         // handle the user's finish exam here
-        
     }
+
+
+
+    useEffect(() => {
+        const fetchQuestions = async () => {
+            const response = await fetch('http://localhost:8192/quizz/course=5');
+            const data = await response.json();
+            setQuestions(data);
+        };
+
+        fetchQuestions();
+    }, []);
 
     return (
         <div className="body">
-            <div className='questionPart'>
-                <div className='questionQuery'> 
-                    <h1 className='question'> {currentQuestion.id}/{questions.length}  {currentQuestion.question} </h1>
-                 </div>
-                
-                <div className='questionAnswers'>
-                <ul>
-                    {currentQuestion.choices.map((choice, index) => (
-                        <li key={index} className="choice">
-                            <label>
-                                <input
-                                    type="checkbox"
-                                    name="choice"
-                                    value={choice}
-                                    onChange={() => handleChoiceSelect(choice)}
-                                />
-                                {choice}
-                            </label>
-                        </li>
-                    ))}
+            {currentQuestion ? (
+                <div className='questionPart'>
+                    <div className='questionQuery'> 
+                        <h1 className='question'> {currentQuestionIndex+1}/{questions.length}  {currentQuestion.questionText} </h1>
+                    </div>
+                    
+                    <div className='questionAnswers'>
+                    <ul>
+                        {currentQuestion.answersQuestion.map((answer, index) => (
+                            <li key={index} className="choice">
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        name="choice"
+                                        value={answer.answerText}
+                                        onChange={() => handleChoiceSelect(answer.answerText)}
+                                    />
+                                    {answer.answerText}
+                                </label>
+                            </li>
+                        ))}
 
-                </ul>
-                </div>
+                    </ul>
+                    </div>
 
                 </div>
-            
+            ) : (
+                <Frame><div className='loading'>Loading questions...</div></Frame>
+            )}
            
             <div className="button-container">
 
@@ -99,6 +99,7 @@ const Body: React.FC<{}> = () => {
 
     );
 }
+
 function Question() {
     return (
         <body >
