@@ -1,0 +1,208 @@
+.wrapper{
+    font-family: sans-serif;
+    background: rgb(196,156,96);
+    background: linear-gradient(90deg, rgba(196,156,96,1) 0%, rgba(0,38,50,1) 100%);
+    padding: 0 20px 0 20px;
+}
+
+.container-main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.right > img{
+    width: 35px;
+    position: absolute;
+    top: 30px;
+    left: 85%;
+}
+
+.row{
+    width: 80%;
+    height: 650px;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 5px 5px 10px 1px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: row;
+}
+
+.left{
+    background-image: url("../../../public/images/background-login.png");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+    border-radius: 10px 0 0 10px;
+    width: 55%;
+}
+
+.right{
+    width: 45%;
+}
+
+.text{
+    position: absolute;
+    top: 50%;
+    left: 40%;
+    transform: translate(-50%, -50%);
+}
+
+.text p{
+    color: #fff;
+    font-size: 35px;
+    text-align: left;
+    margin-top: -150px;
+    font-family: 'Poppins', sans-serif;
+    overflow: hidden; 
+    animation: scriere 1s steps(30, end) forwards;
+}
+
+.text span{
+    color: #fff;
+    font-size: 15px;
+}
+
+i{
+    font-weight: 400;
+    font-size: 15px;
+}
+
+.right{
+    display: flex;
+    justify-content: center;   
+    align-items: center;
+    position: relative;
+}
+
+.input-box{
+    width: 330px;
+    box-sizing: border-box;
+}
+
+.input-box header{
+    font-weight: 700;
+    font-size: larger;
+    text-align: center;
+    margin-bottom: 45px;
+}
+
+.input-field, .input-field1, .input-field2{
+    display: flex;
+    flex-direction: column;
+    padding: 0 10px 0 10px;
+}
+
+.input-field1 > .input, 
+.input-field2 > .input,
+.input-field > .input{
+    height: 45px;
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    outline: none;
+    margin-bottom: 20px;
+    color: #40414a;
+}
+
+.input-box .input-field1 label,.input-box .input-field2 label, .input-box .input-field label {
+    position: absolute;
+    margin-top: 10px;
+    margin-left: 0px;
+    pointer-events: none;
+    transition: .5s;
+}
+
+.input-field1 .input:focus ~ label{
+    margin-top: -10px;
+    font-size: 13px;
+}
+
+.input-field1 .input:valid ~ label{
+    margin-top: -10px;
+    font-size: 13px;
+    color: #5d5076;
+}
+
+.input-field2 .input:focus ~ label{
+    margin-top: -10px;
+    font-size: 13px;
+}
+
+.input-field2 .input:valid ~ label{
+    margin-top: -10px;
+    font-size: 13px;
+    color: #5d5076;
+}
+
+.input-field1 .input:focus, .input-field1 .input:valid{
+    border-bottom: 1px solid #C49C60;
+}
+
+.input-field2 .input:focus, .input-field2 .input:valid{
+    border-bottom: 1px solid #002F35;
+}
+
+.submit{
+    border: none;
+    outline: none;
+    height: 45px;
+    background: #ececec;
+    border-radius: 5px;
+    transition: .4s;
+}
+
+.submit:hover{
+    background: #C49C60;
+    color: #fff;
+}
+
+.forgot-password{
+    text-align: center;
+    font-size: small;
+    margin-top: 25px;
+}
+
+.forgot-password a{
+    text-decoration: none;
+    color: #C49C60;
+    font-weight: 700;
+    transition: .5s;
+}
+
+span a:hover{
+    text-decoration: underline;
+    color: #C49C60;
+}
+
+@media only screen and (max-width: 768px){
+    .left{
+        border-radius: 10px 10px 0 0;
+    }
+    .left > img{
+        width: 35px;
+        position: absolute;
+        top: 20px;
+        left: 47%;
+    }
+    .text{
+        position: absolute;
+        top: 70;
+        text-align: center;
+    }
+    .text p, i{
+        font-size: 17px;
+    }
+    .row{
+        max-width: 420px;
+        width: 100%;
+    }
+}
+
+@keyframes scriere {
+    from { width: 0; } /* Textul este ascuns */
+    to { width: 100%; } /* Textul este complet afișat */
+  }
