@@ -166,6 +166,20 @@ i{
     margin-top: 25px;
 }
 
+.right a{
+    text-decoration: none;
+    color: #C49C60;
+    font-weight: 700;
+    transition: .5s;
+}
+
+.right a:hover{
+    text-decoration: none;
+    color: #C49C60;
+    font-weight: 700;
+    transition: .5s;
+}
+
 .forgot-password a{
     text-decoration: none;
     color: #C49C60;
@@ -205,4 +219,47 @@ span a:hover{
 @keyframes scriere {
     from { width: 0; } /* Textul este ascuns */
     to { width: 100%; } /* Textul este complet afișat */
+}
+
+.slide-in {
+    animation-name: slide-in;
+    animation-duration: 0.5s;
   }
+  
+  .slide-out {
+    animation-name: slide-out;
+    animation-duration: 0.5s;
+  }
+  
+  @keyframes slide-in {
+    from {
+      transform: translateY(50%);
+    }
+    to {
+      transform: translateY(0%);
+    }
+  }
+  
+  @keyframes slide-out {
+    from {
+      transform: translateY(50%);
+    }
+    to {
+      transform: translateY(0%);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .right {
+      flex-direction: column;
+      align-items: center;
+    }
+    .input-box {
+      margin-top: 2rem;
+      width: 80%;
+    }
+  }
+  
+  
+  
+  
