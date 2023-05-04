@@ -36,9 +36,9 @@ const Body: React.FC<{}> = () => {
                 </ul>
 
                 <ul className={styles['link--image']} >
-                    {/* <Link to='./UploadMaterial'> */}
-                    <img src={photo_MyExamResult} alt="" className={styles['body--img']} />
-                    {/* </Link> */}
+                    <Link to='/MyResults'>
+                        <img src={photo_MyExamResult} alt="" className={styles['body--img']} />
+                    </Link>
                 </ul>
 
             </div>

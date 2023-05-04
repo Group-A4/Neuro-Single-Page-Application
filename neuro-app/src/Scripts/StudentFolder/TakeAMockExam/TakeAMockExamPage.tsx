@@ -59,64 +59,7 @@ const Body: React.FC<{}> = () => {
                     </div>
                     <button onClick={goToTakeExam}>Start</button>
                 </div>
-            </div> 
-
-
-
-
-            {/* <div>
-                <div className={styles['body--subtitle']}>
-                    Subject
-                </div>   
-                <div className={styles['body--line']}></div>  
-
-                <div className={styles['body--container']}>
-
-                    <div className={styles['course-container']}>
-                        <div className={styles['course-title']}>
-                                Subject title 1
-                        </div> 
-                        <div className={styles['course-edit']}>
-                            <Link to='/QuestionMockExam'>
-                                Start
-                            </Link>
-                        </div> 
-                    </div>  
-
-                    <div className={styles['course-container']}>
-                        <div className={styles['course-title']}>
-                        Subject title 2
-                        </div>
-                        <div className={styles['course-edit']}>
-                            <Link to='/QuestionMockExam'>
-                                Start
-                            </Link>
-                        </div> 
-                    </div>  
-
-                    <div className={styles['course-container']}>
-                        <div className={styles['course-title']}>
-                            Subject title 3
-                        </div>
-                        <div className={styles['course-edit']}>
-                            <Link to='/QuestionMockExam'>
-                                Start
-                            </Link>
-                        </div> 
-                    </div>  
-
-                    <div className={styles['course-container']}>
-                        <div className={styles['course-title']}>
-                            Subject title 4
-                        </div>
-                        <div className={styles['course-edit']}>
-                            <Link to='/QuestionMockExam'>
-                                Start
-                            </Link>
-                        </div> 
-                    </div>  
-                </div> 
-            </div> */}
+            </div>
         </>
     )
 }
