@@ -13,7 +13,9 @@ import UploadMaterials from "./Scripts/ProfessorFolder/UploadMaterialsPage/Uploa
 import ResultMockExam from "./Scripts/StudentFolder/ResultMockExamPage/ResultPage";
 import TakeAMockExam from "./Scripts/StudentFolder/TakeAMockExam/TakeAMockExamPage";
 import Question from "./Scripts/StudentFolder/QuestionMockExamPage/QuestionMockExamPage";
-
+import MyResults from "./Scripts/StudentFolder/MyResults/MyResultsPage";
+import CodeExam from "./Scripts/StudentFolder/CodeExamPage/CodeExamPage";
+import QuestionTextPage from "./Scripts/StudentFolder/QuestionTextPage/QuestionTextPage";
 
 function App() {
   return (
@@ -27,6 +29,9 @@ function App() {
       <Route path="ResultMockExam" element={<ResultMockExam />}></Route>
       <Route path="TakeAMockExam" element={<TakeAMockExam />}></Route>
       <Route path="QuestionMockExam" element={<Question />}></Route>
+      <Route path="MyResults" element={<MyResults />}></Route>
+      <Route path="CodeExam" element={<CodeExam />}></Route>
+      <Route path="QuestionTextPage" element={<QuestionTextPage />}> </Route>
     </Routes>
   );
 }
