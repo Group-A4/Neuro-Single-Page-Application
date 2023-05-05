@@ -190,7 +190,7 @@ const Body: React.FC<{}> = () => {
                         currentQuestionIndex < questions.length - 1 ? handleNextQuestion : handleFinishMockExam
                     }
                 >
-                    {currentQuestionIndex === questions.length - 1 ? <Link to='/ResultMockExam'> Finish the mock exam</Link> : 'Next Question' }
+                    {currentQuestionIndex === questions.length - 1 ? <Link to='/ViewMyExamAnswers'> Finish the mock exam</Link> : 'Next Question' }
 
                 </button>
             

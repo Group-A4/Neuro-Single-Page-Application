@@ -16,8 +16,9 @@ import Question from "./Scripts/StudentFolder/QuestionMockExamPage/QuestionMockE
 import MyResults from "./Scripts/StudentFolder/MyResults/MyResultsPage";
 import CodeExam from "./Scripts/StudentFolder/CodeExamPage/CodeExamPage";
 import QuestionTextPage from "./Scripts/StudentFolder/QuestionTextPage/QuestionTextPage";
+import ViewMyExamAnswers from "./Scripts/StudentFolder/ViewMyExamAnswersPage/ViewMyExamAnswers";
 
-function App() {
+function App(): JSX.Element {
   return (
     <Routes>
       <Route path="/" element={<Login />}></Route>
@@ -32,6 +33,7 @@ function App() {
       <Route path="MyResults" element={<MyResults />}></Route>
       <Route path="CodeExam" element={<CodeExam />}></Route>
       <Route path="QuestionTextPage" element={<QuestionTextPage />}> </Route>
+      <Route path="ViewMyExamAnswers" element={<ViewMyExamAnswers />}> </Route>
     </Routes>
   );
 }
