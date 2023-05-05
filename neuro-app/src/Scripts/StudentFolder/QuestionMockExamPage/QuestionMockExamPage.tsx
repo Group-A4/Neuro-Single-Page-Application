@@ -41,7 +41,7 @@ const Body: React.FC<{}> = () => {
 
     useEffect(() => {
         const fetchQuestions = async () => {
-            const response = await fetch('http://localhost:8192/quizz/course=5');
+            const response = await fetch('http://localhost:8192/quizz/course=4');
             const data = await response.json();
             setQuestions(data);
         };
