@@ -9,7 +9,7 @@ const Body: React.FC<{}> = () => {
 
     const navigate = useNavigate();
     const goToTakeExam = () => {
-        navigate('/QuestionMockExam'); 
+        navigate('/ViewMyExamAnswers'); 
       };
 
     return (
