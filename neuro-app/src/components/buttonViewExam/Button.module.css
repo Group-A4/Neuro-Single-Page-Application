@@ -1,0 +1,34 @@
+.button--create {
+    background-color: #214C43;
+    white-space:nowrap;
+    margin: 0;
+    
+    text-align: center;
+    font-size: calc(10px + 0.6vw);
+    color: white;
+
+    width: fit-content;
+
+    padding: 0.5vw;
+    /* padding-bottom: 1.0vw; */
+    padding-left: 2.0vw;
+    padding-right: 2.0vw;
+
+    border-radius: 2.0vh;
+    border-width: 1px;
+    border-color: black;
+    font-weight: bold;
+}
+
+.button--create:hover {
+    opacity: 0.9;
+}
+
+@media only screen and (max-width:350px) {
+.button--create{
+    white-space:normal;
+    font-size: 7px;
+    margin-left: -20px;
+}
+
+}
