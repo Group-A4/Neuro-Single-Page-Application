@@ -32,8 +32,12 @@ function Nav(){
               </ul>
               
               <ul className={styles['menu']}>
-              <MenuDropDown/>
+                  <MenuDropDown/>
+              </ul>
               
+              <ul className={styles['link']} >
+                <Link to="/">Add content
+                </Link>
               </ul>
               
           </div>

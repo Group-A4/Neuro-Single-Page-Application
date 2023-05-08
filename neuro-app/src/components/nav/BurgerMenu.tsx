@@ -30,6 +30,10 @@ const BurgerMenu: React.FC<{}> =()=>
               <Link to="/">Profile
               </Link>   
           </li>
+            <li>
+              <Link to="/">Add content
+              </Link>
+            </li>
          {/* <li><a href="/Create_exam">    English </a></li>
          <li><a href="/Create_exam">    Romana </a></li>
          <li><a href="/Create_exam">    Francais </a></li> */}
