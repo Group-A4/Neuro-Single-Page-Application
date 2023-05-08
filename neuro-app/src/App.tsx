@@ -7,8 +7,7 @@ import Create from "./Scripts/AdminFolder/CreateAccount";
 import Login from "./Scripts/LoginFolder/Login";
 import Admin from "./Scripts/AdminFolder/AdminPageRender";
 import Student from "./Scripts/StudentFolder/HomePage/StudentHomePage";
-import { Route, Routes } from "react-router-dom";
-import Home from "./Scripts/ProfessorFolder/HomePage/Home";
+import HomeProfessor from "./Scripts/ProfessorFolder/HomePage/Home";
 import UploadMaterials from "./Scripts/ProfessorFolder/UploadMaterialsPage/UploadMaterials";
 import ResultMockExam from "./Scripts/StudentFolder/ResultMockExamPage/ResultPage";
 import TakeAMockExam from "./Scripts/StudentFolder/TakeAMockExam/TakeAMockExamPage";
@@ -18,13 +17,36 @@ import CodeExam from "./Scripts/StudentFolder/CodeExamPage/CodeExamPage";
 import QuestionTextPage from "./Scripts/StudentFolder/QuestionTextPage/QuestionTextPage";
 import ViewMyExamAnswers from "./Scripts/StudentFolder/ViewMyExamAnswersPage/ViewMyExamAnswers";
 import ResultExam from "./Scripts/StudentFolder/ResultExamPage/ResultPage";
+import { Routes, Route } from "react-router-dom";
+import Home from './pages/HomePage/Home';
+import AllMySubjects from './pages/AllMySubjectsPage/AllMySubjects';
+import ViewQuestions from './pages/ViewMaterialsPages/ViewQuestionsPage/ViewQuestions';
+import ViewLessonMaterials from './pages/ViewMaterialsPages/ViewLessonMaterialsPage/ViewLessonMaterials';
+
+
+import AddContent from './pages/AddContentPage/AddContent';
+import ViewQuestionAnswer from './pages/ViewMaterialsPages/ViewQuestionAnswerPage/ViewQuestionAnswer';
+import AllQuestions from './pages/QuizQuestionsPages/AllQuestionsPage/AllQuestions';
+
+
+import CreateAnExam from './pages/CreateAnExamPage/CreateAnExam';
+import EditQuestions from './pages/EditQuestions/EditQuestions';
+import ViewExamAnswers from './pages/ViewExamAnswers/ViewExamAnswers';
+import CreateExamQuestions from './pages/CreateExamQuestions/AddQuestion'
+import AllExams from './pages/AllExamsPage/AllExams';
+import ViewExam from './pages/AllExamsPage/ViewExam/ViewExam';
+import Exam from './pages/AllExamsPage/ExamPage/Exam'
+import AddQuestion from './pages/AddQuizQuestionsPage/AddQuestion';
+
+
+
 
 function App(): JSX.Element {
   return (
     <Routes>
       <Route path="/" element={<Login />}></Route>
       <Route path="Admin" element={<Admin />}></Route>
-      <Route path="Professor" element={<Home />}></Route>
+      <Route path="Professor" element={<HomeProfessor />}></Route>
       <Route path="CreateAccount" element={<Create />}></Route>
       <Route path="UploadMaterials" element={<UploadMaterials />} />
       <Route path="Student" element={<Student />}></Route>
@@ -36,8 +58,24 @@ function App(): JSX.Element {
       <Route path="QuestionTextPage" element={<QuestionTextPage />}> </Route>
       <Route path="ViewMyExamAnswers" element={<ViewMyExamAnswers />}> </Route>
       <Route path="ResultExam" element={<ResultExam />}></Route>
+      <Route path="/" element={<Home />} />
+      <Route path="/AllMySubjects" element={<AllMySubjects />} />
+      <Route path="/ViewQuestions" element={<ViewQuestions />} />
+      <Route path="/ViewLessonMaterials" element={<ViewLessonMaterials />} />
+      <Route path="/AddQuestion" element={<AddQuestion />} />
+      <Route path="/AddContent" element={<AddContent />} />
+      <Route path="/ViewQuestionAnswer" element={<ViewQuestionAnswer />} />
+      <Route path="/AllQuestions" element={<AllQuestions />} />
+      <Route path="/AllExams" element={<AllExams />} />
+      <Route path="/CreateAnExam" element={<CreateAnExam />} />
+      <Route path="/EditQuestions" element={<EditQuestions />} />
+      <Route path="/ViewExamAnswers" element={<ViewExamAnswers />} />
+      <Route path="/CreateExamQuestions" element={<CreateExamQuestions />} />
+      <Route path="/ViewExam" element={<ViewExam />} />
+      <Route path="/Exam" element={<Exam />} />
     </Routes>
   );
 }
 
 export default App;
+
