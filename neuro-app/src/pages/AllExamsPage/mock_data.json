@@ -1,0 +1,19 @@
+[
+    {
+       
+
+        "subject_title" : "One",
+        "duration": 60,
+        "questions": 10,
+        "points": 100
+
+
+    },
+    {
+        "subject_title": "One",
+        "duration": 60,
+        "questions": 10,
+        "points": 100
+    }
+    
+]
