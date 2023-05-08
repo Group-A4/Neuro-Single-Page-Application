@@ -22,6 +22,8 @@ const initialFormValues: FormValues = {
   submitted: false,
 };
 
+///500
+///400 mail deja utilizat
 const CreateAccount = () => {
   const [formValues, setFormValues] = useState<FormValues>(initialFormValues);
 
@@ -54,10 +56,10 @@ const CreateAccount = () => {
       return response.text();
     })
     .then(text => {
-      if (text) {
+      if (text.trim().length > 0) {
         return JSON.parse(text);
       } else {
-        throw new Error("Empty response");
+        return {};
       }
     })
     .then(data => console.log(data))

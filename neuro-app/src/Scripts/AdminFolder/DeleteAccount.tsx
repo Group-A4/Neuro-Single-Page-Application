@@ -63,7 +63,7 @@ function DeleteAccount (){
         <div>
             <form onSubmit={handleSubmit} className="create-form-delete">
             <label>
-              <input type="text" name="id" value={formValues.id} onChange={handleChange} />
+              <input className="inp" type="text" name="id" value={formValues.id} onChange={handleChange} />
             </label>
               <div className="but">
                   <button type="submit">Submit</button>
