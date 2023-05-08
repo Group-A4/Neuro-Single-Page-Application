@@ -12,12 +12,10 @@ const Buttons:React.FC<{}> = () => {
                 </button> 
             </Link>
 
-        <button type="submit" className={styles['body--button--add']} >
-            Add file
-        </button> 
+            <button type="submit" className={styles['body--button--add']} >
+                Add file
+            </button> 
         </>
-
-
     )
 }
 export default Buttons;

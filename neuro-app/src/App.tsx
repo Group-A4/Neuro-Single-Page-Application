@@ -6,7 +6,7 @@ import ViewQuestions from './pages/ViewMaterialsPages/ViewQuestionsPage/ViewQues
 import ViewLessonMaterials from './pages/ViewMaterialsPages/ViewLessonMaterialsPage/ViewLessonMaterials';
 
 
-import AddMaterialsLesson from './pages/AddMaterialsLessonPage/AddMaterialsLesson';
+import AddContent from './pages/AddContentPage/AddContent';
 import ViewQuestionAnswer from './pages/ViewMaterialsPages/ViewQuestionAnswerPage/ViewQuestionAnswer';
 import AllQuestions from './pages/QuizQuestionsPages/AllQuestionsPage/AllQuestions';
 
@@ -32,7 +32,7 @@ function App() {
         <Route path="/ViewQuestions" element={<ViewQuestions />} />
         <Route path="/ViewLessonMaterials" element={<ViewLessonMaterials />} />
         <Route path="/AddQuestion" element={<AddQuestion />} />
-        <Route path="/AddMaterialsLesson" element={<AddMaterialsLesson />} />
+        <Route path="/AddContent" element={<AddContent />} />
         <Route path="/ViewQuestionAnswer" element={<ViewQuestionAnswer />} />
         <Route path="/AllQuestions" element={<AllQuestions />} />
         <Route path="/AllExams" element={<AllExams />} />
