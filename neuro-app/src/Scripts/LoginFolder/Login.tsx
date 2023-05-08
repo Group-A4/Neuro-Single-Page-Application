@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import AdminPage from "../AdminFolder/AdminPageRender";
+import AdminPage from "../AdminFolder/AdminHomePage";
 import Student from "../StudentFolder/StudentHomePage";
 
 
