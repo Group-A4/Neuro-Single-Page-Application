@@ -37,7 +37,7 @@ const Body: React.FC<{}> = () => {
                             Course 1
                         </div> 
                         <div className={styles['body--img'] }>
-                            <Scroll/>
+                            <Scroll id_course="3"/>
                         </div>
                     </div>   
 
@@ -47,7 +47,7 @@ const Body: React.FC<{}> = () => {
                         </div>
                         <div className={styles['body--img']}>
                             
-                            <Scroll />
+                            <Scroll id_course="5"/>
                             
                         </div>
                     </div>  
@@ -58,7 +58,7 @@ const Body: React.FC<{}> = () => {
                         </div>
                         <div className={styles['body--img']}>
                            
-                            <Scroll />
+                            <Scroll id_course="3"/>
                            
                         </div>
                     </div>  
@@ -69,7 +69,7 @@ const Body: React.FC<{}> = () => {
                         </div>
                         <div className={styles['body--img']}>
                             
-                            <Scroll />
+                            <Scroll id_course="5"/>
                             
                         </div>
                     </div>  
