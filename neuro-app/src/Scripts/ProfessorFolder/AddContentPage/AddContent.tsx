@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./Body.module.css";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 interface FormValues {
   fileName: string;
@@ -20,10 +20,18 @@ const ContentInput: React.FC<{}> = () => {
   const [formValues, setFormValues] = React.useState<FormValues>(initialValues);
   const [dragActive, setDragActive] = React.useState<boolean>(false);
   const inputRef = React.useRef<HTMLInputElement>(null);
+  const [message, setMessage] = React.useState<string>("");
 
-  const handleDrag = (
-    e: React.DragEvent<HTMLFormElement> | React.DragEvent<HTMLLabelElement>
-  ) => {
+  // React.useEffect(() => {
+  //   if (formValues.fileName !== "") {
+  //     setMessage("File added successfully!");
+  //     setTimeout(() => {
+  //       setMessage("");
+  //     }, 3000);
+  //   }
+  // }, [formValues.fileName]);
+
+  const handleDrag = (e: React.DragEvent<HTMLLabelElement>) => {
     e.preventDefault();
     e.stopPropagation();
     if (e.type === "dragenter" || e.type === "dragover") {
@@ -33,7 +41,7 @@ const ContentInput: React.FC<{}> = () => {
     }
   };
 
-  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+  const handleDrop = (e: React.DragEvent<HTMLLabelElement>) => {
     e.preventDefault();
     e.stopPropagation();
     setDragActive(false);
@@ -103,43 +111,59 @@ const ContentInput: React.FC<{}> = () => {
   return (
     <div className={styles["body"]}>
       <div className={styles["body--text"]}>Add Content</div>
-      {/* <p className={styles["body--explication"]}>
-        Add content to your lecture.
-      </p> */}
+      <form
+        id="form-file-upload"
+        className={styles["body--form"]}
+        onSubmit={handleSubmit}
+      >
+        <Link to='/ViewLessonMaterials' className={styles["body--redirect"]}>
+            <button className={styles["body--button--publish"]}>
+                Publish
+            </button>
+        </Link>
 
-        <form
-            id="form-file-upload"
-            className={styles["body--form"]}
-            onDragEnter={handleDrag}
-            onDragOver={handleDrag}
-            onDragLeave={handleDrag}
-            onSubmit={handleSubmit}
-        >
-            {/* <Link to='/ViewLessonMaterials'> */}
-                <button className={styles["body--button--publish"]}>
-                    <input
-                        id="content-file-input"
-                        type="file"
-                        ref={inputRef}
-                        style={{ display: "none" }}
-                        onChange={handleChange}
-                        accept=".pdf,.ppt,.pptx,.mp3,.mp4,.mkv,.jpg,.jpeg,.png,.bmp,.gif"
-                    />
-                    Add file
-                </button>
-            {/* </Link> */}
-            <div className={styles["body--content"]} onDrop={handleDrop}>
-                <p>Upload a file</p>
-                <p>Drag & Drop or add a file</p>
-                <button
+        <input
+            id="content-file-input"
+            type="file"
+            ref={inputRef}
+            style={{ display: "none" }}
+            onChange={handleChange}
+            accept=".pdf,.ppt,.pptx,.mp3,.mp4,.mkv,.jpg,.jpeg,.png,.bmp,.gif"
+          />
+        <label htmlFor="content-file-input" 
+                className={styles["body--content"]}
+                onDragEnter={handleDrag}
+                onDragOver={handleDrag}
+                onDragLeave={handleDrag}
+                onDrop={handleDrop}
+                >
+            <div>
+                {formValues.fileName && (
+                    <div className={styles["body--content-text"]}>
+                    <p>{formValues.fileName}</p>
+                    </div>
+                )}
+                {!formValues.fileName && !dragActive && (
+                    <div className={styles["body--content-text"]}>
+                    <p>Upload a file</p>
+                    <p>Drag & Drop or add a file</p>
+                    </div>
+                )}
+                {!formValues.fileName && dragActive && (
+                    <div className={styles["body--content-text"]}>
+                    <p>Drop the file</p>
+                    </div>
+                )}
+            </div>
+            <button
                     type="button"
                     onClick={onButtonClick}
                     className={styles["body--button--add"]}
                 >
-                    Select file
+                    Add file
                 </button>
-            </div>
-        </form>
+        </label>
+      </form>
     </div>
   );
 };

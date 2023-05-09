@@ -24,7 +24,7 @@ import ViewQuestions from './pages/ViewMaterialsPages/ViewQuestionsPage/ViewQues
 import ViewLessonMaterials from './pages/ViewMaterialsPages/ViewLessonMaterialsPage/ViewLessonMaterials';
 
 
-import AddContent from './pages/AddContentPage/AddContent';
+import AddContent from './Scripts/ProfessorFolder/AddContentPage/AddContent';
 import ViewQuestionAnswer from './pages/ViewMaterialsPages/ViewQuestionAnswerPage/ViewQuestionAnswer';
 import AllQuestions from './pages/QuizQuestionsPages/AllQuestionsPage/AllQuestions';
 
@@ -37,6 +37,7 @@ import AllExams from './pages/AllExamsPage/AllExams';
 import ViewExam from './pages/AllExamsPage/ViewExam/ViewExam';
 import Exam from './pages/AllExamsPage/ExamPage/Exam'
 import AddQuestion from './pages/AddQuizQuestionsPage/AddQuestion';
+import Markdown from "./Scripts/ProfessorFolder/MarkdownPage/Markdown";
 
 
 
@@ -73,6 +74,7 @@ function App(): JSX.Element {
       <Route path="/CreateExamQuestions" element={<CreateExamQuestions />} />
       <Route path="/ViewExam" element={<ViewExam />} />
       <Route path="/Exam" element={<Exam />} />
+      <Route path="/Markdown" element={<Markdown />} />
     </Routes>
   );
 }
