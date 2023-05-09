@@ -2,8 +2,6 @@ import React from 'react'
 import styles from './Nav.module.css'
 import {useState,useRef} from 'react'
 import LangButtonMini from './LangButtonMini';
-import { Link } from 'react-router-dom';
-import img_burger from './burger.png';
 
 const BurgerMenu: React.FC<{}> =()=>
 {
@@ -11,7 +9,7 @@ const BurgerMenu: React.FC<{}> =()=>
     const dropdownRef=useRef<HTMLDivElement>(null);
     const handleDropDownFocus=(state:boolean)=>
     {setOpen(!state);};
-    console.log(open, dropdownRef.current);
+    // console.log(open, dropdownRef.current);
     const handleClickOutsideDropDown=(e:any)=>
     {
       if(open && !dropdownRef.current?.contains(e.target as Node))

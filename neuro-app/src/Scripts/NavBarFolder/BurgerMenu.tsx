@@ -2,8 +2,6 @@ import React from 'react'
 import styles from './Nav.module.css'
 import {useState,useRef} from 'react'
 import LangButtonMini from './LangButtonMini';
-import { Link } from 'react-router-dom';
-import img_burger from './burger.png';
 
 const BurgerMenu: React.FC<{}> =()=>
 {

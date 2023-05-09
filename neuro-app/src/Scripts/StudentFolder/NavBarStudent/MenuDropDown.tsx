@@ -14,7 +14,7 @@ const MenuDropDown:React.FC<{}> = () => {
   const dropdownRef=useRef<HTMLDivElement>(null);
   const handleDropDownFocus=(state:boolean)=>
   {setOpen(!state);};
-  console.log(open, dropdownRef.current);
+  // console.log(open, dropdownRef.current);
   const handleClickOutsideDropDown=(e:any)=>
   {
     if(open && !dropdownRef.current?.contains(e.target as Node))
@@ -27,16 +27,14 @@ const MenuDropDown:React.FC<{}> = () => {
       {open &&(
         <ul>
           <li>
-            <Link to='/AllMySubjects'> View materials </Link>  
+            <Link to='/UploadMaterials'>View materials </Link>  
           </li>
           <li>
-            <Link to='/AllQuestions'>  Quiz questions </Link> 
-            </li>
-            {/* <li><Link to='/CreateAnExam'> Create an exam </Link> </li> */}
-            <li><a href="/CreateAnExam">  Create an exam </a></li>
-            {/* <li><Link to='/MyStudentExams'> Student's exams </Link> </li> */}
-          <li><a href='/MyStudentExams'> Student's exams </a> </li>
-
+            <Link to='/ViewMaterials'>  Take a mock exam </Link> </li>
+          {/* <li><Link to='/MyStudentExams'> Student's exams </Link> </li> */}
+          <li><a href='/MyStudentExams'> Take an exam </a> </li>
+          {/* <li><Link to='/CreateAnExam'> Create an exam </Link> </li> */}
+          <li><a href="/CreateAnExam">  My exam results </a></li>
        </ul>
       )
       }
