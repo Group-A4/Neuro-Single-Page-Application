@@ -9,13 +9,13 @@
     background-color: #002F35;
 }
 
-.logo-link{
+.logo-link {
     width: fit-content;
     padding: 0;
     margin: 0;
 }
 
-.logo-container{
+.logo-container {
     margin-left: 50px;
     display: flex;
     align-items: center;
@@ -31,29 +31,30 @@
 }
 
 
-.logo-text{
-  
+.logo-text {
+
     font-family: Arial, sans-serif;
     margin-left: 20px;
     font-size: 32px;
     font-weight: bold;
     color: #C49C60;
-    
-    
+
+
 }
 
-.links-container{
-    margin-right:5% ;
+.links-container {
+    margin-right: 5%;
     display: flex;
     width: 200px;
     justify-content: center;
     /* margin-left:3% */
-   
+
 }
 
 
 
 .link a {
+    white-space: nowrap;
     text-decoration: none;
     font-family: Arial, sans-serif;
     margin-left: 10px;
@@ -63,8 +64,12 @@
     margin-left: 10%;
 }
 
-.link a:hover{ 
+.link a:hover {
     color: white;
+}
+
+.link a:last-child {
+    margin: 0;
 }
 
 
@@ -80,7 +85,7 @@
     padding-left: 10px;
     padding-right: 20px;
     height: 30%;
-    
+
 }
 
 .language-container span {
@@ -96,38 +101,37 @@
     height: 25px;
     margin-left: 5%;
 }
-.language-container select
-{
+
+.language-container select {
     border-radius: 20px;
     height: 40px;
     width: 150px;
-    margin-left:5%;
+    margin-left: 5%;
     font-size: 24px;
     /* margin-right: 20px; */
     font-family: Arial, sans-serif;
-    background-color:   #002F35;
-    color:#C49C60;
+    background-color: #002F35;
+    color: #C49C60;
     font-weight: bold;
     border: none;
-    background-image: url('Vector.png') ;
+    background-image: url('Vector.png');
     background-size: 25px;
-    background-position:right;
+    background-position: right;
     display: inline-block;
-    appearance:none;
+    appearance: none;
     background-repeat: no-repeat;
     cursor: pointer;
-    -webkit-appearance:none;
+    -webkit-appearance: none;
 }
-.language-container select:focus
-{
+
+.language-container select:focus {
     outline: none;
-    border:none;
+    border: none;
     border-radius: 20px;
 }
 
 
-.menu button
-{
+.menu button {
     text-decoration: none;
     font-family: Arial, sans-serif;
     font-size: 24px;
@@ -139,59 +143,56 @@
     cursor: pointer;
 }
 
-.menu button:hover
-{
+.menu button:hover {
     color: white;
 }
 
-.menu button:active
-{
+.menu button:active {
     visibility: visible;
-    color :white;
+    color: white;
 }
-.menu ul li a
-{
-    all:unset;
+
+.menu ul li a {
+    all: unset;
     border-color: #555;
     text-decoration: none;
     position: relative;
     font-size: 20px;
     font-family: Arial, sans-serif;
     text-decoration: none;
-    color:#002F35;
+    color: #002F35;
     font-weight: bold;
     cursor: pointer;
-    appearance:none;
-   
+    appearance: none;
+
 }
-.menu ul li
-{
+
+.menu ul li {
     appearance: none;
     margin-top: 5%;
 }
-.menu ul li a:hover
-{
-   background-color:#0393a643;
+
+.menu ul li a:hover {
+    background-color: #0393a643;
 }
 
-.menu ul
-{
+.menu ul {
     margin-top: 10px;
-    background-color:white; ;
+    background-color: white;
+    ;
     height: fit-content;
-    appearance:none;
+    appearance: none;
     text-decoration: none;
     z-index: 10;
     position: absolute;
     list-style: none;
     padding: 20px;
     border-radius: 20px;
-    
+
 }
 
 
-.language-options
-{
+.language-options {
     font-size: 24px;
     width: fit-content;
     background-color: white;
@@ -201,9 +202,8 @@
 
 
 
-.language-container select option :hover
-{
-    color:#C49C60;
+.language-container select option :hover {
+    color: #C49C60;
     background-color: #002F35;
 }
 
@@ -211,7 +211,7 @@
 .burgerMenu-container {
     display: none;
     margin-top: 5px;
-
+    white-space: nowrap;
     align-items: center;
     margin-right: 50px;
     height: 30%;
@@ -220,15 +220,14 @@
 
 }
 
-.burgerMenu-container img{
+.burgerMenu-container img {
     width: 35px;
     margin: 0;
     padding: 0;
 }
 
 
-.burgerMenu-container button
-{
+.burgerMenu-container button {
     text-decoration: none;
     font-family: Arial, sans-serif;
     font-size: 24px;
@@ -241,14 +240,13 @@
     cursor: pointer;
 }
 
-.burgerMenu-container button:active
-{
+.burgerMenu-container button:active {
     visibility: visible;
-    color :white;
+    color: white;
 }
-.burgerMenu-container ul li a
-{
-    all:unset;
+
+.burgerMenu-container ul li a {
+    all: unset;
     border-color: #555;
     text-decoration: none;
     position: relative;
@@ -257,34 +255,34 @@
     text-decoration: none;
     font-weight: bold;
     cursor: pointer;
-    appearance:none;
-   
+    appearance: none;
+
 }
-.burgerMenu-container ul li
-{
+
+.burgerMenu-container ul li {
     appearance: none;
     margin-top: 5%;
 }
-.burgerMenu-container ul li a:hover
-{
-   background-color:#0393a643;
+
+.burgerMenu-container ul li a:hover {
+    background-color: #0393a643;
 }
 
-.burgerMenu-container ul
-{
-    margin-left: -50px;
+.burgerMenu-container ul {
+    margin-left: -100px;
     margin-right: 10px;
     margin-top: 10px;
-    background-color:white; ;
+    background-color: white;
+    ;
     height: fit-content;
-    appearance:none;
+    appearance: none;
     text-decoration: none;
     z-index: 10;
     position: absolute;
     list-style: none;
     padding: 20px;
     border-radius: 20px;
-    
+
 }
 
 
@@ -294,7 +292,7 @@
     padding: 10px;
     padding-bottom: 0px;
 
-    
+
 }
 
 
@@ -328,17 +326,19 @@
 
 
 
-@media only screen and (max-width:1000px){
+@media only screen and (max-width:1120px) {
     .language-container {
         margin-right: 50px;
         width: auto;
         padding: 10px;
         padding-right: 12px;
     }
-    .language-container img{
+
+    .language-container img {
         display: none;
     }
-    .language-container select{
+
+    .language-container select {
         background-image: url('Globe.png');
         font-size: 0;
         width: 27px;
@@ -347,19 +347,21 @@
 
 
 
-@media only screen and (max-width:790px){
-    .links-container{
+@media only screen and (max-width:930px) {
+    .links-container {
         display: none;
     }
 
-    .language-container{
-        display: none;     
+    .language-container {
+        display: none;
     }
-    .burgerMenu-container{
+
+    .burgerMenu-container {
         display: inline;
         margin-right: 50px;
     }
-    .logo-text{
+
+    .logo-text {
         font-size: 20px;
     }
 
@@ -383,7 +385,3 @@
     }
 
 }
-
-
-
-

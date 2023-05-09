@@ -1,11 +1,11 @@
 import React from 'react'
-import Nav from '../../components/nav/Nav';
 import styles from './Body.module.css'
 import { Link } from 'react-router-dom';
 import box_view from './box_view.png';
 import box_quiz from './box_quiz.png';
 import box_createExam from './create_exam.png';
 import box_Exam from './exams.png';
+import Nav from '../../components/nav/Nav';
 
 const Body: React.FC<{}> = () => {
     return (
@@ -27,13 +27,13 @@ const Body: React.FC<{}> = () => {
                 </ul>
 
                 <ul className={styles['link--image']} >
-                    <Link to='./CreateAnExam'>
+                    <Link to='/CreateAnExam'>
                     <img src={box_createExam} alt="" className={styles['body--img']} />
                     </Link>
                 </ul>
 
                 <ul className={styles['link--image']} >
-                    <Link to='./AllExams'>
+                    <Link to='/AllExams'>
                     <img src={box_Exam} alt="" className={styles['body--img']} />
                     </Link>
                 </ul>

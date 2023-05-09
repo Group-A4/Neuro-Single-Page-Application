@@ -7,40 +7,44 @@ import BurgerMenu from './BurgerMenu';
 import img_logo from './logo1.png';
 
 
-function Nav(){
+function Nav() {
   return (
-    <nav className={styles.navbar}> 
-        <Link to="/" className={styles['logo-link']}>
-            <div className={styles['logo-container']}>
-          <img src={img_logo} alt=""/>
-              <span className={styles['logo-text']} >
-                  NeuroApp
-              </span>
-          </div>
-        </Link>
+    <nav className={styles.navbar}>
+      <Link to="/" className={styles['logo-link']}>
+        <div className={styles['logo-container']}>
+          <img src={img_logo} alt="" />
+          <span className={styles['logo-text']} >
+            NeuroApp
+          </span>
+        </div>
+      </Link>
 
-           
-          <div className={styles['links-container']}>
-              <ul className={styles['link']} >
-                  <Link to="/">Home
-                  </Link>
-              </ul>
 
-              <ul className={styles['link']} >
-                  <Link to="/">Profile
-                  </Link>
-              </ul>
-              
-              <ul className={styles['menu']}>
-              <MenuDropDown/>
-              
-              </ul>
-              
-          </div>
+      <div className={styles['links-container']}>
+        <ul className={styles['link']} >
+          <Link to="/Professor">Home
+          </Link>
+        </ul>
 
-        <LangButton/>
-        <BurgerMenu/>
-        
+        <ul className={styles['link']} >
+          <Link to="/Professor">Profile
+          </Link>
+        </ul>
+
+        <ul className={styles['menu']}>
+          <MenuDropDown />
+        </ul>
+
+        <ul className={styles['link']} >
+          <Link to="/Professor">Add content
+          </Link>
+        </ul>
+
+      </div>
+
+      <LangButton />
+      <BurgerMenu />
+
 
     </nav>
   )

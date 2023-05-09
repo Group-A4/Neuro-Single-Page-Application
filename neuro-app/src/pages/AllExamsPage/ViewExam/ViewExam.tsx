@@ -2,11 +2,12 @@ import React from 'react'
 import styles from './viewExam.module.css'
 import ButtonStudentExam from '../../../components/buttonStudentExam/ButtonStudentExam';
 
-import Nav from '../../../components/nav/Nav';
+
 
 
 import fakeData from "./mock_data.json"
 import { Column, useTable } from 'react-table';
+import Nav from '../../../Scripts/ProfessorFolder/components/nav/Nav';
 
 
 interface UserData {

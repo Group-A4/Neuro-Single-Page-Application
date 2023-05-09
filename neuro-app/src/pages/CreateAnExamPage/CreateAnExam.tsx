@@ -1,5 +1,4 @@
 import React from 'react'
-import Nav from '../../components/nav/Nav';
 import ButtonCreate from '../../components/buttonCreateAnExam/ButtonCreateExam';
 import SelectSubject from '../../components/SelectSubjectComp/SelectSubject';
 import fakeData from "./mock_data.json"
@@ -10,6 +9,7 @@ import styles from './Body.module.css'
 
 import { Column, useTable } from 'react-table';
 import ScrollBlack from '../../components/ScrollCompBlack/ScrollBlack';
+import Nav from '../../Scripts/ProfessorFolder/components/nav/Nav';
 
 interface UserData {
 

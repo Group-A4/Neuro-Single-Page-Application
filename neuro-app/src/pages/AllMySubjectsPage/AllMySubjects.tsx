@@ -1,5 +1,5 @@
 import React from 'react'
-import Nav from '../../components/nav/Nav';
+
 import styles from './Body.module.css'
 import { Link } from 'react-router-dom';
 import SelectSubject from '../../components/SelectSubjectComp/SelectSubject';
@@ -7,6 +7,7 @@ import photo_option from './option.png';
 import Scroll from '../../components/ScrollComp/Scroll';
 import ButtonAddCourse from '../../components/buttonAddCourse/ButtonAddCourse';
 import { useState } from "react";
+import Nav from '../../Scripts/ProfessorFolder/components/nav/Nav';
 
 
 

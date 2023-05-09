@@ -1,5 +1,4 @@
 import React from 'react'
-import Nav from '../../../components/nav/Nav';
 import styles from './Body.module.css';
 import Questions from './Questions';
 import { Link } from 'react-router-dom';
@@ -7,6 +6,7 @@ import { Link } from 'react-router-dom';
 import fakeData from "./mock_data.json"
 import { Column, useTable } from 'react-table';
 import ButtonSaveExit from '../../../components/buttonSaveAndExit/ButtonAddQuestion';
+import Nav from '../../../Scripts/ProfessorFolder/components/nav/Nav';
 
 
 
