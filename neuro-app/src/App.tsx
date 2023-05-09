@@ -24,7 +24,7 @@ import ViewQuestions from './pages/ViewMaterialsPages/ViewQuestionsPage/ViewQues
 import ViewLessonMaterials from './pages/ViewMaterialsPages/ViewLessonMaterialsPage/ViewLessonMaterials';
 
 
-import AddContent from './pages/AddContentPage/AddContent';
+import AddContent from './Scripts/ProfessorFolder/AddContentPage/AddContent';
 import ViewQuestionAnswer from './pages/ViewMaterialsPages/ViewQuestionAnswerPage/ViewQuestionAnswer';
 import AllQuestions from './pages/QuizQuestionsPages/AllQuestionsPage/AllQuestions';
 

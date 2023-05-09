@@ -1,4 +1,8 @@
 import React, { useState } from "react";
+import ReactMarkdown from 'react-markdown';
+import styles from './Markdown.module.css';
+import remarkGfm from 'remark-gfm';
+import rehypeRaw from "rehype-raw";
 
 interface FormValues {
     idCourse: number;
@@ -9,8 +13,8 @@ interface FormValues {
 }
 
 const initialFormValues: FormValues = {
-    idCourse: 0,
-    idProfessor: 0,
+    idCourse: 5,
+    idProfessor: 53,
     title: "",
     markdownText: "",
     submitted: false,
@@ -64,54 +68,44 @@ const MarkdownTest = () =>{
     
 
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <label>
-                    Id-ul cursului:
-                    <input
-                        type="number"
-                        name="idCourse"
-                        value={formValues.idCourse}
-                        onChange={handleChange}
-                        required
-                    />
-                </label>
-                <label>
-                    Id-ul profesorului:
-                    <input
-                        type="number"
-                        name="idProfessor"
-                        value={formValues.idProfessor}
-                        onChange={handleChange}
-                        required
-                    />
-                </label>
-                <label>
-                    Titlul materialului:
-                    <input
-                        type="area"
-                        name="title"
-                        value={formValues.title}
-                        onChange={handleChange}
-                        required
-                    />
-                </label>
-                <label>
-                    Markdown:
-                    <textarea
-                        name="markdownText"
-                        value={formValues.markdownText}
-                        onChange={handleChange}
-                        required
-                        rows={10}
-                        cols={50}
-                    />
-                </label>
-                <button type="submit">Submit</button>
-            </form>
-        </div>
+        <>
+            <div className={styles['body']}>
+                <form className={styles['markdown-form']} onSubmit={handleSubmit}>
+                    <label className={styles['title-lable']}>
+                        Titlul materialului:
+                        <input
+                            className={styles['title-input']}
+                            type="area"
+                            name="title"
+                            value={formValues.title}
+                            onChange={handleChange}
+                            required
+                        />
+                    </label>
+                    <label className={styles['markdown-label']}>
+                        Markdown:
+                        <textarea
+                            className={styles['markdown-textarea']}
+                            name="markdownText"
+                            value={formValues.markdownText}
+                            onChange={handleChange}
+                            required
+                            // rows={20}
+                            // cols={50}
+                        />
+                    </label>
+                    <button type="submit">Submit</button>
+                </form>
+                <div className={styles['display-html-area']}>
+                    <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
+                        {formValues.markdownText}
+                    </ReactMarkdown>
+                </div>
+            </div>
+        </>
     )
 }
+
 
 
 export default MarkdownTest;
