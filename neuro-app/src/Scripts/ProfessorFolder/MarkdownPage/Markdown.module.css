@@ -78,3 +78,10 @@
     border-collapse: collapse;
     width: 100%;
 }
+
+
+@media screen and (max-width: 900px) {
+    .display-html-area{
+        display: none;
+    }
+}

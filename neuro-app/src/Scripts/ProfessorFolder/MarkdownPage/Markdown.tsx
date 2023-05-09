@@ -3,6 +3,7 @@ import ReactMarkdown from 'react-markdown';
 import styles from './Markdown.module.css';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from "rehype-raw";
+import ContentList from "../../../components/contentList/listContentsByIdProf";
 
 interface FormValues {
     idCourse: number;
@@ -70,6 +71,7 @@ const MarkdownTest = () =>{
     return (
         <>
             <div className={styles['body']}>
+                <ContentList professorId={53} />
                 <form className={styles['markdown-form']} onSubmit={handleSubmit}>
                     <label className={styles['title-lable']}>
                         Titlul materialului:
