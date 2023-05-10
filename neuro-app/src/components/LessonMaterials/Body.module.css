@@ -1,5 +1,4 @@
 .body {
-    background-image: url("background-page.png");
     min-height: 100%;
     background-size: cover;
     position: fixed;
@@ -8,7 +7,6 @@
 }
 
 .body--text {
-    background-image: url("blue_band.png");
     background-repeat: no-repeat;
     background-size: cover;
     height: 100%;

@@ -6,12 +6,14 @@ import rehypeRaw from "rehype-raw";
 import {ContentList, useGetContents} from "../../../components/contentList/listContentsByIdProf";
 import MarkdownParser from "./MarkdownToHtmlParser";
 import Nav from '../NavBarProfessor/Nav';
+import { renderToString } from 'react-dom/server';
 
 interface FormValues {
     idCourse: number;
     idProfessor: number;
     title: string;
     markdownText: string;
+    html: string;
     submitted: boolean;
 }
 
@@ -20,12 +22,14 @@ const initialFormValues: FormValues = {
     idProfessor: 53,
     title: "",
     markdownText: "",
+    html: "",
     submitted: false,
 };
 
 
 
-const MarkdownTest = () =>{
+
+const Markdown = () =>{
     const filesName = useGetContents(53).map(content => content.name);
 
     const [formValues, setFormValues] = useState<FormValues>(initialFormValues);
@@ -38,6 +42,21 @@ const MarkdownTest = () =>{
             ...prevFormValues,
             [name]: value,
         }));
+
+        if (name === "markdownText") {
+            const htmlString = renderToString(
+                <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
+                  {markdownParser.parse(value)}
+                </ReactMarkdown>
+              );
+
+              console.log(htmlString);
+
+            setFormValues((prevFormValues: FormValues) => ({
+                ...prevFormValues,
+                html: htmlString,
+            }));
+        }
     };
 
 
@@ -121,7 +140,7 @@ function Home() {
     return (
         <body>
             <Nav />
-            <MarkdownTest />
+            <Markdown />
         </body>
     );
 }
