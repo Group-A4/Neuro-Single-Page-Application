@@ -1,11 +1,49 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Nav from '../../../components/nav/Nav';
 import styles from './Body.module.css';
 import Questions from './Questions';
 import SelectSubject from '../../../components/SelectSubjectComp/SelectSubject';
-import SelectCourse from '../../../components/SelectCourseComp/SelectCourse';
 import ButtonAddQuestion from '../../../components/buttonAddQuestion/ButtonAddQuestion';
 import { Link } from 'react-router-dom';
+import { useState } from "react";
+interface Course 
+    {
+      title: string,
+      year: number
+      semester: number,
+      credits: number
+    }
+
+//const idC:number;
+
+const SelectCourse: React.FC<{}> = () => {
+    const [selects] = useState();
+    const [courses, setCourse]= useState<Course[]>([]);
+    useEffect(() => {
+        const fetchQuestions = async () => {
+          const response = await fetch("http://localhost:8191/courses/professor=57");
+          const data = await response.json();
+          setCourse(data);
+          console.log(data);
+        };
+        fetchQuestions();
+      }, []);
+     
+    return (
+        <div className={styles['subject-container']}>
+            <select value={selects} onChange={() => {}}>
+            { courses.length > 0 ? (
+              courses.map((courses, index) => (
+                <option className={styles['subject-options']} key={index}>
+                    {courses.title}
+                </option>
+             ))): (
+                <p>Loading...</p>
+              )}             
+            </select>
+        </div>
+    )
+}
 
 
 const Body: React.FC<{}> = () => {
@@ -24,19 +62,20 @@ const Body: React.FC<{}> = () => {
             </div>   
 
             <div className={styles['body--subtitle--container']}>
-
-                <div className={styles['selects']}>
+               
+                <div className={styles['body--subtitle']}>
+                    Subject 
+                </div>
+               <div className={styles['selects']}>
                     <SelectSubject />
                 </div>
-
-                <div className={styles['selects']}>
+                <div className={styles['body--subtitle']}>
+                    Course 
+                    </div>
+                    <div className={styles['selects']}>
                     <SelectCourse />
                 </div>
-                    
-
-              
-
-            </div> 
+                </div> 
 
             <div className={styles['body--line']}></div>  
             
