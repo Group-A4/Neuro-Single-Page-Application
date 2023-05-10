@@ -23,7 +23,7 @@
 
 
 
-ol {
+.scrollable-list {
 	padding: 0;
   width: 80%;
   position: relative;
@@ -35,24 +35,15 @@ ol {
 }
 
 
-ol::before {
-	content: '';
-	width: 0.5rem;
-	height: 100%;
-	position: absolute;
-	top: 0;
-	left: 8%;
-	z-index: -1;
-}
 
-li {
+.li-style{
 	padding: 0.5rem 1.5rem 1rem;
 	border-radius: 1.5rem;
 	background: peachpuff;
     margin-top: 2%;
 }
 
-li + li {
+.li-style + .li-style {
 	margin-top: 1rem;
 }
 
@@ -75,7 +66,7 @@ li + li {
     font-weight: 900;
 }
   
-  p {
+.p-style {
     font-size: 3vw;
     text-transform: uppercase;
     text-align: center;

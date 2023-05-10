@@ -33,11 +33,11 @@ const ViewLessonMaterials: React.FC<Props> = ({ id_course }) => {
     <>
     <Nav />
       <body className={styles['body']}>
-        <div className={styles['body--text']}><p>View <span className={styles['body--text2']}>lecture </span> materials</p></div>
+        <div className={styles['body--text']}><p className={styles["p-style"]}>View <span className={styles['body--text2']}>lecture </span> materials</p></div>
         <div className={styles['body--content']}>
         <ol className={styles['scrollable-list']}>
             {materials.map((material) => (
-              <li key={material.id}>
+              <li key={material.id} className={styles["li-style"]}>
                 <a href="http://localhost:3000/ViewMaterial" target="_blank" rel="noopener noreferrer">
                   {material.title}
                 </a>
