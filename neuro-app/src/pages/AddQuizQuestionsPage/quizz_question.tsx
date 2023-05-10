@@ -8,7 +8,6 @@ type Question = {
   answers: { text: string, isCorrect: boolean }[];
   time: number;
   dificulty: number;
-  l: boolean;
 }
 
 
@@ -18,7 +17,7 @@ const Quizz_question: React.FC<{}> = () => {
   const [successMessageVisible, setSuccessMessageVisible] = useState(false);
   
   const addQuestion=() => {
-    setQuestions([...questions, { text: 'Type question here', answers: [{ text: '', isCorrect: false }], time: 0,dificulty:0, l:false}]);
+    setQuestions([...questions, { text: 'Type question here', answers: [{ text: '', isCorrect: false }], time: 0,dificulty:0}]);
   };
 
  
@@ -94,7 +93,6 @@ const Quizz_question: React.FC<{}> = () => {
         Determine the difficulty and time of the question.</div>
       {questions.map((question, questionIndex) => (
         <div key={questionIndex}>
-          {!question.l &&
           <div className={styles['box']}>
           <Header time={question.time}  difficulty={question.dificulty}  setTime={(newTime) => setTime(questionIndex, newTime)}
   setDifficulty={(newDifficulty) => setDifficulty(questionIndex, newDifficulty)}/>
@@ -114,18 +112,7 @@ const Quizz_question: React.FC<{}> = () => {
             <button type="button" onClick={() => addAnswer(questionIndex)} className={styles.addansw}>+ Add answer</button>
           </div>
           </div>
-        }
-        {question.l &&
-         <div className={styles['box']}>
-         <Header time={question.time}  difficulty={question.dificulty}  setTime={(newTime) => setTime(questionIndex, newTime)}
- setDifficulty={(newDifficulty) => setDifficulty(questionIndex, newDifficulty)}/>
-         <label>
-           <input type="text" value={question.text || "Type question here "} className={styles.quest} onChange={(event) => handleQuestionTextChange(event, questionIndex)} />
-         </label>
-         <button type="button" onClick={() => removeQuestion(questionIndex)} className={styles.removeq}>Remove </button>
-         </div>
-
-        }
+        
            </div> 
       ))}
         <button type="button" className={styles.addquest} onClick={addQuestion}>+ Add Multiple Choice</button>
