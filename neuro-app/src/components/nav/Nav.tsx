@@ -4,7 +4,7 @@ import LangButton from './LangButton';
 import { Link } from "react-router-dom";
 import MenuDropDown from './MenuDropDown';
 import BurgerMenu from './BurgerMenu';
-
+import img_logo from './logo1.png';
 
 
 function Nav(){
@@ -12,7 +12,7 @@ function Nav(){
     <nav className={styles.navbar}> 
         <Link to="/" className={styles['logo-link']}>
             <div className={styles['logo-container']}>
-            <img src="./logo1.png" alt=""/>
+          <img src={img_logo} alt=""/>
               <span className={styles['logo-text']} >
                   NeuroApp
               </span>
