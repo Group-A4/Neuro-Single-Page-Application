@@ -31,9 +31,13 @@ const ContentInput: React.FC<{}> = () => {
   //   }
   // }, [formValues.fileName]);
 
-  const handleDrag = (e: React.DragEvent<HTMLLabelElement>) => {
+  const handleDrag = (e: any) => {
     e.preventDefault();
     e.stopPropagation();
+    console.log(e.target);
+    if(e.target.classList. contains('ignore')){
+      return;
+    }
     if (e.type === "dragenter" || e.type === "dragover") {
       setDragActive(true);
     } else if (e.type === "dragleave") {
@@ -116,12 +120,6 @@ const ContentInput: React.FC<{}> = () => {
         className={styles["body--form"]}
         onSubmit={handleSubmit}
       >
-        <Link to='/ViewLessonMaterials' className={styles["body--redirect"]}>
-            <button className={styles["body--button--publish"]}>
-                Publish
-            </button>
-        </Link>
-
         <input
             id="content-file-input"
             type="file"
@@ -131,7 +129,7 @@ const ContentInput: React.FC<{}> = () => {
             accept=".pdf,.ppt,.pptx,.mp3,.mp4,.mkv,.jpg,.jpeg,.png,.bmp,.gif"
           />
         <label htmlFor="content-file-input" 
-                className={styles["body--content"]}
+                className={`${styles["body--content"]} ${dragActive ? styles["drag-active"] : ""}`}
                 onDragEnter={handleDrag}
                 onDragOver={handleDrag}
                 onDragLeave={handleDrag}
@@ -139,18 +137,18 @@ const ContentInput: React.FC<{}> = () => {
                 >
             <div>
                 {formValues.fileName && (
-                    <div className={styles["body--content-text"]}>
+                    <div className={`${styles["body--content-text"]} ignore`}>
                     <p>{formValues.fileName}</p>
                     </div>
                 )}
                 {!formValues.fileName && !dragActive && (
-                    <div className={styles["body--content-text"]}>
+                    <div className={`${styles["body--content-text"]} ignore`}>
                     <p>Upload a file</p>
                     <p>Drag & Drop or add a file</p>
                     </div>
                 )}
                 {!formValues.fileName && dragActive && (
-                    <div className={styles["body--content-text"]}>
+                    <div className={`${styles["body--content-text"]} ignore`}>
                     <p>Drop the file</p>
                     </div>
                 )}
@@ -158,11 +156,17 @@ const ContentInput: React.FC<{}> = () => {
             <button
                     type="button"
                     onClick={onButtonClick}
-                    className={styles["body--button--add"]}
+                    className={`${styles["body--button--add"]} ignore`}
                 >
                     Add file
                 </button>
         </label>
+
+        <Link to='/ViewLessonMaterials' className={styles["body--redirect"]}>
+            <button className={styles["body--button--publish"]}>
+                Publish
+            </button>
+        </Link>
       </form>
     </div>
   );
