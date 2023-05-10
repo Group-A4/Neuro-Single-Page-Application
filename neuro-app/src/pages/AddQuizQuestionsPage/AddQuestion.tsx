@@ -16,7 +16,11 @@ const Body: React.FC<{}> = () => {
                 <div className={styles['body--title']}>
                         Course title
                 </div>
-                    <Link to='/AllQuestions'> <ButtonSaveExit />    </Link>
+                <Link to='/AllQuestions'>         
+                    <button type="submit" className={styles['button--create']} >
+                        Save and Exit
+                    </button>     
+                </Link>
 
                 
             </div>

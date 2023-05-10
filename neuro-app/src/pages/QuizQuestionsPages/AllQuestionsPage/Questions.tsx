@@ -8,9 +8,13 @@ interface Answer {
   correct: boolean;
 }
 interface Question {
+  id: number;
+  questionText: String;
+  difficulty: number;
+  timeMinutes: number;
+  lectureNumber: number;
   idCourse: number;
   idProfessor: number;
-  questionText: String;
   answersQuestion: Answer[];
 }
 
@@ -20,7 +24,7 @@ const Questions: React.FC<{}> = () => {
   const [questions, setQuestions] = useState<Question[]>([]);
   useEffect(() => {
     const fetchQuestions = async () => {
-      const response = await fetch("http://localhost:8192/questionQuizz/professor=55/course=4");
+      const response = await fetch("http://localhost:8192/questionQuizz");
       const data = await response.json();
       setQuestions(data);
       console.log(data);
@@ -33,7 +37,30 @@ const Questions: React.FC<{}> = () => {
       {questions.length > 0 ? (
         questions.map((question, index) => (
           <div className={styles.quest} key={index} >
-            <h3 className={styles.questionTitle}>{question.questionText}</h3>
+
+            <div className={styles.barInfo}>
+
+              <div className={styles.curs}>
+                ID Curs: {question.idCourse}
+              </div>
+
+              <div className={styles.time}>
+                Difficulty: {question.difficulty}
+
+              </div>
+
+              <div className={styles.difficulty}>
+                Time: {question.timeMinutes} min.
+              </div>
+
+              <div className={styles.edit}>
+                  Edit
+              </div>
+            </div>
+
+            <div className={styles.questionTitle}>
+              {question.id}.  {question.questionText}
+            </div>
             <ul className={styles.ull}>
               {question.answersQuestion?.map((answer, index) => (
                 <li key={index} className={answer.correct ? styles['correct-answer'] : styles['answer']}>

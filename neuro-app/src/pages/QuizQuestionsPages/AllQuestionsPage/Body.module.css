@@ -92,6 +92,27 @@
     margin-top: 3%;
     margin-bottom: 6%;
 }
+.barInfo{
+    background-color: #C49C60;
+    font-weight: bold;
+    font-size: 20px;
+    padding:0.5%;
+    align-items: left;
+    display: flex;
+    justify-content: space-between;
+
+    
+}
+.timeDifficulty{
+    color: #002F35;
+    font-weight: bold;
+}
+.edit{
+    background-color: white;
+    border-radius: 5%;
+    padding-left: 1%;
+    padding-right: 1%;
+}
 .questionTitle
 {
     
