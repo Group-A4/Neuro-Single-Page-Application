@@ -33,6 +33,7 @@ import EditPasswordPage from "./Scripts/AdminFolder/EditPasswordPage";
 import EditUnivEmailPage from "./Scripts/AdminFolder/EditUnivEmailPage";
 import EditPersEmailPage from "./Scripts/AdminFolder/EditPersEmailPage";
 import ChooseAccountPage from "./Scripts/AdminFolder/ChooseAccountPage";
+import ProfilePage from "./Scripts/AdminFolder/ProfilePage";
 
 function App() {
   return (
@@ -63,6 +64,7 @@ function App() {
       <Route path="EditUnivEmailPage" element={<EditUnivEmailPage />}></Route>
       <Route path="EditPersEmailPage" element={<EditPersEmailPage />}></Route>
       <Route path="ModifyOptionsPage" element={<ModifyOptionsPage />}></Route>
+      <Route path="ProfilePage" element={<ProfilePage />}></Route>
     </Routes>
   );
 }

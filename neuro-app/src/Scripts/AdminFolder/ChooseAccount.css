@@ -28,7 +28,7 @@ a{
     flex-direction: column;
     justify-content: space-evenly;
     text-align: center;
-    z-index: 999;
+    z-index:1;
 }
 
 .choose-table h3 {

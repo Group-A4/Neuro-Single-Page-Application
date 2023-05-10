@@ -137,17 +137,20 @@
     border: none;
     visibility: visible;
     cursor: pointer;
+    
 }
 
 .menu button:hover
 {
     color: white;
+    z-index:999;
 }
 
 .menu button:active
 {
     visibility: visible;
     color :white;
+    z-index:999;
 }
 .menu ul li a
 {
@@ -186,6 +189,7 @@
     list-style: none;
     padding: 20px;
     border-radius: 20px;
+    z-index:999;
     
 }
 

@@ -1,7 +1,7 @@
 
 
 import { Link } from 'react-router-dom';
-import Nav from "../NavBarFolder/Nav";
+import Nav from "./NavBarAdmin/Nav";
 import "./ChooseAccount.css";
 
 const Body: React.FC<{}> = () => {

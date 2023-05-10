@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Nav from "../NavBarFolder/Nav";
+import Nav from "./NavBarAdmin/Nav";
 import "./DeleteAccount.css"
 
 interface FormValues {

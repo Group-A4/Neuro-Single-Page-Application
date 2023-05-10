@@ -51,7 +51,7 @@
     flex-direction: column;
     justify-content: space-evenly;
     text-align: center;
-    z-index: 999;
+    z-index:1;
 }
 .select-button{
     width:150px;

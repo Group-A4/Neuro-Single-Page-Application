@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Nav from './NavBarAdmin/Nav';
+import "./AdminPage.css";
 
 
 const Body: React.FC<{}> = () => {
