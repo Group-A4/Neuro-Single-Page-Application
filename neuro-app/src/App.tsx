@@ -21,7 +21,7 @@ import { Routes, Route } from "react-router-dom";
 import Home from './pages/HomePage/Home';
 import AllMySubjects from './pages/AllMySubjectsPage/AllMySubjects';
 import ViewQuestions from './pages/ViewMaterialsPages/ViewQuestionsPage/ViewQuestions';
-import ViewLessonMaterials from './pages/ViewMaterialsPages/ViewLessonMaterialsPage/ViewLessonMaterials';
+import ViewMaterial from './pages/ViewMaterialsPages/ViewMaterialPage/ViewMaterial';
 
 
 import AddContent from './Scripts/ProfessorFolder/AddContentPage/AddContent';
@@ -75,7 +75,7 @@ function App(): JSX.Element {
       <Route path="/ViewExam" element={<ViewExam />} />
       <Route path="/Exam" element={<Exam />} />
       <Route path="/Markdown" element={<Markdown />} />
-      <Route path="/ViewLessonMaterials" element={<ViewLessonMaterials />} />
+      <Route path="/ViewMaterial" element={<ViewMaterial />} />
     </Routes>
   );
 }
