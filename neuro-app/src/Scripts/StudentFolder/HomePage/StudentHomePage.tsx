@@ -17,7 +17,7 @@ const Body: React.FC<{}> = () => {
             <div className={styles['body--img--container']}>
 
                 <ul className={styles['link--image']} >
-                    <Link to='/ResultMockExam'>
+                    <Link to='/AllMySubjects'>
                         <img src={photo_ViewMaterials} alt="" className={styles['body--img']} />
                     </Link>
                 </ul>

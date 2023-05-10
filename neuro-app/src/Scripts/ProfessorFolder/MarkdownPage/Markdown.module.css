@@ -1,10 +1,9 @@
-
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 .body{
     height: 100vh;
     display: flex;
     align-items: flex-start;
     justify-content: center;
-    background: url('background-page.png');
 }
 
 
@@ -16,25 +15,30 @@
 }
 
 .title-lable, .markdown-label{
-    display: flex;
+    display: flex;  
     flex-direction: column;
     align-items: center;
     font-size: 1.2rem;
-    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
     padding: 0.5rem;
     margin: 1rem;
     border-radius: 5px;
-    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    background-color: #002F35;
+    box-shadow: 5px 5px 10px 5px rgba(0,0,0,0.75);
+}
+
+.title-lable, .markdown-label{
+    color: #C49C60;
 }
 
 .title-input{
-    height: 5vh;
+    height: 2vh;
     width: 40vw;
     resize: none;
     border: none;
     outline: none;
+    font-weight: bold;
     font-size: 1.2rem;
-    font-family: 'Roboto', sans-serif;
     padding: 1rem;
     margin: 1rem;
     border-radius: 5px;
@@ -48,30 +52,52 @@
     border: none;
     outline: none;
     font-size: 1.2rem;
-    font-family: 'Roboto', sans-serif;
     padding: 1rem;
     margin: 1rem;
     border-radius: 5px;
     box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
 }
 
+.preview-label{
+    display: flex;  
+    flex-direction: column;
+    align-items: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 0.5rem;
+    margin: 1rem;
+    border-radius: 5px;
+    background-color: #000000;
+    box-shadow: 5px 5px 10px 5px rgba(0,0,0,0.75);
+    color: #C49C60;
+    height: 84%;
+}
+
+.dot {
+    height: 25px;
+    width: 25px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  
 
 .display-html-area{
     background-color: white;
     flex:1;
-    height: 90vh;
-    width: 40vw;
+    height: 83vh;
+    width: 28vw;
     resize: none;
     border: none;
     outline: none;
     font-size: 0.9rem;
-    font-family: 'Roboto', sans-serif;
     padding: 1rem;
     margin: 1rem;
     border-radius: 5px;
     box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
     overflow-x: hidden;
     overflow-y: scroll;
+    color: #000000;
 }
 
 .display-html-area table{
@@ -80,7 +106,104 @@
 }
 
 
-@media screen and (max-width: 900px) {
+.button-27 {
+  appearance: none;
+  background-color: #002F35;
+  border: 2px solid #002F35;
+  border-radius: 15px;
+  box-sizing: border-box;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: normal;
+  margin: 0;
+  height: 60px;
+  width: 5px;
+  outline: none;
+  padding: 16px 24px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: 20%;
+}
+
+.button-27:disabled {
+  pointer-events: none;
+}
+
+.button-27:hover {
+  background-color: #C49C60;
+  border: 2px solid #C49C60;
+  color: #002F35;
+  box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+  transform: translateY(-2px);
+}
+
+.button-27:active {
+  box-shadow: none;
+  transform: translateY(0);
+}
+
+@media screen and (max-width: 1550px) {
+    .title-input{
+        height: 2vh;
+        margin-top: -1%;
+    }
+
+    .markdown-textarea{
+        margin-top: -1%;
+        height: 40vh;
+    }
+
+    .markdown-label{
+        margin-top: 2%;
+    }
+
+    p{
+        margin-top: 0%;
+    }
+    .button-27 {
+        font-size: 15px;
+        font-weight: 600;
+        margin: 0;
+        height: 50px;
+        width: 5px;
+        outline: none;
+        padding: 16px 24px;
+        text-align: center;
+        text-decoration: none;
+        transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+        width: 20%;
+      }
+
+      .preview-label{
+        display: flex;  
+        flex-direction: column;
+        align-items: center;
+        font-size: 1.2rem;
+        font-weight: bold;
+        padding: 0.5rem;
+        margin: 1rem;
+        border-radius: 5px;
+        background-color: #000000;
+        box-shadow: 5px 5px 10px 5px rgba(0,0,0,0.75);
+        color: #C49C60;
+        height: 80%;
+    }
+  }
+
+  @media screen and (max-width: 900px) {
+    .preview-label{
+        display: none;
+    }
     .display-html-area{
         display: none;
     }
