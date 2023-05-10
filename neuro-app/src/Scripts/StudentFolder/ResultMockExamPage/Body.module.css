@@ -1,0 +1,168 @@
+.body {
+    background-image: url("./Images/gray_background.png");
+
+    font-family: Outfit;
+    font-weight: bold;
+}
+
+.body--title {
+    background-image: url("./Images/title-section.png");
+    background-size: cover;
+    min-height: 10%;
+    position: fixed;
+    width: 100%;
+    height: auto;
+
+    padding-top: 6%;
+    padding-bottom: 6%;
+    position: relative;
+    text-align: center;
+    justify-content: center;
+    font-size: calc(20px + 1.0vw);
+
+    color: #C49C60;
+}
+
+
+.body--subtitle{
+    padding-left: 10%;
+    padding-top: 4%;
+    /* padding-left: 2em;
+    padding-right: 2em; */
+    padding-bottom: 1%;
+    font-size: calc(20px + 1.5vw);
+    display: flex;
+
+    align-items: last baseline;
+    justify-content: flex-start;
+
+    border-bottom: 10px solid #C49C60 ;
+}
+
+
+.body--subtitle p {
+    margin: 0;
+}
+
+.body--subtitle .icon 
+{
+    weight: 1em;
+    height: 1em;
+}
+
+.text2{
+    color: #600606;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+}
+
+/* .body--container {
+    margin-bottom: 3%;
+} */
+
+.but button {
+    background-color: #002F35;
+    border-radius: 7px;
+    font-size: calc(25px + 1.0vw);
+    font-family: Open Sans;
+    font-weight: bold;
+    padding-left: 2%;
+    padding-right: 2%;
+    width: fit-content;
+    cursor: pointer;
+    color: #C49C60;
+    /* margin-right: 2em;
+    margin-left: 2em; */
+    margin: 2rem;
+    box-shadow: 8px 8px 8px #002F35;
+}
+
+.body--buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: last baseline;
+    padding-left: 10rem;
+    padding-right: 10rem;
+    flex-wrap: wrap;
+}
+
+.message--box {
+    color: #600606;
+    background-color: #C49C60;
+    margin: 4rem;
+    padding: 1rem;
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+    font-size: calc(20px + 1.0vw);
+    border-radius: 7px;
+    text-align: center;
+    box-shadow: #002F35;
+    box-shadow: 10px 10px 13px #600606;
+
+    display: flex;
+    justify-content: center;
+}
+
+@media (max-width:700px)
+{
+    .body--title{
+        font-size: calc(10px + 1.0vw);
+    }
+
+    .body--subtitle {
+        font-size: calc(10px + 1.5vw);
+    }
+
+    .body--buttons {
+
+    }
+
+    .but button {
+        font-size: calc(10px + 1.5vw);
+        width: 15rem;
+        padding: 1rem;
+        align-items: center;
+        margin-left: 0;
+    }
+
+    .message--box {
+        font-size: calc(10px + 1.5vw);
+    }
+}
+
+@media (max-width:400px)
+{
+    .body--title{
+        font-size: calc(8px + 1.0vw);
+    }
+
+    .body--subtitle {
+        font-size: calc(6px + 1.5vw);
+    }
+
+    .body--buttons {
+        margin: 0;
+        padding-left: 5rem;
+        padding-right: 5rem;
+        justify-content: center;
+    }
+
+    .but button {
+        font-size: calc(6px + 1.5vw);
+        width: 10rem;
+        padding: 1rem;
+        text-align: center;
+        align-items: center;
+        margin-left: 0;
+    }
+
+
+
+    .message-box {
+        font-size: calc(5px + 1.5vw);
+        width: 2rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+}
