@@ -62,7 +62,7 @@ function App(): JSX.Element {
       <Route path="/" element={<Home />} />
       <Route path="/AllMySubjects" element={<AllMySubjects />} />
       <Route path="/ViewQuestions" element={<ViewQuestions />} />
-      <Route path="/ViewLessonMaterials" element={<ViewLessonMaterials id_course='your_course_id_here'/>} />
+      {/* <Route path="/ViewLessonMaterials" element={<ViewLessonMaterials id_course='5'/>} /> */}
       <Route path="/AddQuestion" element={<AddQuestion />} />
       <Route path="/AddContent" element={<AddContent />} />
       <Route path="/ViewQuestionAnswer" element={<ViewQuestionAnswer />} />
@@ -75,6 +75,7 @@ function App(): JSX.Element {
       <Route path="/ViewExam" element={<ViewExam />} />
       <Route path="/Exam" element={<Exam />} />
       <Route path="/Markdown" element={<Markdown />} />
+      <Route path="/ViewLessonMaterials" element={<ViewLessonMaterials />} />
     </Routes>
   );
 }
