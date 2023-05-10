@@ -40,7 +40,7 @@ const ContentList: React.FC<Props> = ({ professorId }) => {
         <ul>
           {contents.map(content => (
             <li key={content.id}>
-              <a href={content.link}>{content.name}</a>
+              <a href={content.link} target="_blank">{content.name}</a>
             </li>
           ))}
         </ul>
