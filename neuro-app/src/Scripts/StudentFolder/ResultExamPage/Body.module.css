@@ -1,0 +1,39 @@
+.body {
+    font-family: Outfit;
+    font-weight: bold;
+}
+
+.body--title {
+    background-image: url("./Images/title-section.png");
+    background-size: cover;
+    min-height: 10%;
+    position: fixed;
+    width: 100%;
+    height: auto;
+
+    margin-top:13rem;
+    display:flex;
+    align-items: center;
+
+    padding-top: 6%;
+    padding-bottom: 6%;
+    text-align: center;
+    justify-content: center;
+    font-size: calc(20px + 1.0vw);
+
+    color: #C49C60;
+}
+
+@media (max-width:700px)
+{
+    .body--title{
+        font-size: calc(10px + 1.0vw);
+    }
+}
+
+@media (max-width:400px)
+{
+    .body--title{
+        font-size: calc(8px + 1.0vw);
+    }
+}
