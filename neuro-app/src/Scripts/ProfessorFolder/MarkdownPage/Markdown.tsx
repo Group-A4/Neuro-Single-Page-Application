@@ -3,7 +3,8 @@ import ReactMarkdown from 'react-markdown';
 import styles from './Markdown.module.css';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from "rehype-raw";
-import ContentList from "../../../components/contentList/listContentsByIdProf";
+import {ContentList, useGetContents} from "../../../components/contentList/listContentsByIdProf";
+import MarkdownParser from "./MarkdownToHtmlParser";
 
 interface FormValues {
     idCourse: number;
@@ -24,7 +25,11 @@ const initialFormValues: FormValues = {
 
 
 const MarkdownTest = () =>{
+    const filesName = useGetContents(53).map(content => content.name);
+
     const [formValues, setFormValues] = useState<FormValues>(initialFormValues);
+
+    const markdownParser = new MarkdownParser("neuroapi", "professor" + formValues.idProfessor, filesName);
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = event.target;
@@ -100,7 +105,7 @@ const MarkdownTest = () =>{
                 </form>
                 <div className={styles['display-html-area']}>
                     <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
-                        {formValues.markdownText}
+                        {markdownParser.parse(formValues.markdownText)}
                     </ReactMarkdown>
                 </div>
             </div>
