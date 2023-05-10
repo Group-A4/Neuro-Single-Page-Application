@@ -35,7 +35,7 @@ class MarkdownParser {
     '   <p>Your browser does not support iframes.</p>\n' +
     ' </iframe> \n';
     pptFormatString =
-    '\n <iframe src="https://view.officeapps.live.com/op/embed.aspx?src={1}" frameborder="0" style="width: 100%%; height: 600px;">\n' +
+    '\n <iframe src="https://view.officeapps.live.com/op/embed.aspx?src={1}" frameborder="0" style="width: 100%; height: 600px;">\n' +
     '   <p>Your browser does not support iframes.</p>\n' +
     ' </iframe> \n';
     audioFormatString =
