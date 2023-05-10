@@ -79,27 +79,19 @@ li:first-child {
   border: 0;
 }
 
-/* Demo styles */
-
-
-
-/* width */
 ::-webkit-scrollbar {
   width: 10px;
 }
 
-/* Track */
 ::-webkit-scrollbar-track {
   background: #555151;
 }
 
-/* Handle */
 ::-webkit-scrollbar-thumb {
   background: #1e6363;
   border-radius: 10px;
 }
 
-/* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #19647e;
 }

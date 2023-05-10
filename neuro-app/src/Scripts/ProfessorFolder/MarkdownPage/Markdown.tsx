@@ -97,7 +97,7 @@ const MarkdownTest = () =>{
                             // cols={50}
                         />
                     </label>
-                    <button type="submit">Submit</button>
+                    <button className={styles['button-27']}role="button">Publish</button>
                 </form>
                 <label className={styles['preview-label']}>
                     <div className={styles['display-html-area']}>
