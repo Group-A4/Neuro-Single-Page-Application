@@ -1,5 +1,6 @@
 import { async } from 'q';
 import React, { useEffect, useState } from 'react';
+import styles from './contentList.module.css';
 
 interface Props {
   professorId: number;
@@ -33,13 +34,18 @@ const ContentList: React.FC<Props> = ({ professorId }) => {
   const contents = useGetContents(professorId);
 
   return (
-    <ul>
-      {contents.map(content => (
-        <li key={content.id}>
-          <a href={content.link}>{content.name}</a>
-        </li>
-      ))}
-    </ul>
+    <div className={styles.div}>
+      <h2>Your content</h2>
+      <div className={styles.list}>
+        <ul>
+          {contents.map(content => (
+            <li key={content.id}>
+              <a href={content.link}>{content.name}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
   );
 };
 
