@@ -21,7 +21,9 @@ import { Routes, Route } from "react-router-dom";
 import Home from './pages/HomePage/Home';
 import AllMySubjects from './pages/AllMySubjectsPage/AllMySubjects';
 import ViewQuestions from './pages/ViewMaterialsPages/ViewQuestionsPage/ViewQuestions';
+import ViewLesson from './pages/ViewMaterialsPages/ViewLessonMaterialsPage/ViewLesson';
 import ViewMaterial from './pages/ViewMaterialsPages/ViewMaterialPage/ViewMaterial';
+
 
 
 import AddContent from './Scripts/ProfessorFolder/AddContentPage/AddContent';
@@ -62,7 +64,7 @@ function App(): JSX.Element {
       <Route path="/" element={<Home />} />
       <Route path="/AllMySubjects" element={<AllMySubjects />} />
       <Route path="/ViewQuestions" element={<ViewQuestions />} />
-      {/* <Route path="/ViewLessonMaterials" element={<ViewLessonMaterials id_course='5'/>} /> */}
+      <Route path="/ViewLessonMaterials" element={<ViewLesson />} />
       <Route path="/AddQuestion" element={<AddQuestion />} />
       <Route path="/AddContent" element={<AddContent />} />
       <Route path="/ViewQuestionAnswer" element={<ViewQuestionAnswer />} />
