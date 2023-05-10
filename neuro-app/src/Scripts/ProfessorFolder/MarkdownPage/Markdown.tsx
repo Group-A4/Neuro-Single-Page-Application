@@ -4,6 +4,7 @@ import styles from './Markdown.module.css';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from "rehype-raw";
 import ContentList from "../../../components/contentList/listContentsByIdProf";
+import Nav from '../NavBarProfessor/Nav';
 
 interface FormValues {
     idCourse: number;
@@ -74,7 +75,7 @@ const MarkdownTest = () =>{
                 <ContentList professorId={53} />
                 <form className={styles['markdown-form']} onSubmit={handleSubmit}>
                     <label className={styles['title-lable']}>
-                        Titlul materialului:
+                        <p>Titlul materialului:</p>
                         <input
                             className={styles['title-input']}
                             type="area"
@@ -85,7 +86,7 @@ const MarkdownTest = () =>{
                         />
                     </label>
                     <label className={styles['markdown-label']}>
-                        Markdown:
+                        <p>Markdown:</p>
                         <textarea
                             className={styles['markdown-textarea']}
                             name="markdownText"
@@ -98,16 +99,28 @@ const MarkdownTest = () =>{
                     </label>
                     <button type="submit">Submit</button>
                 </form>
-                <div className={styles['display-html-area']}>
+                <label className={styles['preview-label']}>
+                    <div className={styles['display-html-area']}>
                     <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
                         {formValues.markdownText}
                     </ReactMarkdown>
-                </div>
+                    </div>
+                    <span className={styles.dot}></span>
+                </label>
             </div>
         </>
     )
 }
 
+function Home() {
+    return (
+        <body>
+            <Nav />
+            <MarkdownTest />
+        </body>
+    );
+}
 
 
-export default MarkdownTest;
+
+export default Home;
