@@ -35,7 +35,7 @@ const ContentList: React.FC<Props> = ({ professorId }) => {
 
   return (
     <div className={styles.div}>
-      <h2>Your content</h2>
+      <h2 className={styles.h2}>Your content</h2>
       <div className={styles.list}>
         <ul>
           {contents.map(content => (
