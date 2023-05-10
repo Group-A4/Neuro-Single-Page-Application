@@ -22,6 +22,8 @@ import Home from './pages/HomePage/Home';
 import AllMySubjects from './pages/AllMySubjectsPage/AllMySubjects';
 import ViewQuestions from './pages/ViewMaterialsPages/ViewQuestionsPage/ViewQuestions';
 import ViewLesson from './pages/ViewMaterialsPages/ViewLessonMaterialsPage/ViewLesson';
+import ViewMaterial from './pages/ViewMaterialsPages/ViewMaterialPage/ViewMaterial';
+
 
 
 import AddContent from './Scripts/ProfessorFolder/AddContentPage/AddContent';
@@ -75,6 +77,7 @@ function App(): JSX.Element {
       <Route path="/ViewExam" element={<ViewExam />} />
       <Route path="/Exam" element={<Exam />} />
       <Route path="/Markdown" element={<Markdown />} />
+      <Route path="/ViewMaterial" element={<ViewMaterial />} />
     </Routes>
   );
 }
