@@ -1,48 +1,49 @@
 import React, { useEffect, useState } from 'react';
+
+import { getMaterialById } from './material';
 import Nav from '../../../components/nav/Nav';
 import styles from './Body.module.css';
-import { useLocation } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
-const ViewLessonMaterials: React.FC<{ id_course: string }> = ({ id_course }) => {
-  const [materials, setMaterials] = useState<any[]>([]);
-  const location = useLocation();
-  const searchParams = new URLSearchParams(location.search);
-  const course = searchParams.get('id_course');
+const ViewLessonMaterials: React.FC<{}> = () => {
 
-  useEffect(() => {
-    fetchMaterials(id_course);
-  }, [id_course]);
+    const [html, setHtml] = useState(null);
 
-  const fetchMaterials = async (id_course: string) => {
+  const handleOpenWindow = async (id: number) => {
     try {
-      const response = await fetch(`http://localhost:8191/materials/id_course=${course}`);
-      const materials = await response.json();
-      setMaterials(materials);
+      const material = await getMaterialById(id);
+      setHtml(material.html);
+      const newWindow = window.open('', '_blank');
+      if (newWindow && material.html) {
+        const code = `<html><head></head><body><div dangerouslySetInnerHTML={ {__html:${html}} } /></body></html>`;
+        newWindow.document.write(code);
+        newWindow.document.close();
+      }
     } catch (error) {
-      console.error(error);
+      console.error('Failed to open material window:', error);
     }
   };
 
-  return (
-    <>
-      <Nav />
-      <body className={styles['body']}>
-        <div className={styles['body--text']}>View lecture materials</div>
+    return (
+        <>
+            <Nav />
+            <body className={styles['body']}>
+                <div className={styles['body--text']}>
+                    View lecture materials
+                </div>
 
-        <div className={styles['body--content']}>
-          <ul>
-            {materials.map((material) => (
-              <li key={material.id}>
-                <a href={material.html} target="_blank" rel="noopener noreferrer">
-                  {material.title}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </body>
-    </>
-  );
+                <div className={styles['body--content']}>
+                    {/* TODO */}
+                    Material
+                
+                </div>
+
+                <button onClick={() => handleOpenWindow(34)}>Open Material</button>
+
+            </body>
+
+        </>
+    );
 };
 
 export default ViewLessonMaterials;
