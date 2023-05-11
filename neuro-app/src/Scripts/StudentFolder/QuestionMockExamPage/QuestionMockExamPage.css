@@ -3,22 +3,21 @@
 
     display: flex;
     flex-direction: column;
-    margin-top: 2rem;
-    margin-left: 4rem;
-    margin-right:4rem;
+    margin-top: 6%;
+    margin-left: 6%;
+    margin-right: 6%;
     background-color: #002F35;
-    border-radius: 10px;
+    border-radius: 1rem;
 }
 
 .questionQuery{
-    background-color: #C49C60;
-    border-radius: 10px;
+    background-color: #9e783e;
+    border-radius: 1rem;
     margin-top: 1rem;
     margin-left: 1rem;
     margin-right: 1rem;
     padding-left: 1rem;
-    padding-right: 1rem;
-     
+    padding-right: 1rem;  
 }
 
 ul{
@@ -34,8 +33,9 @@ ul{
 }
 
 .choice {
-    margin-top: 1rem;
-    margin-right: 2rem;
+    margin-top: 1.25rem;
+    margin-left: 1.25rem;
+    margin-right: 1.5rem;
     background-color: #bd9d6d;
     border-radius: 10px;
     font-size: 1.5rem;
@@ -77,10 +77,9 @@ ul{
 }
  
 .questionAnswers {
-    margin-top: 20px;
-    margin-left: 10px;
-    margin-right: 10px;
-    margin-bottom: 10px;
+    margin-left: 1rem;
+    margin-bottom: 1rem;
+    margin-right: 1rem;
 }
 
 .questionAnswers ul {
@@ -90,14 +89,15 @@ ul{
 }
 
 .questionAnswers li {
-    margin-bottom: 10px;
+    margin-bottom: 0.8rem;
 }
 
 .questionAnswers input[type="text"] {
+    margin-top: 1rem;
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 0.5rem;
     box-sizing: border-box;
 }
 
