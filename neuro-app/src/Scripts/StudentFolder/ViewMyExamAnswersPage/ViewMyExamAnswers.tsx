@@ -18,6 +18,7 @@ interface QuizAnswer {
     answerText: string;
     correct?: boolean;
     chosen?: boolean;
+    score?: number;
 }
 
 const hardcodedQuestions: QuizQuestion[] = [
@@ -99,10 +100,10 @@ const hardcodedQuestions: QuizQuestion[] = [
 ];
 
 const userAnswers: QuizAnswer[] = [
-  { idQuestion: 1, answerText: "Response1" },
-  { idQuestion: 2, answerText: "Response2" },
-  { idQuestion: 3, answerText: "Paris", correct: true, chosen: true },
-  { idQuestion: 4, answerText: "Indian Ocean", correct: false, chosen: true },
+  { idQuestion: 1, answerText: "Response1" , score: 0.5},
+  { idQuestion: 2, answerText: "Response2" , score: 1},
+  { idQuestion: 3, answerText: "Paris", correct: true, chosen: true , score: 1},
+  { idQuestion: 4, answerText: "Indian Ocean", correct: false, chosen: true, score: 0},
 ];
 
 const Body: React.FC<{}> = () => {
@@ -112,17 +113,19 @@ const Body: React.FC<{}> = () => {
 
   return (
     <div className="body">
+      <div className={styles["bodyTitle"]}>
+        Here are your answers to the exam
+      </div>
+
       {questions.map((question, index) => {
         return (
-          <div key={question.id} className="questionPart">
-            <div className="questionQuery">
-              <h1 className="question">
-                {index + 1}/{questions.length} {question.questionText}
-              </h1>
-            </div>
+          <div key={question.id} className={styles["questionPart"]}>
+            <h1 className={styles["questionTitle"]}>
+              {index + 1}/{questions.length} {question.questionText}
+            </h1>
 
             {question.isMultipleChoice ? (
-              <div className="questionAnswers">
+              <div className={styles["questionAnswers"]}>
                 {question.answersQuestion ? (
                   <ul>
                     {question.answersQuestion.map((answer, index) => (
@@ -146,10 +149,13 @@ const Body: React.FC<{}> = () => {
                 </p>
               </div>
             ) : (
-              <div className="questionAnswers">
-                <p>{userAnswers[index].answerText}</p>
-              </div>
+              <p className={styles["textQuestionAnswers"]}>
+                {userAnswers[index].answerText}
+              </p>
             )}
+            <p className={styles["yourScore"]}>
+              Score: {userAnswers[index].score} / 1
+            </p>
           </div>
         );
       })}
@@ -160,10 +166,10 @@ const Body: React.FC<{}> = () => {
 
 const ExamAnswers: React.FC<{}> = () => {
     return (
-        <>
-                <Nav />
-                <Body />
-        </>
+      <>
+        <Nav />
+        <Body/>
+      </>
     );
 }
 

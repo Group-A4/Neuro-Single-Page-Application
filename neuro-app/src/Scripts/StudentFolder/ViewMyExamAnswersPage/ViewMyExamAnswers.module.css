@@ -27,7 +27,7 @@ Body {
 
 .questionAnswers {
     margin-top: 20px;
-    margin-left: 10px;
+    margin-left: 5px;
     margin-right: 10px;
     margin-bottom: 10px;
 }
@@ -65,13 +65,19 @@ Body {
     font-style: italic;
 }
 
-.choices{
+.choices, .textQuestionAnswers{
     margin-top: 1rem;
     margin-right: 2rem;
     background-color: #bd9d6d;
     border-radius: 10px;
     font-size: 1.5rem;
     padding-left: 1em;
+}
+
+.textQuestionAnswers{
+    margin-left: 2rem;
+    padding-top: 1em;
+    padding-bottom: 1em;
 }
 
 .correctAnswers {
@@ -85,9 +91,10 @@ Body {
     font-weight: bold;
 }
 
-.yourAnswers {
+.yourAnswers, .yourScore {
     margin-top: 1rem;
     margin-right: 2rem;
+    margin-left: 2rem;
     border-radius: 10px;
     font-size: 1.5rem;
     padding-left: 1em;
@@ -95,3 +102,4 @@ Body {
     font-style: italic;
     font-weight: bold;
 }
+
