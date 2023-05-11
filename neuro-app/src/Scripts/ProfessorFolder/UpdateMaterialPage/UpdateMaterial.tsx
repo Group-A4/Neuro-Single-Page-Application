@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ReactMarkdown from 'react-markdown';
-import styles from './Markdown.module.css';
+import styles from '../CreateMaterialPage/CreateMaterial.module.css';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from "rehype-raw";
 import {ContentList, useGetContents} from "../../../components/contentList/listContentsByIdProf";
-import MarkdownParser from "./MarkdownToHtmlParser";
+import MarkdownParser from "../CreateMaterialPage/MarkdownToHtmlParser";
 import Nav from '../NavBarProfessor/Nav';
 import { renderToString } from 'react-dom/server';
+import {GetMaterialById} from "../ViewMaterialPage/material";
 
 interface FormValues {
     idCourse: number;
@@ -28,13 +29,22 @@ const initialFormValues: FormValues = {
 
 
 
-
 const Markdown = () =>{
+    const material = GetMaterialById(75);
     const filesName = useGetContents(53).map(content => content.name);
 
     const [formValues, setFormValues] = useState<FormValues>(initialFormValues);
 
     const markdownParser = new MarkdownParser("neuroapi", "professor" + formValues.idProfessor, filesName);
+
+    useEffect(() => {
+        setFormValues((prevFormValues: FormValues) => ({
+            ...prevFormValues,
+            title: material.title,
+            markdownText: material.markdownText,
+            html: material.html,
+        }));
+      }, [material]);
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = event.target;
@@ -50,8 +60,6 @@ const Markdown = () =>{
                 </ReactMarkdown>
               );
 
-              console.log(htmlString);
-
             setFormValues((prevFormValues: FormValues) => ({
                 ...prevFormValues,
                 html: htmlString,
@@ -64,10 +72,10 @@ const Markdown = () =>{
         event.preventDefault();
         setFormValues((prevFormValues: FormValues) => ({ ...prevFormValues, submitted: true }));
 
-        const url = "http://localhost:8191/materials/create";
+        const url = "http://localhost:8191/materials/update/75  ";
 
         fetch(url, {
-            method: "POST",
+            method: "PUT",
             headers: {
                 "Content-Type": "application/json"
             },
@@ -77,7 +85,7 @@ const Markdown = () =>{
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
                 }
-                console.log("Crearea materialului a fost realizata cu succes!");
+                console.log("Actualizarea materialului a fost realizata cu succes!");
                 return response.text();
             })
             .then(text => {

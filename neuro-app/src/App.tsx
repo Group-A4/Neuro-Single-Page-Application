@@ -21,8 +21,10 @@ import { Routes, Route } from "react-router-dom";
 import Home from './pages/HomePage/Home';
 import AllMySubjects from './pages/AllMySubjectsPage/AllMySubjects';
 import ViewQuestions from './pages/ViewMaterialsPages/ViewQuestionsPage/ViewQuestions';
-import ViewLesson from './pages/ViewMaterialsPages/ViewLessonMaterialsPage/ViewLesson';
-import ViewMaterial from './pages/ViewMaterialsPages/ViewMaterialPage/ViewMaterial';
+import ViewLesson from './Scripts/ProfessorFolder/ViewLessonMaterialsPage/ViewLesson';
+import ViewMaterial from './Scripts/ProfessorFolder/ViewMaterialPage/ViewMaterial';
+import CreateMaterial from './Scripts/ProfessorFolder/CreateMaterialPage/CreateMaterial';
+import UpdateMaterial from './Scripts/ProfessorFolder/UpdateMaterialPage/UpdateMaterial';
 
 
 
@@ -39,7 +41,6 @@ import AllExams from './pages/AllExamsPage/AllExams';
 import ViewExam from './pages/AllExamsPage/ViewExam/ViewExam';
 import Exam from './pages/AllExamsPage/ExamPage/Exam'
 import AddQuestion from './pages/AddQuizQuestionsPage/AddQuestion';
-import Markdown from "./Scripts/ProfessorFolder/MarkdownPage/Markdown";
 
 
 
@@ -76,8 +77,9 @@ function App(): JSX.Element {
       <Route path="/CreateExamQuestions" element={<CreateExamQuestions />} />
       <Route path="/ViewExam" element={<ViewExam />} />
       <Route path="/Exam" element={<Exam />} />
-      <Route path="/Markdown" element={<Markdown />} />
+      <Route path="/CreateMaterial" element={<CreateMaterial />} />
       <Route path="/ViewMaterial" element={<ViewMaterial />} />
+      <Route path="/UpdateMaterial" element={<UpdateMaterial />} />
     </Routes>
   );
 }

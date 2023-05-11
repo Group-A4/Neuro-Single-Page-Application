@@ -6,8 +6,7 @@ import styles from './Body.module.css';
 
 const ViewLessonMaterials: React.FC<{}> = () => {
 
-  const material = GetMaterialById(73);
-  console.log(material.html);
+  const material = GetMaterialById(75);
 
     return (
         <>

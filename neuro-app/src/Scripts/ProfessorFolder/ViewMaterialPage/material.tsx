@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 interface Material {
   id: number;
   title: string;
+  markdownText: string;
   html: string;
 }
 
@@ -10,6 +11,7 @@ const GetMaterialById = (id: number): Material => {
   const [material, setMaterial] = useState<Material>({
     id: 0,
     title: '',
+    markdownText: '',
     html: '',
   });
 
@@ -25,10 +27,8 @@ const GetMaterialById = (id: number): Material => {
     fetchData();
   }, [id]);
 
-  console.log(material);
-
   if (!material) {
-    return { id: 0, title: '', html: '' };
+    return { id: 0, title: '', markdownText: '', html: '' };
   }
 
   return material;
