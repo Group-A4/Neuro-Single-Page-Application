@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styles from './Body.module.css';
+import Nav from '../nav/Nav';
 
 type Props = {
   id_course: string;
@@ -30,22 +31,24 @@ const ViewLessonMaterials: React.FC<Props> = ({ id_course }) => {
     
   return (
     <>
+    <Nav />
       <body className={styles['body']}>
-        <div className={styles['body--text']}>View lecture materials</div>
+        <div className={styles['body--text']}><p className={styles["p-style"]}>View <span className={styles['body--text2']}>lecture </span> materials</p></div>
         <div className={styles['body--content']}>
-          <ul>
+        <ol className={styles['scrollable-list']}>
             {materials.map((material) => (
-              <li key={material.id}>
-                <a href={material.html} target="_blank" rel="noopener noreferrer">
+              <li key={material.id} className={styles["li-style"]}>
+                <a href="http://localhost:3000/ViewMaterial" target="_blank" rel="noopener noreferrer">
                   {material.title}
                 </a>
               </li>
             ))}
-          </ul>
+          </ol>
         </div>
       </body>
     </>
   );
 };
+
 
 export default ViewLessonMaterials;

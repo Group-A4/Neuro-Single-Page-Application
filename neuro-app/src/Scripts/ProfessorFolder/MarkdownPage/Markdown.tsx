@@ -99,7 +99,7 @@ const Markdown = () =>{
                 <ContentList professorId={53} />
                 <form className={styles['markdown-form']} onSubmit={handleSubmit}>
                     <label className={styles['title-lable']}>
-                        <p>Titlul materialului:</p>
+                        <p className={styles.p}>Titlul materialului:</p>
                         <input
                             className={styles['title-input']}
                             type="area"
@@ -110,7 +110,7 @@ const Markdown = () =>{
                         />
                     </label>
                     <label className={styles['markdown-label']}>
-                        <p>Markdown:</p>
+                        <p className={styles.p}>Markdown:</p>
                         <textarea
                             className={styles['markdown-textarea']}
                             name="markdownText"

@@ -101,3 +101,48 @@ li:first-child {
     --container-height: 535px;
   }
 }
+
+
+@media screen and (max-width: 700px) {
+  .div{
+    width: 34%;
+    margin-left: -5%;
+  }
+
+  .list{
+    width: 98%;
+  }
+
+  .h2{
+    font-size: 1rem;
+  }
+
+  .list ul li a {
+    font-size: 0.9rem;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  :root {
+    --container-height: 470px;
+  }
+  .h2{
+    font-size: 0.9rem;
+  }
+}
+
+
+
+@media screen and (max-width: 350px) {
+  .list ul li a {
+    font-size: 0.7rem;
+  }
+  .h2{
+    font-size: 0.8rem;
+  }
+
+  .list ul li {
+    margin-left: -10%;
+  }
+  
+}
