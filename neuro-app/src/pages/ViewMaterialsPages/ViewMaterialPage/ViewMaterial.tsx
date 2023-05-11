@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { GetMaterialById } from './material';
 import Nav from '../../../components/nav/Nav';
 import styles from './Body.module.css';
+import { Link } from 'react-router-dom';
 
 const ViewLessonMaterials: React.FC<{}> = () => {
 
@@ -19,7 +20,11 @@ const ViewLessonMaterials: React.FC<{}> = () => {
                         <div className={styles['body--text']}>{material.title}</div>
                         <div className={styles['text']} dangerouslySetInnerHTML={{ __html: material.html }} />
                     </div>
-                    <span className={styles.dot}></span>
+                    <div>
+                    <Link to={`/ViewLessonMaterials?id_course=5`} className={styles["bn11"]}>
+                        Back
+                    </Link>
+                    </div>
                 </div>
 
             </body>
