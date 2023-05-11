@@ -1,6 +1,6 @@
 import React from 'react'
 import Nav from '../NavBarStudent/Nav';
-import styles from './Body.module.css';
+import styles from './ResultExamPage.module.css';
 import { Link } from 'react-router-dom';
 import CongratsIcon from "./Images/fireworks.svg";
 
