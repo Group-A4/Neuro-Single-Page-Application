@@ -86,6 +86,16 @@ Body {
     font-style: italic;
     font-weight: bold;
 }
+.yourScore {
+    margin-top: -1rem;
+    margin-right: 2rem;
+    border-radius: 10px;
+    font-size: 1.5rem;
+    padding-left: 1em;
+    color: #C49C60;
+    font-style: italic;
+    font-weight: bold;
+}
 
 
 .messageBox {

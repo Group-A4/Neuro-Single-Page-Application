@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import Nav from '../NavBarStudent/Nav';
 import './QuestionMockExamPage.css';
-import { Link } from 'react-router-dom';
 import Frame from '../Components/Frame';
 
 interface QuizQuestion {
@@ -10,6 +9,7 @@ interface QuizQuestion {
   idProfessor: number;
   questionText: string;
   answersQuestion: QuizAnswer[];
+  score: string;  
 }
 
 interface QuizAnswer {
@@ -25,6 +25,7 @@ const Body: React.FC<{}> = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const currentQuestion = questions[currentQuestionIndex];
   const [selectedChoices, setSelectedChoices] = useState<{ [key: number]: boolean }>({});
+  const navigate = useNavigate();  
 
   const handleNextQuestion = () => {
     setCurrentQuestionIndex(currentQuestionIndex + 1);
@@ -34,63 +35,70 @@ const Body: React.FC<{}> = () => {
     setCurrentQuestionIndex(currentQuestionIndex - 1);
   };
 
- const handleChoiceSelect = (id: number) => {
-  const newSelectedChoices = { ...selectedChoices };
-  newSelectedChoices[id] = !newSelectedChoices[id];
-  setSelectedChoices(newSelectedChoices);
-  const currentQuestion = questions[currentQuestionIndex];
-  currentQuestion.answersQuestion.forEach((answer) => {
-    if (answer.id === id) {
-      answer.chosen = !answer.chosen;
-    }
-  });
-};
-
-
+  const handleChoiceSelect = (id: number) => {
+    const newSelectedChoices = { ...selectedChoices };
+    newSelectedChoices[id] = !newSelectedChoices[id];
+    setSelectedChoices(newSelectedChoices);
+    const currentQuestion = questions[currentQuestionIndex];
+    currentQuestion.answersQuestion.forEach((answer) => {
+      if (answer.id === id) {
+        answer.chosen = !answer.chosen;
+      }
+    });
+  };
 
   const handleFinishMockExam = () => {
-    let totalQuestions = 0;
-    let correctAnswers = 0;
+  let totalQuestions = 0;
+  let correctAnswers = 0;
 
-    questions.forEach((question) => {
-      let correctCount = 0;
-      let chosenCount = 0;
+  questions.forEach((question) => {
+    let correctCount = 0;
+    let chosenCount = 0;
 
-      question.answersQuestion.forEach((answer) => {
-        if (answer.correct) {
-          correctCount++;
-          if (answer.chosen) {
-            chosenCount++;
-          }
-        } else {
-          if (answer.chosen) {
-            chosenCount--;
-          }
-        }
-      });
-
-      if (correctCount > 0) {
-        totalQuestions++;
-        if (chosenCount > 0) {
-          correctAnswers += Math.max(chosenCount, 0) / correctCount;
+    question.answersQuestion.forEach((answer) => {
+      if (answer.correct) {
+        correctCount++;
+        if (answer.chosen) {
+          chosenCount++;
         }
       } else {
-        totalQuestions++;
-        if (chosenCount === 0) {
-          correctAnswers += 1;
+        if (answer.chosen) {
+          chosenCount--;
         }
       }
     });
 
-    const grade = totalQuestions > 0 ? (correctAnswers / totalQuestions) * 100 : 0;
-    const formattedGrade = grade.toFixed(2);
-    console.log(`Grade: ${formattedGrade}%`);
+    if (correctCount > 0) {
+      totalQuestions++;
+      if (chosenCount > 0) {
+        correctAnswers += Math.max(chosenCount, 0) / correctCount;
+      }
+    } else if (chosenCount === 0) {
+      totalQuestions++;
+      correctAnswers += 1;
+    }
+   const score = correctCount === 0 && chosenCount === 0 ? 1 : Math.max(chosenCount, 0) / correctCount;
+    question.score = score.toFixed(2);
+  });
+
+  const grade = totalQuestions > 0 ? (correctAnswers / totalQuestions) * 100 : 0;
+  const formattedGrade = grade.toFixed(2);
+
+  // Pass the questions and grade data as state to the ResultMockExam page
+  const state = {
+    questions,
+    grade: formattedGrade,
   };
+
+  // Navigate to the ResultMockExam page with the state
+  navigate('/ResultMockExam', { state });
+};
+
 
   const apiUrl = 'http://localhost:8192/quizz/course=';
   const completeUrl = `${apiUrl}${courseId}`;
 
-  useEffect(() => {
+   useEffect(() => {
     const fetchQuestions = async () => {
       const response = await fetch(completeUrl);
       const data = await response.json();
@@ -112,9 +120,8 @@ const Body: React.FC<{}> = () => {
 
           <div className="questionAnswers">
             <ul>
-              
               {currentQuestion.answersQuestion.map((answer) => (
-                <li  key={`${answer.id}`} className="choice">
+                <li key={`${answer.id}`} className="choice">
                   <label>
                     <input
                       type="checkbox"
@@ -146,9 +153,7 @@ const Body: React.FC<{}> = () => {
 
         <button
           onClick={
-            currentQuestionIndex < questions.length - 1
-              ? handleNextQuestion
-              : handleFinishMockExam
+            currentQuestionIndex < questions.length - 1 ? handleNextQuestion : handleFinishMockExam
           }
         >
           {currentQuestionIndex === questions.length - 1 ? (
@@ -172,3 +177,4 @@ function Question() {
 }
 
 export default Question;
+
