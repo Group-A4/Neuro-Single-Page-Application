@@ -1,14 +1,11 @@
 import React from 'react'
 import Nav from '../NavBarStudent/Nav';
 import styles from './ResultExamPage.module.css';
-import { Link } from 'react-router-dom';
-import CongratsIcon from "./Images/fireworks.svg";
 
 const Body: React.FC<{}> = () => {
     return (
-
         <>
-            <div className={styles['body--title']}>
+            <div className={styles['title']}>
                 This exam has ended!
             </div>        
         </>
@@ -17,12 +14,12 @@ const Body: React.FC<{}> = () => {
 
 const ExamResult: React.FC<{}> = () => {
     return (
-        <>
-            <body className={styles['body']}>
-                <Nav />
-                <Body />
-            </body>
-        </>
+      <>
+        <body className={styles["body"]}>
+          <Nav />
+          <Body />
+        </body>
+      </>
     );
 }
 

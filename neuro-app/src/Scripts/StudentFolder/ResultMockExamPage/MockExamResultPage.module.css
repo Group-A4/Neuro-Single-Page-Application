@@ -4,7 +4,6 @@ Body {
 
 .headingTitle {
     min-height: 5%;
-    position: fixed;
     width: 100%;
     height: auto;
 
@@ -12,7 +11,6 @@ Body {
     padding-bottom: 0.2em;
 
     margin-top: 1em;
-    position: relative;
     text-align: center;
     justify-content: center;
 
@@ -25,10 +23,6 @@ Body {
     /* text-decoration: underline; */
     font-style: italic;
     color: #efcb94;
-}
-
-.headingTitle h2{
-
 }
 
 .questionPart{
@@ -86,6 +80,16 @@ Body {
     font-style: italic;
     font-weight: bold;
 }
+.yourScore {
+    margin-top: -1rem;
+    margin-right: 2rem;
+    border-radius: 10px;
+    font-size: 1.5rem;
+    padding-left: 1em;
+    color: #C49C60;
+    font-style: italic;
+    font-weight: bold;
+}
 
 
 .messageBox {
@@ -114,7 +118,6 @@ Body {
     background-color: #002F35;
     border-radius: 7px;
     font-size: 2.5em;
-    font-family: Open Sans;
     font-weight: bold;
     padding-left: 2%;
     padding-right: 2%;
