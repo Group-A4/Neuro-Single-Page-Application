@@ -1,10 +1,9 @@
 import React from 'react'
-import styles from './Body.module.css';
-import { Link } from "react-router-dom";
+import '../ResultMockExamPage/MockExamResultPage.css';
 
 const Message:React.FC<{}> = () => {
     return(
-        <div className={styles['message']}> 
+        <div className="message"> 
             <p>You are able to see your answers to this mock exam only now. After leaving this page you will no longer have access to the history of your answers to this test!</p>
         </div>
     )

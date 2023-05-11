@@ -7,7 +7,7 @@ import Create from "./Scripts/AdminFolder/CreateAccount";
 import Login from "./Scripts/LoginFolder/Login";
 import Admin from "./Scripts/AdminFolder/AdminPageRender";
 import Student from "./Scripts/StudentFolder/HomePage/StudentHomePage";
-import ResultMockExam from "./Scripts/StudentFolder/ResultMockExamPage/ResultPage";
+import ResultMockExam from "./Scripts/StudentFolder/ResultMockExamPage/MockExamResultPage";
 import TakeAMockExam from "./Scripts/StudentFolder/TakeAMockExam/TakeAMockExamPage";
 import Question from "./Scripts/StudentFolder/QuestionMockExamPage/QuestionMockExamPage";
 import MyResults from "./Scripts/StudentFolder/MyResults/MyResultsPage";
@@ -16,12 +16,6 @@ import QuestionTextPage from "./Scripts/StudentFolder/QuestionTextPage/QuestionT
 import ViewMyExamAnswers from "./Scripts/StudentFolder/ViewMyExamAnswersPage/ViewMyExamAnswers";
 import ResultExam from "./Scripts/StudentFolder/ResultExamPage/ResultPage";
 import { Routes, Route } from "react-router-dom";
-
-
-
-
-
-
 
 
 import Home from "./Scripts/ProfessorFolder/pages/HomePage/Home";
@@ -39,8 +33,6 @@ import AllExams from "./Scripts/ProfessorFolder/pages/AllExamsPage/AllExams";
 import ViewExam from "./Scripts/ProfessorFolder/pages/AllExamsPage/ViewExam/ViewExam";
 import Exam from "./Scripts/ProfessorFolder/pages/AllExamsPage/ExamPage/Exam";
 import AddQuestion from './Scripts/ProfessorFolder/pages/AddQuizQuestionsPage/AddQuestion';
-
-
 
 
 function App(): JSX.Element {
