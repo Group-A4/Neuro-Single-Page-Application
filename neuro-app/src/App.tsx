@@ -14,7 +14,7 @@ import MyResults from "./Scripts/StudentFolder/MyResults/MyResultsPage";
 import CodeExam from "./Scripts/StudentFolder/CodeExamPage/CodeExamPage";
 import QuestionTextPage from "./Scripts/StudentFolder/QuestionTextPage/QuestionTextPage";
 import ViewMyExamAnswers from "./Scripts/StudentFolder/ViewMyExamAnswersPage/ViewMyExamAnswers";
-import ResultExam from "./Scripts/StudentFolder/ResultExamPage/ResultPage";
+import ResultExam from "./Scripts/StudentFolder/ResultExamPage/ResultExamPage";
 import { Routes, Route } from "react-router-dom";
 
 
