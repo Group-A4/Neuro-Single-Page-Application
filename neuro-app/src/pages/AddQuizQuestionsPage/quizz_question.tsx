@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './Body.module.css';
 import Header from './header';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 interface Answer {
   idQuestion: number;
@@ -24,7 +24,19 @@ const Quizz_question: React.FC<{}> = () => {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [successMessageVisible, setSuccessMessageVisible] = useState(false);
 
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (successMessageVisible) {
+      const redirectTimeout = setTimeout(() => {
+        setSuccessMessageVisible(false);
+        navigate('/AllQuestions'); // Efectuăm redirecționarea către '/AllQuestions'
+      }, 3000);
 
+      return () => {
+        clearTimeout(redirectTimeout);
+      };
+    }
+  }, [successMessageVisible, navigate]);
 
   const addQuestion = () => {
     const newQuestion: Question = {
@@ -136,7 +148,10 @@ const Quizz_question: React.FC<{}> = () => {
 
       setTimeout(() => {
         setSuccessMessageVisible(false);
-      }, 3000);
+        if (results.length > 0) {
+          navigate('/AllQuestions');
+        }
+      }, 1000);
 
     } catch (error) {
       console.error(error);
@@ -231,7 +246,8 @@ const Quizz_question: React.FC<{}> = () => {
 
       </div>
 
-      {successMessageVisible && <div className={styles.successMessage}>Questions saved successfully!</div>}
+      {successMessageVisible && <div className={styles.successMessage}>
+        Questions successfully saved waiting to be redirected!</div>}
     </form>
   );
 };

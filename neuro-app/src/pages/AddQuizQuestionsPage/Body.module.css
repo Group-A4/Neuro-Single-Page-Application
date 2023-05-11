@@ -317,27 +317,27 @@ body .removea
     flex-direction: column;
 }
 
-  .button--create {
-      background-color: #6AFFC7;
+.button--create {
+    background-color: #6AFFC7;
 
-      text-align: center;
-      font-size: calc(10px + 0.8vw);
-      align-self:flex-end;
+    text-align: center;
+    font-size: calc(10px + 0.8vw);
+    align-self:flex-end;
 
-      margin-top:5%;
-      margin-right: 10%;
+    margin-top:1%;
+    margin-right: 10%;
 
-      width: fit-content;
+    width: fit-content;
 
-      padding: 0.8vw;
-      padding-left: 2.0vw;
-      padding-right: 2.0vw;
+    padding: 0.8vw;
+    padding-left: 2.0vw;
+    padding-right: 2.0vw;
 
-      border-radius: 20px;
-      border-width: 0.2vh;
-      border-color: black;
-      font-weight: bold;
-  }
+    border-radius: 20px;
+    border-width: 0.2vh;
+    border-color: black;
+    font-weight: bold;
+}
 
   .button--create:hover {
       background-color: #9dffd9;
