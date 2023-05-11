@@ -13,17 +13,13 @@ const ViewLessonMaterials: React.FC<{}> = () => {
         <>
             <Nav />
             <body className={styles['body']}>
-                <div className={styles['body--text']}>
-                    View lecture materials
-                </div>
 
                 <div className={styles['body--content']}>
-                    <div className={styles['body--content--title']}>
-                        {material.title}
-                    </div>
                     <div className={styles['body--content--description']}>
-                        <div dangerouslySetInnerHTML={{ __html: material.html }} />
+                        <div className={styles['body--text']}>{material.title}</div>
+                        <div className={styles['text']} dangerouslySetInnerHTML={{ __html: material.html }} />
                     </div>
+                    <span className={styles.dot}></span>
                 </div>
 
             </body>
