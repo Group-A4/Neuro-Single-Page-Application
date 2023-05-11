@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Nav from "../NavBarStudent/Nav";
 import styles from './MockExamResultPage.module.css';
-import CongratsIcon from "./Images/fireworks.svg";
 import ButtonTakeAnotherExam from "../Components/ButtonTakeAnotherExam";
 import Message from "../Components/MessageBox";
 import { useLocation } from 'react-router-dom';
