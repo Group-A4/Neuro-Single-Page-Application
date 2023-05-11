@@ -1,136 +1,238 @@
-import React from 'react'
-import { useState } from "react";
-import styles from './Body.module.css'
-import Header from './header'
-//import { Link } from "react-router-dom";
-type Question = {
-  text: string;
-  answers: { text: string, isCorrect: boolean }[];
-  time: number;
-  dificulty: number;
-  l: boolean;
+import React, { useState } from 'react';
+import styles from './Body.module.css';
+import Header from './header';
+import { Link } from 'react-router-dom';
+
+interface Answer {
+  idQuestion: number;
+  answerText: string;
+  correct: boolean;
 }
 
+interface Question {
+  id: number;
+  questionText: string;
+  difficulty: number;
+  timeMinutes: number;
+  lectureNumber: number;
+  idCourse: number;
+  idProfessor: number;
+  answersQuestion: Answer[];
+}
 
 const Quizz_question: React.FC<{}> = () => {
-  
   const [questions, setQuestions] = useState<Question[]>([]);
   const [successMessageVisible, setSuccessMessageVisible] = useState(false);
-  
-  const addQuestion=() => {
-    setQuestions([...questions, { text: 'Type question here', answers: [{ text: '', isCorrect: false }], time: 0,dificulty:0, l:false}]);
+
+
+
+  const addQuestion = () => {
+    const newQuestion: Question = {
+      id: questions.length + 1,
+      questionText: '',
+      difficulty: 0,
+      timeMinutes: 0,
+      lectureNumber: 2,
+      idCourse: 4,
+      idProfessor: 57,
+      answersQuestion: [],
+    };
+    setQuestions((prevQuestions) => [...prevQuestions, newQuestion]);
   };
 
- 
   const addAnswer = (questionIndex: number) => {
     const newQuestions = [...questions];
-    newQuestions[questionIndex].answers.push({ text: '', isCorrect: false});
+    const newAnswer: Answer = {
+      idQuestion: newQuestions[questionIndex].id,
+      answerText: '',
+      correct: false,
+    };
+    newQuestions[questionIndex].answersQuestion.push(newAnswer);
     setQuestions(newQuestions);
   };
 
-  
   const handleQuestionTextChange = (event: React.ChangeEvent<HTMLInputElement>, questionIndex: number) => {
-    const newQuestions = [...questions];
-    newQuestions[questionIndex].text = event.target.value;
-    setQuestions(newQuestions);
+    setQuestions((prevQuestions) => {
+      const newQuestions = [...prevQuestions];
+      newQuestions[questionIndex].questionText = event.target.value;
+      return newQuestions;
+    });
   };
 
+  const handleAnswerTextChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    questionIndex: number,
+    answerIndex: number
+  ) => {
+    setQuestions((prevQuestions) => {
+      const newQuestions = [...prevQuestions];
+      newQuestions[questionIndex].answersQuestion[answerIndex].answerText = event.target.value;
+      return newQuestions;
+    });
+  };
 
-  const handleAnswerTextChange = (event: React.ChangeEvent<HTMLInputElement>, questionIndex: number, answerIndex: number) => {
-    const newQuestions = [...questions];
-    newQuestions[questionIndex].answers[answerIndex].text = event.target.value;
-    setQuestions(newQuestions);
+  const handleAnswerCheckboxChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    questionIndex: number,
+    answerIndex: number
+  ) => {
+    setQuestions((prevQuestions) => {
+      const newQuestions = [...prevQuestions];
+      newQuestions[questionIndex].answersQuestion[answerIndex].correct = event.target.checked;
+      return newQuestions;
+    });
   };
 
  
-  const handleAnswerCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>, questionIndex: number, answerIndex: number) => {
-    const newQuestions = [...questions];
-    newQuestions[questionIndex].answers[answerIndex].isCorrect = event.target.checked;
-    setQuestions(newQuestions);
-  };
-
-
   const removeQuestion = (questionIndex: number) => {
-    const newQuestions = [...questions];
-    newQuestions.splice(questionIndex, 1);
-    setQuestions(newQuestions);
+    setQuestions((prevQuestions) => {
+      const newQuestions = [...prevQuestions];
+      newQuestions.splice(questionIndex, 1);
+      return newQuestions;
+    });
   };
 
- 
   const removeAnswer = (questionIndex: number, answerIndex: number) => {
-    const newQuestions = [...questions];
-    newQuestions[questionIndex].answers.splice(answerIndex, 1);
-    setQuestions(newQuestions);
+    setQuestions((prevQuestions) => {
+      const newQuestions = [...prevQuestions];
+      newQuestions[questionIndex].answersQuestion.splice(answerIndex, 1);
+      return newQuestions;
+    });
   };
 
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     setSuccessMessageVisible(true);
-    // hide the success message after 3 seconds
-    setTimeout(() => {
-      setSuccessMessageVisible(false);
-    }, 3000);
+
+    // Verificăm dacă există întrebări completate
+    const completedQuestions = questions.filter(
+      (question) => question.questionText.trim() !== '' && question.answersQuestion.length > 0
+    );
+
+    if (completedQuestions.length === 0) {
+      // Afisăm un mesaj de eroare sau luăm măsuri corespunzătoare
+      console.error('Trebuie completate cel puțin o întrebare cu răspunsuri');
+      return;
+    }
+
+    try {
+      const promises = questions.map(async (question) => {
+        const response = await fetch('http://localhost:8192/questionQuizz/create', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(question),
+        });
+
+        if (!response.ok) {
+          throw new Error('Răspunsul serverului a fost incorect');
+        }
+
+        return response.json();
+      });
+
+      const results = await Promise.all(promises);
+
+      setTimeout(() => {
+        setSuccessMessageVisible(false);
+      }, 3000);
+
+    } catch (error) {
+      console.error(error);
+    }
   };
 
+  const setTime = (questionIndex: number, value: number) => {
+    const newQuestions = [...questions];
+    newQuestions[questionIndex].timeMinutes = value;
+    setQuestions(newQuestions);
+  };
 
-    const setTime=(questionIndex: number, value: number) => {
-        const newQuestions = [...questions];
-        newQuestions[questionIndex].time = value;
-        setQuestions(newQuestions);
-    }
-    
-    const setDifficulty = (questionIndex: number, value: number) => {
-      const newQuestions = [...questions];
-      newQuestions[questionIndex].dificulty = value;
-      setQuestions(newQuestions);
-    };
-
+  const setDifficulty = (questionIndex: number, value: number) => {
+    const newQuestions = [...questions];
+    newQuestions[questionIndex].difficulty = value;
+    setQuestions(newQuestions);
+  };
 
   return (
     <form onSubmit={handleSubmit}>
-          <div className={styles['body--second_text']}>
-        Enter the question and the answer options, ticking the correct answers.<br/>
-        Determine the difficulty and time of the question.</div>
+      <div className={styles['body--second_text']}>
+        Enter the question and the answer options, ticking the correct answers.<br />
+        Determine the difficulty and time of the question.
+      </div>
       {questions.map((question, questionIndex) => (
-        <div key={questionIndex}>
-          {!question.l &&
+        <div key={question.id}>
           <div className={styles['box']}>
-          <Header time={question.time}  difficulty={question.dificulty}  setTime={(newTime) => setTime(questionIndex, newTime)}
-  setDifficulty={(newDifficulty) => setDifficulty(questionIndex, newDifficulty)}/>
-          <label>
-            <input type="text" value={question.text || "Type question here "} className={styles.quest} onChange={(event) => handleQuestionTextChange(event, questionIndex)} />
-          </label>
-          <button type="button" onClick={() => removeQuestion(questionIndex)} className={styles.removeq}>Remove </button>
-          <div>
-            {question.answers.map((answer, answerIndex) => (
-              <div key={answerIndex}>
-                <label className={styles.lb}>
-                <input type="checkbox" checked={answer.isCorrect} className={styles.check} onChange={(event) => handleAnswerCheckboxChange(event, questionIndex, answerIndex)} />
-                <input type="text" value={answer.text || "Answer choice"} className={styles.answ} onChange={(event) => handleAnswerTextChange(event, questionIndex, answerIndex)} />
-                <button type="button" onClick={() => removeAnswer(questionIndex, answerIndex)} className={styles.removea}> Remove</button> </label>
+            <Header
+              time={question.timeMinutes}
+              difficulty={question.difficulty}
+              setTime={(newTime) => setTime(questionIndex, newTime)}
+              setDifficulty={(newDifficulty) => setDifficulty(questionIndex, newDifficulty)}
+            />
+            <label>
+              <input
+                type="text"
+                value={question.questionText}
+                placeholder="Type question here"
+                className={styles.quest}
+                onChange={(event) => handleQuestionTextChange(event, questionIndex)}
+              />
+            </label>
+            <button type="button" onClick={() => removeQuestion(questionIndex)} className={styles.removeq}>
+              Remove
+            </button>
+            <div>
+              {question.answersQuestion.map((answer, answerIndex) => (
+                <div key={answer.idQuestion}>
+                  <label className={styles.lb}>
+                    <input
+                      type="checkbox"
+                      checked={answer.correct}
+                      className={styles.check}
+                      onChange={(event) => handleAnswerCheckboxChange(event, questionIndex, answerIndex)}
+                    />
+                    <input
+                      type="text"
+                      value={answer.answerText}
+                      placeholder="Answer choice"
+                      className={styles.answ}
+                      onChange={(event) => handleAnswerTextChange(event, questionIndex, answerIndex)}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => removeAnswer(questionIndex, answerIndex)}
+                      className={styles.removea}
+                    >
+                      Remove
+                    </button>
+                  </label>
                 </div>
-            ))}
-            <button type="button" onClick={() => addAnswer(questionIndex)} className={styles.addansw}>+ Add answer</button>
+              ))}
+              <button type="button" onClick={() => addAnswer(questionIndex)} className={styles.addansw}>
+                + Add answer
+              </button>
+            </div>
           </div>
-          </div>
-        }
-        {question.l &&
-         <div className={styles['box']}>
-         <Header time={question.time}  difficulty={question.dificulty}  setTime={(newTime) => setTime(questionIndex, newTime)}
- setDifficulty={(newDifficulty) => setDifficulty(questionIndex, newDifficulty)}/>
-         <label>
-           <input type="text" value={question.text || "Type question here "} className={styles.quest} onChange={(event) => handleQuestionTextChange(event, questionIndex)} />
-         </label>
-         <button type="button" onClick={() => removeQuestion(questionIndex)} className={styles.removeq}>Remove </button>
-         </div>
-
-        }
-           </div> 
+        </div>
       ))}
-        <button type="button" className={styles.addquest} onClick={addQuestion}>+ Add Multiple Choice</button>
+
+      <div className={styles['buttons--container']}>
+
+
+
+        <button type="button" className={styles.addquest} onClick={addQuestion}>
+          + Add Multiple Choice
+        </button>
+
+        <button type="submit" className={styles['button--create']}>
+          Save and Exit
+        </button>
+
+      </div>
+
+      {successMessageVisible && <div className={styles.successMessage}>Questions saved successfully!</div>}
     </form>
   );
 };
-  
-  export default Quizz_question;
+export default Quizz_question;

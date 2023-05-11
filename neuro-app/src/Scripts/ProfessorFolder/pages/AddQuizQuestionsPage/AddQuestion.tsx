@@ -1,9 +1,9 @@
 import React from 'react'
+import Nav from '../../components/nav/Nav';
 import styles from './Body.module.css';
 import Quizz_question from './quizz_question';
  import { Link } from "react-router-dom";
 import ButtonSaveExit from '../../components/buttonSaveAndExit/ButtonAddQuestion';
-import Nav from '../../components/nav/Nav';
 // import { Link } from 'react-router-dom';
 
 
@@ -16,7 +16,11 @@ const Body: React.FC<{}> = () => {
                 <div className={styles['body--title']}>
                         Course title
                 </div>
-                    <Link to='/AllQuestions'> <ButtonSaveExit />    </Link>
+                {/* <Link to='/AllQuestions'>         
+                    <button type="submit" className={styles['button--create']} >
+                        Save and Exit
+                    </button>     
+                </Link> */}
 
                 
             </div>
@@ -38,5 +42,4 @@ const AddQuestion: React.FC<{}> = () => {
         </>
     );
 }
-
 export default AddQuestion;

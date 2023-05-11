@@ -64,6 +64,7 @@
     padding-top:1%;
     margin-top: 2%;
     padding-bottom: 7%;
+    -webkit-font-smoothing:none;
 }
 
 body .quest
@@ -81,8 +82,9 @@ body .quest
 }
 body .removeq
 {
+font-weight: bold;
  margin-left: 4%;
- background-color: #6AFFC7;
+ background-color: #ff5151;
  font-size:1.2vi;
  padding-top: 0.5%;
 padding-bottom: 0.5%;
@@ -92,7 +94,7 @@ cursor: pointer;
  padding: 1%
 }
 body .removeq:hover{
-    background-color:#5a5757;
+    background-color: #ff7070;
 }
 body .answ
 {
@@ -109,30 +111,32 @@ body .answ
 }
 .body .addansw
 {
+    white-space: nowrap;
     background-color: #F5E0BF;
     margin-top:2%;
     margin-left:14%;
-    font-size: 1.5vi;
+    font-size: calc(10px + 0.8vw);
     padding-top: 0.5%;
     padding-bottom: 0.5%;
-    width: 20%;
+    width: fit-content;
     border-radius: 10px;
-    border-width: 1px;
+    border-width: 0.2vh;
     border-color: black;
     
 }
 .body .addquest
 {
-
+    white-space:nowrap;
     background-color:#F5E0BF;
     margin-top:7%;
-    margin-left:40%;
-    font-size: 1.5vi;
+    align-self: center;
+    font-size: calc(10px + 0.8vw);
+    padding: 5%;
     padding-top: 0.5%;
     padding-bottom: 0.5%;
-    width: 25%;
+    width: fit-content;
     border-radius: 10px;
-    border-width: 1px;
+    border-width: 0.2vh;
     border-color: black;
 }
 
@@ -182,7 +186,8 @@ body .answ
 body .removea
 {
  margin-left: 5%;
- background-color: #6AFFC7;
+ font-weight: bold;
+background-color: #ff5151;
  font-size:1.2vi;
  padding-top: 1%;
  padding-bottom: 1%;
@@ -194,11 +199,15 @@ body .removea
  padding: 1%;
 }
 body .removeq:hover{
-        background-color: #b1ffe1;
+        background-color: #ff7070;
 }
-.addansw:hover, .addquest:hover, .removea:hover
+body .removea:hover {
+    background-color: #ff7070;
+}
+
+.addansw:hover, .addquest:hover
 {
-    background-color: #b1ffe1;
+    background-color: #f6e7ce;
 }
 .mess {
     background-color:#5a5757;
@@ -261,7 +270,6 @@ body .removeq:hover{
 body .removeq
 {
  margin-left: 5%;
- background-color: #6AFFC7;
  font-size:1.4vi;
  padding-top: 0.5%;
 padding-bottom: 0.5%;
@@ -285,7 +293,6 @@ body .answ
 body .removea
 {
  margin-left: 5%;
- background-color: #6AFFC7;
  font-size:1.5vi;
  padding-top: 0.5%;
  padding-bottom: 0.5%;
@@ -305,3 +312,38 @@ body .removea
     accent-color: green;
 }
   }
+
+.buttons--container{
+    display:flex;
+    flex-direction: column;
+}
+
+  .button--create {
+      background-color: #6AFFC7;
+
+      text-align: center;
+      font-size: calc(10px + 0.8vw);
+      align-self:flex-end;
+
+      margin-top:5%;
+      margin-right: 10%;
+      width: fit-content;
+      padding: 0.8vw;
+      padding-left: 2.0vw;
+      padding-right: 2.0vw;
+      border-radius: 20px;
+      border-width: 0.2vh;
+      border-color: black;
+      font-weight: bold;
+  }
+
+  .button--create:hover {
+      background-color: #9dffd9;
+  }
+
+.successMessage{
+    font-size: calc(10px + 0.8vw);
+    color: red;
+    align-self:  right;
+    margin-left: 10%;
+}
