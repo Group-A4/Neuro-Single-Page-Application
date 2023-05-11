@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import styles from './Body.module.css';
-import Header from './header';
+import React from 'react'
+import { useState } from "react";
+import styles from './Body.module.css'
+import Header from './header'
 import { Link } from 'react-router-dom';
-
+//import { Link } from "react-router-dom";
 interface Answer {
   idQuestion: number;
   answerText: string;
   correct: boolean;
 }
-
 interface Question {
   id: number;
   questionText: string;
@@ -20,30 +20,31 @@ interface Question {
   answersQuestion: Answer[];
 }
 
+
 const Quizz_question: React.FC<{}> = () => {
+  
   const [questions, setQuestions] = useState<Question[]>([]);
   const [successMessageVisible, setSuccessMessageVisible] = useState(false);
-
-
-
+  
   const addQuestion = () => {
     const newQuestion: Question = {
-      id: questions.length + 1,
+      id: 36,
       questionText: '',
       difficulty: 0,
       timeMinutes: 0,
       lectureNumber: 2,
-      idCourse: 4,
-      idProfessor: 57,
-      answersQuestion: [],
+      idCourse: 5,
+      idProfessor: 56,
+      answersQuestion: [{ idQuestion: 1, answerText: '', correct: false }],
     };
-    setQuestions((prevQuestions) => [...prevQuestions, newQuestion]);
+    setQuestions([...questions, newQuestion]);
   };
 
+ 
   const addAnswer = (questionIndex: number) => {
     const newQuestions = [...questions];
     const newAnswer: Answer = {
-      idQuestion: newQuestions[questionIndex].id,
+      idQuestion: newQuestions[questionIndex].id, // Asigurați-vă că id-ul întrebării este preluat corect
       answerText: '',
       correct: false,
     };
@@ -51,97 +52,53 @@ const Quizz_question: React.FC<{}> = () => {
     setQuestions(newQuestions);
   };
 
+  
   const handleQuestionTextChange = (event: React.ChangeEvent<HTMLInputElement>, questionIndex: number) => {
-    setQuestions((prevQuestions) => {
-      const newQuestions = [...prevQuestions];
-      newQuestions[questionIndex].questionText = event.target.value;
-      return newQuestions;
-    });
+    const newQuestions = [...questions];
+    newQuestions[questionIndex].questionText = event.target.value;
+    setQuestions(newQuestions);
   };
 
-  const handleAnswerTextChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-    questionIndex: number,
-    answerIndex: number
-  ) => {
-    setQuestions((prevQuestions) => {
-      const newQuestions = [...prevQuestions];
-      newQuestions[questionIndex].answersQuestion[answerIndex].answerText = event.target.value;
-      return newQuestions;
-    });
-  };
 
-  const handleAnswerCheckboxChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-    questionIndex: number,
-    answerIndex: number
-  ) => {
-    setQuestions((prevQuestions) => {
-      const newQuestions = [...prevQuestions];
-      newQuestions[questionIndex].answersQuestion[answerIndex].correct = event.target.checked;
-      return newQuestions;
-    });
-  };
+const handleAnswerTextChange = (event: React.ChangeEvent<HTMLInputElement>, questionIndex: number, answerIndex: number) => {
+  const newQuestions = [...questions];
+  newQuestions[questionIndex].answersQuestion[answerIndex].answerText = event.target.value;
+  setQuestions(newQuestions);
+};
 
  
+  const handleAnswerCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>, questionIndex: number, answerIndex: number) => {
+    const newQuestions = [...questions];
+    newQuestions[questionIndex].answersQuestion[answerIndex].correct = event.target.checked;
+    setQuestions(newQuestions);
+  };
+
+
   const removeQuestion = (questionIndex: number) => {
-    setQuestions((prevQuestions) => {
-      const newQuestions = [...prevQuestions];
-      newQuestions.splice(questionIndex, 1);
-      return newQuestions;
-    });
+    const newQuestions = [...questions];
+    newQuestions.splice(questionIndex, 1);
+    setQuestions(newQuestions);
   };
 
+
+ 
   const removeAnswer = (questionIndex: number, answerIndex: number) => {
-    setQuestions((prevQuestions) => {
-      const newQuestions = [...prevQuestions];
-      newQuestions[questionIndex].answersQuestion.splice(answerIndex, 1);
-      return newQuestions;
-    });
+    const newQuestions = [...questions];
+    newQuestions[questionIndex].answersQuestion.splice(answerIndex, 1);
+    setQuestions(newQuestions);
   };
 
-  const handleSubmit = async (event: React.FormEvent) => {
+
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setSuccessMessageVisible(true);
 
-    // Verificăm dacă există întrebări completate
-    const completedQuestions = questions.filter(
-      (question) => question.questionText.trim() !== '' && question.answersQuestion.length > 0
-    );
-
-    if (completedQuestions.length === 0) {
-      // Afisăm un mesaj de eroare sau luăm măsuri corespunzătoare
-      console.error('Trebuie completate cel puțin o întrebare cu răspunsuri');
-      return;
-    }
-
-    try {
-      const promises = questions.map(async (question) => {
-        const response = await fetch('http://localhost:8192/questionQuizz/create', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(question),
-        });
-
-        if (!response.ok) {
-          throw new Error('Răspunsul serverului a fost incorect');
-        }
-
-        return response.json();
-      });
-
-      const results = await Promise.all(promises);
-
-      setTimeout(() => {
-        setSuccessMessageVisible(false);
-      }, 3000);
-
-    } catch (error) {
-      console.error(error);
-    }
+    setTimeout(() => {
+      setSuccessMessageVisible(false);
+    }, 3000);
   };
+
 
   const setTime = (questionIndex: number, value: number) => {
     const newQuestions = [...questions];
@@ -149,11 +106,13 @@ const Quizz_question: React.FC<{}> = () => {
     setQuestions(newQuestions);
   };
 
+    
   const setDifficulty = (questionIndex: number, value: number) => {
     const newQuestions = [...questions];
     newQuestions[questionIndex].difficulty = value;
     setQuestions(newQuestions);
   };
+
 
   return (
     <form onSubmit={handleSubmit}>
@@ -173,8 +132,7 @@ const Quizz_question: React.FC<{}> = () => {
             <label>
               <input
                 type="text"
-                value={question.questionText}
-                placeholder="Type question here"
+                value={question.questionText ? question.questionText : "Type question here"}
                 className={styles.quest}
                 onChange={(event) => handleQuestionTextChange(event, questionIndex)}
               />
@@ -194,8 +152,7 @@ const Quizz_question: React.FC<{}> = () => {
                     />
                     <input
                       type="text"
-                      value={answer.answerText}
-                      placeholder="Answer choice"
+                      value={answer.answerText ? answer.answerText : "Answer choice"}
                       className={styles.answ}
                       onChange={(event) => handleAnswerTextChange(event, questionIndex, answerIndex)}
                     />
@@ -216,11 +173,6 @@ const Quizz_question: React.FC<{}> = () => {
           </div>
         </div>
       ))}
-
-      <div className={styles['buttons--container']}>
-
-
-
         <button type="button" className={styles.addquest} onClick={addQuestion}>
           + Add Multiple Choice
         </button>
@@ -229,10 +181,8 @@ const Quizz_question: React.FC<{}> = () => {
           Save and Exit
         </button>
 
-      </div>
-
-      {successMessageVisible && <div className={styles.successMessage}>Questions saved successfully!</div>}
     </form>
   );
 };
-export default Quizz_question;
+  
+  export default Quizz_question;
