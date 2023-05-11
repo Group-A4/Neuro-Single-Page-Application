@@ -43,9 +43,10 @@
 
 .body--subtitle--container > div{
 
-    margin-left: 2%;
+    margin-left: 5%;
     display: flex;
     margin-right: 5%;
+   
 
 }
 
@@ -95,7 +96,7 @@
 }
 .questionTitle
 {
-    
+    margin-block-start: 0;
     background-color: #002F35;
     color:white;
     font-size: calc(20px + 1.0vw);
@@ -221,3 +222,28 @@ h3{
     }
 
 } */
+.barInfo{
+    background-color: #C49C60;
+    font-weight: bold;
+    font-size: 20px;
+    padding:0.5%;
+    align-items: left;
+    display: flex;
+    justify-content: space-between;
+
+    
+}
+.timeDifficulty{
+    color: #002F35;
+    font-weight: bold;
+}
+.edit{
+    
+        background-color: white;
+        border-color:red;
+        border-width: 1%;
+        color:red;
+       font-size: 2vi;
+       margin-left:1%;
+       border-radius: 10px;
+    }
