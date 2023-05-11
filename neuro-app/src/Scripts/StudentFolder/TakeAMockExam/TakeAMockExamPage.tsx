@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 interface Course {
+  id: number;
   title: string;
   year: number;
   semester: number;
@@ -14,8 +15,8 @@ interface Course {
 const Body: React.FC<{}> = () => {
 
     const navigate = useNavigate();
-    const goToTakeExam = () => {
-        navigate('/QuestionMockExam'); 
+    const goToTakeExam = (courseId : number) => {
+        navigate(`/QuestionMockExam/${courseId}`); 
       };
 
     const [courses, setCourses] = useState<Course[]>([]);
@@ -52,7 +53,7 @@ const Body: React.FC<{}> = () => {
                     <div className={styles['course-title']}>
                         {course.title}
                     </div>
-                    <button onClick={goToTakeExam}>Start</button>
+                    <button  onClick={() => goToTakeExam(course.id)}>Start</button>
                   </div>
                 ))}
             </div>
