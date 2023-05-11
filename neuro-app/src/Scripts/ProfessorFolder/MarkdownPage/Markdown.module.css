@@ -42,10 +42,12 @@
     padding: 1rem;
     margin: 1rem;
     border-radius: 5px;
+    margin-top: 0%;
     box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
 }
 
 .markdown-textarea{
+    
     height: 50vh;
     width: 40vw;
     resize: none;
@@ -55,6 +57,7 @@
     padding: 1rem;
     margin: 1rem;
     border-radius: 5px;
+    margin-top: 0%;
     box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
 }
 
@@ -157,7 +160,7 @@
 
     .markdown-textarea{
         margin-top: -1%;
-        height: 40vh;
+        height: 42vh;
     }
 
     .markdown-label{
@@ -200,11 +203,158 @@
     }
   }
 
-  @media screen and (max-width: 900px) {
+@media screen and (max-width: 1350px) {
+    .button-27 {
+        width: 30%;
+      }
+    
+}
+
+@media screen and (max-width: 1400px) {
+
+    .title-input{
+        height: 2vh;
+        margin-top: -1%;
+        width: 30vw;
+    }
+
+    .markdown-textarea{
+        margin-top: -1%;
+        height: 40vh;
+        width: 30vw;
+    }
+}
+
+@media screen and (max-width: 1100px) {
+
+    .title-input{
+        height: 2vh;
+        margin-top: -1%;
+        width: 25vw;
+    }
+
+    .markdown-textarea{
+        margin-top: -1%;
+        height: 40vh;
+        width: 25vw;
+    }
+}
+
+@media screen and (max-width: 1000px) {
     .preview-label{
         display: none;
     }
     .display-html-area{
         display: none;
     }
+
+    .title-input{
+        height: 2vh;
+        margin-top: -1%;
+        width: 50vw;
+    }
+
+    .markdown-textarea{
+        margin-top: -1%;
+        height: 40vh;
+        width: 50vw;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .preview-label{
+        display: none;
+    }
+    .display-html-area{
+        display: none;
+    }
+
+    .title-input{
+        height: 2vh;
+        margin-top: -1%;
+        width: 55vw;
+        margin-left: 10%;
+        margin-right: 10%;
+        margin-bottom: 2%;
+    }
+
+    .markdown-textarea{
+        margin-top: -1%;
+        height: 40vh;
+        width: 55vw;
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+    .p{
+        font-size: 1rem;
+      }
+
+      .button-27 {
+        width: 33%;
+      }
+
+      .markdown-form{
+        margin-right: -8%;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .preview-label{
+        display: none;
+    }
+    .display-html-area{
+        display: none;
+    }
+
+    .title-input{
+        height: 2vh;
+        margin-top: -1%;
+        width: 45vw;
+    }
+
+    .markdown-textarea{
+        margin-top: -1%;
+        height: 40vh;
+        width: 45vw;
+    }
+
+    .markdown-form{
+        margin-right: -5%;
+    }
+    .button-27 {
+        width: 40%;
+      }
+}
+
+@media screen and (max-width: 350px) {
+    .preview-label{
+        display: none;
+    }
+    .display-html-area{
+        display: none;
+    }
+
+    .title-input{
+        height: 2vh;
+        margin-top: -1%;
+        width: 30vw;
+    }
+
+    .markdown-textarea{
+        margin-top: -1%;
+        height: 40vh;
+        width: 30vw;
+    }
+
+    .markdown-form{
+        margin-right: -5%;
+    }
+    .button-27 {
+        width: 55%;
+        font-size: 12px;
+      }
+
+      .p{
+        font-size: 0.8rem;
+      }
 }
