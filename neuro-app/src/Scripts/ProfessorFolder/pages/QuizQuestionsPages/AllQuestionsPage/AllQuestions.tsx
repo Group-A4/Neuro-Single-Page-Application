@@ -7,14 +7,13 @@ import ButtonAddQuestion from '../../../components/buttonAddQuestion/ButtonAddQu
 import { Link } from 'react-router-dom';
 import { useState } from "react";
 import { number } from 'yargs';
-interface Course 
-    {
-      id: number,
-      title: string,
-      year: number
-      semester: number,
-      credits: number
-    }
+interface Course {
+    id: number,
+    title: string,
+    year: number
+    semester: number,
+    credits: number
+}
 
 //const idC: number;
 
@@ -40,7 +39,11 @@ const SelectCourse: React.FC<{ onSelectCourse: (id: number) => void }> = ({ onSe
     return (
         <div className={styles['subject-container']}>
             <select value={selectedCourseId ?? ""} onChange={handleCourseSelect}>
-            <option  className={styles['subject-options']}> Course options</option> 
+                <option value="" disabled hidden>
+                    Courses options
+                </option>
+                
+                
                 {courses.map((course) => (
                     <option
                         className={styles['subject-options']}
@@ -74,21 +77,21 @@ const Body: React.FC<{}> = () => {
                         <ButtonAddQuestion />
                     </Link>
                 </div>
-            </div>   
+            </div>
 
             <div className={styles['body--subtitle--container']}>
-               <div className={styles['selects']}>
+                <div className={styles['selects']}>
                     <SelectSubject />
                 </div>
-                    <div className={styles['selects']}>
+                <div className={styles['selects']}>
                     <SelectCourse onSelectCourse={handleCourseSelect} />
                 </div>
-                </div> 
+            </div>
 
-            <div className={styles['body--line']}></div>  
-            
+            <div className={styles['body--line']}></div>
+
             <div className={styles['container']}>
-            <Questions idCourse={idC} />
+                <Questions idCourse={idC} />
             </div>
 
         </>
@@ -99,10 +102,10 @@ const Body: React.FC<{}> = () => {
 const AllQuestions: React.FC<{}> = () => {
     return (
         <>
-            <body className={styles['body']}> 
+            <body className={styles['body']}>
                 <Nav />
                 <Body />
-              
+
             </body>
 
 
