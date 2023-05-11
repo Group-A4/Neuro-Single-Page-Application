@@ -1,0 +1,307 @@
+.body {
+    background-color: grey;
+    min-height: 100%;
+    background-size: cover;
+    position: absolute;
+    width: 100%;
+    height: auto;
+}
+.body--content
+{
+    width:94%;
+    height: auto;
+    background-image: url("blue_band.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+     position: relative;
+    margin-top: 3%;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    padding-left: 6%;
+}
+
+
+.body--title {
+    width:180%;
+    text-align: left;
+    justify-content: center;
+    font-weight: bold;
+    font-size: calc(20px + 1.0vw);
+}
+.body--second_text
+{
+    text-decoration:overline gray;
+    background-color:#D9D9D9;
+    height: 7%;
+    position:relative;
+    margin-top: 1%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    padding-left: 6%;
+    position: relative;
+    text-align: left;
+    justify-content: center;
+    font-size: calc(8px + 1.0vw);
+}
+.body--second_text--line
+{
+    background-color: black;
+    width:52%;
+    height: 0.5px;
+}
+.body form
+{
+    font-family: 'Open Sans';
+    margin-bottom:5% ;
+    width: 100%;
+    height: 100%;
+    color: black;
+    font-family: Open Sans;
+    background-color: white;
+    padding-top:1%;
+    margin-top: 2%;
+    padding-bottom: 7%;
+}
+
+body .quest
+{
+    display: inherit;
+    background-color: white;
+    width: 75%;
+    font-size: 2vi;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    border-radius: 10px;
+    margin-left:10%;
+    border:none;
+    margin-top: 5%;
+}
+body .removeq
+{
+ margin-left: 4%;
+ background-color: #6AFFC7;
+ font-size:1.2vi;
+ padding-top: 0.5%;
+padding-bottom: 0.5%;
+border-radius: 10px;
+border:none;
+cursor: pointer;
+ padding: 1%
+}
+body .removeq:hover{
+    background-color:#5a5757;
+}
+body .answ
+{
+    display: inherit;
+    background-color: white;
+    width: 69%;
+    font-size: 1.5vi;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    border-radius: 10px;
+    margin-left:1%;
+    border:none;
+    margin-top: 2%;
+}
+.body .addansw
+{
+    background-color: #F5E0BF;
+    margin-top:2%;
+    margin-left:14%;
+    font-size: 1.5vi;
+    padding-top: 0.5%;
+    padding-bottom: 0.5%;
+    width: 20%;
+    border-radius: 10px;
+    border-width: 1px;
+    border-color: black;
+    
+}
+.body .addquest
+{
+
+    background-color:#F5E0BF;
+    margin-top:7%;
+    margin-left:40%;
+    font-size: 1.5vi;
+    padding-top: 0.5%;
+    padding-bottom: 0.5%;
+    width: 25%;
+    border-radius: 10px;
+    border-width: 1px;
+    border-color: black;
+}
+
+.body .sub
+{
+    background-color: #FFCA77
+    ;
+    font-size: 1.5vi;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    width: fit-content;
+    padding-left: 6%;
+    padding-right: 6%;
+    border-radius: 10px;
+    border-width: 2px;
+    border-color: black;
+    font-weight: bold;
+    margin-left:25%;
+}
+.body .sub:hover
+{
+    background-color:  #ffdea8;
+}
+.body .check
+{ 
+     margin-left:13%;
+    margin-top: 4%;
+    width: fit-content;
+}
+.body input[type="checkbox"]
+{
+    background-color: #807d7d;
+    width: 3vi;
+    height: 2vi;  
+    margin-left:9%;
+    margin-top:5%;
+    accent-color: green;
+}
+.body input[type="checkbox"]:focus
+{
+    outline: auto;
+}
+.body input[type="checkbox"]:checked
+{
+    background-color: #6AFFC7;
+}
+body .removea
+{
+ margin-left: 5%;
+ background-color: #6AFFC7;
+ font-size:1.2vi;
+ padding-top: 1%;
+ padding-bottom: 1%;
+ border-radius: 10px;
+ border:none;
+ cursor: pointer;
+ height: 50%;
+ margin-top:3%;
+ padding: 1%;
+}
+body .removeq:hover{
+        background-color: #b1ffe1;
+}
+.addansw:hover, .addquest:hover, .removea:hover
+{
+    background-color: #b1ffe1;
+}
+.mess {
+    background-color:#5a5757;
+    color: black;
+    font-size: 40px;
+    border-radius: 4px;
+    display: none;
+    position: fixed;
+    margin-left:35%;
+    border-radius: 10px;
+    height: 20%;
+    padding-top: 5%;
+    box-shadow: 15px 10px 10px rgb(31, 30, 30);
+  }
+.box {
+    width: 70%;
+    background-color: #D9D9D9;
+    margin-left:15%;
+    margin-right:10%;
+    margin-top:2%;
+    padding-bottom: 2%;
+}
+.header 
+{
+    text-align: right;
+    width: 98%;
+    background-color: #002F35;
+    color:white;
+    padding: 1%;
+}
+.header label
+{
+    width: fit-content;
+    margin-left: 3%;
+    font-size: 2vi;
+}
+.header label input , select
+{
+    appearance: none;
+    background-color: #002F35;
+    color:white;
+    width: 8%;
+    padding-left: 1%;
+    font-size: 2vi;
+}
+  @media (max-width:900px) {
+    body .quest
+{
+    display: inherit;
+    background-color: #ffffff;
+    width: 70%;
+    font-size: 3vi;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    border-radius: 10px;
+    margin-left:10%;
+    border:none;
+    margin-top: 5%;
+}
+body .removeq
+{
+ margin-left: 5%;
+ background-color: #6AFFC7;
+ font-size:1.4vi;
+ padding-top: 0.5%;
+padding-bottom: 0.5%;
+border-radius: 10px;
+border:none;
+cursor: pointer;
+}
+body .answ
+{
+    display: inherit;
+    background-color: #fffdfd;
+    width: 64%;
+    font-size: 2vi;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    border-radius: 10px;
+    margin-left:2%;
+    border:none;
+    margin-top: 2%;
+}
+body .removea
+{
+ margin-left: 5%;
+ background-color: #6AFFC7;
+ font-size:1.5vi;
+ padding-top: 0.5%;
+ padding-bottom: 0.5%;
+ border-radius: 10px;
+ border:none;
+ cursor: pointer;
+ height: 50%;
+ margin-top:3%;
+}
+.body input[type="checkbox"]
+{
+    background-color: #807d7d;
+    width: 3vi;
+    height: 2vi;  
+    margin-left:8%;
+    margin-top:5%;
+    accent-color: green;
+}
+  }
