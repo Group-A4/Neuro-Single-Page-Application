@@ -4,104 +4,72 @@ import styles from './MockExamResultPage.module.css';
 import CongratsIcon from "./Images/fireworks.svg";
 import ButtonTakeAnotherExam from "../Components/ButtonTakeAnotherExam";
 import Message from "../Components/MessageBox";
+import { useLocation } from 'react-router-dom';
 
 interface QuizQuestion {
   idCourse: number;
   idProfessor: number;
   questionText: string;
   answersQuestion: QuizAnswer[];
+  score: number;
 }
 
 interface QuizAnswer {
-  idQuestion: number;
+  letter: string;
+  id: number;
   answerText: string;
   correct: boolean;
   chosen: boolean;
 }
 
-interface QuizResultProps {
-  questions: QuizQuestion[];
-  userAnswers: QuizAnswer[];
-}
-
-const questions: QuizQuestion[] = [
-  {
-    idCourse: 1,
-    idProfessor: 1,
-    questionText: "What is the capital of France?",
-    answersQuestion: [
-      { idQuestion: 1, answerText: "Paris", correct: true, chosen: false },
-      { idQuestion: 1, answerText: "Rome", correct: true, chosen: false },
-      { idQuestion: 1, answerText: "Berlin", correct: false, chosen: false },
-      { idQuestion: 1, answerText: "Madrid", correct: false, chosen: false },
-    ],
-  },
-  {
-    idCourse: 1,
-    idProfessor: 1,
-    questionText: "What is the largest ocean?",
-    answersQuestion: [
-      { idQuestion: 2, answerText: "Atlantic", correct: false, chosen: false },
-      { idQuestion: 2, answerText: "Indian", correct: false, chosen: false },
-      { idQuestion: 2, answerText: "Pacific", correct: true, chosen: false },
-      { idQuestion: 2, answerText: "Arctic", correct: false, chosen: false },
-    ],
-  },
-  {
-    idCourse: 1,
-    idProfessor: 1,
-    questionText: "What is the capital of Japan?",
-    answersQuestion: [
-      { idQuestion: 3, answerText: "Tokyo", correct: true, chosen: false },
-      { idQuestion: 3, answerText: "Kyoto", correct: false, chosen: false },
-      { idQuestion: 3, answerText: "Osaka", correct: false, chosen: false },
-      { idQuestion: 3, answerText: "Nagoya", correct: false, chosen: false },
-    ],
-  },
-];
-
-const userAnswers: QuizAnswer[] = [
-  { idQuestion: 1, answerText: "Paris", correct: true, chosen: true },
-  { idQuestion: 1, answerText: "Berlin", correct: false, chosen: true },
-  { idQuestion: 2, answerText: "Pacific", correct: true, chosen: false },
-  { idQuestion: 3, answerText: "Kyoto", correct: false, chosen: false },
-];
-
-const Body: React.FC<{ score: string }> = ({ score }) => {
-  const [userAnswersState, setUserAnswersState] = useState(userAnswers);
+const Body: React.FC<{}> = () => {
+  const location = useLocation();
+  const { questions, grade } = location.state as {
+    questions: QuizQuestion[];
+    grade: string;
+  };
 
   return (
     <div>
       <div className={styles["headingTitle"]}>
-        <h1>Congratulations! Your score is: {score}</h1>
+        <h1>Congratulations! Your score is: {grade} %</h1>
         <h2>Your Mock Exam Result</h2>
       </div>
       <ul>
         {questions.map((question, index) => {
-          const userAnswers = userAnswersState.filter(
-            (answer) =>
-              answer.idQuestion === question.answersQuestion[index].idQuestion
-          );
+          const userAnswers: QuizAnswer[] = [];
+          question.answersQuestion.forEach((answer, answerIndex) => {
+            
+              const letter = String.fromCharCode(97 + answerIndex);
+              if(answer.chosen)
+              userAnswers.push({ ...answer, letter });
+            
+          });
+
+
           return (
             <li key={index} className={styles["questionPart"]}>
               <h3 className={styles["questionTitle"]}>
                 {index + 1} / {questions.length} {question.questionText}
               </h3>
               <ul>
-                {question.answersQuestion.map((answer, index) => (
+                {question.answersQuestion.map((answer, answerIndex) => (
                   <li
-                    key={index}
+                    key={answerIndex}
                     className={
                       answer.correct ? styles.correctAnswers : styles.choices
                     }
                   >
-                    {answer.answerText}
+                    {String.fromCharCode(97 + answerIndex)}. {answer.answerText}
                   </li>
                 ))}
               </ul>
               <p className={styles["yourAnswers"]}>
                 Your answer/s:{" "}
-                {userAnswers.map((a: QuizAnswer) => a.answerText).join(", ")}
+                {userAnswers.map(answer => answer.letter).join(", ")}
+              </p>
+              <p className={styles["yourScore"]}>
+                Score: {question.score} / 1
               </p>
             </li>
           );
@@ -121,12 +89,10 @@ const MockExamResult: React.FC = () => {
   const score = "50.5%";
 
   return (
-    <>
-      <body className="page">
-        <Nav />
-        <Body score={score} />
-      </body>
-    </>
+    <body className="page">
+      <Nav />
+      <Body  />
+    </body>
   );
 };
 
