@@ -13,30 +13,26 @@ function Nav(){
         <Link to="/" className={styles['logo-link']}>
         {/* <Link to="/Professor" className={styles['logo-link']}> */}
             <div className={styles['logo-container']}>
-          <img src="nav_images/logo1.png" alt=""/>
-              <span className={styles['logo-text']} >
-                  NeuroApp
-              </span>
-          </div>
+              <img src="nav_images/logo1.png" alt=""/>
+                <span className={styles['logo-text']} >
+                    NeuroApp
+                </span>
+            </div>
         </Link>
 
            
           <div className={styles['links-container']}>
               <ul className={styles['link']} >
-          <Link to="/Professor">Home
-                  </Link>
+                <Link to="/Professor">Home</Link>
               </ul>
 
               <ul className={styles['link']} >
-                  <Link to="/">Profile
-                  </Link>
+                <Link to="/">Profile</Link>
               </ul>
               
               <ul className={styles['menu']}>
-              <MenuDropDown/>
-              
+                <MenuDropDown/>
               </ul>
-              
           </div>
 
         <LangButton/>

@@ -125,7 +125,6 @@
     border-radius: 20px;
 }
 
-
 .menu button
 {
     text-decoration: none;
@@ -149,11 +148,14 @@
     visibility: visible;
     color :white;
 }
-.menu ul li a
+
+.button--menu {
+    border-bottom: 0.05rem solid #555;
+}
+
+.menu ul div a
 {
     all:unset;
-    border-color: #555;
-    text-decoration: none;
     position: relative;
     font-size: 20px;
     font-family: Arial, sans-serif;
@@ -164,30 +166,42 @@
     appearance:none;
    
 }
-.menu ul li
+.menu ul div
 {
-    appearance: none;
     margin-top: 5%;
 }
-.menu ul li a:hover
+.menu ul div a:hover
 {
    background-color:#0393a643;
 }
 
 .menu ul
 {
-    margin-top: 10px;
-    background-color:white; ;
+    background-color:#C49C60;
+    opacity: 70%;
     height: fit-content;
     appearance:none;
     text-decoration: none;
     z-index: 10;
     position: absolute;
     list-style: none;
-    padding: 20px;
-    border-radius: 20px;
-    
+    /* padding-left: 3%;
+    padding-right: 3%;
+    padding-top: 1%;
+    padding-bottom: 1%; */
+    border-radius: 1.5rem;
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 .language-options
@@ -199,14 +213,11 @@
     padding: 20px;
 }
 
-
-
 .language-container select option :hover
 {
     color:#C49C60;
     background-color: #002F35;
 }
-
 
 .burgerMenu-container {
     display: none;
@@ -249,7 +260,6 @@
 .burgerMenu-container ul li a
 {
     all:unset;
-    border-color: #555;
     text-decoration: none;
     position: relative;
     font-size: 20px;
