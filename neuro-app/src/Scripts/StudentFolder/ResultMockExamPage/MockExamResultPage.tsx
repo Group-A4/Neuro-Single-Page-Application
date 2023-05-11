@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Nav from "../NavBarStudent/Nav";
-import './MockExamResultPage.css';
+import styles from './MockExamResultPage.module.css';
 import CongratsIcon from "./Images/fireworks.svg";
 import ButtonTakeAnotherExam from "../Components/ButtonTakeAnotherExam";
 import Message from "../Components/MessageBox";
@@ -72,7 +72,7 @@ const Body: React.FC<{ score: string }> = ({ score }) => {
 
   return (
     <div>
-      <div className="headingTitle">
+      <div className={styles["headingTitle"]}>
         <h1>Congratulations! Your score is: {score}</h1>
         <h2>Your Mock Exam Result</h2>
       </div>
@@ -83,21 +83,23 @@ const Body: React.FC<{ score: string }> = ({ score }) => {
               answer.idQuestion === question.answersQuestion[index].idQuestion
           );
           return (
-            <li key={index} className="questionPart">
-              <h3 className="questionTitle">
+            <li key={index} className={styles["questionPart"]}>
+              <h3 className={styles["questionTitle"]}>
                 {index + 1} / {questions.length} {question.questionText}
               </h3>
               <ul>
                 {question.answersQuestion.map((answer, index) => (
                   <li
                     key={index}
-                    className={answer.correct ? "correctAnswer" : "choices"}
+                    className={
+                      answer.correct ? styles.correctAnswers : styles.choices
+                    }
                   >
                     {answer.answerText}
                   </li>
                 ))}
               </ul>
-              <p className="yourAnswers">
+              <p className={styles["yourAnswers"]}>
                 Your answer/s:{" "}
                 {userAnswers.map((a: QuizAnswer) => a.answerText).join(", ")}
               </p>
@@ -105,10 +107,10 @@ const Body: React.FC<{ score: string }> = ({ score }) => {
           );
         })}
       </ul>
-      <div className="messageBox">
+      <div className={styles["messageBox"]}>
         <Message />
       </div>
-      <div className="buttonTake">
+      <div className={styles["buttonTake"]}>
         <ButtonTakeAnotherExam />
       </div>
     </div>
