@@ -36,7 +36,7 @@ const ViewLessonMaterials: React.FC<Props> = ({ id_course }) => {
           <ul>
             {materials.map((material) => (
               <li key={material.id}>
-                <a href={material.html} target="_blank" rel="noopener noreferrer">
+                <a href='#' target="_blank" rel="noopener noreferrer">
                   {material.title}
                 </a>
               </li>
