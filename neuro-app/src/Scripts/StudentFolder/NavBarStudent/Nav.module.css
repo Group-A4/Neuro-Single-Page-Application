@@ -30,7 +30,6 @@
     cursor: pointer;
 }
 
-
 .logo-text{
   
     font-family: Arial, sans-serif;
@@ -50,8 +49,6 @@
     /* margin-left:3% */
    
 }
-
-
 
 .link a {
     text-decoration: none;
@@ -88,7 +85,7 @@
     margin-left: 10px;
     font-size: 24px;
     font-weight: bold;
-    color: #C49C60;
+    color: #C49C60; 
 }
 
 .language-container img {
@@ -123,7 +120,13 @@
     outline: none;
     border:none;
     border-radius: 20px;
+    background-color: #002F35;
 }
+
+.language-container select option {
+    background-color: #C49C60;
+}
+
 
 .menu button
 {
@@ -149,11 +152,7 @@
     color :white;
 }
 
-.button--menu {
-    border-bottom: 0.05rem solid #555;
-}
-
-.menu ul div a
+.menu ul li a
 {
     all:unset;
     position: relative;
@@ -164,16 +163,22 @@
     font-weight: bold;
     cursor: pointer;
     appearance:none;
+    border: #F7F7F7;
    
 }
-.menu ul div
+
+.menu ul li
 {
     margin-top: 5%;
+    margin-bottom: 5%;
 }
-.menu ul div a:hover
+
+.menu ul li a:hover
 {
-   background-color:#0393a643;
-}
+   /* background-color:#0393a643; */
+   color:#F7F7F7;
+   /* text-decoration:underline 0.02rem #9c763d;*/
+} 
 
 .menu ul
 {
@@ -185,38 +190,24 @@
     z-index: 10;
     position: absolute;
     list-style: none;
-    /* padding-left: 3%;
-    padding-right: 3%;
-    padding-top: 1%;
-    padding-bottom: 1%; */
-    border-radius: 1.5rem;
+    border-radius: 1rem;
+    padding-left: 1%;
+    padding-right: 1%;
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 .language-options
 {
-    font-size: 24px;
+    font-size: 20px;
+    font-style: bold;
     width: fit-content;
-    background-color: white;
     color: #002F35;
-    padding: 20px;
+
+    border: none;
 }
 
 .language-container select option :hover
 {
-    color:#C49C60;
-    background-color: #002F35;
+    color:#F7F7F7;
 }
 
 .burgerMenu-container {
@@ -307,7 +298,6 @@
     
 }
 
-
 .language-container-mini select {
     height: 40px;
     /* margin-right: 20px; */
@@ -331,11 +321,6 @@
     border: none;
     border-radius: 20px;
 }
-
-
-
-
-
 
 
 @media only screen and (max-width:1000px){

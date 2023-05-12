@@ -26,26 +26,18 @@ const MenuDropDown:React.FC<{}> = () => {
       <button onClick={(e)=>handleDropDownFocus(open)}> Menu</button>
       {open &&(
         <ul>
-          <div className={styles['button--menu']}>
-            <Link to='/UploadMaterials'>View materials</Link>  
-          </div>
-          <div className={styles['button--menu']}>
-            <Link to='/UploadMaterials'>Take a mock exam</Link>  
-          </div>
-          <div className={styles['button--menu']}>
-            <Link to='/UploadMaterials'>Student's exams</Link>  
-          </div>
-          <div className={styles['button--menu']}>
-            <Link to='/UploadMaterials'>My exam results</Link>  
-          </div>
-          {/*
           <li>
-            <Link to='/ViewMaterials'>Take a mock exam</Link> </li>
-          {/* <li><Link to='/MyStudentExams'> Student's exams </Link> </li> }
-          <li><a href='/MyStudentExams'>Take an exam</a> </li>
-          {/* <li><Link to='/CreateAnExam'> Create an exam </Link> </li> }
-          <li><a href="/CreateAnExam">My exam results</a></li>
-          */}
+            <Link to='/UploadMaterials'>View materials</Link>  
+          </li>
+          <li>
+            <Link to='/UploadMaterials'>Take a mock exam</Link>  
+          </li>
+          <li>
+            <Link to='/UploadMaterials'>Take an exam</Link>  
+          </li>
+          <li>
+            <Link to='/UploadMaterials'>My exam results</Link>  
+          </li>
        </ul>
       )
       }

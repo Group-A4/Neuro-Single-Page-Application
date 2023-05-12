@@ -16,20 +16,17 @@ const LangButton:React.FC<{}> = () => {
       <select  value={selects} onChange={()=>{}}>
 
           <option className={styles['language-options']}>
-            
-                English
-      
-            </option>
+            English
+          </option>
 
           <option className={styles['language-options']}>
             Romana
-            </option>
+          </option>
+          
           <option className={styles['language-options']}>
             Francais
-            </option>
-
-        </select>
-        
+          </option>
+      </select>   
     </div>
   )
 }

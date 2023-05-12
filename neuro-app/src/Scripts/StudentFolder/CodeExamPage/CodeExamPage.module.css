@@ -1,6 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit&display=swap');
+
  .examHeading {
      font-size: 3em;
      font-weight: bold;
+     font-family: 'Outfit';
      color: #002F35;
      margin-top: -0.5rem;     
  }

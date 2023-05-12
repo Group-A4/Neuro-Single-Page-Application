@@ -17,7 +17,7 @@ const CodeExamPage = () => {
       <Nav/>
       <Frame> 
         <div className={styles.content}>
-          <h1 className={styles.examHeading}>Enter the exam-code: </h1>
+          <h1 className={styles.examHeading}>Enter the exam-codep: </h1>
           <CodeExamInput onSaveCodeExam={handleSaveCodeExam}  />
          </div> 
       </Frame>

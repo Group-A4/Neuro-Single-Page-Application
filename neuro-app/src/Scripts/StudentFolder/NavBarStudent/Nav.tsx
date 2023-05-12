@@ -6,7 +6,6 @@ import MenuDropDown from './MenuDropDown';
 import BurgerMenu from './BurgerMenu';
 
 
-
 function Nav(){
   return (
     <nav className={styles.navbar}> 
@@ -23,11 +22,11 @@ function Nav(){
            
           <div className={styles['links-container']}>
               <ul className={styles['link']} >
-                <Link to="/Professor">Home</Link>
+                <Link to="/Student">Home</Link>
               </ul>
 
               <ul className={styles['link']} >
-                <Link to="/">Profile</Link>
+                <Link to="/Student">Profile</Link>
               </ul>
               
               <ul className={styles['menu']}>
