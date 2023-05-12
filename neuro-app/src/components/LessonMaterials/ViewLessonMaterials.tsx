@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './Body.module.css';
 import Nav from '../nav/Nav';
+import { SERVER_ADDRESS } from '../../config/config';
 
 type Props = {
   id_course: string;
@@ -15,7 +16,7 @@ const useGetMaterials = (id_course: string) => {
   
     const fetchMaterials = async (id_course: string) => {
       try {
-        const response = await fetch(`http://localhost:8191/materials/id_course=${id_course}`);
+        const response = await fetch(SERVER_ADDRESS + `/materials/id_course=${id_course}`);
         const data = await response.json();
         setMaterials(data);
       } catch (error) {

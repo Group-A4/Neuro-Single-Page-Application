@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./Body.module.css";
 import { Link } from "react-router-dom";
+import { SERVER_ADDRESS } from "../../../config/config";
 
 interface FormValues {
   fileName: string;
@@ -83,7 +84,7 @@ const ContentInput: React.FC<{}> = () => {
       submitted: true,
     }));
 
-    const url = "http://localhost:8191/content/create";
+    const url = SERVER_ADDRESS + "/content/create";
 
     const formData = new FormData();
     formData.append("fileName", formValues.fileName);

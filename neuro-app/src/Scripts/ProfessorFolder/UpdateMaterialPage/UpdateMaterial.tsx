@@ -8,6 +8,7 @@ import MarkdownParser from "../CreateMaterialPage/MarkdownToHtmlParser";
 import Nav from '../NavBarProfessor/Nav';
 import { renderToString } from 'react-dom/server';
 import {GetMaterialById} from "../ViewMaterialPage/material";
+import { SERVER_ADDRESS } from "../../../config/config";
 
 interface FormValues {
     idCourse: number;
@@ -72,7 +73,7 @@ const Markdown = () =>{
         event.preventDefault();
         setFormValues((prevFormValues: FormValues) => ({ ...prevFormValues, submitted: true }));
 
-        const url = "http://localhost:8191/materials/update/75  ";
+        const url = SERVER_ADDRESS + "/materials/update/75  ";
 
         fetch(url, {
             method: "PUT",

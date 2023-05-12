@@ -1,6 +1,7 @@
 import { async } from 'q';
 import React, { useEffect, useState } from 'react';
 import styles from './contentList.module.css';
+import { SERVER_ADDRESS } from '../../config/config';
 
 interface Props {
   professorId: number;
@@ -16,7 +17,7 @@ const useGetContents = (professorId: number) => {
   const [contents, setContents] = useState<Content[]>([]);
 
   useEffect(() => {
-    const url = `http://localhost:8191/content/professor/${professorId}`;
+    const url = SERVER_ADDRESS + `/content/professor/${professorId}`;
 
     const fetchData = async () => {
       const response = await fetch(url);

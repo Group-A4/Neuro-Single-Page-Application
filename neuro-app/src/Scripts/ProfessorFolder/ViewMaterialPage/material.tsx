@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { SERVER_ADDRESS } from '../../../config/config';
 
 interface Material {
   id: number;
@@ -15,7 +16,7 @@ const GetMaterialById = (id: number): Material => {
     html: '',
   });
 
-  const url = `http://localhost:8191/materials/${id}`;
+  const url = SERVER_ADDRESS + `/materials/${id}`;
 
   useEffect(() => {
     const fetchData = async () => {

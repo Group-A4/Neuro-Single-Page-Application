@@ -7,6 +7,7 @@ import {ContentList, useGetContents} from "../../../components/contentList/listC
 import MarkdownParser from "./MarkdownToHtmlParser";
 import Nav from '../NavBarProfessor/Nav';
 import { renderToString } from 'react-dom/server';
+import { SERVER_ADDRESS } from "../../../config/config";
 
 interface FormValues {
     idCourse: number;
@@ -64,7 +65,7 @@ const Markdown = () =>{
         event.preventDefault();
         setFormValues((prevFormValues: FormValues) => ({ ...prevFormValues, submitted: true }));
 
-        const url = "http://localhost:8191/materials/create";
+        const url = SERVER_ADDRESS + "/materials/create";
 
         fetch(url, {
             method: "POST",
