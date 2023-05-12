@@ -49,7 +49,7 @@ const Body: React.FC<{}> = () => {
                         0.00
                     </div>
                     <div className={styles['button--container']}>
-                        <button onClick={goToTakeExam}>Inspect My Exam Answers</button>
+                        <button onClick={goToTakeExam}>View My Exam Answers</button>
                     </div>
                     
                 </div>
@@ -64,7 +64,7 @@ const Body: React.FC<{}> = () => {
                         0.00
                     </div>
                     <div className={styles['button--container']}>
-                        <button onClick={goToTakeExam}>Inspect My Exam Answers</button>
+                        <button onClick={goToTakeExam}>View My Exam Answers</button>
                     </div>
                 </div>
                 <div className={styles['course-container']}>
@@ -78,7 +78,7 @@ const Body: React.FC<{}> = () => {
                         0.00
                     </div>
                     <div className={styles['button--container']}>
-                        <button onClick={goToTakeExam}>Inspect My Exam Answers</button>
+                        <button onClick={goToTakeExam}>View My Exam Answers</button>
                     </div>
                 </div>
                 <div className={styles['course-container']}>
@@ -92,7 +92,7 @@ const Body: React.FC<{}> = () => {
                         0.00
                     </div>
                     <div className={styles['button--container']}>
-                        <button onClick={goToTakeExam}>Inspect My Exam Answers</button>
+                        <button onClick={goToTakeExam}>View My Exam Answers</button>
                     </div>
                 </div>
                 <div className={styles['course-container']}>
@@ -106,7 +106,7 @@ const Body: React.FC<{}> = () => {
                         0.00
                     </div>
                     <div className={styles['button--container']}>
-                        <button onClick={goToTakeExam}>Inspect My Exam Answers</button>
+                        <button onClick={goToTakeExam}>View My Exam Answers</button>
                     </div>
                 </div>
             </div>
