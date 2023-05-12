@@ -27,16 +27,16 @@ const MenuDropDown:React.FC<{}> = () => {
       {open &&(
         <ul>
           <li>
-            <Link to='/UploadMaterials'>View materials</Link>  
+            <Link to='/Student'>View materials</Link>  
           </li>
           <li>
-            <Link to='/UploadMaterials'>Take a mock exam</Link>  
+            <Link to='/TakeAMockExam'>Take a mock exam</Link>  
           </li>
           <li>
-            <Link to='/UploadMaterials'>Take an exam</Link>  
+            <Link to='/CodeExam'>Take an exam</Link>  
           </li>
           <li>
-            <Link to='/UploadMaterials'>My exam results</Link>  
+            <Link to='/MyResults'>My exam results</Link>  
           </li>
        </ul>
       )
