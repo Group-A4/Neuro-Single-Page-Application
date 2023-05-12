@@ -26,7 +26,7 @@ const Questions: React.FC<QuestionsProps> = ({ idCourse }) => {
   useEffect(() => {
     const fetchQuestions = async () => {
       if (idCourse !== null) {
-        const response = await fetch(`http://localhost:8192/questionQuizz/professor=57/course=${idCourse}`);
+        const response = await fetch(`http://localhost:8192/questionQuizz/professor=56/course=${idCourse}`);
         const data = await response.json();
         setQuestions(data);
         console.log(data);

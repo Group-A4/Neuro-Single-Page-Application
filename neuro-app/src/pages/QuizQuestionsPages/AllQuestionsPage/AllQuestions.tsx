@@ -23,7 +23,7 @@ const SelectCourse: React.FC<{ onSelectCourse: (id: number) => void }> = ({ onSe
 
     useEffect(() => {
         const fetchCourses = async () => {
-            const response = await fetch("http://localhost:8192/courses/professor=57");
+            const response = await fetch("http://localhost:8192/courses/professor=56");
             const data = await response.json();
             setCourses(data);
         };
@@ -81,11 +81,12 @@ const Body: React.FC<{}> = () => {
 
             <div className={styles['body--subtitle--container']}>
                 <div className={styles['selects']}>
-                    <SelectSubject />
-                </div>
-                <div className={styles['selects']}>
                     <SelectCourse onSelectCourse={handleCourseSelect} />
                 </div>
+                <div className={styles['selects']}>
+                    <SelectSubject />
+                </div>
+
             </div>
 
             <div className={styles['body--line']}></div>

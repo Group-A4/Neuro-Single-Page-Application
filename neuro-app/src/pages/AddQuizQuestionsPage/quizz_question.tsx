@@ -45,8 +45,8 @@ const Quizz_question: React.FC<{}> = () => {
       difficulty: 0,
       timeMinutes: 0,
       lectureNumber: 2,
-      idCourse: 4,
-      idProfessor: 57,
+      idCourse: 5,
+      idProfessor: 56,
       answersQuestion: [],
     };
     setQuestions((prevQuestions) => [...prevQuestions, newQuestion]);
