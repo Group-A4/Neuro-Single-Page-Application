@@ -7,7 +7,7 @@ const ViewLesson: React.FC<{}> = () => {
 
   return (
     <div>
-      <ViewLessonMaterials id_course="5" />
+      <ViewLessonMaterials id_lecture="2" />
     </div>
   );
 };

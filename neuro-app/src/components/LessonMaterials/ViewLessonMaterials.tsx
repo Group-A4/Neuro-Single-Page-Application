@@ -4,19 +4,19 @@ import Nav from '../nav/Nav';
 import { SERVER_ADDRESS } from '../../config/config';
 
 type Props = {
-  id_course: string;
+  id_lecture: string;
 };
 
-const useGetMaterials = (id_course: string) => {
+const useGetMaterials = (id_lecture: string) => {
     const [materials, setMaterials] = useState<any[]>([]);
 
     useEffect(() => {
-      fetchMaterials(id_course);
-    }, [id_course]);
+      fetchMaterials(id_lecture);
+    }, [id_lecture]);
   
-    const fetchMaterials = async (id_course: string) => {
+    const fetchMaterials = async (id_lecture: string) => {
       try {
-        const response = await fetch(SERVER_ADDRESS + `/materials/id_lecture=${id_course}`);
+        const response = await fetch(SERVER_ADDRESS + `/materials/id_lecture=${id_lecture}`);
         const data = await response.json();
         setMaterials(data);
       } catch (error) {
@@ -26,9 +26,9 @@ const useGetMaterials = (id_course: string) => {
     return materials;
 }
 
-const ViewLessonMaterials: React.FC<Props> = ({ id_course }) => {
+const ViewLessonMaterials: React.FC<Props> = ({ id_lecture }) => {
   
-    const materials = useGetMaterials(id_course);
+    const materials = useGetMaterials(id_lecture);
     
   return (
     <>

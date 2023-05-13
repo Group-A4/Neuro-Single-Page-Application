@@ -35,7 +35,6 @@ const ContentInput: React.FC<{}> = () => {
   const handleDrag = (e: any) => {
     e.preventDefault();
     e.stopPropagation();
-    console.log(e.target);
     if(e.target.classList. contains('ignore')){
       return;
     }
@@ -163,11 +162,11 @@ const ContentInput: React.FC<{}> = () => {
                 </button>
         </label>
 
-        <Link to='/ViewLessonMaterials' className={styles["body--redirect"]}>
+        {/* <Link to='/ViewLectureMaterials' className={styles["body--redirect"]}> */}
             <button className={styles["body--button--publish"]}>
                 Publish
             </button>
-        </Link>
+        {/* </Link> */}
       </form>
     </div>
   );
