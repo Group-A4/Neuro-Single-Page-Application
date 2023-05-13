@@ -30,7 +30,6 @@
     cursor: pointer;
 }
 
-
 .logo-text{
   
     font-family: Arial, sans-serif;
@@ -50,8 +49,6 @@
     /* margin-left:3% */
    
 }
-
-
 
 .link a {
     text-decoration: none;
@@ -88,7 +85,7 @@
     margin-left: 10px;
     font-size: 24px;
     font-weight: bold;
-    color: #C49C60;
+    color: #C49C60; 
 }
 
 .language-container img {
@@ -123,6 +120,11 @@
     outline: none;
     border:none;
     border-radius: 20px;
+    background-color: #002F35;
+}
+
+.language-container select option {
+    background-color: #C49C60;
 }
 
 
@@ -149,11 +151,10 @@
     visibility: visible;
     color :white;
 }
+
 .menu ul li a
 {
     all:unset;
-    border-color: #555;
-    text-decoration: none;
     position: relative;
     font-size: 20px;
     font-family: Arial, sans-serif;
@@ -162,51 +163,52 @@
     font-weight: bold;
     cursor: pointer;
     appearance:none;
+    border: #F7F7F7;
    
 }
+
 .menu ul li
 {
-    appearance: none;
     margin-top: 5%;
+    margin-bottom: 5%;
 }
+
 .menu ul li a:hover
 {
-   background-color:#0393a643;
-}
+   /* background-color:#0393a643; */
+   color:#F7F7F7;
+   /* text-decoration:underline 0.02rem #9c763d;*/
+} 
 
 .menu ul
 {
-    margin-top: 10px;
-    background-color:white; ;
+    background-color:#C49C60;
+    opacity: 70%;
     height: fit-content;
     appearance:none;
     text-decoration: none;
     z-index: 10;
     position: absolute;
     list-style: none;
-    padding: 20px;
-    border-radius: 20px;
-    
+    border-radius: 1rem;
+    padding-left: 1%;
+    padding-right: 1%;
 }
-
 
 .language-options
 {
-    font-size: 24px;
+    font-size: 20px;
+    font-style: bold;
     width: fit-content;
-    background-color: white;
     color: #002F35;
-    padding: 20px;
+
+    border: none;
 }
-
-
 
 .language-container select option :hover
 {
-    color:#C49C60;
-    background-color: #002F35;
+    color:#F7F7F7;
 }
-
 
 .burgerMenu-container {
     display: none;
@@ -249,7 +251,6 @@
 .burgerMenu-container ul li a
 {
     all:unset;
-    border-color: #555;
     text-decoration: none;
     position: relative;
     font-size: 20px;
@@ -297,7 +298,6 @@
     
 }
 
-
 .language-container-mini select {
     height: 40px;
     /* margin-right: 20px; */
@@ -321,11 +321,6 @@
     border: none;
     border-radius: 20px;
 }
-
-
-
-
-
 
 
 @media only screen and (max-width:1000px){
