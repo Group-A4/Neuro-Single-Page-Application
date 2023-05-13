@@ -1,0 +1,55 @@
+
+.body
+{
+    /* background-image: url("Background.png") ; */
+    min-height: 100%;
+    background-size: cover;
+    position: absolute;
+    width: 100%;
+    height: auto; 
+}
+
+.body--img--container{
+  
+        margin-top: 10%;
+        display: flex;
+        flex-wrap: wrap;
+        gap:5%;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 10%;
+    }
+
+.link--image
+{
+    display:inline-block;
+    margin: 0;
+    padding: 0;
+}
+
+.body--img{
+    width: calc(20.0vw);
+    height: auto;
+    cursor: pointer;
+    opacity: 0.9;
+    margin: 0;
+    padding: 0; 
+}
+
+.body--img:hover{
+    opacity:1;
+    
+}
+
+
+@media only screen and (max-width:942px){
+    .body--img{
+            width: 200px;
+            margin-bottom: 5%;
+    }
+    .body--img--container{
+            margin-left: 140px;
+            margin-right: 140px;
+    }
+
+}

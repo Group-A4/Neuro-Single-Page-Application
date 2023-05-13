@@ -1,0 +1,133 @@
+
+.questionPart{
+
+    display: flex;
+    flex-direction: column;
+    margin-top: 6%;
+    margin-left: 6%;
+    margin-right: 6%;
+    background-color: #002F35;
+    border-radius: 1rem;
+}
+
+.questionQuery{
+    background-color: #9e783e;
+    border-radius: 1rem;
+    margin-top: 1rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;  
+}
+
+ul{
+    list-style: none;
+}
+
+.question {
+    font-size: 1.6rem;
+ }
+
+.choices {
+     margin-bottom: 1rem;
+}
+
+.choice {
+    margin-top: 1.25rem;
+    margin-left: 1.25rem;
+    margin-right: 1.5rem;
+    background-color: #bd9d6d;
+    border-radius: 10px;
+    font-size: 1.5rem;
+}
+
+.choice input[type='radio'] {
+    margin-right: 10px;
+    font-size: 1.8rem;
+  }
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-left: 5rem;
+    margin-right: 5rem;
+    margin-top: 5rem;
+
+    display: flex;
+    flex-wrap: wrap;
+    /* font-size: calc(8px + 1.0vw); */
+    color: #fff;
+ }
+
+.button-container button {
+
+    padding-top: 1%;
+    padding-bottom: 1%;
+    padding-left: 5%;
+    padding-right: 5%;
+    width: fit-content;
+    transition-duration: 0.4s;
+    box-shadow: 3px 5px 18px #002F35;
+
+
+    
+    border: none;
+    border-radius: 5px;
+    font-family: 'Outfit';
+    font-size: 18px;
+    color: #fff;
+    background-color: #002F35;
+    cursor: pointer;
+}
+
+.button-container button:hover{
+    opacity: 100%;
+    background-color:#00191d;
+}
+
+
+.button-container button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.loading{
+    font-size: 3rem;
+    text-align: center;
+    font-weight: bold;
+}
+ 
+.questionAnswers {
+    margin-left: 1rem;
+    margin-bottom: 1rem;
+    margin-right: 1rem;
+}
+
+.questionAnswers ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.questionAnswers li {
+    margin-bottom: 0.8rem;
+}
+
+.questionAnswers input[type="text"] {
+    margin-top: 1rem;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    box-sizing: border-box;
+}
+
+.questionAnswers label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.questionAnswers input[type="checkbox"] {
+    margin-right: 5px;
+}
