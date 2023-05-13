@@ -73,7 +73,7 @@ const Markdown = () =>{
         event.preventDefault();
         setFormValues((prevFormValues: FormValues) => ({ ...prevFormValues, submitted: true }));
 
-        const url = SERVER_ADDRESS + "/materials/update/75  ";
+        const url = SERVER_ADDRESS + "/materials/update/75";
 
         fetch(url, {
             method: "PUT",

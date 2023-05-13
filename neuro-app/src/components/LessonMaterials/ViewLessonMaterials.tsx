@@ -16,7 +16,7 @@ const useGetMaterials = (id_course: string) => {
   
     const fetchMaterials = async (id_course: string) => {
       try {
-        const response = await fetch(SERVER_ADDRESS + `/materials/id_course=${id_course}`);
+        const response = await fetch(SERVER_ADDRESS + `/materials/id_lecture=${id_course}`);
         const data = await response.json();
         setMaterials(data);
       } catch (error) {
