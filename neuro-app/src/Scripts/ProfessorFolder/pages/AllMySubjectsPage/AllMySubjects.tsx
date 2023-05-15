@@ -1,12 +1,12 @@
 import React from 'react'
 import styles from './Body.module.css'
 import { Link } from 'react-router-dom';
-import SelectSubject from '../../components/SelectSubjectComp/SelectSubject';
 import photo_option from './option.png';
 import Scroll from '../../components/ScrollComp/Scroll';
 import ButtonAddCourse from '../../components/buttonAddCourse/ButtonAddCourse';
 import { useState } from "react";
 import Nav from '../../components/nav/Nav';
+import SelectCourse from '../../components/SelectCourseComp/SelectCourse';
 
 
 
@@ -24,7 +24,7 @@ const Body: React.FC<{}> = () => {
             <div>
                 <div className={styles['body--subtitle--container']}>
 
-                    <SelectSubject />
+                    <SelectCourse />
     
                 </div>   
                 
@@ -34,7 +34,7 @@ const Body: React.FC<{}> = () => {
 
                     <div className={styles['course-container']}>
                         <div className={styles['course-title']}>
-                            Course 1
+                            Lecture 1
                         </div> 
                         <div className={styles['body--img'] }>
                             <Scroll/>
@@ -43,7 +43,7 @@ const Body: React.FC<{}> = () => {
 
                      <div className={styles['course-container']}>
                         <div className={styles['course-title']}>
-                            Course 2
+                            Lecture 2
                         </div>
                         <div className={styles['body--img']}>
                             
@@ -54,7 +54,7 @@ const Body: React.FC<{}> = () => {
 
                     <div className={styles['course-container']}>
                         <div className={styles['course-title']}>
-                            Course 3
+                            Lecture 3
                         </div>
                         <div className={styles['body--img']}>
                            
@@ -65,7 +65,7 @@ const Body: React.FC<{}> = () => {
 
                     <div className={styles['course-container']}>
                         <div className={styles['course-title']}>
-                            Course 4
+                           Lecture 4
                         </div>
                         <div className={styles['body--img']}>
                             

@@ -13,7 +13,7 @@ const ButtonAddCourse : React.FC<{}> = () => {
 
 
         <button type="submit" className={styles['button--create']} >
-            + ADD NEW COURSE
+            + ADD NEW LECTURE
         </button> 
     )
 
