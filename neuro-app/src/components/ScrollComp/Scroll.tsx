@@ -9,11 +9,11 @@ import photo_option from './option.png';
 //   value: string
 // }
 interface ScrollProps {
-  id_course: string;
+  id_lecture: string;
 }
 
 
-const Scroll: React.FC<ScrollProps> = ({ id_course }) => {
+const Scroll: React.FC<ScrollProps> = ({ id_lecture }) => {
   const[open,setOpen]=useState<boolean>(false);
   const dropdownRef=useRef<HTMLDivElement>(null);
   const handleDropDownFocus=(state:boolean)=>
@@ -34,7 +34,7 @@ const Scroll: React.FC<ScrollProps> = ({ id_course }) => {
             <Link to='/AddMAterialsLesson'>Add materials </Link>  
           </li>
           <li>
-          <Link to={`/ViewLessonMaterials?id_course=${id_course}`}>View materials</Link></li>
+          <Link to={`/ViewLEctureMaterials?id_lecture=${id_lecture}`}>View materials</Link></li>
           {/* <li><Link to='/MyStudentExams'> Student's exams </Link> </li> */}
           <li><a href='/ViewQuestionAnswer'>View Quiz questions </a> </li>
           {/* <li><Link to='/CreateAnExam'> Create an exam </Link> </li> */}
