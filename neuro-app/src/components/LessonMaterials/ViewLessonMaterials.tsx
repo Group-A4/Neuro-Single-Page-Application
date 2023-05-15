@@ -8,16 +8,16 @@ import { faEdit } from '@fortawesome/free-solid-svg-icons';
 
 
 type Props = {
-  id_course: string;
+  id_lecture: string;
 };
 
-const useGetMaterials = (id_course: string) => {
+const useGetMaterials = (id_lecture: string) => {
   const [materials, setMaterials] = useState<any[]>([]);
 
-  const fetchMaterials = async (id_course: string) => {
+  const fetchMaterials = async (id_lecture: string) => {
     try {
       const response = await fetch(
-        SERVER_ADDRESS + `/materials/id_lecture=${id_course}`
+        SERVER_ADDRESS + `/materials/id_lecture=${id_lecture}`
       );
       const data = await response.json();
       setMaterials(data);
@@ -27,14 +27,14 @@ const useGetMaterials = (id_course: string) => {
   };
 
   useEffect(() => {
-    fetchMaterials(id_course);
-  }, [id_course]);
+    fetchMaterials(id_lecture);
+  }, [id_lecture]);
 
   return { materials, fetchMaterials }; // Return both materials and fetchMaterials
 };
 
-const ViewLessonMaterials: React.FC<Props> = ({ id_course }) => {
-  const { materials, fetchMaterials } = useGetMaterials(id_course); // Destructure fetchMaterials
+const ViewLessonMaterials: React.FC<Props> = ({ id_lecture }) => {
+  const { materials, fetchMaterials } = useGetMaterials(id_lecture); // Destructure fetchMaterials
 
   const handleDelete = async (materialId: string) => {
     if (window.confirm('Are you sure you want to delete this material?')) {
@@ -44,7 +44,7 @@ const ViewLessonMaterials: React.FC<Props> = ({ id_course }) => {
           { method: 'DELETE' }
         );
         // Refresh the materials after deleting
-        fetchMaterials(id_course);
+        fetchMaterials(id_lecture);
       } catch (error) {
         console.error(error);
       }

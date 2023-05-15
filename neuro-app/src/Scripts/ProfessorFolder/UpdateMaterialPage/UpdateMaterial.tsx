@@ -11,7 +11,7 @@ import {GetMaterialById} from "../ViewMaterialPage/material";
 import { SERVER_ADDRESS } from "../../../config/config";
 
 interface FormValues {
-    idCourse: number;
+    idLecture: number;
     idProfessor: number;
     title: string;
     markdownText: string;
@@ -20,7 +20,7 @@ interface FormValues {
 }
 
 const initialFormValues: FormValues = {
-    idCourse: 5,
+    idLecture: 2,
     idProfessor: 53,
     title: "",
     markdownText: "",
@@ -31,7 +31,7 @@ const initialFormValues: FormValues = {
 
 
 const Markdown = () =>{
-    const material = GetMaterialById(75);
+    const material = GetMaterialById(1);
     const filesName = useGetContents(53).map(content => content.name);
 
     const [formValues, setFormValues] = useState<FormValues>(initialFormValues);
@@ -73,7 +73,7 @@ const Markdown = () =>{
         event.preventDefault();
         setFormValues((prevFormValues: FormValues) => ({ ...prevFormValues, submitted: true }));
 
-        const url = SERVER_ADDRESS + "/materials/update/75";
+        const url = SERVER_ADDRESS + "/materials/update/1";
 
         fetch(url, {
             method: "PUT",

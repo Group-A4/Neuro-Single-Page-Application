@@ -10,7 +10,7 @@ import { renderToString } from 'react-dom/server';
 import { SERVER_ADDRESS } from "../../../config/config";
 
 interface FormValues {
-    idCourse: number;
+    idLecture: number;
     idProfessor: number;
     title: string;
     markdownText: string;
@@ -19,7 +19,7 @@ interface FormValues {
 }
 
 const initialFormValues: FormValues = {
-    idCourse: 5,
+    idLecture: 2,
     idProfessor: 53,
     title: "",
     markdownText: "",
@@ -50,8 +50,6 @@ const Markdown = () =>{
                   {markdownParser.parse(value)}
                 </ReactMarkdown>
               );
-
-              console.log(htmlString);
 
             setFormValues((prevFormValues: FormValues) => ({
                 ...prevFormValues,
