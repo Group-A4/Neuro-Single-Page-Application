@@ -14,7 +14,6 @@ const MenuDropDown:React.FC<{}> = () => {
   const dropdownRef=useRef<HTMLDivElement>(null);
   const handleDropDownFocus=(state:boolean)=>
   {setOpen(!state);};
-  console.log(open, dropdownRef.current);
   const handleClickOutsideDropDown=(e:any)=>
   {
     if(open && !dropdownRef.current?.contains(e.target as Node))

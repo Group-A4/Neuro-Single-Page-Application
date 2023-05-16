@@ -42,10 +42,10 @@ const Body: React.FC<{}> = () => {
 
 function EditPersEmail() {
   return (
-      <body>
+      <div>
           <Nav />
           <Body />
-      </body>
+      </div>
   );
 }
 

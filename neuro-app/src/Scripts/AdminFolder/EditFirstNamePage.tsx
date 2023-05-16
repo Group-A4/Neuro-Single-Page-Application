@@ -56,7 +56,7 @@ const Body: React.FC<{}> = () => {
 };
   
   return (
-    <body>
+    <div>
       <div className="center-bubble">
         <form onSubmit={handleSubmit}>
           <label>
@@ -76,17 +76,17 @@ const Body: React.FC<{}> = () => {
           </label>
         </form>
           </div>
-      </body>
+      </div>
   );
 }
 
 
 function EditFirstName() {
   return (
-      <body>
+      <div>
           <Nav />
           <Body />
-      </body>
+      </div>
   );
 }
 

@@ -49,10 +49,10 @@ const Body: React.FC<{}> = () => {
 
 function ModifyOptions() {
   return (
-    <body>
+    <div>
       <Nav />
       <Body />
-    </body>
+    </div>
   );
 }
 

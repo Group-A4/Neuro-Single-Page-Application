@@ -15,7 +15,7 @@ const Body: React.FC<{}> = () => {
     setNewPassword(event.target.value);
   }
   return (
-    <body>
+    <div>
       <div className="center-bubble">
         <form onSubmit={handleSubmit}>
           <label>
@@ -35,17 +35,17 @@ const Body: React.FC<{}> = () => {
           </label>
         </form>
           </div>
-      </body>
+      </div>
   );
 }
 
 
 function EditPassword() {
   return (
-      <body>
+      <div>
           <Nav />
           <Body />
-      </body>
+      </div>
   );
 }
 

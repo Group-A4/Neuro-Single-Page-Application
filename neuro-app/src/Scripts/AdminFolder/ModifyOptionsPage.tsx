@@ -32,10 +32,10 @@ const Body: React.FC<{}> = () => {
 
 function AdminPage() {
   return (
-      <body>
-         <Nav />
+      <div>
+          <Nav />
           <Body />
-      </body>
+      </div>
   );
 }
 
