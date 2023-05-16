@@ -25,12 +25,20 @@ const SelectCourse: React.FC<{ onSelectCourse: (id: number) => void }> = ({ onSe
             setCourses(data);
         };
         fetchCourses();
+
+        const savedCourseId = localStorage.getItem('selectedCourseId');
+        if (savedCourseId) {
+            const courseId = parseInt(savedCourseId);
+            setSelectedCourseId(courseId);
+            onSelectCourse(courseId);
+        }
     }, []);
 
     const handleCourseSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const courseId = parseInt(event.target.value);
         setSelectedCourseId(courseId);
         onSelectCourse(courseId);
+        localStorage.setItem('selectedCourseId', String(courseId));
     };
 
     return (
@@ -54,10 +62,14 @@ const SelectCourse: React.FC<{ onSelectCourse: (id: number) => void }> = ({ onSe
 };
 
 const Body: React.FC<{}> = () => {
-    const [idC, setIdC] = useState<number | null>(null);
+    const [idC, setIdC] = useState<number | null>(() => {
+        const savedCourseId = localStorage.getItem('selectedCourseId');
+        return savedCourseId ? parseInt(savedCourseId) : null;
+    });
 
     const handleCourseSelect = (courseId: number) => {
         setIdC(courseId);
+        localStorage.setItem('selectedCourseId', String(courseId));
     };
 
     return (
