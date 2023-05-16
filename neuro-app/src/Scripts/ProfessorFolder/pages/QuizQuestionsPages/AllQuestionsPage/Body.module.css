@@ -33,26 +33,28 @@
 
 }
 
-.body--subtitle--container  {
+.body--subtitle--container {
     margin-left: 8%;
     padding-top: 6%;
     padding-bottom: 1%;
     display: flex;
-    
+
 }
 
-.body--subtitle--container > div{
+.body--subtitle--container>div {
 
-    margin-left: 8%;
+    margin-left: 5%;
     display: flex;
+    margin-right: 5%;
+
 
 }
 
-.body--subtitle{
+.body--subtitle {
     padding-right: 2%;
-        font-weight: bold;
-        font-size: calc(20px + 1.5vw);
-        /* background-image: url("Line.png");
+    font-weight: bold;
+    font-size: calc(20px + 1.5vw);
+    /* background-image: url("Line.png");
         background-size: cover; */
 
     /* background-image: url("Line.png");
@@ -78,56 +80,57 @@
 
     flex-direction: column;
 }
-.questions-container
-{
-    
+
+.questions-container {
+
     width: 70%;
     height: auto;
     /* height: 60%; */
     padding-left: 15%;
 
 }
-.quest
-{
+
+.quest {
     margin-top: 3%;
     margin-bottom: 6%;
 }
-.questionTitle
-{
-    
+
+.questionTitle {
+    margin-block-start: 0;
     background-color: #002F35;
-    color:white;
+    color: white;
     font-size: calc(20px + 1.0vw);
     padding-top: 1%;
     padding-bottom: 1%;
     padding-left: 3%;
 }
-.correct-answer
-{
-    list-style:url('checked.png');
+
+.correct-answer {
+    list-style: url('checked.png');
     font-size: calc(20px + 1.0vw);
-    margin-left:3%;
+    margin-left: 3%;
     margin-top: 1%;
 }
-.ull
-{
-    margin-top:0%;
+
+.ull {
+    margin-top: 0%;
     list-style: none;
     background-color: white;
     padding-top: 1%;
     padding-bottom: 3%;
 }
-h3{
+
+h3 {
     margin-bottom: 0;
 }
-.answer
-{
+
+.answer {
     font-size: calc(20px + 1.0vw);
-    margin-left:3%;
+    margin-left: 3%;
     margin-top: 1%;
 }
 
-.selects{
+.selects {
     align-self: center;
     display: flex;
     justify-content: space-around;
@@ -135,11 +138,116 @@ h3{
 
 @media only screen and (max-width:1000px) {
 
-/* .selects {
+    /* .selects {
         display: flex;
         flex-direction: column;
      
     } */
 
 
+}
+
+.subject-container {
+    margin-left: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    /* aliniați elementele copil la dreapta containerului */
+    width: fit-content;
+    border-radius: 1px;
+    margin-top: 1%;
+    position: relative;
+}
+
+.subject-container::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 10%;
+    transform: translateY(-50%);
+    border-top: 5px solid black;
+    border-right: 5px solid transparent;
+    border-left: 5px solid transparent;
+    width: 0.3%;
+    height: auto;
+
+}
+
+.subject-container select {
+
+    color: black;
+    background-color: white;
+    /* border-radius: 20px; */
+    height: fit-content;
+    min-height: 100%;
+    width: fit-content;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    padding-left: 5%;
+    padding-right: 25%;
+
+    border: 2px solid black;
+    /* outer border */
+    /* box-shadow: 0 0 0 10px #d0cccc; */
+    /* inner border */
+
+    border-radius: 10px;
+
+    display: inline-block;
+    appearance: none;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    -webkit-appearance: none;
+}
+
+.subject-container select:focus {
+    outline: none;
+}
+
+
+.subject-options {
+    font-size: 3.0vh;
+    width: fit-content;
+    background-color: white;
+}
+
+
+
+/* @media only screen and (max-width:1000px) {
+    .subject-container {
+            height: 20%;
+            width: fit-content;
+    }
+    .subject-container select{
+        height: 20%;
+        width: fit-content;
+    }
+
+} */
+.barInfo {
+    background-color: #C49C60;
+    font-weight: bold;
+    font-size: 20px;
+    padding: 0.5%;
+    align-items: left;
+    display: flex;
+    justify-content: space-between;
+
+
+}
+
+.timeDifficulty {
+    color: #002F35;
+    font-weight: bold;
+}
+
+.edit {
+
+    background-color: white;
+    border-color: red;
+    border-width: 1%;
+    color: red;
+    font-size: 2vi;
+    margin-left: 1%;
+    border-radius: 10px;
 }

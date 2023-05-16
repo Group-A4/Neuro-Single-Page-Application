@@ -1,0 +1,148 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
+.div{
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #002F35;
+  color:#C49C60 ;
+  border-radius: 3%;
+  box-shadow: 1px 1px 6px 1px rgba(0,0,0,0.75);
+}
+
+:root {
+  --container-height: 620px;
+}
+
+section {
+  position: relative;
+  padding-right: 50px;
+}
+
+.list {
+  max-height: var(--container-height);
+  border: 2px solid #37392e;
+  border-radius: 5px;
+  scroll-snap-type: y mandatory;
+  overscroll-behavior-y: contain;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scroll-timeline: listTimeline vertical;
+}
+
+.animation {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50px;
+  height: 100%;
+  background-size: 50px 40px;
+  /* background image on bottom of css for readability */
+}
+
+@supports (scroll-timeline: works) {
+  .animation {
+    animation: moveBackground 1s alternate linear;
+    animation-timeline: listTimeline;
+  }
+}
+
+@keyframes moveBackground {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 0 calc(var(--container-height) / -1);
+  }
+}
+
+.list ul{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background: #002F35;
+}
+
+li {
+  padding: 20px;
+  border-top: 1px solid #1e6363;
+  scroll-snap-align: start;
+}
+
+.list ul li a {
+  color: #f5f5f7;
+}
+
+li:first-child {
+  border: 0;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #555151;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1e6363;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #19647e;
+}
+
+@media screen and (max-width: 1550px) {
+  :root {
+    --container-height: 535px;
+  }
+}
+
+
+@media screen and (max-width: 700px) {
+  .div{
+    width: 34%;
+    margin-left: -5%;
+  }
+
+  .list{
+    width: 98%;
+  }
+
+  .h2{
+    font-size: 1rem;
+  }
+
+  .list ul li a {
+    font-size: 0.9rem;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  :root {
+    --container-height: 470px;
+  }
+  .h2{
+    font-size: 0.9rem;
+  }
+}
+
+
+
+@media screen and (max-width: 350px) {
+  .list ul li a {
+    font-size: 0.7rem;
+  }
+  .h2{
+    font-size: 0.8rem;
+  }
+
+  .list ul li {
+    margin-left: -10%;
+  }
+  
+}

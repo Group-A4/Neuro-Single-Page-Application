@@ -1,6 +1,8 @@
 import React from "react";
-import styles from "./Body.module.css";
-import { Link } from 'react-router-dom';
+import styles from "./AddContent.module.css";
+import { Link } from "react-router-dom";
+import { SERVER_ADDRESS } from "../../../../config/config";
+import { useDropzone } from "react-dropzone";
 
 interface FormValues {
   fileName: string;
@@ -18,51 +20,19 @@ const initialValues: FormValues = {
 
 const ContentInput: React.FC<{}> = () => {
   const [formValues, setFormValues] = React.useState<FormValues>(initialValues);
-  const [dragActive, setDragActive] = React.useState<boolean>(false);
-  const inputRef = React.useRef<HTMLInputElement>(null);
+  const [message, setMessage] = React.useState<string>("");
+  const [uploadStatus, setUploadStatus] = React.useState<"idle" | "pending" | "success" | "error">("idle");
 
-  const handleDrag = (
-    e: React.DragEvent<HTMLFormElement> | React.DragEvent<HTMLLabelElement>
-  ) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (e.type === "dragenter" || e.type === "dragover") {
-      setDragActive(true);
-    } else if (e.type === "dragleave") {
-      setDragActive(false);
-    }
-  };
+  const onDrop = React.useCallback((acceptedFiles: File[]) => {
+    const file = acceptedFiles[0];
+    setFormValues((prevFormValues: FormValues) => ({
+      ...prevFormValues,
+      contentFile: file,
+      fileName: file.name,
+    }));
+  }, []);
 
-  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setDragActive(false);
-    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-      const file = e.dataTransfer.files[0];
-      setFormValues((prevFormValues: FormValues) => ({
-        ...prevFormValues,
-        contentFile: file,
-        fileName: file.name,
-      }));
-    }
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      const file = e.target.files[0];
-      setFormValues((prevFormValues: FormValues) => ({
-        ...prevFormValues,
-        contentFile: file,
-        fileName: file.name,
-      }));
-    }
-  };
-
-  const onButtonClick = () => {
-    if (inputRef.current) {
-      inputRef.current.click();
-    }
-  };
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -70,8 +40,9 @@ const ContentInput: React.FC<{}> = () => {
       ...prevFormValues,
       submitted: true,
     }));
+    setUploadStatus("pending");
 
-    const url = "http://localhost:8191/content/create";
+    const url = SERVER_ADDRESS + "/content/create";
 
     const formData = new FormData();
     formData.append("fileName", formValues.fileName);
@@ -87,6 +58,7 @@ const ContentInput: React.FC<{}> = () => {
           throw new Error("Network response was not ok");
         }
         console.log("Content created successfully!");
+        setUploadStatus("success");
         return response.text();
       })
       .then((text) => {
@@ -97,49 +69,70 @@ const ContentInput: React.FC<{}> = () => {
         }
       })
       .then((data) => console.log(data))
-      .catch((error) => console.error(error));
+      .catch((error) => {
+        console.error(error);
+        setUploadStatus("error");
+      });
   };
+
+  React.useEffect(() => {
+    if (uploadStatus === "success") {
+      setMessage("File uploaded successfully!");
+    } else if (uploadStatus === "error") {
+      setMessage("Error uploading file. Please try again later.");
+    } else {
+      setMessage("");
+    }
+  }, [uploadStatus]);
 
   return (
     <div className={styles["body"]}>
       <div className={styles["body--text"]}>Add Content</div>
-      {/* <p className={styles["body--explication"]}>
-        Add content to your lecture.
-      </p> */}
-
-        <form
-            id="form-file-upload"
-            className={styles["body--form"]}
-            onDragEnter={handleDrag}
-            onDragOver={handleDrag}
-            onDragLeave={handleDrag}
-            onSubmit={handleSubmit}
+      <form
+        id="form-file-upload"
+        className={styles["body--form"]}
+        onSubmit={handleSubmit}
+      >
+        <div
+          {...getRootProps()}
+          className={`${styles["body--content"]} ${
+            isDragActive ? styles["drag-active"] : ""
+          }`}
         >
-            {/* <Link to='/ViewLessonMaterials'> */}
-                <button className={styles["body--button--publish"]}>
-                    <input
-                        id="content-file-input"
-                        type="file"
-                        ref={inputRef}
-                        style={{ display: "none" }}
-                        onChange={handleChange}
-                        accept=".pdf,.ppt,.pptx,.mp3,.mp4,.mkv,.jpg,.jpeg,.png,.bmp,.gif"
-                    />
-                    Add file
-                </button>
-            {/* </Link> */}
-            <div className={styles["body--content"]} onDrop={handleDrop}>
+          <input {...getInputProps()} accept=".pdf,.ppt,.pptx,.mp3,.mp4,.mkv,.jpg,.jpeg,.png,.bmp,.gif" />
+          <div>
+            {formValues.fileName && (
+              <div className={`${styles["body--content-text"]} ignore`}>
+                <p>{formValues.fileName}</p>
+              </div>
+            )}
+            {!formValues.fileName && !isDragActive && (
+              <div className={`${styles["body--content-text"]} ignore`}>
                 <p>Upload a file</p>
                 <p>Drag & Drop or add a file</p>
-                <button
-                    type="button"
-                    onClick={onButtonClick}
-                    className={styles["body--button--add"]}
-                >
-                    Select file
-                </button>
-            </div>
-        </form>
+              </div>
+            )}
+            {!formValues.fileName && isDragActive && (
+              <div className={`${styles["body--content-text"]} ignore`}>
+                <p>Drop the file</p>
+              </div>
+            )}
+          </div>
+          <button type="button" className={`${styles["body--button--add"]} ignore`}>
+            Add file
+          </button>
+        </div>
+
+        {message && (
+          <div className={`${styles["body--message"]} ${uploadStatus === "success" ? styles["body--message--success"] : styles["body--message--error"]}`}>
+            {message}
+          </div>
+        )}
+
+        {/* <Link to='/ViewLectureMaterials' className={styles["body--redirect"]}> */}
+        <button className={styles["body--button--publish"]}>Publish</button>
+        {/* </Link> */}
+      </form>
     </div>
   );
 };

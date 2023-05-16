@@ -53,7 +53,7 @@ const Formular: React.FC<{}> = () => {
                             </div>
                             <div className={styles['body--img']}>
 
-                                <Scroll />
+                                {/* <Scroll /> */}
 
                             </div>
                         <button type="button" onClick={() => removeQuestion(questionIndex)} className={styles.removeq}>R</button>
