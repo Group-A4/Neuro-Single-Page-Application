@@ -12,7 +12,6 @@ import { Column, useTable } from 'react-table';
 import ScrollBlack from '../../components/ScrollCompBlack/ScrollBlack';
 
 interface UserData {
-
     subject_title:string;
     duration:number;
     questions:number;
