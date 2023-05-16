@@ -31,11 +31,10 @@ const Questions: React.FC<QuestionsProps> = ({ idCourse }) => {
         setQuestions(data);
         console.log(data);
       }
-
-
     };
     fetchQuestions();
   }, [idCourse]);
+  
   const handleDelete = async (questionId: number) => {
     try {
       const response = await fetch(`http://localhost:8192/questionQuizz/delete/${questionId}`, {
