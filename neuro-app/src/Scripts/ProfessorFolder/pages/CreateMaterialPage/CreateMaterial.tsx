@@ -77,6 +77,9 @@ const Markdown = () =>{
                     throw new Error("Network response was not ok");
                 }
                 console.log("Crearea materialului a fost realizata cu succes!");
+                if (response.status === 201) {
+                    window.location.href = "/viewLectureMaterials";
+                }
                 return response.text();
             })
             .then(text => {
