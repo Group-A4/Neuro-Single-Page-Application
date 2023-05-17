@@ -1,6 +1,7 @@
 import React from 'react'
 import styles from './Nav.module.css'
 import {useState} from 'react'
+import img_globe from './Globe.png'
  
 // type SelectOptions={
 //   label: string
@@ -12,24 +13,22 @@ const LangButtonMini:React.FC<{}> = () => {
   const[selects]=useState();
   return (
     <div className={styles['language-container-mini']}>
-      <img src="nav_images/Globe.png" alt="English" />
+      <img src={img_globe} alt="English" />
       <select  value={selects} onChange={()=>{}}>
-
           <option className={styles['language-options']}>
-          <div className={styles['language-options']}>
 
-                English
-          </div>
-
-      
-            </option>
+            <div className={styles['language-options']}>
+              English
+            </div>
+          </option>
 
           <option className={styles['language-options']}>
             Romana
-            </option>
+          </option>
+          
           <option className={styles['language-options']}>
             Francais
-            </option>
+          </option>
 
         </select>
         

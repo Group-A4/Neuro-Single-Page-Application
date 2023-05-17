@@ -32,6 +32,8 @@ import AllExams from "./Scripts/ProfessorFolder/pages/AllExamsPage/AllExams";
 import ViewExam from "./Scripts/ProfessorFolder/pages/AllExamsPage/ViewExam/ViewExam";
 import Exam from "./Scripts/ProfessorFolder/pages/AllExamsPage/ExamPage/Exam";
 import AddQuestion from './Scripts/ProfessorFolder/pages/AddQuizQuestionsPage/AddQuestion';
+import ViewMaterialsStudent from "./Scripts/StudentFolder/ViewMaterials/ViewMaterials";
+import ViewLectures from './Scripts/StudentFolder/ViewLecturesStudent/ViewLecturesStudent';
 
 
 import AddContent from "./Scripts/ProfessorFolder/pages/AddContentPage/AddContent";
@@ -39,7 +41,6 @@ import CreateMaterial from "./Scripts/ProfessorFolder/pages/CreateMaterialPage/C
 import UpdateMaterial from "./Scripts/ProfessorFolder/pages/UpdateMaterialPage/UpdateMaterial";
 import ViewLectureMaterials from "./Scripts/ProfessorFolder/pages/ViewLectureMaterialsPage/ViewLectureMaterials";
 import ViewMaterial from "./Scripts/ProfessorFolder/pages/ViewMaterialPage/ViewMaterial";
-
 
 function App(): JSX.Element {
   return (
@@ -59,6 +60,8 @@ function App(): JSX.Element {
       <Route path="QuestionTextPage" element={<QuestionTextPage />}> </Route>
       <Route path="ViewMyExamAnswers" element={<ViewMyExamAnswers />}> </Route>
       <Route path="ResultExam" element={<ResultExam />}></Route>
+      <Route path="ViewMaterialsStudent" element={<ViewMaterialsStudent />}></Route>
+      <Route path="ViewLectures/:courseId" element={<ViewLectures />} />
       <Route path="/" element={<Home />} />
 
 
