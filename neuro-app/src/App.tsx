@@ -28,8 +28,6 @@ import ViewQuestionAnswer from './Scripts/ProfessorFolder/ViewQuestionAnswerPage
 import ModifyOptionsPage from "./Scripts/AdminFolder/ModifyOptionsPage";
 import EditFirstNamePage from "./Scripts/AdminFolder/EditFirstNamePage";
 import EditLastNamePage from "./Scripts/AdminFolder/EditLastNamePage";
-import EditRolePage from "./Scripts/AdminFolder/EditRolePage";
-import EditPasswordPage from "./Scripts/AdminFolder/EditPasswordPage";
 import EditUnivEmailPage from "./Scripts/AdminFolder/EditUnivEmailPage";
 import EditPersEmailPage from "./Scripts/AdminFolder/EditPersEmailPage";
 import ChooseAccountPage from "./Scripts/AdminFolder/ChooseAccountPage";
@@ -59,8 +57,6 @@ function App() {
       <Route path="ChooseAccountPage" element={<ChooseAccountPage />}></Route>
       <Route path="EditFirstNamePage" element={<EditFirstNamePage />}></Route>
       <Route path="EditLastNamePage" element={<EditLastNamePage />}></Route>
-      <Route path="EditRolePage" element={<EditRolePage />}></Route>
-      <Route path="EditPasswordPage" element={<EditPasswordPage />}></Route>
       <Route path="EditUnivEmailPage" element={<EditUnivEmailPage />}></Route>
       <Route path="EditPersEmailPage" element={<EditPersEmailPage />}></Route>
       <Route path="ModifyOptionsPage" element={<ModifyOptionsPage />}></Route>

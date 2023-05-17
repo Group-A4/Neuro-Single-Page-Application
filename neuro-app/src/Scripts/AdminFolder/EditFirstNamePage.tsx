@@ -1,94 +1,107 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Nav from './NavBarAdmin/Nav';
 import "./AdminPage.css";
 
-
 interface FormValues {
-  oldFirstName: string;
-  newFirstName: string;
-  submitted: boolean;
+  oldName: string;
+  newName: string;
 }
 const initialFormValues: FormValues = {
-  
-  oldFirstName: "",
-  newFirstName: "",
-  submitted: false,
+  oldName: "",
+  newName: "",
 };
+
+
 const Body: React.FC<{}> = () => {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [defaultValueObject, setDefaultValueObject] = useState<{ firstName: string } | null>(null);
+
+  useEffect(() => {
+    var defaultValue = localStorage.getItem('userDataModify');
+    if (defaultValue !== null) {
+      var parsedDefaultValue = JSON.parse(defaultValue);
+      setDefaultValueObject(parsedDefaultValue);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (inputRef.current && defaultValueObject) {
+      inputRef.current.value = defaultValueObject.firstName;
+    }
+  }, [defaultValueObject]);
+
   const [formValues, setFormValues] = useState<FormValues>(initialFormValues);
 
-  const handleChange = (event : React.ChangeEvent<HTMLInputElement>) => {
-    setFormValues((prevFormValues) => ({
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setFormValues((prevFormValues: FormValues) => ({
       ...prevFormValues,
-      [event.target.name]: event.target.value,
+      [name]: value,
     }));
-  }
+  };
 
-  const handleSubmit = ( event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setFormValues((prevFormValues: FormValues) => ({ ...prevFormValues, submitted: true }));
-/*
-    fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(formValues)
-    })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      console.log('Modificarea numelui a fost realizata cu succes!');
-      return response.json();
-    })
-    .then((text) => {
-      if (text) {
-        return JSON.parse(text);
-      } else {
-        throw new Error('Empty response');
-      }
-    })
-    .then((data) => console.log(data))
-    .catch((error) => console.error(error));
-    */
-};
-  
+
+    var defaultValue = localStorage.getItem('userDataModify');
+    if (defaultValue !== null) {
+      var parsedDefaultValue = JSON.parse(defaultValue);
+      parsedDefaultValue.firstName = formValues.newName;
+      localStorage.setItem('userDataModify', JSON.stringify(parsedDefaultValue));
+    }
+
+      var idUs = localStorage.getItem('userToModify');
+      const firstNameData = async () => {
+        try {
+          const response = await fetch(`http://localhost:8192/users/update/${idUs}`, {
+            method: 'PUT',
+            headers: {
+              'Authorization': `Bearer ${localStorage.getItem('token')}`,
+              'Content-Type': 'application/json',
+              'Access-Control-Allow-Origin': '*'
+            },
+            body : JSON.stringify(parsedDefaultValue)
+          });
+      
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          } else {
+            window.location.href = "/ModifyOptionsPage"
+          }
+      
+        } catch (error) {
+          console.error(error);
+        }
+      };
+      
+      firstNameData();    
+
+
+  }
+
   return (
     <div>
+      <Nav />
       <div className="center-bubble">
         <form onSubmit={handleSubmit}>
-          <label>
-            Current first name:
-            <br></br>
-            <input width="80"type="text" value={formValues.oldFirstName} onChange={handleChange} />
-            <br></br>
-            <br></br>
-            New first name:
-            <br></br>
-            <input type="text" value={formValues.newFirstName} onChange={handleChange} />
-            <br></br>
-            <br></br>
-            <Link to="/ModifyOptionsPage">
-            <button type="submit">Edit first name</button>
-            </Link>
-          </label>
+    
+            <label htmlFor="default-name">Current first name:</label> 
+            <br />
+            <input width="80" type="text" id="default-name" name="default-name" onChange={handleChange} ref={inputRef}readOnly />
+            <br /><br />
+            <label htmlFor="newName">New first name:</label> 
+            <br />
+            <input type="text" id="newName" name="newName" value={formValues.newName}  onChange={handleChange} />
+            <br /><br />
+            <input type="submit" value="Edit first Name" />
+            
+          
         </form>
-          </div>
       </div>
+    </div>
   );
 }
 
-
-function EditFirstName() {
-  return (
-      <div>
-          <Nav />
-          <Body />
-      </div>
-  );
-}
-
-export default EditFirstName;
-
+export default Body;

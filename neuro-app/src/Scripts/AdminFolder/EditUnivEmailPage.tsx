@@ -1,39 +1,105 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Nav from './NavBarAdmin/Nav';
 import "./AdminPage.css";
 
 
+interface FormValues {
+  oldName: string;
+  newName: string;
+}
+const initialFormValues: FormValues = {
+  oldName: "",
+  newName: "",
+};
+
+
 const Body: React.FC<{}> = () => {
-  const [oldUnivEmail,setOldUnivEmail]=useState('');
-  const [newUnivEmail,setNewUnivEmail]=useState('');
-  const handleSubmit = ( event: React.FormEvent<HTMLFormElement>) => {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [defaultValueObject, setDefaultValueObject] = useState<{ emailFaculty: string } | null>(null);
+
+  useEffect(() => {
+    var defaultValue = localStorage.getItem('userDataModify');
+    if (defaultValue !== null) {
+      var parsedDefaultValue = JSON.parse(defaultValue);
+      setDefaultValueObject(parsedDefaultValue);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (inputRef.current && defaultValueObject) {
+      inputRef.current.value = defaultValueObject.emailFaculty;
+    }
+  }, [defaultValueObject]);
+
+  const [formValues, setFormValues] = useState<FormValues>(initialFormValues);
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setFormValues((prevFormValues: FormValues) => ({
+      ...prevFormValues,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setFormValues((prevFormValues: FormValues) => ({ ...prevFormValues, submitted: true }));
+
+    var defaultValue = localStorage.getItem('userDataModify');
+    if (defaultValue !== null) {
+      var parsedDefaultValue = JSON.parse(defaultValue);
+      parsedDefaultValue.emailFaculty = formValues.newName;
+      localStorage.setItem('userDataModify', JSON.stringify(parsedDefaultValue));
+    }
+
+      var idUs = localStorage.getItem('userToModify');
+      const firstNameData = async () => {
+        try {
+          const response = await fetch(`http://localhost:8192/users/update/${idUs}`, {
+            method: 'PUT',
+            headers: {
+              'Authorization': `Bearer ${localStorage.getItem('token')}`,
+              'Content-Type': 'application/json',
+              'Access-Control-Allow-Origin': '*'
+            },
+            body : JSON.stringify(parsedDefaultValue)
+          });
+      
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          } else {
+            window.location.href = "/ModifyOptionsPage"
+          }
+      
+        } catch (error) {
+          alert("Mail-ul este deja folosit!");
+        }
+      };
+      
+      firstNameData();    
+
+
   }
-  const handleChange = (event : React.ChangeEvent<HTMLInputElement>) => {
-    setOldUnivEmail(event.target.value);
-    setNewUnivEmail(event.target.value);
-  }
+
+
   return (
     <div>
       <div className="center-bubble">
-        <form onSubmit={handleSubmit}>
-          <label>
-            Current univerisity email:
-            <br></br>
-            <input width="80"type="text" value={oldUnivEmail} onChange={handleChange} />
-            <br></br>
-            <br></br>
-            New univerisity email:
-            <br></br>
-            <input type="text" value={newUnivEmail} onChange={handleChange} />
-            <br></br>
-            <br></br>
-            <Link to="/ModifyOptionsPage">
-            <button type="submit">Edit university email</button>
-            </Link>
-          </label>
-        </form>
+      <form onSubmit={handleSubmit}>
+    
+        <label htmlFor="default-name">Current university email:</label> 
+        <br />
+        <input width="80" type="text" id="default-name" name="default-name" onChange={handleChange} ref={inputRef}readOnly />
+        <br /><br />
+        <label htmlFor="newName">New university email:</label> 
+        <br />
+        <input type="text" id="newName" name="newName" value={formValues.newName}  onChange={handleChange} />
+        <br /><br />
+        <input type="submit" value="Edit university email" />
+        
+  
+</form>
           </div>
       </div>
   );
