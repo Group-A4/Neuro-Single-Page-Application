@@ -49,7 +49,8 @@
 .course-container--header {
     display: flex;
     /* justify-content: space-between; */
-    font-style: bold;
+    font-style: italic;
+    font-weight: bold;
     align-items: flex-end;
     margin-left: 6%;
     margin-right: 6%;
@@ -109,6 +110,7 @@
     padding-left: 5%;
     padding-right: 5%;
     transition-duration: 0.4s;
+    font-style: italic;
 }
 
 .course-container {

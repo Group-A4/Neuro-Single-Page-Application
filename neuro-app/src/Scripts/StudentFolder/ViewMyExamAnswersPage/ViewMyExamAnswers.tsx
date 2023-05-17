@@ -1,176 +1,265 @@
-import React, { useState } from 'react';
-import Nav from '../NavBarStudent/Nav';
-import styles from './ViewMyExamAnswers.module.css';
-import '../QuestionMockExamPage/QuestionMockExamPage';
+import React, { useEffect, useState } from "react";
+import Nav from "../NavBarStudent/Nav";
+import styles from "./ViewMyExamAnswers.module.css";
+import "../QuestionMockExamPage/QuestionMockExamPage";
 import Frame from "../Components/Frame";
 
-interface QuizQuestion {
-    id: number;
-    idCourse: number;
-    idProfessor: number;
-    questionText: string;
-    answersQuestion?: QuizAnswer[];
-    isMultipleChoice: boolean; 
+interface Answer {
+  id: number;
+  idQuestion: number;
+  answerText: string;
+  correct: boolean;
+  chosenByStudent: boolean;
 }
 
-interface QuizAnswer {
-    idQuestion: number;
-    answerText: string;
-    correct?: boolean;
-    chosen?: boolean;
-    score?: number;
+interface QuestionMultipleChoice {
+  id: number;
+  idExam: number;
+  idProfessor: number;
+  questionText: string;
+  points: number;
+  studentPoints: number;
+  answersQuestionResult: Answer[];
 }
 
-const hardcodedQuestions: QuizQuestion[] = [
+interface QuestionLongResponse {
+  id: number;
+  idExam: number;
+  idProfessor: number;
+  questionText: string;
+  points: number;
+  studentPoints: number;
+  expectedResponse: string;
+  studentResponse: string;
+}
 
-     {
-        id: 1,
-        idCourse: 1,
-        idProfessor: 1,
-        questionText: "What is the formula for water?",
-        answersQuestion: [],
-        isMultipleChoice: false,
-    },
-    {
-        id: 2,
-        idCourse: 1,
-        idProfessor: 1,
-        questionText: "What is the symbol for the element oxygen?",
-        answersQuestion: [],
-        isMultipleChoice: false,
-    },
-    {
-        id: 3,
-        idCourse: 1,
-        idProfessor: 1,
-        questionText: "What is the capital of France?",
-        answersQuestion: [
-            {
-                idQuestion: 1,
-                answerText: "Paris",
-                correct: true,
-            },
-            {
-                idQuestion: 1,
-                answerText: "Madrid",
-                correct: false,
-            },
-            {
-                idQuestion: 1,
-                answerText: "Berlin",
-                correct: false,
-            },
-            {
-                idQuestion: 1,
-                answerText: "London",
-                correct: false,
-            },
-        ],
-        isMultipleChoice: true,
-    },
-    {
-        id: 4,
-        idCourse: 1,
-        idProfessor: 1,
-        questionText: "What is the largest ocean in the world?",
-        answersQuestion: [
-            {
-                idQuestion: 2,
-                answerText: "Atlantic Ocean",
-                correct: false,
-            },
-            {
-                idQuestion: 2,
-                answerText: "Indian Ocean",
-                correct: false,
-            },
-            {
-                idQuestion: 2,
-                answerText: "Arctic Ocean",
-                correct: false,
-            },
-            {
-                idQuestion: 2,
-                answerText: "Pacific Ocean",
-                correct: true,
-            },
-        ],
-        isMultipleChoice: true,
-    }
-];
+interface Exam {
+  id: number;
+  idCourse: number;
+  idProfessor: number;
+  title: string;
+  date: string;
+  timeExam: number;
+  evaluationType: number;
+  totalPoints: number;
+  questionsMultipleChoiceResult: QuestionMultipleChoice[];
+  questionsLongResponseResult: QuestionLongResponse[];
+}
 
-const userAnswers: QuizAnswer[] = [
-  { idQuestion: 1, answerText: "Response1" , score: 0.5},
-  { idQuestion: 2, answerText: "Response2" , score: 1},
-  { idQuestion: 3, answerText: "Paris", correct: true, chosen: true , score: 1},
-  { idQuestion: 4, answerText: "Indian Ocean", correct: false, chosen: true, score: 0},
-];
+// const hardcodedData: Exam = {
+//   id: 4,
+//   idCourse: 2,
+//   idProfessor: 53,
+//   title: "string",
+//   date: "2024-05-13T21:00:00.000+00:00",
+//   timeExam: 100,
+//   evaluationType: 2,
+//   totalPoints: 0,
+//   questionsMultipleChoiceResult: [
+//     {
+//       id: 19,
+//       idExam: 4,
+//       idProfessor: 53,
+//       questionText: "string",
+//       points: 10,
+//       studentPoints: 0,
+//       answersQuestionResult: [
+//         {
+//           id: 62,
+//           idQuestion: 19,
+//           answerText: "string",
+//           correct: true,
+//           chosenByStudent: false,
+//         },
+//       ],
+//     },
+//     {
+//       id: 31,
+//       idExam: 4,
+//       idProfessor: 53,
+//       questionText: "What is SOLID in Software Engineering?",
+//       points: 15,
+//       studentPoints: 0,
+//       answersQuestionResult: [
+//         {
+//           id: 109,
+//           idQuestion: 31,
+//           answerText: "Design Pattern",
+//           correct: true,
+//           chosenByStudent: false,
+//         },
+//         {
+//           id: 110,
+//           idQuestion: 31,
+//           answerText: "Not that important",
+//           correct: false,
+//           chosenByStudent: false,
+//         },
+//       ],
+//     },
+//     {
+//       id: 32,
+//       idExam: 4,
+//       idProfessor: 53,
+//       questionText: "Very Important Question",
+//       points: 20,
+//       studentPoints: 0,
+//       answersQuestionResult: [
+//         {
+//           id: 111,
+//           idQuestion: 32,
+//           answerText: "Answer 1",
+//           correct: true,
+//           chosenByStudent: false,
+//         },
+//         {
+//           id: 112,
+//           idQuestion: 32,
+//           answerText: "Answer 2",
+//           correct: false,
+//           chosenByStudent: true,
+//         },
+//         {
+//           id: 113,
+//           idQuestion: 32,
+//           answerText: "Answer 3",
+//           correct: true,
+//           chosenByStudent: false,
+//         },
+//         {
+//           id: 114,
+//           idQuestion: 32,
+//           answerText: "Answer 4",
+//           correct: false,
+//           chosenByStudent: false,
+//         },
+//       ],
+//     },
+//   ],
+//   questionsLongResponseResult: [
+//     {
+//       id: 20,
+//       idExam: 4,
+//       idProfessor: 53,
+//       questionText: "string",
+//       points: 10,
+//       studentPoints: 0,
+//       expectedResponse: "string",
+//       studentResponse: "",
+//     },
+//   ],
+// };
 
 const Body: React.FC<{}> = () => {
-  const [questions, setQuestions] =
-    useState<QuizQuestion[]>(hardcodedQuestions);
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  // const [exam, setExam] = useState<Exam>(hardcodedData);
+  const [exam, setExam] = useState<Exam | null>(null);
 
-  return (
-    <div className="body">
-      <div className={styles["bodyTitle"]}>
-        Here are your answers to the exam
+  useEffect(() => {
+    // Fetch data using the GET method
+    fetch("http://localhost:8192/exam/viewExamResult/idExam=7/idStudent=34")
+      .then((response) => response.json())
+      .then((data) => setExam(data))
+      .catch((error) => console.error(error));
+  }, []);
+
+  if (!exam) {
+    return (
+      <div className={styles.body}>
+        <div className={styles.bodyTitle}>Loading answers...</div>
       </div>
+    );
+  }
 
-      {questions.map((question, index) => {
-        return (
-          <div key={question.id} className={styles["questionPart"]}>
-            <h1 className={styles["questionTitle"]}>
-              {index + 1}/{questions.length} {question.questionText}
-            </h1>
+   return (
+     <div className={styles.body}>
+       <div className={styles.bodyTitle}>Here are your answers to the exam</div>
 
-            {question.isMultipleChoice ? (
-              <div className={styles["questionAnswers"]}>
-                {question.answersQuestion ? (
-                  <ul>
-                    {question.answersQuestion.map((answer, index) => (
-                      <li
-                        key={index}
-                        className={
-                          answer.correct
-                            ? styles.correctAnswers
-                            : styles.choices
-                        }
-                      >
-                        {answer.answerText}
-                      </li>
-                    ))}
-                  </ul>
-                ) : (
-                  ""
-                )}
-                <p className={styles["yourAnswers"]}>
-                  Your answer/s: {userAnswers[index].answerText}
-                </p>
-              </div>
-            ) : (
-              <p className={styles["textQuestionAnswers"]}>
-                {userAnswers[index].answerText}
-              </p>
-            )}
-            <p className={styles["yourScore"]}>
-              Score: {userAnswers[index].score} / 1
-            </p>
-          </div>
-        );
-      })}
-    </div>
-  );
+       {exam.questionsMultipleChoiceResult.map(
+         (question: any, index: number) => (
+           <div key={question.id} className={styles.questionPart}>
+             <h1 className={styles.questionTitle}>
+               {index + 1}/
+               {exam.questionsMultipleChoiceResult.length +
+                 exam.questionsLongResponseResult.length}{" "}
+               {question.questionText}
+             </h1>
+
+             {question.answersQuestionResult &&
+               question.answersQuestionResult.length > 0 && (
+                 <div className={styles.questionAnswers}>
+                   <ul>
+                     {question.answersQuestionResult.map(
+                       (answer: any, index: number) => (
+                         <li
+                           key={answer.id}
+                           className={
+                             answer.correct
+                               ? styles.correctAnswers
+                               : styles.choices
+                           }
+                         >
+                           {String.fromCharCode(97 + index)}.{" "}
+                           {answer.answerText}
+                         </li>
+                       )
+                     )}
+                   </ul>
+                 </div>
+               )}
+
+             <p className={styles.yourAnswers}>
+               Your answer/s:{" "}
+               {question.answersQuestionResult.some(
+                 (answer: any) => answer.chosenByStudent
+               )
+                 ? question.answersQuestionResult
+                     .filter((answer: any) => answer.chosenByStudent)
+                     .map(
+                       (answer: any) =>
+                         String.fromCharCode(
+                           97 + question.answersQuestionResult.indexOf(answer)
+                         ) + ")"
+                     )
+                     .join(", ")
+                 : "-"}
+             </p>
+
+             <p className={styles.yourScore}>
+               Score: {question.studentPoints} / {question.points}
+             </p>
+           </div>
+         )
+       )}
+
+       {exam.questionsLongResponseResult.map((question: any, index: number) => (
+         <div key={question.id} className={styles.questionPart}>
+           <h1 className={styles.questionTitle}>
+             {index + 1 + exam.questionsMultipleChoiceResult.length}/
+             {exam.questionsMultipleChoiceResult.length +
+               exam.questionsLongResponseResult.length}{" "}
+             {question.questionText}
+           </h1>
+
+           <p className={styles.textQuestionAnswers}>
+             Your answer: {question.studentResponse || "-"}
+           </p>
+
+           <p className={styles.yourScore}>
+             Score: {question.studentPoints} / {question.points}
+           </p>
+         </div>
+       ))}
+     </div>
+   );
 };
 
-
 const ExamAnswers: React.FC<{}> = () => {
-    return (
-      <>
-        <Nav />
-        <Body/>
-      </>
-    );
-}
+  return (
+    <>
+      <Nav />
+      <Body />
+    </>
+  );
+};
 
 export default ExamAnswers;

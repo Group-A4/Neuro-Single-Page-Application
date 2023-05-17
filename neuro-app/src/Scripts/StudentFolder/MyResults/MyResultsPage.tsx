@@ -19,7 +19,7 @@ const Body: React.FC<{}> = () => {
   const [exams, setExams] = useState<ExamData[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const goToTakeExam = () => {
+  const goToExamAnswers = () => {
     navigate("/ViewMyExamAnswers");
   };
 
@@ -79,7 +79,7 @@ const Body: React.FC<{}> = () => {
               <div className={styles["exam--container"]}>{exam.title}</div>
               <div className={styles["score--container"]}>0.00</div>
               <div className={styles["button--container"]}>
-                <button onClick={goToTakeExam}>View My Exam Answers</button>
+                <button onClick={goToExamAnswers}>View My Exam Answers</button>
               </div>
             </div>
           ))

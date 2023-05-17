@@ -103,3 +103,8 @@ Body {
     font-weight: bold;
 }
 
+.loading{
+    font-size: 3rem;
+    text-align: center;
+    font-weight: bold;
+}
