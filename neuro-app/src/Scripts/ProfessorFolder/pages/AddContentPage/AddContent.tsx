@@ -130,7 +130,12 @@ const ContentInput: React.FC<{}> = () => {
         )}
 
         {/* <Link to='/ViewLectureMaterials' className={styles["body--redirect"]}> */}
+        <div className={styles['buttons--div']}>
         <button className={styles["body--button--publish"]}>Publish</button>
+        <Link to='/ViewContentList' className={styles["body--button"]}>
+        <button className={styles["body--button--back"]}>Back</button>
+        </Link>
+        </div>
         {/* </Link> */}
       </form>
     </div>
