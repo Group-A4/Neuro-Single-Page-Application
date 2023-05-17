@@ -99,10 +99,17 @@
     margin-block-start: 0;
     background-color: #002F35;
     color: white;
-    font-size: calc(20px + 1.0vw);
+    font-size:calc(16px + 1.0vw);
     padding-top: 1%;
     padding-bottom: 1%;
     padding-left: 3%;
+    margin-top: 0%;
+    margin-right: auto;
+}
+h3 input
+{
+    width:70%;
+    font-size: calc(16px + 1.0vw);
 }
 
 .correct-answer {
@@ -111,7 +118,20 @@
     margin-left: 3%;
     margin-top: 1%;
 }
+.body input[type="checkbox"] {
+    background-color: #807d7d;
+    width: 30px;
+    height: 30px;
+    accent-color: green;
+}
 
+.body input[type="checkbox"]:focus {
+    outline: auto;
+}
+
+.body input[type="checkbox"]:checked {
+    background-color: #6AFFC7;
+}
 .ull {
     margin-top: 0%;
     list-style: none;
@@ -211,30 +231,24 @@ h3 {
     background-color: white;
 }
 
-
-
-/* @media only screen and (max-width:1000px) {
-    .subject-container {
-            height: 20%;
-            width: fit-content;
-    }
-    .subject-container select{
-        height: 20%;
-        width: fit-content;
-    }
-
-} */
 .barInfo {
     background-color: #C49C60;
     font-weight: bold;
-    font-size: 20px;
+    font-size: 2vi;
     padding: 0.5%;
     align-items: left;
     display: flex;
     justify-content: space-between;
-
+    padding-bottom: 1%;
 
 }
+.barInfo input
+{
+    width: 12%;
+    padding-left: 5%;
+    font-size: 2vi;
+}
+
 
 .timeDifficulty {
     color: #002F35;
@@ -250,4 +264,95 @@ h3 {
     font-size: 2vi;
     margin-left: 1%;
     border-radius: 10px;
+    margin-left: 10%;
 }
+input {
+    font-size: calc(16px + 1.0vw);
+   
+}
+label {
+    margin-right: 1%;
+    font-size: calc(16px + 1.0vw);
+
+}
+body .removea {
+    margin-left: 5%;
+    font-weight: bold;
+    background-color: #ff5151;
+    font-size: 0%;
+    font-size: 1.2vi;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    height: 50%;
+    margin-top: 3%;
+    padding: 1%;
+}
+
+body .removeq:hover {
+    background-color: #ff7070;
+}
+
+body .removea:hover {
+    background-color: #ff7070;
+}
+
+.addansw:hover{
+    background-color: #f3d29a;
+}
+.body .addansw {
+    white-space: nowrap;
+    background-color: #f1bf6f;
+    margin-top: 2%;
+    margin-left: 14%;
+    font-size: calc(10px + 0.8vw);
+    padding-top: 0.5%;
+    padding-bottom: 0.5%;
+    width: fit-content;
+    border-radius: 10px;
+    border-width: 0.2vh;
+    border-color: black;
+
+}
+.answer input
+{
+    width: 50%;
+}
+.but
+{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-right: 5%;
+}
+
+
+ @media only screen and (max-width:800px) {
+    .barInfo input
+{
+    width: 12%;
+    padding-left: 5%;
+    font-size: 4vi;
+}
+.barInfo {
+    font-size: calc(8px + 1.0vw);
+}
+.body input[type="checkbox"] {
+   
+    width: 15px;
+    height: 15px;
+}
+input{
+    font-size: calc(8px + 1.0vw);
+}
+label
+{
+    font-size: calc(8px + 1.0vw);
+}
+body .removea  {
+    font-size: 1.5vi;
+}
+} 
