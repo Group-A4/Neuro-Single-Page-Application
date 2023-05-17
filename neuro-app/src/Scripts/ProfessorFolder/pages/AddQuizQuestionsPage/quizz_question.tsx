@@ -4,23 +4,23 @@ import Header from './header';
 import { Link } from 'react-router-dom';
 
 interface Answer {
-  idQuestion: number;
   answerText: string;
   correct: boolean;
 }
 
 interface Question {
-  id: number;
+  idLecture: number;
+  idProfessor: number;
   questionText: string;
   difficulty: number;
   timeMinutes: number;
-  lectureNumber: number;
-  idCourse: number;
-  idProfessor: number;
   answersQuestion: Answer[];
 }
+interface QuizzQuestionProps {
+  idLect: number;
+}
 
-const Quizz_question: React.FC<{}> = () => {
+const Quizz_question: React.FC<QuizzQuestionProps> = ({ idLect }) => {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [successMessageVisible, setSuccessMessageVisible] = useState(false);
 
@@ -28,13 +28,11 @@ const Quizz_question: React.FC<{}> = () => {
 
   const addQuestion = () => {
     const newQuestion: Question = {
-      id: questions.length + 1,
       questionText: '',
       difficulty: 0,
       timeMinutes: 0,
-      lectureNumber: 2,
-      idCourse: 4,
-      idProfessor: 57,
+      idLecture: idLect,
+      idProfessor: 52,
       answersQuestion: [],
     };
     setQuestions((prevQuestions) => [...prevQuestions, newQuestion]);
@@ -43,7 +41,6 @@ const Quizz_question: React.FC<{}> = () => {
   const addAnswer = (questionIndex: number) => {
     const newQuestions = [...questions];
     const newAnswer: Answer = {
-      idQuestion: newQuestions[questionIndex].id,
       answerText: '',
       correct: false,
     };
@@ -106,7 +103,7 @@ const Quizz_question: React.FC<{}> = () => {
 
     // Verificăm dacă există întrebări completate
     const completedQuestions = questions.filter(
-      (question) => question.questionText.trim() !== '' && question.answersQuestion.length > 0
+      (question) => question.questionText.trim() !== '' && (question.answersQuestion.length > 0 && question.answersQuestion.length !==1 || question.answersQuestion.length ===1 && question.answersQuestion[0].answerText!=='')
     );
 
     if (completedQuestions.length === 0) {
@@ -162,7 +159,7 @@ const Quizz_question: React.FC<{}> = () => {
         Determine the difficulty and time of the question.
       </div>
       {questions.map((question, questionIndex) => (
-        <div key={question.id}>
+          <div key={`question_${questionIndex}`}>
           <div className={styles['box']}>
             <Header
               time={question.timeMinutes}
@@ -184,7 +181,7 @@ const Quizz_question: React.FC<{}> = () => {
             </button>
             <div>
               {question.answersQuestion.map((answer, answerIndex) => (
-                <div key={answer.idQuestion}>
+                <div key={`answer.${answerIndex}`}>
                   <label className={styles.lb}>
                     <input
                       type="checkbox"
