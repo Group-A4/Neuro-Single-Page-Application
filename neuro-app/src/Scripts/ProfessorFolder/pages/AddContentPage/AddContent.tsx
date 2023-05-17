@@ -55,9 +55,13 @@ const ContentInput: React.FC<{}> = () => {
     })
       .then((response) => {
         if (!response.ok) {
+          window.confirm("Upload failed!");
           throw new Error("Network response was not ok");
         }
         console.log("Content created successfully!");
+        if(window.confirm("Content created successfully!")){
+          window.location.reload();
+        }
         setUploadStatus("success");
         return response.text();
       })
@@ -122,12 +126,6 @@ const ContentInput: React.FC<{}> = () => {
             Add file
           </button>
         </div>
-
-        {message && (
-          <div className={`${styles["body--message"]} ${uploadStatus === "success" ? styles["body--message--success"] : styles["body--message--error"]}`}>
-            {message}
-          </div>
-        )}
 
         {/* <Link to='/ViewLectureMaterials' className={styles["body--redirect"]}> */}
         <div className={styles['buttons--div']}>
