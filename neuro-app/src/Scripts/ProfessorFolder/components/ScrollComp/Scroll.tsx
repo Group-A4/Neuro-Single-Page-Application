@@ -1,46 +1,65 @@
-import React from 'react'
-import styles from './Body.module.css'
-import {useState,useRef} from 'react'
+import React, { useState, useRef } from 'react';
+import styles from './Body.module.css';
 import { Link } from 'react-router-dom';
 import photo_option from './option.png';
- 
-// type SelectOptions={
-//   label: string
-//   value: string
-// }
 
+interface ScrollProps {
+  onDeleteLecture: () => void;
+  onRenameLecture: (newTitle: string) => void;
+}
 
-const Scroll:React.FC<{}> = () => {
-  const[open,setOpen]=useState<boolean>(false);
-  const dropdownRef=useRef<HTMLDivElement>(null);
-  const handleDropDownFocus=(state:boolean)=>
-  {setOpen(!state);};
-  console.log(open, dropdownRef.current);
-  const handleClickOutsideDropDown=(e:any)=>
-  {
-    if(open && !dropdownRef.current?.contains(e.target as Node))
-     setOpen(false);
+const Scroll: React.FC<ScrollProps> = ({ onDeleteLecture, onRenameLecture }) => {
+  const [open, setOpen] = useState<boolean>(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const handleDropDownFocus = (state: boolean) => {
+    setOpen(!state);
   };
-  window.addEventListener("click",handleClickOutsideDropDown)
+
+  const handleClickOutsideDropDown = (e: any) => {
+    if (open && !dropdownRef.current?.contains(e.target as Node)) {
+      setOpen(false);
+    }
+  };
+
+  const handleDeleteLecture = () => {
+    setOpen(false);
+    onDeleteLecture(); // Apelăm funcția de ștergere a lectiei din componenta părinte (Lectures)
+  };
+
+  const handleRenameLecture = () => {
+    setOpen(false);
+    const newTitle = prompt('Enter new lecture title:');
+    if (newTitle) {
+      onRenameLecture(newTitle);
+    }
+  };
+
+  window.addEventListener('click', handleClickOutsideDropDown);
+
   return (
     <div className={styles['body-scroll']} ref={dropdownRef}>
-      <button onClick={(e) => handleDropDownFocus(open)}><img src={photo_option} alt="" /></button>
-      {open &&(
+      <button onClick={() => handleDropDownFocus(open)}>
+        <img src={photo_option} alt="" />
+      </button>
+      {open && (
         <ul>
           <li>
-            <Link to='/AddMAterialsLesson'>Add materials </Link>  
+            <Link to="/AddMAterialsLesson">Add materials </Link>
           </li>
           <li>
-            <Link to='/ViewLessonMaterials'>View materials </Link> </li>
-          {/* <li><Link to='/MyStudentExams'> Student's exams </Link> </li> */}
-          <li><a href='/ViewQuestionAnswer'>View Quiz questions </a> </li>
-          {/* <li><Link to='/CreateAnExam'> Create an exam </Link> </li> */}
-          <li><a href="">Rename </a></li>
-          <li><a href="">Delete </a></li>
-       </ul>
-      )
-      }
+            <Link to="/ViewLessonMaterials">View materials </Link>
+          </li>
+          <li>
+            <a href="" onClick={handleRenameLecture}>Rename</a>
+          </li>
+          <li>
+            <a href="" onClick={handleDeleteLecture}>Delete</a>
+          </li>
+        </ul>
+      )}
     </div>
-  )
-    }
+  );
+};
+
 export default Scroll;

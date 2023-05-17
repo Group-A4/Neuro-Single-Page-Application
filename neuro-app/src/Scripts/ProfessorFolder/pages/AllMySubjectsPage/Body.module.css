@@ -1,5 +1,6 @@
 .body {
     background-color: #CFCFCF;
+    
 }
 
 
@@ -35,6 +36,70 @@
     background-size: cover; */
 }
 
+.subject-container {
+    margin-left: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    /* aliniați elementele copil la dreapta containerului */
+    width: fit-content;
+    border-radius: 1px;
+    margin-top: 1%;
+    position: relative;
+}
+
+.subject-container::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 10%;
+    transform: translateY(-50%);
+    border-top: 5px solid black;
+    border-right: 5px solid transparent;
+    border-left: 5px solid transparent;
+    width: 0.3%;
+    height: auto;
+
+}
+
+.subject-container select {
+
+    color: black;
+    background-color: white;
+    /* border-radius: 20px; */
+    height: fit-content;
+    min-height: 100%;
+    width: fit-content;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    padding-left: 5%;
+    padding-right: 25%;
+
+    border: 2px solid black;
+    /* outer border */
+    /* box-shadow: 0 0 0 10px #d0cccc; */
+    /* inner border */
+
+    border-radius: 10px;
+
+    display: inline-block;
+    appearance: none;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    -webkit-appearance: none;
+}
+
+.subject-container select:focus {
+    outline: none;
+}
+
+
+.subject-options {
+    font-size: 3.0vh;
+    width: fit-content;
+    background-color: white;
+}
+
 
 .body--line{
     background-image: url("Line.png");
@@ -60,18 +125,20 @@
     background-color: #002F35;
 }
 
-.course-title{
-    margin-left: 3.5%;
+.lecture-title{
+    margin-left: 10%;
     margin-top: 5px;
     margin-bottom: 5px;
     color: white;
     font-weight: bold;
     font-size: calc(10px + 1.2vw);
+    display: table-row;
+    
 }
 
 .body--img{
-        margin-top: 0.7%;
-        margin-right: 2%;
+    margin-top: 0.7%;
+    margin-right: 2%;
 }
 
 .button-position{
@@ -79,4 +146,11 @@
     justify-content: right;
     padding-right: 7%;
     padding-bottom: 8%;
+}
+.no-course-selected{
+
+    font-size: calc(10px + 0.8vw);
+    color: red;
+    align-self: right;
+    margin-left: 10%;
 }
