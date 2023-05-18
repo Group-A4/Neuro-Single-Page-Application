@@ -1,4 +1,4 @@
-.button--create {
+.button--delete {
     background-color: #C49C60;
 
     text-align: center;
@@ -18,6 +18,6 @@
     font-weight: bold;
 }
 
-.button--create:hover {
+.button--delete:hover {
     background-color: #be4040;
 }

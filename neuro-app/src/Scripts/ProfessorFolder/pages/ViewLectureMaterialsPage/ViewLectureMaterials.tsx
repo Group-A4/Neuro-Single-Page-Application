@@ -3,8 +3,6 @@ import ViewLessonMaterials from '../../components/LectureMaterials/ViewLectureMa
 
 
 const ViewLesson: React.FC<{}> = () => {
-  
-
   return (
     <div>
       <ViewLessonMaterials id_lecture="2" />

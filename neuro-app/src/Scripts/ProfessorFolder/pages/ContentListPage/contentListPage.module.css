@@ -103,7 +103,7 @@ font-size: 1.8rem;
   background-color: #000000;
 }
 
-.createButton {
+.AddButton {
   background-color: #C49C60;
   color: #ffffff;
   padding: 10px 20px;
@@ -113,7 +113,7 @@ font-size: 1.8rem;
   border-radius: 10%;
 }
 
-.createButton:hover {
+.AddButton:hover {
   background-color: #000000;
 }
 
@@ -127,10 +127,9 @@ font-size: 1.8rem;
   font-size: 16px;
   cursor: pointer;
   border-radius: 10%;
-  margin-right:50%;
+  margin-right:10%;
   margin-left: -10%;
   text-overflow:clip;
-  margin-top: 11%;
 }
 
 .editButton:hover {
@@ -147,8 +146,8 @@ font-size: 1.8rem;
   margin-bottom: 1%;
 }
 
-@media screen and (max-width: 1350px){
-  .createButton{
+@media screen and (max-width: 1250px){
+  .AddButton{
     font-size: 20px;
     margin-top: 1%;
     margin-bottom: 1%;
@@ -161,9 +160,6 @@ font-size: 1.8rem;
   .body--content{
     height: 68hv;
   }
-  .createButton{
-    font-size: 20px;
-  }
 }
 
 @media screen and (max-width: 1000px){
@@ -173,7 +169,7 @@ font-size: 1.8rem;
     width: 80%;
   }
 
-  .createButton{
+  .AddButton{
     margin-top: 3%;
     margin-bottom: 3%;
   }
@@ -186,11 +182,6 @@ font-size: 1.8rem;
 
 @media screen and (max-width: 500px) 
 {
-
-  .editButton{
-    font-size: 10px;
-    margin-left: 30%;
-  }
   .deleteButton{
     font-size: 10px;
     margin-left: 20%;
@@ -212,7 +203,7 @@ font-size: 1.8rem;
     font-size: 3.5vw;
   }
 
-  .createButton{
+  .AddButton{
     font-size: 15px;
     margin-top: 5%;
     margin-bottom: 5%;
@@ -234,14 +225,11 @@ font-size: 1.8rem;
   }
   .deleteButton{
     font-size: 9px;
-    margin-left: 5%;
-    padding-right: 15%;
-  }
-
-  .editButton{
-    margin-left: 90%;
-    padding-right: -0%;
-    font-size: 9px;
+    margin-left: 20%;
+    margin-bottom: 5%;
+    padding-top: 25%;
+    padding-bottom: 25%;
+    padding-right: 30%;
     margin-left: 5%;
   }
 
