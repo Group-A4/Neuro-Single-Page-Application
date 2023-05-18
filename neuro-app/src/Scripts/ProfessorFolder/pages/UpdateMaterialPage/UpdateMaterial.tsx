@@ -9,6 +9,7 @@ import Nav from '../../components/nav/Nav';
 import { renderToString } from 'react-dom/server';
 import { SERVER_ADDRESS } from "../../../../config/config";
 import {GetMaterialById} from "../../components/material/getMaterialById";
+import { useLocation } from 'react-router-dom';
 
 interface FormValues {
     idLecture: number;
@@ -30,8 +31,12 @@ const initialFormValues: FormValues = {
 
 
 
-const Markdown = () =>{
-    const material = GetMaterialById(1);
+const UpdateMaterial = () =>{
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const materialId = queryParams.get('id');
+    const material = GetMaterialById(Number(materialId));
+
     const filesName = useGetContents(53).map(content => content.name);
 
     const [formValues, setFormValues] = useState<FormValues>(initialFormValues);
@@ -149,7 +154,7 @@ function Home() {
     return (
         <body>
             <Nav />
-            <Markdown />
+            <UpdateMaterial />
         </body>
     );
 }

@@ -6,7 +6,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import Scroll from '../../components/ScrollComp/Scroll';
-import { Link } from 'react-router-dom';
+import { Link, LinkProps } from 'react-router-dom';
+import UpdateMaterial from '../../pages/UpdateMaterialPage/UpdateMaterial';
+
 
 
 type Props = {
@@ -80,21 +82,28 @@ const ViewLessonMaterials: React.FC<Props> = ({ id_lecture }) => {
                   </a>
                 </div>
                 <div className={styles['right-side']}>
+                <Link to={`/UpdateMaterial?id=${material.id}`}>
                 <button
-                    className={styles['editButton']}
+                    className={styles['editButton']} 
                   >
-                    <FontAwesomeIcon icon={faEdit} className={styles['Icon']} /> Edit
+                    <FontAwesomeIcon icon={faEdit} className={styles['Icon']} /> <p className={styles['p-delete']}>Edit</p>
                   </button>
+                  </Link>
                   <button
                     className={styles['deleteButton']}
                     onClick={() => handleDelete(material.id)}
                   >
-                    <FontAwesomeIcon icon={faTrash} className={styles['Icon']} /> Delete
+                    <FontAwesomeIcon icon={faTrash} className={styles['Icon']} /> <p className={styles['p-delete']}>Delete</p>
                   </button>
                 </div>
               </li>
             ))}
           </ol>
+          <Link to={`/CreateMaterial`}>
+          <button className={styles['createButton']}>
+            Create new material
+          </button>
+          </Link>
         </div>
       </body>
     </>
