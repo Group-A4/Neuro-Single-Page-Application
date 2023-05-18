@@ -19,7 +19,7 @@
 }
 .admin-properties-container {
     display: grid;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: auto auto auto auto;
     justify-content: space-evenly;
     margin-top: 10em;
 }
@@ -62,7 +62,7 @@
     height: 25px;
 }
 
-.center-bubble button[type=submit]{
+.center-bubble input[type=submit]{
     width:150px;
     height: 30px;
     border-radius: 10px;
@@ -71,7 +71,7 @@
     font-size: 13px;
 }
 
-button[type=submit]:hover{
+input[type=submit]:hover{
     background-color: rgba(186, 154, 40, 0.5);
 }
    
@@ -85,13 +85,20 @@ button[type=submit]:hover{
 }
 
 
-@media only screen and (max-width: 850px) {
+@media only screen and (max-width: 1060px) {
+
+    .admin-properties-container {
+        grid-template-columns: auto auto;
+        justify-content: center;
+        margin-top:1.5em;
+    }
 
     .button-img{
-        width: 200px;
-        height: 240px;
+        padding:1em;
+        width:200px;
+        height: 250px;
     }
-        
+     
     .edit-container{
         grid-template-columns: auto auto;
     }
@@ -104,8 +111,4 @@ button[type=submit]:hover{
         margin-top:4em;
     }
 
-    .button-img{
-        width: 160px;
-        height: 190px;
-    }
 }

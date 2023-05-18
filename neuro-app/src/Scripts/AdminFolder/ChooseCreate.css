@@ -1,0 +1,40 @@
+.main-body{
+    background-image: url("background.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    position: absolute;
+    min-height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.button-container {
+    display: grid;
+    grid-template-columns: auto auto;
+    justify-content: center;
+    margin-top:7em;
+}
+
+.button-2{
+    opacity: 0.8;
+    width: 250px;
+    height: 300px;
+    padding: 2em;
+}
+.button-2:hover{
+    opacity:1;
+}
+
+
+@media only screen and (max-width: 580px) {
+
+     .button-2{
+        width:200px;
+        height:250px;
+     }
+
+}
+

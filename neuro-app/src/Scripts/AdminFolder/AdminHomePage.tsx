@@ -11,16 +11,20 @@ const AdminPage = () =>  {
       <div> <Nav /> </div>
       <div className="admin-properties-container">
 
-        <Link to="/CreateAccount">
-          <img className='button-img' src='images/AdminPageImages/create-account.png' alt="icon-create-account" />
+        <Link to="/ChooseCreate">
+          <img className="button-img" src='images/AdminPageImages/create-account.png' alt="create-account" />
         </Link>
 
         <Link to="/">
-          <img className='button-img' src='images/AdminPageImages/view-materials.png' alt="icon-create-account" />
+          <img className="button-img" src='images/AdminPageImages/view-materials.png' alt="view-materials" />
         </Link>
 
         <Link to="/ChooseAccountPage">
-          <img className='button-img' src='images/AdminPageImages/modify-delete-account.png' alt="icon-create-account" />
+          <img className="button-img" src='images/AdminPageImages/modify-delete-account.png' alt="modify-delete-account" />
+        </Link>
+
+        <Link to="/ChooseSubjects">
+          <img className="button-img" src='images/AdminPageImages/modify-subject.png' alt="modify-delete-subjects"/>
         </Link>
       </div>
     </div>

@@ -32,6 +32,11 @@ import EditUnivEmailPage from "./Scripts/AdminFolder/EditUnivEmailPage";
 import EditPersEmailPage from "./Scripts/AdminFolder/EditPersEmailPage";
 import ChooseAccountPage from "./Scripts/AdminFolder/ChooseAccountPage";
 import ProfilePage from "./Scripts/AdminFolder/ProfilePage";
+import ChooseSubjects from "./Scripts/AdminFolder/ChooseSubjects";
+import ModifySubjectsOptions from "./Scripts/AdminFolder/ModifySubjectsOptions";
+import EditSubjectName from "./Scripts/AdminFolder/EditSubjectName";
+import ChooseCreate from "./Scripts/AdminFolder/ChooseCreate";
+import CreateSubject from "./Scripts/AdminFolder/CreateSubject";
 
 function App() {
   return (
@@ -61,6 +66,11 @@ function App() {
       <Route path="EditPersEmailPage" element={<EditPersEmailPage />}></Route>
       <Route path="ModifyOptionsPage" element={<ModifyOptionsPage />}></Route>
       <Route path="ProfilePage" element={<ProfilePage />}></Route>
+      <Route path="ChooseSubjects" element={<ChooseSubjects />}></Route>
+      <Route path="ModifySubjectsOptions" element={<ModifySubjectsOptions />}></Route>
+      <Route path="EditSubjectName" element={<EditSubjectName />}></Route>
+      <Route path="ChooseCreate" element={<ChooseCreate />}></Route>
+      <Route path="CreateSubject" element={<CreateSubject />}></Route>
     </Routes>
   );
 }

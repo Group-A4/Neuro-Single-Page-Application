@@ -26,12 +26,16 @@ const MenuDropDown:React.FC<{}> = () => {
       {open &&(
         <ul>
           <li>
-            <Link to='/CreateAccount'> Create an account </Link>  
+            <Link to='/ChooseCreate'> Create an account or a subject </Link>  
           </li>
           <li>
             <Link to='/ViewMaterials'>  View materials </Link> </li>
-          <li><a href='/ChooseAccountPage'> Modify/Delete an account </a> </li>
-        
+          <li>
+            <Link to='/ChooseAccountPage'> Modify/Delete an account </Link> 
+          </li>
+          <li>
+            <Link to='/ChooseSubjects'> Modify/Delete a subject </Link> 
+          </li>
        </ul>
       )
       }
