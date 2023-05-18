@@ -12,7 +12,7 @@ const AdminPage = () =>  {
       <div className="admin-properties-container">
 
         <Link to="/ChooseCreate">
-          <img className="button-img" src='images/AdminPageImages/create-account.png' alt="create-account" />
+          <img className="button-img" src='images/AdminPageImages/create-button.png' alt="create-account" />
         </Link>
 
         <Link to="/">

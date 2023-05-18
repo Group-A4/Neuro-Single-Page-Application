@@ -92,7 +92,7 @@ const Body: React.FC<{}> = () => {
         <br />
         <input type="text" id="newName" name="newName" value={formValues.newName}  onChange={handleChange} />
         <br /><br />
-        <input type="submit" value="Edit first Name" />
+        <input type="submit" value="Edit personal email" />
     
   
 </form>
