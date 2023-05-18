@@ -105,9 +105,7 @@ const Quizz_question: React.FC<{}> = () => {
         <div key={questionIndex}>
           {!question.l &&
           <div className={styles['box']}>
-          <Header time={question.time} point={question.points} difficulty={question.dificulty}  setTime={(newTime) => setTime(questionIndex, newTime)}
-  setPoint={(newPoints) => setPoint(questionIndex, newPoints)}
-  setDifficulty={(newDifficulty) => setDifficulty(questionIndex, newDifficulty)}/>
+          <Header point={question.points}  setPoint={(newPoints) => setPoint(questionIndex, newPoints)}/>
           <label>
             <input type="text" value={question.text || "Type question here "} className={styles.quest} onChange={(event) => handleQuestionTextChange(event, questionIndex)} />
           </label>
@@ -127,9 +125,7 @@ const Quizz_question: React.FC<{}> = () => {
         }
         {question.l &&
          <div className={styles['box']}>
-         <Header time={question.time} point={question.points} difficulty={question.dificulty}  setTime={(newTime) => setTime(questionIndex, newTime)}
- setPoint={(newPoints) => setPoint(questionIndex, newPoints)}
- setDifficulty={(newDifficulty) => setDifficulty(questionIndex, newDifficulty)}/>
+         <Header  point={question.points}  setPoint={(newPoints) => setPoint(questionIndex, newPoints)}/>
          <label>
            <input type="text" value={question.text || "Type question here "} className={styles.quest} onChange={(event) => handleQuestionTextChange(event, questionIndex)} />
          </label>
