@@ -175,12 +175,16 @@ const AddQuestion: React.FC<{}> = () => {
             <div className={styles['body']}>
 
                 <div className={styles['textBoxx'] }>
-                    <Link to='/CreateAnExam'> <ButtonSaveExit />  </Link> 
                     <div className={styles['body--subtitle--container']}>
                         <div className={styles['selects']}>
                             <SelectCourse onSelectCourse={handleCourseSelect} />
                         </div>
-                        
+
+                        <div className={styles['box--button']}>
+                            <Link to='/CreateAnExam'> <ButtonSaveExit />  </Link>
+
+                        </div>
+
                         
                     </div>
 
