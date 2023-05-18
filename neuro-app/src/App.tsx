@@ -34,6 +34,7 @@ import Exam from "./Scripts/ProfessorFolder/pages/AllExamsPage/ExamPage/Exam";
 import AddQuestion from './Scripts/ProfessorFolder/pages/AddQuizQuestionsPage/AddQuestion';
 import ViewMaterialsStudent from "./Scripts/StudentFolder/ViewMaterials/ViewMaterials";
 import ViewLectures from './Scripts/StudentFolder/ViewLecturesStudent/ViewLecturesStudent';
+import ProfileStudent from './Scripts/StudentFolder/ProfilePage/ProfilePage';
 
 
 import AddContent from "./Scripts/ProfessorFolder/pages/AddContentPage/AddContent";
@@ -62,6 +63,7 @@ function App(): JSX.Element {
       <Route path="ResultExam" element={<ResultExam />}></Route>
       <Route path="ViewMaterialsStudent" element={<ViewMaterialsStudent />}></Route>
       <Route path="ViewLectures/:courseId" element={<ViewLectures />} />
+      <Route path="ProfileStudent" element={<ProfileStudent />} />
       <Route path="/" element={<Home />} />
 
 

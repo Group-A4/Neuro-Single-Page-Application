@@ -23,10 +23,7 @@ const BurgerMenu: React.FC<{}> =()=>
         {open &&(
           <ul>
          <li><a href="/Student">Home</a></li>
-         <li><a href="/Student">Profile</a></li>
-         {/* <li><a href="/Create_exam">    English </a></li>
-         <li><a href="/Create_exam">    Romana </a></li>
-         <li><a href="/Create_exam">    Francais </a></li> */}
+         <li><a href="/ProfileStudent">Profile</a></li>
 
             <LangButtonMini />
          </ul>

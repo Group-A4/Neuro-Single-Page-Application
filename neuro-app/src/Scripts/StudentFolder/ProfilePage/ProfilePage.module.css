@@ -3,16 +3,23 @@
 }
 
 .body--container {
-    width: 70%;
+    width: 50%;
     flex-wrap: wrap;
     border: 0.063rem solid #C49C60;
     border-radius: 3rem;
     box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
-    margin: 8% auto;
+    margin-top: 8%;
+    margin-left: 25%;
+    margin-right: 25%;
     padding: 1.25rem;
     background-color: #C49C60;
     opacity: 75%;
     /* height: auto; */
+}
+
+
+.body--image{
+    background-image: url("./Images/user.png");
 }
 
 .column{
@@ -28,7 +35,6 @@
     margin: 2%;
     justify-content: center;
     font-weight: bold;
-    /* font-size: calc(10px + 1.5vw); */
     font-size: 3rem;
     font-style: normal;
     color: #3E3E3E;
@@ -50,7 +56,7 @@
 
 
 .body--line{
-    background-image: url("./Images/line.png");
+    /* background-image: url("./Images/line.png"); */
     min-height: 0.5%;
     margin-top: 0.5%;
     margin-left: 2%;
@@ -62,8 +68,8 @@
 .course-container {
     margin-top: 3%;
     display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
+    align-items: center;
+    justify-content: center;
     margin-left: 6%;
     margin-right: 6%;
     margin-bottom: 3%;

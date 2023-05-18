@@ -26,7 +26,7 @@ function Nav(){
           </ul>
 
           <ul className={styles['link']} >
-            <Link to="/Student">Profile</Link>
+            <Link to="/ProfileStudent">Profile</Link>
            </ul>
               
           <ul className={styles['menu']}>
