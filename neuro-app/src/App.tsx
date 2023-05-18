@@ -35,7 +35,10 @@ import ChooseAccountPage from "./Scripts/AdminFolder/ChooseAccountPage";
 import ProfilePage from "./Scripts/AdminFolder/ProfilePage";
 import ChooseSubjects from "./Scripts/AdminFolder/ChooseSubjects";
 import ModifySubjectsOptions from "./Scripts/AdminFolder/ModifySubjectsOptions";
-import EditSubjectName from "./Scripts/AdminFolder/EditSubjectName";
+import EditSubjectTitle from "./Scripts/AdminFolder/EditSubjectTitle";
+import EditSubjectYear from "./Scripts/AdminFolder/EditSubjectYear";
+import EditSubjectSemester from "./Scripts/AdminFolder/EditSubjectSemester";
+import EditSubjectCredits from "./Scripts/AdminFolder/EditSubjectCredits";
 import ChooseCreate from "./Scripts/AdminFolder/ChooseCreate";
 import CreateSubject from "./Scripts/AdminFolder/CreateSubject";
 
@@ -71,7 +74,10 @@ function App() {
       <Route path="ProfilePage" element={<ProfilePage />}></Route>
       <Route path="ChooseSubjects" element={<ChooseSubjects />}></Route>
       <Route path="ModifySubjectsOptions" element={<ModifySubjectsOptions />}></Route>
-      <Route path="EditSubjectName" element={<EditSubjectName />}></Route>
+      <Route path="EditSubjectTitle" element={<EditSubjectTitle />}></Route>
+      <Route path="EditSubjectYear" element={<EditSubjectYear />}></Route>
+      <Route path="EditSubjectSemester" element={<EditSubjectSemester />}></Route>
+      <Route path="EditSubjectCredits" element={<EditSubjectCredits />}></Route>
       <Route path="ChooseCreate" element={<ChooseCreate />}></Route>
       <Route path="CreateSubject" element={<CreateSubject />}></Route>
     </Routes>

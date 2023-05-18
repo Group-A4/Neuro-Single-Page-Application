@@ -74,7 +74,10 @@
 input[type=submit]:hover{
     background-color: rgba(186, 154, 40, 0.5);
 }
-   
+.label-number{
+    width: 100px;
+    height: 20px;
+}
 .button-img{
     opacity: 0.8;
     width: 250px;
