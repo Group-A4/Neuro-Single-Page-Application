@@ -12,6 +12,7 @@
     padding: 1.25rem;
     background-color: #C49C60;
     opacity: 75%;
+    /* height: auto; */
 }
 
 .column{
@@ -32,9 +33,21 @@
     font-style: normal;
     color: #3E3E3E;
     opacity: 100%;
-    font-style: italic;
-    font-weight: bold;
 }
+
+.body--subtitle{
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 2%;
+    margin-left: 6%;
+    margin-right: 2%;
+    justify-content:flex-start;
+    font-weight: bold;
+    font-size: calc(7px + 1.5vw);
+    color: #3E3E3E;
+    opacity: 100%;
+}
+
 
 .body--line{
     background-image: url("./Images/line.png");
@@ -46,76 +59,10 @@
     width: 66%;
 }
 
-.course-container--header {
-    display: flex;
-    /* justify-content: space-between; */
-    font-style: italic;
-    font-weight: bold;
-    align-items: flex-end;
-    margin-left: 6%;
-    margin-right: 6%;
-    margin-top: 4%;
-}
-
-.code--container {
-    font-size: calc(10px + 1.2vw);
-    color:#3E3E3E;
-    opacity: 100%;
-    inline-size: 20%;
-}
-
-.date--container {
-    font-size: calc(10px + 1.2vw);
-    color:#3E3E3E;
-    opacity: 100%;
-    inline-size: 35%;
-    writing-mode: horizontal-tb;
-}
-
-.exam--container {
-    font-size: calc(10px + 1.2vw);
-    color:#3E3E3E;
-    opacity: 100%;
-    inline-size: 35%;
-    writing-mode: horizontal-tb;
-}
-
-.score--container {
-    font-size: calc(10px + 1.2vw);
-    color:#3E3E3E;
-    opacity: 100%;
-    inline-size: 18%;
-}
-
-.button--container {
-    font-size: calc(10px + 1.2vw);
-    color:#3E3E3E;
-    opacity: 100%;
-    inline-size: 30%;
-}
-
-.button--container button{
-    display: flex;
-    flex-wrap: wrap;
-    background-color: #002F35;
-    border:none;
-    border-radius: 5px;
-    font-size: calc(8px + 1.0vw);
-    cursor: pointer;
-    color: #fff;
-    box-shadow: 3px 5px 18px #002F35;
-    width: fit-content;
-    padding-top: 1%;
-    padding-bottom: 1%;
-    padding-left: 5%;
-    padding-right: 5%;
-    transition-duration: 0.4s;
-    font-style: italic;
-}
-
 .course-container {
     margin-top: 3%;
     display: flex;
+    justify-content: space-between;
     align-items: flex-end;
     margin-left: 6%;
     margin-right: 6%;
@@ -126,7 +73,6 @@
     font-size: calc(10px + 1.2vw);
     color:#3E3E3E;
     opacity: 100%;
-    
 }
 
 .course-container button{
@@ -136,6 +82,7 @@
     border:none;
     border-radius: 5px;
     font-size: calc(8px + 1.0vw);
+    font-family: 'Outfit';
     cursor: pointer;
     color: #fff;
     box-shadow: 3px 5px 18px #002F35;
@@ -144,19 +91,11 @@
     padding-bottom: 1%;
     padding-left: 5%;
     padding-right: 5%;
+    width: fit-content;
     transition-duration: 0.4s;
 }
 
 .course-container button:hover{
     opacity: 100%;
     background-color:#00191d;
-}
-
-.loading {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 200px;
-  font-size: 18px;
-  color: #555;
 }
