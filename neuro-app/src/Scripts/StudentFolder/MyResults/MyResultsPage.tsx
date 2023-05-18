@@ -19,9 +19,9 @@ const Body: React.FC<{}> = () => {
   const [exams, setExams] = useState<ExamData[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const goToExamAnswers = () => {
-    navigate("/ViewMyExamAnswers");
-  };
+const goToExamAnswers = (examId: number) => {
+  navigate(`/ViewMyExamAnswers/${examId}`);
+};
 
   const getShortDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -79,7 +79,9 @@ const Body: React.FC<{}> = () => {
               <div className={styles["exam--container"]}>{exam.title}</div>
               <div className={styles["score--container"]}>0.00</div>
               <div className={styles["button--container"]}>
-                <button onClick={goToExamAnswers}>View My Exam Answers</button>
+                <button onClick={() => goToExamAnswers(exam.id)}>
+                  View My Exam Answers
+                </button>
               </div>
             </div>
           ))
