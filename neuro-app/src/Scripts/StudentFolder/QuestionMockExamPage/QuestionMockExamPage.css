@@ -131,3 +131,12 @@ ul{
 .questionAnswers input[type="checkbox"] {
     margin-right: 5px;
 }
+
+.timer {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+    background-color: rgba(158, 120, 62, 0.5);
+}
+
+ 
