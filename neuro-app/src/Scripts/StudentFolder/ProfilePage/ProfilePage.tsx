@@ -18,35 +18,45 @@ type Student ={
 
 const Body: React.FC<{}> = () => {
 
-    const navigate = useNavigate();
-    const goToViewSubjects = (courseId : number) => {
-        navigate(`/ViewLectures/${courseId}`); 
-      };
+  const [student, setStudent] = useState<Student | null>(null);
 
-    const profileStudent: Student[] = ([]);
-
-    useEffect(() => {
-       const fetchData = async () => {
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
         const response = await fetch('http://localhost:8192/students/36');
         const data = await response.json();
-      };
-      fetchData();
-    }, []);
+        setStudent(data);
+      } catch (error) {
+        console.error('Error fetching student data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (!student) {
+    return <div>Loading...</div>;
+  }
 
     return (
         <>
             <div className={styles['body--container']}>
                     <div className={styles['body--title']}>
-                        My Profile
+                      My Profile
                     </div>
 
-                {profileStudent.map(profile => (
-                  <div className={styles['course-container']} key={profile.id}>
-                    <div className={styles['course-title']}>
-                        {profile.firstName}
+                    <div className={styles['info--container']}>
+                      <div className={styles['info--profile']}>
+                        <p>Last Name: {student.lastName}</p>
+                        <p>First Name: {student.firstName}</p>
+                        <p>Code: {student.code}</p>
+                        <p>Email: {student.emailFaculty}</p>
+                        <p>Email Personal: {student.emailPersonal}</p>
+                        <p>Year: {student.year}</p>
+                        <p>Semester: {student.semester}</p>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                    
             </div>
         </>
     )
