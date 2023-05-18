@@ -75,7 +75,6 @@ const ViewLessonMaterials: React.FC<Props> = ({ id_lecture }) => {
                   <a
                     className={styles['a--style']}
                     href="http://localhost:3000/ViewMaterial"
-                    target="_blank"
                     rel="noopener noreferrer"
                   >
                     {material.title}
