@@ -1,91 +1,96 @@
-import React from 'react'
+import React, { useEffect, useState, } from 'react'
 import styles from './Body.module.css'
-import { Link } from 'react-router-dom';
-import SelectSubject from '../../components/SelectSubjectComp/SelectSubject';
 import photo_option from './option.png';
 import Scroll from '../../components/ScrollComp/Scroll';
 import ButtonAddCourse from '../../components/buttonAddCourse/ButtonAddCourse';
-import { useState } from "react";
 import Nav from '../../components/nav/Nav';
+import Lectures from './Lectures';
 
-
-
-const Body: React.FC<{}> = () => {
-
-
-    return (
-
-        <>
-
-            <div className={styles['body--text']}>
-                All my subjects
-            </div>        
-
-            <div>
-                <div className={styles['body--subtitle--container']}>
-
-                    <SelectSubject />
-    
-                </div>   
-                
-                <div className={styles['body--line']}></div>  
-                {/* INCEP */}
-                <div className={styles['body--container']}> 
-
-                    <div className={styles['course-container']}>
-                        <div className={styles['course-title']}>
-                            Course 1
-                        </div> 
-                        <div className={styles['body--img'] }>
-                            <Scroll/>
-                        </div>
-                    </div>   
-
-                     <div className={styles['course-container']}>
-                        <div className={styles['course-title']}>
-                            Course 2
-                        </div>
-                        <div className={styles['body--img']}>
-                            
-                            <Scroll />
-                            
-                        </div>
-                    </div>  
-
-                    <div className={styles['course-container']}>
-                        <div className={styles['course-title']}>
-                            Course 3
-                        </div>
-                        <div className={styles['body--img']}>
-                           
-                            <Scroll />
-                           
-                        </div>
-                    </div>  
-
-                    <div className={styles['course-container']}>
-                        <div className={styles['course-title']}>
-                            Course 4
-                        </div>
-                        <div className={styles['body--img']}>
-                            
-                            <Scroll />
-                            
-                        </div>
-                    </div>  
-                </div> 
-                {/* TERMIN */}
-                <div className={styles['button-position']}> 
-                
-                    <ButtonAddCourse />
-                </div>
-                
-            </div>
-
-        </>
-    )
+interface Course {
+    id: number,
+    title: string,
+    year: number
+    semester: number,
+    credits: number
 }
 
+const SelectCourse: React.FC<{ onSelectCourse: (id: number) => void }> = ({ onSelectCourse }) => {
+    const [courses, setCourses] = useState<Course[]>([]);
+    const [selectedCourseId, setSelectedCourseId] = useState<number | null>(null);
+
+    useEffect(() => {
+        const fetchCourses = async () => {
+            const response = await fetch("http://localhost:8192/courses/professor=52");
+            const data = await response.json();
+            setCourses(data);
+        };
+        fetchCourses();
+
+        const savedCourseId = localStorage.getItem('selectedCourseId');
+        if (savedCourseId) {
+            const courseId = parseInt(savedCourseId);
+            setSelectedCourseId(courseId);
+            onSelectCourse(courseId);
+        }
+    }, []);
+
+    const handleCourseSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        const courseId = parseInt(event.target.value);
+        setSelectedCourseId(courseId);
+        onSelectCourse(courseId);
+        localStorage.setItem('selectedCourseId', String(courseId));
+    };
+
+    return (
+        <div className={styles['subject-container']}>
+            <select value={selectedCourseId ?? ""} onChange={handleCourseSelect}>
+                <option value="" disabled hidden>
+                    Courses options
+                </option>
+                {courses.map((course) => (
+                    <option
+                        className={styles['subject-options']}
+                        key={course.id}
+                        value={course.id}
+                    >
+                        {course.title}
+                    </option>
+                ))}
+            </select>
+        </div>
+    );
+};
+
+const Body: React.FC<{}> = () => {
+    const [idC, setIdC] = useState<number | null>(() => {
+        const savedCourseId = localStorage.getItem('selectedCourseId');
+        return savedCourseId ? parseInt(savedCourseId) : null;
+    });
+
+    const handleCourseSelect = (courseId: number) => {
+        setIdC(courseId);
+        localStorage.setItem('selectedCourseId', String(courseId));
+    };
+
+    return (
+        <>
+            <div className={styles['body--text']}>
+                All my subjects
+            </div>
+            <div>
+                <div className={styles['body--subtitle--container']}>
+                    <div className={styles['selects']}>
+                        <SelectCourse onSelectCourse={handleCourseSelect} />
+                    </div>
+                </div>
+                <Lectures idCourse={idC} />
+                <div className={styles['button-position']}>
+                    <ButtonAddCourse idCourse={idC} />
+                </div>
+            </div>
+        </>
+    );
+}
 
 const AllMySubjects: React.FC<{}> = () => {
     return (
@@ -94,8 +99,6 @@ const AllMySubjects: React.FC<{}> = () => {
                 <Nav />
                 <Body />
             </body>
-
-            
         </>
     );
 }

@@ -30,7 +30,7 @@ const SelectSubject: React.FC<{}> = () => {
         <div className={styles['subject-container']}>
             <select id="menu" value={selectedOption} onChange={handleChange}>
                 <option value="" disabled hidden>
-                    Subject options
+                    Lectures options
 
                 </option>
                 <option className={styles['subject-options']}>

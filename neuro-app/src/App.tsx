@@ -22,7 +22,6 @@ import Home from "./Scripts/ProfessorFolder/pages/HomePage/Home";
 import AllMySubjects from "./Scripts/ProfessorFolder/pages/AllMySubjectsPage/AllMySubjects";
 import CreateAnExam from "./Scripts/ProfessorFolder/pages/CreateAnExamPage/CreateAnExam";
 import ViewQuestions from "./Scripts/ProfessorFolder/pages/ViewMaterialsPages/ViewQuestionsPage/ViewQuestions";
-import AddContent from "./Scripts/ProfessorFolder/pages/AddContentPage/AddContent";
 import ViewLessonMaterials from "./Scripts/ProfessorFolder/pages/ViewMaterialsPages/ViewLessonMaterialsPage/ViewLessonMaterials";
 import ViewQuestionAnswer from "./Scripts/ProfessorFolder/pages/ViewMaterialsPages/ViewQuestionAnswerPage/ViewQuestionAnswer";
 import AllQuestions from "./Scripts/ProfessorFolder/pages/QuizQuestionsPages/AllQuestionsPage/AllQuestions";
@@ -33,6 +32,13 @@ import AllExams from "./Scripts/ProfessorFolder/pages/AllExamsPage/AllExams";
 import ViewExam from "./Scripts/ProfessorFolder/pages/AllExamsPage/ViewExam/ViewExam";
 import Exam from "./Scripts/ProfessorFolder/pages/AllExamsPage/ExamPage/Exam";
 import AddQuestion from './Scripts/ProfessorFolder/pages/AddQuizQuestionsPage/AddQuestion';
+
+
+import AddContent from "./Scripts/ProfessorFolder/pages/AddContentPage/AddContent";
+import CreateMaterial from "./Scripts/ProfessorFolder/pages/CreateMaterialPage/CreateMaterial";
+import UpdateMaterial from "./Scripts/ProfessorFolder/pages/UpdateMaterialPage/UpdateMaterial";
+import ViewLectureMaterials from "./Scripts/ProfessorFolder/pages/ViewLectureMaterialsPage/ViewLectureMaterials";
+import ViewMaterial from "./Scripts/ProfessorFolder/pages/ViewMaterialPage/ViewMaterial";
 
 
 function App(): JSX.Element {
@@ -51,7 +57,7 @@ function App(): JSX.Element {
       <Route path="MyResults" element={<MyResults />}></Route>
       <Route path="CodeExam" element={<CodeExam />}></Route>
       <Route path="QuestionTextPage" element={<QuestionTextPage />}> </Route>
-      <Route path="ViewMyExamAnswers" element={<ViewMyExamAnswers />}> </Route>
+      <Route path="ViewMyExamAnswers/:examId" element={<ViewMyExamAnswers />}> </Route>
       <Route path="ResultExam" element={<ResultExam />}></Route>
       <Route path="/" element={<Home />} />
 
@@ -60,7 +66,6 @@ function App(): JSX.Element {
       <Route path="/ViewQuestions" element={<ViewQuestions />} />
       <Route path="/ViewLessonMaterials" element={<ViewLessonMaterials />} />
       <Route path="/AddQuestion" element={<AddQuestion />} />
-      <Route path="/AddContent" element={<AddContent />} />
       <Route path="/ViewQuestionAnswer" element={<ViewQuestionAnswer />} />
       <Route path="/AllQuestions" element={<AllQuestions />} />
       <Route path="/AllExams" element={<AllExams />} />
@@ -70,6 +75,12 @@ function App(): JSX.Element {
       <Route path="/CreateExamQuestions" element={<CreateExamQuestions />} />
       <Route path="/ViewExam" element={<ViewExam />} />
       <Route path="/Exam" element={<Exam />} />
+
+      <Route path="/AddContent" element={<AddContent />} />
+      <Route path="/CreateMaterial" element={<CreateMaterial />} />
+      <Route path="/UpdateMaterial" element={<UpdateMaterial />} />
+      <Route path="/ViewLectureMaterials" element={<ViewLectureMaterials />} />
+      <Route path="/ViewMaterial" element={<ViewMaterial />} />
     </Routes>
   );
 }
