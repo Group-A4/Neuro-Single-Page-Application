@@ -269,6 +269,20 @@ body .answ {
     border: none;
     margin-top: 2%;
 }
+
+
+body .resplong{
+        display: inherit;
+        background-color: white;
+        width: 60%;
+        font-size: 1.5vi;
+        padding-top: 1%;
+        padding-bottom: 1%;
+        border-radius: 10px;
+        margin-left: 15%;
+        border: none;
+        margin-top: 2%;
+}
 .body .addansw {
     white-space: nowrap;
     background-color: #fcd89f;

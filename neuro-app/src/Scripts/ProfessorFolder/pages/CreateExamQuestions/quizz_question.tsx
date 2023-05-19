@@ -223,10 +223,17 @@ const Quizz_question: React.FC<{}> = () => {
           <input
             type="text"
             value={question.expectedResponse}
-            placeholder="Expected response"
+              placeholder="Type question here"
             className={styles.quest}
             onChange={(event) => handleExpectedResponseChange(event, questionIndex)}
           />
+            <input
+              type="text"
+              value={question.expectedResponse}
+              placeholder="Expected response"
+              className={styles.resplong}
+              onChange={(event) => handleExpectedResponseChange(event, questionIndex)}
+            />
           <button type="button" onClick={() => removeQuestionLongResponse(questionIndex)} className={styles.removeq}>
             Remove
           </button>
