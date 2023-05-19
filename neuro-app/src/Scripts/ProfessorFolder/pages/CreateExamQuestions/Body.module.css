@@ -218,7 +218,7 @@
 .body form
 {
     font-family: 'Open Sans';
-    margin-bottom:5% ;
+    /* margin-bottom:5% ; */
     width: 100%;
     height: 100%;
     color: black;
@@ -226,64 +226,62 @@
     background-color: white;
     padding-top:1%;
     /* margin-top: 2%; */
-    padding-bottom: 7%;
+    padding-bottom: 5%;
     
 }
 
-body .quest
-{
+body .quest {
     display: inherit;
     background-color: white;
-    width: 75%;
+    width: 65%;
     font-size: 2vi;
     padding-top: 1%;
     padding-bottom: 1%;
     border-radius: 10px;
-    margin-left:10%;
-    border:none;
+    margin-left: 10%;
+    border: none;
     margin-top: 5%;
 }
-body .removeq
-{
- margin-left: 4%;
- background-color: #6AFFC7;
- font-size:1.2vi;
- padding-top: 0.5%;
-padding-bottom: 0.5%;
-border-radius: 10px;
-border:none;
-cursor: pointer;
- padding: 1%
+body .removeq {
+    font-weight: bold;
+    margin-left: 4%;
+    background-color: #ff5151;
+    font-size: 1.2vi;
+    padding-top: 0.5%;
+    padding-bottom: 0.5%;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    padding: 1%
 }
-body .removeq:hover{
-    background-color:#5a5757;
+body .removeq:hover {
+    background-color: #ff7070;
 }
-body .answ
-{
+body .answ {
     display: inherit;
     background-color: white;
-    width: 69%;
+    width: 60%;
     font-size: 1.5vi;
     padding-top: 1%;
     padding-bottom: 1%;
     border-radius: 10px;
-    margin-left:1%;
-    border:none;
+    margin-left: 1%;
+    border: none;
     margin-top: 2%;
 }
-.body .addansw
-{
-    background-color: #F5E0BF;
-    margin-top:2%;
-    margin-left:14%;
-    font-size: 1.5vi;
+.body .addansw {
+    white-space: nowrap;
+    background-color: #fcd89f;
+    margin-top: 2%;
+    margin-left: 14%;
+    font-size: calc(10px + 0.8vw);
     padding-top: 0.5%;
     padding-bottom: 0.5%;
-    width: 20%;
+    width: fit-content;
     border-radius: 10px;
-    border-width: 1px;
+    border-width: 0.2vh;
     border-color: black;
-    
+
 }
 .body .addquest
 {
@@ -357,26 +355,25 @@ body .answ
 {
     background-color: #6AFFC7;
 }
-body .removea
-{
- margin-left: 5%;
- background-color: #6AFFC7;
- font-size:1.2vi;
- padding-top: 1%;
- padding-bottom: 1%;
- border-radius: 10px;
- border:none;
- cursor: pointer;
- height: 50%;
- margin-top:3%;
- padding: 1%;
+body .removea {
+    margin-left: 5%;
+    font-weight: bold;
+    background-color: #ff5151;
+    font-size: 1.2vi;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    height: 50%;
+    margin-top: 3%;
+    padding: 1%;
 }
-body .removeq:hover{
-        background-color: #b1ffe1;
+body .removeq:hover {
+    background-color: #ff7070;
 }
-.addansw:hover, .addquest:hover, .removea:hover
-{
-    background-color: #b1ffe1;
+body .removea:hover {
+    background-color: #ff7070;
 }
 .mess {
     background-color:#5a5757;
@@ -440,16 +437,14 @@ body .removeq:hover{
     border:none;
     margin-top: 5%;
 }
-body .removeq
-{
- margin-left: 5%;
- background-color: #6AFFC7;
- font-size:1.4vi;
- padding-top: 0.5%;
-padding-bottom: 0.5%;
-border-radius: 10px;
-border:none;
-cursor: pointer;
+body .removeq {
+    margin-left: 5%;
+    font-size: 1.4vi;
+    padding-top: 0.5%;
+    padding-bottom: 0.5%;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
 }
 body .answ
 {
@@ -464,18 +459,16 @@ body .answ
     border:none;
     margin-top: 2%;
 }
-body .removea
-{
- margin-left: 5%;
- background-color: #6AFFC7;
- font-size:1.5vi;
- padding-top: 0.5%;
- padding-bottom: 0.5%;
- border-radius: 10px;
- border:none;
- cursor: pointer;
- height: 50%;
- margin-top:3%;
+body .removea {
+    margin-left: 5%;
+    font-size: 1.5vi;
+    padding-top: 0.5%;
+    padding-bottom: 0.5%;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    height: 50%;
+    margin-top: 3%;
 }
 .body input[type="checkbox"]
 {

@@ -3,7 +3,38 @@ import Nav from '../../components/nav/Nav';
 import styles from './Body.module.css';
 import Quizz_question from './quizz_question';
  import { Link } from "react-router-dom";
-import ButtonSaveExit from '../../components/buttonSaveAndExit/ButtonAddQuestion';
+import AddExam from '../../components/buttonAddExam/AddExam';
+
+interface Exam {
+    idCourse: number;
+    idProfessor: number;
+    title: string;
+    timeExam: number;
+    date: Date;
+    evaluationType: number;
+    questionsMultipleChoice: MultipleChoice[];
+    questionsLongResponse: LongResponse[];
+}
+
+interface MultipleChoice{
+    idProfessor: number;
+    questionText: string;
+    points: number;
+    answersQuestion: MultipleChoiceAnswers[];
+
+}
+
+interface MultipleChoiceAnswers{
+    answerText:string;
+    correct:boolean;
+}
+
+interface LongResponse {
+    idProfessor: number;
+    questionText: string;
+    points: number;
+    expectedResponse: string;
+}
 
 interface Course {
     id: number,
@@ -75,34 +106,6 @@ const SelectCourse: React.FC<{ onSelectCourse: (id: number) => void }> = ({ onSe
     );
 };
 
-// const SelectEvaluationType: React.FC<{ onSelectEvaluationType: (evaluationType: number) => void }> = ({ onSelectEvaluationType }) => {
-//     const [selectedEvaluationType, setSelectedEvaluationType] = useState<number | null>(null);
-
-//     const handleEvaluationTypeSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
-//         const evaluationType = parseInt(event.target.value);
-//         setSelectedEvaluationType(evaluationType);
-//         onSelectEvaluationType(evaluationType);
-//     };
-
-//     return (
-//         <div className={styles['subject-container']}>
-//             <select value={selectedEvaluationType ?? ''} onChange={handleEvaluationTypeSelect}>
-//                 <option className={styles['subject-options']}  value='' disabled hidden>
-//                    Evaluation Type
-//                 </option>
-//                 <option className={styles['subject-options']} value={1}>
-//                     Perfect match
-//                 </option>
-//                 <option className={styles['subject-options']} value={2}>
-//                     1 wrong answer cancel 1 correct answer
-//                 </option>
-//                 <option className={styles['subject-options']} value={3}>
-//                     2 wrong answers cancel 1 correct answer
-//                 </option>
-//             </select>
-//         </div>
-//     );
-// };
 
 const SelectEvaluationType: React.FC<{ onSelectEvaluationType: (evaluationType: string) => void }> = ({ onSelectEvaluationType }) => {
     const [selectedEvaluationType, setSelectedEvaluationType] = useState<string | null>(null);
@@ -142,13 +145,57 @@ const AddQuestion: React.FC<{}> = () => {
     const [time, setTime] = useState<number>(0);
     const [examName, setExamName] = useState('');
     const [examDate, setExamDate] = useState<string>('');
+    const [evaluationType, setEvaluationType] = useState<string>('');
+
+    const [exam, setExam] = useState<Exam>({
+        idCourse: 0,
+        idProfessor: 0,
+        title: "",
+        timeExam: 0,
+        date: new Date(),
+        evaluationType: 0,
+        questionsMultipleChoice: [],
+        questionsLongResponse: [],
+    });
+
+    const createExam = async () => {
+        const examData: Exam = {
+            idCourse: idC!,
+            idProfessor: 52,
+            title: examName,
+            timeExam: time,
+            date: new Date(examDate),
+            evaluationType: evaluationType === 'Option 1' ? 0 : evaluationType === 'Option 2' ? 1 : 2,
+            questionsMultipleChoice: [],
+            questionsLongResponse: [],
+        };
+        try {
+            const response = await fetch('http://localhost:8192/exam/create', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(examData),
+            });
+
+            if (response.ok) {
+                // Examenul a fost creat cu succes
+                console.log('Examen creat!');
+            } else {
+                // A apărut o eroare la crearea examenului
+                console.error('Eroare la crearea examenului!');
+            }
+        } catch (error) {
+            console.error('Eroare la crearea examenului:', error);
+        }
+    };
 
     const handleCourseSelect = (courseId: number) => {
         setIdC(courseId);
         localStorage.setItem('selectedCourseId', String(courseId));
     };
     const handleEvaluationTypeSelect = (evaluationType: string) => {
-        // Handle the selected evaluation type as needed
+        setEvaluationType(evaluationType);
     };
 
     const handleTimeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -168,62 +215,71 @@ const AddQuestion: React.FC<{}> = () => {
         setExamDate(event.target.value);
     };
 
+    const handleSubmit = (event: React.FormEvent) => {
+        event.preventDefault();
+
+            createExam();
+
+    };
+
 
     return (
         <>
             <Nav />
             <div className={styles['body']}>
+                <form onSubmit={handleSubmit}> {/* Adaugă formularul în jurul conținutului */}
+                    <div className={styles['textBoxx'] }>
+                        <div className={styles['body--subtitle--container']}>
+                            <div className={styles['selects']}>
+                                <SelectCourse onSelectCourse={handleCourseSelect} />
+                            </div>
 
-                <div className={styles['textBoxx'] }>
-                    <div className={styles['body--subtitle--container']}>
-                        <div className={styles['selects']}>
-                            <SelectCourse onSelectCourse={handleCourseSelect} />
-                        </div>
 
-                        <div className={styles['box--button']}>
-                            <Link to='/CreateAnExam'> <ButtonSaveExit />  </Link>
+                            <div className={styles['box--button']} onSubmit={handleSubmit}>
+                                {/* <Link to="/CreateAnExam"> */}
+                                    <AddExam type="submit" />
+                                {/* </Link> */}
+                            </div>
 
+                            
                         </div>
 
                         
                     </div>
 
-                    
-                </div>
+                    <div className={styles['body--details'] }>
+                        <div className={styles['body--subtitle--container2']}>
 
-                <div className={styles['body--details'] }>
-                    <div className={styles['body--subtitle--container2']}>
+                                <SelectEvaluationType onSelectEvaluationType={handleEvaluationTypeSelect} />
+                        </div>
 
-                            <SelectEvaluationType onSelectEvaluationType={handleEvaluationTypeSelect} />
+
+                        <input
+                            type="text"
+                            value={examName}
+                            onChange={handleExamNameChange}
+                            placeholder="Enter exam title"
+                            className={styles['exam-name-input']}
+                        />
+
+                        <input
+                            type="number"
+                            step="any"
+                            value={time !== 0 ? time : ''}
+                            onChange={handleTimeChange}
+                            placeholder="Enter time for exam"
+                            className={styles['time-input']}
+                        />
+
+                        <input
+                            type="datetime-local"
+                            value={examDate}
+                            onChange={handleExamDateChange}
+                            className={styles['date-input']}
+                        />
                     </div>
-
-
-                    <input
-                        type="text"
-                        value={examName}
-                        onChange={handleExamNameChange}
-                        placeholder="Enter exam title"
-                        className={styles['exam-name-input']}
-                    />
-
-                    <input
-                        type="number"
-                        step="any"
-                        value={time !== 0 ? time : ''}
-                        onChange={handleTimeChange}
-                        placeholder="Enter time for exam"
-                        className={styles['time-input']}
-                    />
-
-                    <input
-                        type="datetime-local"
-                        value={examDate}
-                        onChange={handleExamDateChange}
-                        className={styles['date-input']}
-                    />
-                </div>
+                </form>
                <Quizz_question/>
-
             </div>
             
         </>
