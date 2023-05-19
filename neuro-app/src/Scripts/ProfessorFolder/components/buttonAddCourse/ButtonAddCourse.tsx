@@ -38,7 +38,7 @@ const ButtonAddCourse: React.FC<ButtonAddCourseProps> = ({ idCourse }) => {
 
     return (
         <button className={styles['button--create']} onClick={handleAddCourse}>
-            Add Course
+            Add Lecture
         </button>
     );
 };
