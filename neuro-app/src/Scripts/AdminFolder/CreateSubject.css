@@ -62,7 +62,7 @@
     margin-top: 5px;
   }
   
-  .but button[type="submit"] {
+  .but > input {
     background-color: #4b4c4b;
     color: white;
     border: none;
@@ -81,7 +81,7 @@
     align-items: center;
   }
 
-  .but button[type="submit"]:hover {
+  .but > input:hover {
     background-color: #000000; 
     transform: translateY(-4px); 
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2); 

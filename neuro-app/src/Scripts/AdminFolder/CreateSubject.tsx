@@ -7,7 +7,6 @@ interface FormValues {
   year: number;
   semester: number;
   credits: number;
-  submitted: boolean;
 }
 
 const initialFormValues: FormValues = {
@@ -15,7 +14,6 @@ const initialFormValues: FormValues = {
   year: 1,
   semester: 1,
   credits: 1,
-  submitted: false,
 };
 
 ///500
@@ -34,7 +32,31 @@ function CreateSubject() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setFormValues((prevFormValues: FormValues) => ({ ...prevFormValues, submitted: true }));
+
+    console.log(formValues);
+
+    const url = "http://localhost:8192/courses/create";
+
+        fetch(url, {
+            method: "POST",
+            headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            "Content-Type": "application/json"
+            },
+            body: JSON.stringify(formValues)
+        })
+        .then(response => {
+            if (!response.ok) {
+            throw new Error("Network response was not ok");
+            }
+
+            alert("The subject was added successfully!");
+        })
+        .catch(error => console.error(error));
   }
+
+
+
   return (
     <div className="create-subject-page">
       <div>
@@ -46,24 +68,24 @@ function CreateSubject() {
       <div className="create-subject-container">
         <div>
           <form onSubmit={handleSubmit} className="create-form">
-            <label className="lab">
-              Title
-              <input className="inp" type="text" name="title"  value={formValues.title} onChange={handleChange} required/>
-            </label>
-            <label className="lab">
-              Year
-              <input className="inp" type="number" name="year" min="1" max="6" step="1" value={formValues.year} onChange={handleChange} required/>
-            </label>
-            <label className="lab">
-              Semester
-              <input className="inp" type="number" name="semester" min="1" max="2" step="1" value={formValues.semester} onChange={handleChange} required/>
-            </label>
-            <label className="lab">
-              Credits
-              <input className="inp" type="number" name="credits" min="1" max="6" step="1" value={formValues.credits} onChange={handleChange} required/>
-            </label>
+            <label className="lab" htmlFor="Title">
+              Title</label>
+              <input className="inp" type="text" name="title" id="Title" value={formValues.title} onChange={handleChange} required/>
+            
+            <label className="lab" htmlFor="Year">
+              Year </label>
+              <input className="inp" type="text" name="year" id="Year" value={formValues.year} onChange={handleChange} required/>
+            
+            <label className="lab" htmlFor="Semester">
+              Semester  </label>
+              <input className="inp" type="text" name="semester" id="Semester" value={formValues.semester} onChange={handleChange} required/>
+           
+            <label className="Credits">
+              Credits </label>
+              <input className="inp" type="text" name="credits" id="credits" value={formValues.credits} onChange={handleChange} required/>
+            
             <div className="but">
-              <button type="submit">Submit</button>
+              <input type="submit" value="Submit" />
             </div>
           </form>
         </div>
