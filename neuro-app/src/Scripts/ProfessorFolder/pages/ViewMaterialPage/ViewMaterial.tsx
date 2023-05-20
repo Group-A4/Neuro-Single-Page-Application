@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 
 const ViewLessonMaterials: React.FC<{}> = () => {
 
-  const material = GetMaterialById(1);
+  const material = GetMaterialById(12);
 
     return (
         <>
