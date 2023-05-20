@@ -12,7 +12,7 @@
     height: auto;
     background-image: url("blue_band.png");
     background-repeat: no-repeat;
-    background-size: cover; 
+    background-size: cover;
     justify-content: space-between;
 
     position: relative;
@@ -29,21 +29,23 @@
 }
 
 .body--subtitle--container {
-    margin-left: 8%;
-    padding-top: 3%;
-    padding-bottom: 3%;
+    /* margin-left: 8%; */
+    padding-top: 2%;
+    padding-bottom: 2%;
     display: flex;
+    gap: 5%;
+    justify-content: center;
 
 }
-
-.body--subtitle--container> div {
+/* 
+.body--subtitle--container>div {
 
     margin-left: 5%;
     display: flex;
     margin-right: 5%;
 
 
-}
+} */
 
 .body--subtitle {
     padding-right: 2%;
@@ -93,7 +95,7 @@
 body .quest {
     display: inherit;
     background-color: white;
-    width: 75%;
+    width: 65%;
     font-size: 2vi;
     padding-top: 1%;
     padding-bottom: 1%;
@@ -123,7 +125,7 @@ body .removeq:hover {
 body .answ {
     display: inherit;
     background-color: white;
-    width: 69%;
+    width: 60%;
     font-size: 1.5vi;
     padding-top: 1%;
     padding-bottom: 1%;
@@ -135,7 +137,7 @@ body .answ {
 
 .body .addansw {
     white-space: nowrap;
-    background-color: #F5E0BF;
+    background-color: #fcd89f;
     margin-top: 2%;
     margin-left: 14%;
     font-size: calc(10px + 0.8vw);
@@ -150,7 +152,7 @@ body .answ {
 
 .body .addquest {
     white-space: nowrap;
-    background-color: #F5E0BF;
+    background-color: #fcd89f;
     margin-top: 7%;
     align-self: center;
     font-size: calc(10px + 0.8vw);
@@ -375,4 +377,96 @@ select {
     color: red;
     align-self: right;
     margin-left: 10%;
+}
+
+input {
+    padding: 0%;
+}
+
+.selects {
+    align-self: center;
+    display: flex;
+    justify-content: space-around;
+}
+
+.subject-container {
+    /* margin-left: 20%; */
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    /* aliniați elementele copil la dreapta containerului */
+    width: fit-content;
+    border-radius: 1px;
+    margin-top: 1%;
+    position: relative;
+
+}
+
+.subject-container::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 1%;
+    transform: translateY(-50%);
+    border-top: 5px solid black;
+    border-right: 5px solid transparent;
+    border-left: 5px solid transparent;
+    /* width: 0.3%; */
+    height: auto;
+
+}
+
+.subject-container select {
+
+    color: black;
+    background-color: white;
+    /* border-radius: 20px; */
+    height: fit-content;
+    min-height: 100%;
+    min-width: fit-content;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    /* padding-left: 5%; */
+    padding-right: 15px;
+
+    border: 2px solid black;
+    /* outer border */
+    /* box-shadow: 0 0 0 10px #d0cccc; */
+    /* inner border */
+
+    border-radius: 10px;
+    font-size: calc(15px + 0.8vw);
+    display: inline-block;
+    flex-wrap: wrap;
+    appearance: none;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    -webkit-appearance: none;
+
+    /* word-break: break-all; */
+    /* overflow: auto; */
+    /* white-space: normal; */
+
+}
+
+.subject-container select:focus {
+    outline: none;
+}
+
+.subject-AllLectures{
+    font-size: 2.0vh;
+        width: fit-content;
+        background-color: rgb(255, 0, 0);
+}
+
+.subject-options {
+    font-size: calc(10px + 0.8vw);
+    width: fit-content;
+    background-color: white;
+}
+
+.error {
+    color: red;
+    font-size: 20px;
+    margin-top: 4px;
 }
