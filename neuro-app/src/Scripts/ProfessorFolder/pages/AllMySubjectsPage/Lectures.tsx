@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import styles from './Body.module.css';
 import { Link } from 'react-router-dom';
 import photo_option from './option.png';
@@ -19,6 +19,9 @@ interface LectureProps {
 
 const Lectures: React.FC<LectureProps> = ({ idCourse }) => {
     const [lectures, setLectures] = useState<Lecture[]>([]);
+    const [editingLectureId, setEditingLectureId] = useState<number | null>(null);
+    const [editedTitle, setEditedTitle] = useState<string>('');
+    const inputRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
         const fetchLectures = async () => {
@@ -39,7 +42,6 @@ const Lectures: React.FC<LectureProps> = ({ idCourse }) => {
                 method: 'DELETE',
             });
             if (response.ok) {
-                // Actualizează lista de lectii
                 setLectures((prevLectures) => prevLectures.filter((lecture) => lecture.id !== lectureId));
             } else {
                 console.log('Ștergerea lectiei a eșuat.');
@@ -50,7 +52,7 @@ const Lectures: React.FC<LectureProps> = ({ idCourse }) => {
     };
 
     const renameLecture = async (lectureId: number, newTitle: string) => {
-        const description = 'no description'; // Descrierea implicită
+        const description = 'no description';
         if (newTitle) {
             try {
                 const response = await fetch(`http://localhost:8192/lectures/${lectureId}`, {
@@ -61,7 +63,6 @@ const Lectures: React.FC<LectureProps> = ({ idCourse }) => {
                     body: JSON.stringify({ title: newTitle, description, idCourse }),
                 });
                 if (response.ok) {
-                    // Actualizează lista de lectii
                     setLectures((prevLectures) =>
                         prevLectures.map((lecture) => {
                             if (lecture.id === lectureId) {
@@ -79,17 +80,103 @@ const Lectures: React.FC<LectureProps> = ({ idCourse }) => {
         }
     };
 
+    const startEditingLecture = (lectureId: number, currentTitle: string) => {
+        setEditingLectureId(lectureId);
+        setEditedTitle(currentTitle);
+        if (inputRef.current) {
+            inputRef.current.style.width = `${inputRef.current.scrollWidth}px`;
+        }
+    };
+
+    const cancelEditingLecture = () => {
+        setEditingLectureId(null);
+        setEditedTitle('');
+    };
+
+    const saveEditedLecture = async (lectureId: number) => {
+        const description = 'no description';
+        if (editedTitle.trim() !== '') {
+            try {
+                const response = await fetch(`http://localhost:8192/lectures/${lectureId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ title: editedTitle, description, idCourse }),
+                });
+                if (response.ok) {
+                    setLectures((prevLectures) =>
+                        prevLectures.map((lecture) => {
+                            if (lecture.id === lectureId) {
+                                return { ...lecture, title: editedTitle };
+                            }
+                            return lecture;
+                        })
+                    );
+                } else {
+                    console.log('Redenumirea lectiei a eșuat.');
+                }
+            } catch (error) {
+                console.log('Eroare la redenumirea lectiei:', error);
+            }
+        }
+        setEditingLectureId(null);
+        setEditedTitle('');
+        if (inputRef.current) {
+            inputRef.current.style.width = 'fit-content';
+        }
+    };
+
     return (
         <div className={styles['body--container']}>
             {idCourse !== null ? (
                 <div>
                     {lectures.map((lecture) => (
-                        <div className={styles['course-container']}>
-                            <div key={lecture.title} className={styles['lecture']}>
-                                <div className={styles['lecture-title']}>
-                                    {lecture.title}
+                        <div className={styles['course-container']} key={lecture.id}>
+                            {editingLectureId === lecture.id ? (
+                                <div className={styles['lecture']}>
+                                    <input
+                                        type="text"
+                                        value={editedTitle}
+                                        onChange={(e) => setEditedTitle(e.target.value)}
+                                        className={`${styles['lecture-title-edit']}`}
+                                        ref={inputRef}
+                                        style={{ width: inputRef.current?.scrollWidth }}
+                                    />
+                                    <div className={styles['lecture-buttons']}>
+                                        <button
+                                            onClick={() => saveEditedLecture(lecture.id)}
+                                            className={`${styles['lecture-button-save']} ${styles['green-button']}`}
+                                        >
+                                            Save
+                                        </button>
+                                        <button
+                                            onClick={cancelEditingLecture}
+                                            className={`${styles['lecture-button-cancel']} ${styles['red-button']}`}
+                                        >
+                                            Cancel
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
+                            ) : (
+                                <div className={styles['lecture']}>
+                                    <div className={styles['lecture-title']}>{lecture.title}</div>
+                                    <div className={styles['lecture-buttons']}>
+                                        <button
+                                            onClick={() => startEditingLecture(lecture.id, lecture.title)}
+                                                className={`${styles['lecture-button-edit']} ${styles['green-button']}`}
+                                        >
+                                            Edit
+                                        </button>
+                                        <button
+                                            onClick={() => deleteLecture(lecture.id)}
+                                                className={`${styles['lecture-button-delete']} ${styles['red-button']}`}
+                                        >
+                                            Delete
+                                        </button>
+                                    </div>
+                                </div>
+                            )}
                             <div className={styles['body--img']}>
                                 <Scroll
                                     onDeleteLecture={() => deleteLecture(lecture.id)}
@@ -104,6 +191,6 @@ const Lectures: React.FC<LectureProps> = ({ idCourse }) => {
             )}
         </div>
     );
-}
+};
 
 export default Lectures;
