@@ -19,7 +19,7 @@ interface FormValues {
 }
 
 const initialFormValues: FormValues = {
-    idLecture: 2,
+    idLecture: 1,
     idProfessor: 53,
     title: "",
     markdownText: "",

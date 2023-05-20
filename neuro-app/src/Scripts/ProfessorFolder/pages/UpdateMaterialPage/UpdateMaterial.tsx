@@ -21,7 +21,7 @@ interface FormValues {
 }
 
 const initialFormValues: FormValues = {
-    idLecture: 2,
+    idLecture: 1,
     idProfessor: 53,
     title: "",
     markdownText: "",
@@ -78,7 +78,7 @@ const UpdateMaterial = () =>{
         event.preventDefault();
         setFormValues((prevFormValues: FormValues) => ({ ...prevFormValues, submitted: true }));
 
-        const url = SERVER_ADDRESS + "/materials/update/1";
+        const url = SERVER_ADDRESS + `/materials/update/${materialId}`;
 
         fetch(url, {
             method: "PUT",

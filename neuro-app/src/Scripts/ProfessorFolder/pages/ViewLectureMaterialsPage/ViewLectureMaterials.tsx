@@ -5,7 +5,7 @@ import ViewLessonMaterials from '../../components/LectureMaterials/ViewLectureMa
 const ViewLesson: React.FC<{}> = () => {
   return (
     <div>
-      <ViewLessonMaterials id_lecture="2" />
+      <ViewLessonMaterials id_lecture="1" />
     </div>
   );
 };
