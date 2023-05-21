@@ -32,6 +32,7 @@ import AllExams from "./Scripts/ProfessorFolder/pages/AllExamsPage/AllExams";
 import ViewExam from "./Scripts/ProfessorFolder/pages/AllExamsPage/ViewExam/ViewExam";
 import Exam from "./Scripts/ProfessorFolder/pages/AllExamsPage/ExamPage/Exam";
 import AddQuestion from './Scripts/ProfessorFolder/pages/AddQuizQuestionsPage/AddQuestion';
+import ContentList from './Scripts/ProfessorFolder/pages/ContentListPage/ViewContentList';
 
 
 import AddContent from "./Scripts/ProfessorFolder/pages/AddContentPage/AddContent";
@@ -81,6 +82,7 @@ function App(): JSX.Element {
       <Route path="/UpdateMaterial" element={<UpdateMaterial />} />
       <Route path="/ViewLectureMaterials" element={<ViewLectureMaterials />} />
       <Route path="/ViewMaterial" element={<ViewMaterial />} />
+      <Route path="/ViewContentList" element={<ContentList />} />
     </Routes>
   );
 }
