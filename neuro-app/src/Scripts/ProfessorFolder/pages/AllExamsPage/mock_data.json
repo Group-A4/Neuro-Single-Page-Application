@@ -2,15 +2,15 @@
     {
        
 
-        "subject_title" : "One",
-        "duration": 60,
+        "subject_title" : "Matematică",
+        "duration": 120,
         "questions": 10,
         "points": 100
 
 
     },
     {
-        "subject_title": "One",
+        "subject_title": "Logică",
         "duration": 60,
         "questions": 10,
         "points": 100
