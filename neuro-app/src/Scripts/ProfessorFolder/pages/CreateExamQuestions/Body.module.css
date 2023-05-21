@@ -243,8 +243,25 @@ body .quest {
     margin-top: 5%;
 }
 body .removeq {
+
     font-weight: bold;
-    margin-left: 4%;
+    /* margin-left: 4%; */
+    background-color: #ff5151;
+    font-size: 1.2vi;
+    padding-top: 0.5%;
+    padding-bottom: 0.5%;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    padding: 1%
+}
+
+body .removeq2 {
+    margin-top: calc(1px - 11.5%);
+    margin-right: 14%;
+    float: right;
+    font-weight: bold;
+
     background-color: #ff5151;
     font-size: 1.2vi;
     padding-top: 0.5%;
@@ -452,7 +469,8 @@ body .removea:hover {
     margin-top: 5%;
 }
 body .removeq {
-    margin-left: 5%;
+    /* margin-left: 5%; */
+    
     font-size: 1.4vi;
     padding-top: 0.5%;
     padding-bottom: 0.5%;
@@ -460,6 +478,20 @@ body .removeq {
     border: none;
     cursor: pointer;
 }
+
+body .removeq2 {
+    /* margin-left: 5%; */
+    margin-right: 6%;
+    font-size: 1.4vi;
+    padding-top: 0.5%;
+    padding-bottom: 0.5%;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+
+
 body .answ
 {
     display: inherit;

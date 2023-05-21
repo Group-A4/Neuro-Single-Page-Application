@@ -262,7 +262,7 @@ const Quizz_question: React.FC<{}> = () => {
               className={styles.resplong}
               onChange={(event) => handleExpectedResponseChange(event, questionIndex)}
             />
-          <button type="button" onClick={() => removeQuestionLongResponse(questionIndex)} className={styles.removeq}>
+          <button type="button" onClick={() => removeQuestionLongResponse(questionIndex)} className={styles.removeq2}>
             Remove
           </button>
           </div>
