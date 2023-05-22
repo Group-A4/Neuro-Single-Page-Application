@@ -3,9 +3,8 @@ import "./CSS/App.css";
 import "./CSS/AdminPage.css";
 import "./CSS/NavBar.css";
 import "./Scripts/StudentFolder/QuestionMockExamPage/QuestionMockExamPage.css"
-import Create from "./Scripts/AdminFolder/CreateAccount";
-import Login from "./Scripts/LoginFolder/Login";
-import Admin from "./Scripts/AdminFolder/AdminPageRender";
+import Login from "./Scripts/LoginFolder/LoginRender";
+import Admin from "./Scripts/AdminFolder/AdminHomePage";
 import Student from "./Scripts/StudentFolder/HomePage/StudentHomePage";
 import ResultMockExam from "./Scripts/StudentFolder/ResultMockExamPage/MockExamResultPage";
 import TakeAMockExam from "./Scripts/StudentFolder/TakeAMockExam/TakeAMockExamPage";
@@ -49,7 +48,6 @@ function App(): JSX.Element {
       <Route path="Admin" element={<Admin />}></Route>
 
       <Route path="Professor" element={<Home />}></Route>
-      <Route path="CreateAccount" element={<Create />}></Route>
       
       <Route path="Student" element={<Student />}></Route>
       <Route path="ResultMockExam" element={<ResultMockExam />}></Route>
