@@ -5,7 +5,7 @@ import styles from './Body1.module.css'
 import SelectSubject from '../../components/SelectSubjectComp/SelectSubject';
 
 import fakeData from "./mock_data.json"
-import { Column, useTable } from 'react-table';
+import { Column, CellProps,useTable } from 'react-table';
 import ButtonViewExam from '../../components/buttonViewExam/ButtonViewExam';
 import Nav from '../../components/nav/Nav';
 
@@ -29,6 +29,30 @@ interface UserData {
     evaluationType: number;
 }
 
+interface EvaluationTypeCellProps {
+    value: number;
+}
+
+function getEvaluationTypeText(evaluationType: number): string {
+    switch (evaluationType) {
+        case 1:
+            return 'Perfect match';
+        case 2:
+            return 'One wrong answer cancels one correct answer';
+        case 3:
+            return 'Two wrong answers cancel one correct answer';
+        // Add more cases as needed for other evaluation types
+        default:
+            return 'Unknown';
+    }
+}
+
+const EvaluationTypeCell: React.FC<EvaluationTypeCellProps> = ({ value }) => {
+    // Define your logic to convert the value to the corresponding text
+    const evaluationTypeText = getEvaluationTypeText(value);
+
+    return <span>{evaluationTypeText}</span>;
+};
 
 function Table({ examData }: { examData: UserData[] }) {
 
@@ -49,6 +73,8 @@ function Table({ examData }: { examData: UserData[] }) {
             {
                 Header: 'Evaluation Type',
                 accessor: 'evaluationType',
+                Cell: ({ value }: CellProps<UserData, number>) => (
+                    <EvaluationTypeCell value={value} />),
             },
             {
                 Header: 'Time Exam',
