@@ -43,7 +43,7 @@ function getEvaluationTypeText(evaluationType: number): string {
             return 'Two wrong answers cancel one correct answer';
         // Add more cases as needed for other evaluation types
         default:
-            return 'Unknown';
+            return 'Perfect match';
     }
 }
 

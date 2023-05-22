@@ -2,7 +2,7 @@ import React, { useEffect, useState, } from 'react'
 import Nav from '../../components/nav/Nav';
 import styles from './Body.module.css';
 import Quizz_question from './quizz_question';
- import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AddExam from '../../components/buttonAddExam/AddExam';
 
 interface Exam {
@@ -44,7 +44,7 @@ interface Course {
     credits: number
 }
 
-interface UserData {
+interface ExamData {
 
     id: number;
     idCourse: number;
@@ -59,7 +59,7 @@ interface UserData {
 const SelectCourse: React.FC<{ onSelectCourse: (id: number) => void }> = ({ onSelectCourse }) => {
     const [courses, setCourses] = useState<Course[]>([]);
     const [selectedCourseId, setSelectedCourseId] = useState<number | null>(null);
-    const [examData, setExamData] = useState<UserData[]>([]);
+    const [examData, setExamData] = useState<ExamData[]>([]);
 
     useEffect(() => {
         const fetchCourses = async () => {
@@ -122,13 +122,13 @@ const SelectEvaluationType: React.FC<{ onSelectEvaluationType: (evaluationType: 
                 <option className={styles.evaluationOption} value="" disabled hidden>
                     Evaluation Types
                 </option>
-                <option className={styles.evaluationOption} value="Option 1">
+                <option className={styles.evaluationOption} value="Perfect match">
                     Perfect match
                 </option>
-                <option className={styles.evaluationOption} value="Option 2">
+                <option className={styles.evaluationOption} value="Option 1">
                     One wrong answer cancels one correct answer
                 </option>
-                <option className={styles.evaluationOption} value="Option 3">
+                <option className={styles.evaluationOption} value="Option 2">
                     Two wrong answers cancel one correct answer
                 </option>
             </select>
@@ -137,6 +137,8 @@ const SelectEvaluationType: React.FC<{ onSelectEvaluationType: (evaluationType: 
 }
 
 const AddQuestion: React.FC<{}> = () => {
+    const navigate = useNavigate();
+
     const [idC, setIdC] = useState<number | null>(() => {
         const savedCourseId = localStorage.getItem('selectedCourseId');
         return savedCourseId ? parseInt(savedCourseId) : null;
@@ -165,7 +167,7 @@ const AddQuestion: React.FC<{}> = () => {
             title: examName,
             timeExam: time,
             date: new Date(examDate),
-            evaluationType: evaluationType === 'Option 1' ? 0 : evaluationType === 'Option 2' ? 1 : 2,
+            evaluationType: evaluationType === 'Option 1' ? 1 : evaluationType === 'Option 2' ? 2 : 0,
             questionsMultipleChoice: [],
             questionsLongResponse: [],
         };
@@ -181,6 +183,7 @@ const AddQuestion: React.FC<{}> = () => {
             if (response.ok) {
                 // Examenul a fost creat cu succes
                 console.log('Examen creat!');
+                navigate("/CreateAnExam");
             } else {
                 // A apărut o eroare la crearea examenului
                 console.error('Eroare la crearea examenului!');
@@ -198,28 +201,52 @@ const AddQuestion: React.FC<{}> = () => {
         setEvaluationType(evaluationType);
     };
 
+    const [isExamTitleValid, setIsExamTitleValid] = useState(true);
+    const [isTimeValid, setIsTimeValid] = useState(true);
+    const [isExamDateValid, setIsExamDateValid] = useState(true);
+    const [isFormValid, setIsFormValid] = useState(true);
+
+    const handleExamNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setExamName(event.target.value);
+        setIsExamTitleValid(true);
+    };
+
     const handleTimeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const enteredTime = parseFloat(event.target.value);
         if (enteredTime >= 0) {
             setTime(enteredTime);
+            setIsTimeValid(true);
         } else {
-            setTime(0);
+            setIsTimeValid(false);
         }
-    };
-
-    const handleExamNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setExamName(event.target.value);
     };
 
     const handleExamDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setExamDate(event.target.value);
+        setIsExamDateValid(true);
     };
 
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
 
-            createExam();
+        if (!examName) {
+            setIsExamTitleValid(false);
+        }
 
+        if (time <= 0) {
+            setIsTimeValid(false);
+        }
+
+        if (!examDate) {
+            setIsExamDateValid(false);
+        }
+
+        if (!examName || time <= 0 || !examDate) {
+            setIsFormValid(false);
+            return;
+        }
+
+        createExam();
     };
 
 
@@ -259,8 +286,9 @@ const AddQuestion: React.FC<{}> = () => {
                             value={examName}
                             onChange={handleExamNameChange}
                             placeholder="Enter exam title"
-                            className={styles['exam-name-input']}
+                            className={`${styles['exam-name-input']} ${isExamTitleValid ? '' : styles['invalid-input']}`}
                         />
+                        {!isExamTitleValid && <p className={styles['error-message']}>The exam title must be entered</p>}
 
                         <input
                             type="number"
@@ -268,15 +296,17 @@ const AddQuestion: React.FC<{}> = () => {
                             value={time !== 0 ? time : ''}
                             onChange={handleTimeChange}
                             placeholder="Enter time for exam"
-                            className={styles['time-input']}
+                            className={`${styles['time-input']} ${isTimeValid ? '' : styles['invalid-input']}`}
                         />
+                        {!isTimeValid && <p className={styles['error-message']}>The time for the exam must be a positive number</p>}
 
                         <input
                             type="datetime-local"
                             value={examDate}
                             onChange={handleExamDateChange}
-                            className={styles['date-input']}
+                            className={`${styles['date-input']} ${isExamDateValid ? '' : styles['invalid-input']}`}
                         />
+                        {!isExamDateValid && <p className={styles['error-message']}>The exam date must be selected</p>}
                     </div>
                 </form>
                <Quizz_question/>
