@@ -43,6 +43,10 @@ function Table({ examData }: { examData: UserData[] }) {
                 accessor: 'code',
             },
             {
+                Header: 'Date',
+                accessor: 'date',
+            },
+            {
                 Header: 'Evaluation Type',
                 accessor: 'evaluationType',
             },
