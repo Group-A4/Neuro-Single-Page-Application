@@ -19,37 +19,37 @@ interface Course {
 
 interface UserData {
 
-    subject_title: string;
+    id: number;
+    idCourse: number;
     idProfessor: number;
-    duration: number;
-    date: string;
-    points: number;
-    
+    code: string;
+    title: string;
+    date: Date;
+    timeExam: number;
+    evaluationType: number;
 }
 
 
-function Table() {
-    const data: UserData[] = React.useMemo(() => fakeData, []);
+function Table({ examData }: { examData: UserData[] }) {
 
     const columns: Column<UserData>[] = React.useMemo(
         () => [
             {
                 Header: 'Title',
-                accessor: 'subject_title',
+                accessor: 'title',
             },
             {
-                Header: 'Duration',
-                accessor: 'duration',
+                Header: 'Code',
+                accessor: 'code',
             },
             {
-                Header: 'Date',
-                accessor: 'date',
+                Header: 'Evaluation Type',
+                accessor: 'evaluationType',
             },
             {
-                Header: 'Points',
-                accessor: 'points',
-            }
-
+                Header: 'Time Exam',
+                accessor: 'timeExam',
+            },
         ],
         []
     );
@@ -60,7 +60,7 @@ function Table() {
         headerGroups,
         rows,
         prepareRow,
-    } = useTable({ columns, data });
+    } = useTable({ columns, data: examData });
 
     return (
         <div className={styles['table']}>
@@ -169,7 +169,7 @@ const SelectCourse: React.FC<{ onSelectCourse: (id: number) => void }> = ({ onSe
                 </select>
 
             </div>
-            
+            <Table examData={examData} />
         </>
     );
 };
@@ -204,7 +204,7 @@ const Body: React.FC<{}> = () => {
 
             <div className={styles['body--line']}></div>
 
-            <Table />
+            
         </>
 
 
