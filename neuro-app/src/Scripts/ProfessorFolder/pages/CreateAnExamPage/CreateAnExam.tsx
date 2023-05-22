@@ -37,11 +37,11 @@ interface EvaluationTypeCellProps {
 
 function getEvaluationTypeText(evaluationType: number): string {
     switch (evaluationType) {
-        case 1:
+        case 0:
             return 'Perfect match';
-        case 2:
+        case 1:
             return 'One wrong answer cancels one correct answer';
-        case 3:
+        case 2:
             return 'Two wrong answers cancel one correct answer';
         // Add more cases as needed for other evaluation types
         default:
