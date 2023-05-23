@@ -127,7 +127,7 @@ function Table({ examData }: { examData: ExamData[] }) {
                                         <td {...cell.getCellProps()}>{cell.render('Cell')} </td>
                                     ))}
                                     <td className={styles['last--td']}>
-                                        <ButtonViewExam examId={row.original.id} idCourse={row.original.idCourse} />
+                                        <ButtonViewExam examId={row.original.id}/>
                                     </td>
                                 </tr>
 

@@ -4,14 +4,13 @@ import { Link } from 'react-router-dom';
 
 interface ButtonViewExamProps {
     examId: number;
-    idCourse: number;
 }
 
-const ButtonViewExam: React.FC<ButtonViewExamProps> = ({ examId, idCourse }) => {
+const ButtonViewExam: React.FC<ButtonViewExamProps> = ({ examId }) => {
 
     return(
 
-        <Link to={`/ViewExam?id=${examId}&courseId=${idCourse}`}>
+        <Link to={`/ViewExam?id=${examId}`}>
         <button type="submit" className={styles['button--create']} >
             <div> 
                 View student

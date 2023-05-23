@@ -6,15 +6,12 @@ import Nav from '../../../components/nav/Nav';
 
 interface ExamResult {
   code: string;
-  totalPoints: number;
+  pointsExam: number;
+  pointsStudent: number;
+  idStudent: number;
 }
 
-interface Student {
-  id: number;
-  code: string;
-}
-
-const Table: React.FC<{ examResults: ExamResult[] }> = ({ examResults }) => {
+const Table: React.FC<{ examResults: ExamResult[]; examId: number }> = ({ examResults, examId }) => {
   return (
     <div className={styles['table']}>
       <div className="container">
@@ -29,9 +26,9 @@ const Table: React.FC<{ examResults: ExamResult[] }> = ({ examResults }) => {
             {examResults.map((result, index) => (
               <tr key={index}>
                 <td>{result.code}</td> {/* Display the student's NR. MATRICOL */}
-                <td>{result.totalPoints}</td>
+                <td>{result.pointsStudent}/{result.pointsExam}</td>
                 <td className={styles['last--td']}>
-                  <ButtonStudentExam />
+                  <ButtonStudentExam examId={examId} studentId={result.idStudent} />
                 </td>
               </tr>
             ))}
@@ -46,71 +43,30 @@ const Body: React.FC<{}> = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const examId = queryParams.get('id');
-  const courseId = queryParams.get('courseId');
+  const parsedExamId = examId ? parseInt(examId) : 0; // Convert examId to a number or set it to 0 if it's null
+
   const [examResults, setExamResults] = useState<ExamResult[]>([]);
-  const [studentIds, setStudentIds] = useState<Student[]>([]);
-
-  useEffect(() => {
-    const fetchStudentIds = async () => {
-      try {
-        const response = await fetch(`http://localhost:8192/students/course=${courseId}`);
-        if (!response.ok) {
-          throw new Error('Response not OK');
-        }
-        const data = await response.json();
-        const students: Student[] = data.map((student: Student) => student);
-        setStudentIds(students);
-      } catch (error) {
-        console.error('Error fetching studentIds:', error);
-      }
-    };
-
-    if (courseId) {
-      fetchStudentIds();
-    }
-  }, [courseId]);
 
   useEffect(() => {
     const fetchExamResults = async () => {
       try {
-        console.log(studentIds);
-        const promises = studentIds.map(async (student) => {
-          try {
-            const response = await fetch(`http://localhost:8192/exam/viewExamResult/idExam=${examId}/idStudent=${student.id}`);
-            if (!response.ok) {
-              throw new Error('Response not OK');
-            }
-            const data = await response.json();
-            const examResult: ExamResult = {
-              code: student.code,
-              totalPoints: data.totalPoints,
-            };
-            return examResult;
-          } catch (error) {
-            console.error(`Error fetching exam results for studentId ${student.id}:`, error);
-            return null; // Return null for the failed fetch requests
-          }
-        });
-        const results = await Promise.all(promises);
-        const filteredResults = results.filter((result) => result !== null) as ExamResult[]; // Filter out the null results and cast the array to ExamResult[]
-        setExamResults(filteredResults);
+        const response = await fetch(`http://localhost:8192/exam/students/idExam=${parsedExamId}`);
+        const data = await response.json();
+        setExamResults(data);
       } catch (error) {
         console.error('Error fetching exam results:', error);
       }
     };
-  
-    if (examId && studentIds.length > 0) {
-      fetchExamResults();
-    }
-  }, [examId, studentIds]);
-  
+
+    fetchExamResults();
+  }, [parsedExamId]);
 
   return (
     <>
       <div className={styles['body--text']}>
         <div className={styles['body--title']}>Student exams</div>
       </div>
-      <Table examResults={examResults} />
+      <Table examResults={examResults} examId={parsedExamId} />
     </>
   );
 };

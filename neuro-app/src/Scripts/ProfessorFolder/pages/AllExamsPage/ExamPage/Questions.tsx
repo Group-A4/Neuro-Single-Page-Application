@@ -1,16 +1,58 @@
-import React from 'react'
+import React, { useEffect } from 'react';
 import { useState } from "react";
-import styles from './Body.module.css'
-
-
+import styles from './Body.module.css';
 
 interface Props {
   label: string;
 }
 
+interface QuestionsProps {
+  examId?: string | null;
+  studentId?: string | null;
+}
 
+interface Answer {
+  id: number;
+  idQuestion: number;
+  answerText: string;
+  correct: boolean;
+  chosenByStudent: boolean;
+}
 
+interface MultipleChoiceQuestion {
+  id: number;
+  idExam: number;
+  idProfessor: number;
+  questionText: string;
+  points: number;
+  studentPoints: number;
+  answersQuestionResult: Answer[];
+}
 
+interface LongResponseQuestion {
+  id: number;
+  idExam: number;
+  idProfessor: number;
+  questionText: string;
+  points: number;
+  studentPoints: number;
+  expectedResponse: string;
+  studentResponse: string;
+}
+
+interface ExamResult {
+  id: number;
+  idCourse: number;
+  idProfessor: number;
+  title: string;
+  date: string;
+  timeExam: number;
+  evaluationType: number;
+  studentPoints: number;
+  examPoints: number;
+  questionsMultipleChoiceResult: MultipleChoiceQuestion[];
+  questionsLongResponseResult: LongResponseQuestion[];
+}
 
 const NumberField: React.FC<Props> = ({ label }) => {
   const [value, setValue] = useState<string | undefined>(undefined);
@@ -23,122 +65,94 @@ const NumberField: React.FC<Props> = ({ label }) => {
   };
 
   return (
-    <div >
+    <div>
       <label>{label}</label>
-      <input type="number" value={value ?? ''} onChange={handleChange} className={styles['field']}  />
+      <input type="number" value={value ?? ''} onChange={handleChange} className={styles['field']} />
     </div>
   );
 };
 
+const Questions: React.FC<QuestionsProps> = ({ examId, studentId }) => {
+  const [examResults, setExamResults] = useState<ExamResult[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setIsLoading(true); // Set the loading state to true
+        console.log(examId, studentId);
+        const response = await fetch(
+          `http://localhost:8192/exam/viewExamResult/idExam=${examId}/idStudent=${studentId}`
+        );
+        const data = await response.json();
+        console.log('Fetched data:', data);
+        setExamResults(Array.isArray(data) ? data : [data]);
+      } catch (error) {
+        console.error('Error fetching exam results:', error);
+      } finally {
+        setIsLoading(false); // Set the loading state to false
+      }
+    };
 
+    fetchData();
+  }, []);
 
+  if (isLoading) {
+    return <div className={styles['answer']}>Loading questions, please wait...</div>;
+  }
 
-
-type Answer = {
-  id: number;
-  text: string;
-  isCorrect: boolean;
-}
-
-
-type Question = {
-  id: number;
-  text: string;
-  answers: Answer[];
-  time: number;
-  dificulty: number;
-  points: number;
-  totalPoints: number,
-  short: boolean;
-}
-
-
-const Questions: React.FC<{}> = () => {
-  const questions: Question[] = [
-    {
-      id: 1,
-      text: 'Question 1',
-      answers: [
-        { id: 1, text: 'Answer 1', isCorrect: true },
-        { id: 2, text: 'Answer 2', isCorrect: false },
-        { id: 3, text: 'Answer 3', isCorrect: false },
-        { id: 4, text: 'Answer 4', isCorrect: false },
-      ],
-      time: 20,
-      points: 20,
-      totalPoints:100,
-      dificulty: 5,
-      short: false,
-    },
-    {
-      id: 2,
-      text: 'Question 2',
-      answers: [{ id: 1, text: 'My Answer', isCorrect: false }],
-      time: 20,
-      points: 20,
-      totalPoints: 100,
-      dificulty: 5,
-      short: true,
-    },
-    {
-      id: 3,
-      text: 'Question 2',
-      answers: [
-        { id: 1, text: 'Answer 1', isCorrect: false },
-        { id: 2, text: 'Answer 2', isCorrect: true },
-        { id: 3, text: 'Answer 3', isCorrect: false },
-        { id: 4, text: 'Answer 4', isCorrect: false },
-      ],
-      time: 20,
-      points: 20,
-      totalPoints: 100,
-      dificulty: 5,
-      short: false,
-    }
-  ];
   return (
     <div className={styles['questions-container']}>
-      {questions.map((question) => (
-        <div key={question.id} className={styles.quest}>
-          {!question.short && (
-            <div>
-              <h3 className={styles.questionTitle}>{question.text}
-                <div className={styles['points']}> Points: {question.points}/{question.totalPoints} </div></h3>
-              <ul className={styles.ull}>
-                {question.answers.map((answer) => (
-                  <li key={answer.id}
-                    className={answer.isCorrect ? styles['correct-answer'] : styles['answer']}>
-                    {answer.text}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )
-          }
-          {question.short && (
-            <div>
-              <h3 className={styles.questionTitle}>{question.text}
-                <div className={styles['points']}>  <NumberField label="Points: " /> 
-                  <div className={styles['maxim--points']}>/{question.totalPoints}
-                  </div>
-                </div>
+      {examResults.map((examResult) => (
+        <div key={examResult.id} className={styles.quest}>
+          {examResult.questionsMultipleChoiceResult.map((question) => (
+            <div key={question.id}>
+              <h3 className={styles.questionTitle}>{question.questionText}
+              <div className={styles['question-points']}>{question.studentPoints}/{question.points}</div>
               </h3>
               <ul className={styles.ull}>
-                {question.answers.map((answer) => (
-                  <li key={answer.id}
-                    className={answer.isCorrect ? styles['correct-answer'] : styles['answer']}>
-                    {answer.text}
-                  </li>
-                ))}
+              {question.answersQuestionResult.map((answer) => (
+              <li
+                key={answer.id}
+                className={
+                  answer.correct === answer.chosenByStudent
+                    ? styles['correct-answer']
+                    : styles['wrong-answer']
+                }
+              >
+                {answer.answerText}
+              </li>
+            ))}
               </ul>
             </div>
-          )
-          }
+          ))}
+
+          {examResult.questionsLongResponseResult.map((question) => (
+            <div key={question.id}>
+              <h3 className={styles.questionTitle}>{question.questionText}
+              <div className={styles['question-points']}>
+              <NumberField label="Points: "/>
+                  <div className={styles['maxim--points']}>/{question.points}</div>
+              </div>
+              </h3>
+              <ul className={styles.ull}>
+                <li>
+                  <div className={styles['answer']}>
+                    Expected response: {question.expectedResponse}
+                  </div>
+                </li>
+                <li>
+                  <div className={styles['answer']}>
+                      Student response: {question.studentResponse}
+                    </div>
+                </li>
+              </ul>
+            </div>
+          ))}
         </div>
       ))}
-
     </div>
   );
 };
+
 export default Questions;
