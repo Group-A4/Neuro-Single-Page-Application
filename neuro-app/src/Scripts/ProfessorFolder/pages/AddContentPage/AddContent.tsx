@@ -3,6 +3,7 @@ import styles from "./AddContent.module.css";
 import { Link } from "react-router-dom";
 import { SERVER_ADDRESS } from "../../../../config/config";
 import { useDropzone } from "react-dropzone";
+import withAuth from "../../../../WithAuth";
 
 interface FormValues {
   fileName: string;
@@ -140,4 +141,4 @@ const ContentInput: React.FC<{}> = () => {
   );
 };
 
-export default ContentInput;
+export default withAuth(ContentInput, [1]);

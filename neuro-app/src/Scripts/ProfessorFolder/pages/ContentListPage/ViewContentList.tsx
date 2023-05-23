@@ -10,6 +10,7 @@ import { renderToString } from 'react-dom/server';
 import { SERVER_ADDRESS } from "../../../../config/config";
 import {GetMaterialById} from "../../components/material/getMaterialById";
 import { useLocation } from 'react-router-dom';
+import withAuth from "../../../../WithAuth";
 
 
 
@@ -32,4 +33,4 @@ function Home() {
 
 
 
-export default Home;
+export default withAuth(Home, [1]);

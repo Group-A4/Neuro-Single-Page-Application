@@ -4,6 +4,7 @@ import { GetMaterialById } from '../../components/material/getMaterialById';
 import Nav from '../../../NavBarFolder/Nav';
 import styles from './ViewMaterial.module.css';
 import { Link } from 'react-router-dom';
+import withAuth from '../../../../WithAuth';
 
 const ViewLessonMaterials: React.FC<{}> = () => {
 
@@ -32,4 +33,4 @@ const ViewLessonMaterials: React.FC<{}> = () => {
     );
 };
 
-export default ViewLessonMaterials;
+export default withAuth(ViewLessonMaterials, [1, 2]);

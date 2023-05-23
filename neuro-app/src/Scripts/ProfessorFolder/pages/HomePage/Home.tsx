@@ -6,6 +6,7 @@ import box_quiz from './box_quiz.png';
 import box_createExam from './create_exam.png';
 import box_Exam from './exams.png';
 import Nav from '../../components/nav/Nav';
+import withAuth from '../../../../WithAuth';
 
 const Body: React.FC<{}> = () => {
     return (
@@ -54,4 +55,4 @@ function Home() {
     );
 }
 
-export default Home;
+export default withAuth(Home, [1]);
