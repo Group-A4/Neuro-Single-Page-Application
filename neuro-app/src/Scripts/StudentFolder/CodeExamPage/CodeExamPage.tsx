@@ -18,7 +18,7 @@ const CodeExamPage: React.FC = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const apiUrl = 'http://localhost:8192/exam/code='+ codeExam +'/idStudent=35';
+    const apiUrl = 'http://localhost:8192/exam/code='+ codeExam +'/idStudent=46';
 
     try {
       const response = await fetch(apiUrl, {
