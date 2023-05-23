@@ -59,7 +59,7 @@ function App(): JSX.Element {
       <Route path="QuestionMockExam/:courseId" element={<Question />}></Route>
       <Route path="MyResults" element={<MyResults />}></Route>
       <Route path="CodeExam" element={<CodeExam />}></Route>
-      <Route path="ViewMyExamAnswers" element={<ViewMyExamAnswers />}> </Route>
+      <Route path="ViewMyExamAnswers/:examId" element={<ViewMyExamAnswers />}> </Route>
       <Route path="ResultExam" element={<ResultExam />}></Route>
       <Route path="ViewMaterialsStudent" element={<ViewMaterialsStudent />}></Route>
       <Route path="ViewLectures/:courseId" element={<ViewLectures />} />
