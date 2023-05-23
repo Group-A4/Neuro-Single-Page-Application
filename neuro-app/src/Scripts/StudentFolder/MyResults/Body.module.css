@@ -152,7 +152,7 @@
     background-color:#00191d;
 }
 
-.loading {
+.loading, .no-exams {
   display: flex;
   justify-content: center;
   align-items: center;

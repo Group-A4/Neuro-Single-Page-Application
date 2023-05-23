@@ -1,7 +1,7 @@
 .button--create {
     background-color: #6AFFC7;
 
-    text-align: center;
+    /* text-align: center; */
     font-size: calc(10px + 0.8vw);
 
 
@@ -15,8 +15,8 @@
     border-width: 1px;
     border-color: black;
     font-weight: bold;
-    float: right;
-    margin-right: 20%;
+    /* float: right; */
+    /* margin-right: 8%; */
 }
 
 .button--create:hover {

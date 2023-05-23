@@ -1,26 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import styles from './Body.module.css';
 import Header from './header';
+import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 interface Answer {
-  idQuestion: number;
   answerText: string;
   correct: boolean;
 }
 
 interface Question {
-  id: number;
+  idLecture: number;
+  idProfessor: number;
   questionText: string;
   difficulty: number;
   timeMinutes: number;
-  lectureNumber: number;
-  idCourse: number;
-  idProfessor: number;
   answersQuestion: Answer[];
 }
+interface QuizzQuestionProps {
+  idLect: number;
+}
 
-const Quizz_question: React.FC<{}> = () => {
+const Quizz_question: React.FC<QuizzQuestionProps> = ({ idLect }) => {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [successMessageVisible, setSuccessMessageVisible] = useState(false);
 
@@ -38,15 +39,14 @@ const Quizz_question: React.FC<{}> = () => {
     }
   }, [successMessageVisible, navigate]);
 
+
   const addQuestion = () => {
     const newQuestion: Question = {
-      id: questions.length + 1,
       questionText: '',
       difficulty: 0,
       timeMinutes: 0,
-      lectureNumber: 2,
-      idCourse: 5,
-      idProfessor: 56,
+      idLecture: idLect,
+      idProfessor: 52,
       answersQuestion: [],
     };
     setQuestions((prevQuestions) => [...prevQuestions, newQuestion]);
@@ -55,7 +55,6 @@ const Quizz_question: React.FC<{}> = () => {
   const addAnswer = (questionIndex: number) => {
     const newQuestions = [...questions];
     const newAnswer: Answer = {
-      idQuestion: newQuestions[questionIndex].id,
       answerText: '',
       correct: false,
     };
@@ -118,7 +117,7 @@ const Quizz_question: React.FC<{}> = () => {
 
     // Verificăm dacă există întrebări completate
     const completedQuestions = questions.filter(
-      (question) => question.questionText.trim() !== '' && question.answersQuestion.length > 0
+      (question) => question.questionText.trim() !== '' && question.answersQuestion.some(answer => answer.answerText.trim() !== '')
     );
 
     if (completedQuestions.length === 0) {
@@ -128,7 +127,7 @@ const Quizz_question: React.FC<{}> = () => {
     }
 
     try {
-      const promises = questions.map(async (question) => {
+      const promises = completedQuestions.map(async (question) => {
         const response = await fetch('http://localhost:8192/questionQuizz/create', {
           method: 'POST',
           headers: {
@@ -177,7 +176,7 @@ const Quizz_question: React.FC<{}> = () => {
         Determine the difficulty and time of the question.
       </div>
       {questions.map((question, questionIndex) => (
-        <div key={question.id}>
+        <div key={`question_${questionIndex}`}>
           <div className={styles['box']}>
             <Header
               time={question.timeMinutes}
@@ -199,7 +198,7 @@ const Quizz_question: React.FC<{}> = () => {
             </button>
             <div>
               {question.answersQuestion.map((answer, answerIndex) => (
-                <div key={answer.idQuestion}>
+                <div key={`answer.${answerIndex}`}>
                   <label className={styles.lb}>
                     <input
                       type="checkbox"

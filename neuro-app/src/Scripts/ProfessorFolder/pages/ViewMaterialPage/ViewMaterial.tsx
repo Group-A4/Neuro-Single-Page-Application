@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 
 const ViewLessonMaterials: React.FC<{}> = () => {
 
-  const material = GetMaterialById(1);
+  const material = GetMaterialById(12);
 
     return (
         <>
@@ -20,7 +20,7 @@ const ViewLessonMaterials: React.FC<{}> = () => {
                         <div className={styles['text']} dangerouslySetInnerHTML={{ __html: material.html }} />
                     </div>
                     <div>
-                    <Link to={`/ViewLessonMaterials?id_course=5`} className={styles["bn11"]}>
+                    <Link to={`/ViewLectureMaterials`} className={styles["bn11"]}>
                         Back
                     </Link>
                     </div>
