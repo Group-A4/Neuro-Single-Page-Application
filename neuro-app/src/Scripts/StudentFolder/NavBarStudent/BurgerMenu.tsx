@@ -10,7 +10,7 @@ const BurgerMenu: React.FC<{}> =()=>
     const dropdownRef=useRef<HTMLDivElement>(null);
     const handleDropDownFocus=(state:boolean)=>
     {setOpen(!state);};
-    // console.log(open, dropdownRef.current);
+    console.log(open, dropdownRef.current);
     const handleClickOutsideDropDown=(e:any)=>
     {
       if(open && !dropdownRef.current?.contains(e.target as Node))
@@ -23,10 +23,7 @@ const BurgerMenu: React.FC<{}> =()=>
         {open &&(
           <ul>
          <li><a href="/Student">Home</a></li>
-         <li><a href="/Student">Profile</a></li>
-         {/* <li><a href="/Create_exam">    English </a></li>
-         <li><a href="/Create_exam">    Romana </a></li>
-         <li><a href="/Create_exam">    Francais </a></li> */}
+         <li><a href="/ProfileStudent">Profile</a></li>
 
             <LangButtonMini />
          </ul>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import styles from './MockExam.module.css';
+import styles from './ViewMaterials.module.css';
 import Nav from '../NavBarStudent/Nav';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
@@ -15,15 +15,15 @@ interface Course {
 const Body: React.FC<{}> = () => {
 
     const navigate = useNavigate();
-    const goToTakeExam = (courseId : number) => {
-        navigate(`/QuestionMockExam/${courseId}`); 
+    const goToViewSubjects = (courseId : number) => {
+        navigate(`/ViewLectures/${courseId}`); 
       };
 
     const [courses, setCourses] = useState<Course[]>([]);
 
     useEffect(() => {
        const fetchData = async () => {
-        const response = await fetch('http://localhost:8192/courses/student=38');
+        const response = await fetch('http://localhost:8192/courses/student=37');
         const data = await response.json();
         setCourses(data);
       };
@@ -35,7 +35,7 @@ const Body: React.FC<{}> = () => {
             <div className={styles['body--container']}>
                 <div className={styles['column']}>
                     <div className={styles['body--title']}>
-                            Let’s prepare you for exams!
+                        View your subjects
                     </div>
                 </div>
                 <div className={styles['column']}>
@@ -53,7 +53,7 @@ const Body: React.FC<{}> = () => {
                     <div className={styles['course-title']}>
                         {course.title}
                     </div>
-                    <button  onClick={() => goToTakeExam(course.id)}>Start</button>
+                    <button  onClick={() => goToViewSubjects(course.id)}>View</button>
                   </div>
                 ))}
             </div>
@@ -62,7 +62,7 @@ const Body: React.FC<{}> = () => {
 }
 
 
-const TakeAMockExam: React.FC<{}> = () => {
+const ViewMaterialsStudent: React.FC<{}> = () => {
     return (
         <>
             <body className={styles['Body']}>
@@ -75,4 +75,4 @@ const TakeAMockExam: React.FC<{}> = () => {
     );
 }
 
-export default TakeAMockExam;
+export default ViewMaterialsStudent;
