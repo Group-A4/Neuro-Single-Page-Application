@@ -65,7 +65,7 @@ Body {
     font-style: italic;
 }
 
-.choices, .textQuestionAnswers {
+.choices, .textQuestionAnswers, .expectedResponse {
     margin-top: 1rem;
     margin-right: 2rem;
     background-color: #bd9d6d;
@@ -74,10 +74,14 @@ Body {
     padding-left: 1em;
 }
 
-.textQuestionAnswers{
+.textQuestionAnswers, .expectedResponse{
     margin-left: 2rem;
     padding-top: 1em;
     padding-bottom: 1em;
+}
+
+.expectedResponse {
+    background-color: #45f57d;
 }
 
 .correctAnswers {
@@ -121,4 +125,9 @@ Body {
 
 .selectedAnswer {
   font-weight: bold;
+}
+
+.boldText {
+    font-weight: bold;
+    font-style: italic;
 }
