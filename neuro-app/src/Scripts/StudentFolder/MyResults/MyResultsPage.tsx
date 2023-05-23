@@ -12,12 +12,19 @@ interface ExamData {
   date: string;
   timeExam: number;
   evaluationType: number;
+  examPoints: number;
+}
+
+interface ExamScoreData {
+  idExam: number;
+  studentPoints: number;
 }
 
 const Body: React.FC<{}> = () => {
   const navigate = useNavigate();
   const [exams, setExams] = useState<ExamData[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [examScores, setExamScores] = useState<ExamScoreData[]>([]);
 
 const goToExamAnswers = (examId: number) => {
   navigate(`/ViewMyExamAnswers/${examId}`);
@@ -29,7 +36,7 @@ const goToExamAnswers = (examId: number) => {
   };
 
   useEffect(() => {
-    fetch("http://localhost:8192/exam/summarise/idStudent=34", {
+    fetch("http://localhost:8192/exam/summarise/idStudent=45", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -45,6 +52,22 @@ const goToExamAnswers = (examId: number) => {
       .catch((error) => {
         console.error(error);
         setIsLoading(false);
+      });
+
+    fetch("http://localhost:8192/exam/points/idStudent=45", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (Array.isArray(data)) {
+          setExamScores(data);
+        }
+      })
+      .catch((error) => {
+        console.error(error);
       });
   }, []);
 
@@ -68,23 +91,34 @@ const goToExamAnswers = (examId: number) => {
         </div>
 
         {isLoading ? (
-          <div>Loading...</div>
+          <div className={styles["loading"]}>Loading...</div>
+        ) : exams.length === 0 ? (
+          <div className={styles["no-exams"]}>No exams to show</div>
         ) : (
-          exams.map((exam) => (
-            <div className={styles["course-container"]} key={exam.id}>
-              <div className={styles["code--container"]}>{exam.code}</div>
-              <div className={styles["date--container"]}>
-                {getShortDate(exam.date)}
+          exams.map((exam) => {
+            const scoreData = examScores.find(
+              (score) => score.idExam === exam.id
+            );
+            const score = scoreData ? scoreData.studentPoints : 0;
+
+            return (
+              <div className={styles["course-container"]} key={exam.id}>
+                <div className={styles["code--container"]}>{exam.code}</div>
+                <div className={styles["date--container"]}>
+                  {getShortDate(exam.date)}
+                </div>
+                <div className={styles["exam--container"]}>{exam.title}</div>
+                <div className={styles["score--container"]}>
+                  {score}/{exam.examPoints}
+                </div>
+                <div className={styles["button--container"]}>
+                  <button onClick={() => goToExamAnswers(exam.id)}>
+                    View My Exam Answers
+                  </button>
+                </div>
               </div>
-              <div className={styles["exam--container"]}>{exam.title}</div>
-              <div className={styles["score--container"]}>0.00</div>
-              <div className={styles["button--container"]}>
-                <button onClick={() => goToExamAnswers(exam.id)}>
-                  View My Exam Answers
-                </button>
-              </div>
-            </div>
-          ))
+            );
+          })
         )}
       </div>
     </>
