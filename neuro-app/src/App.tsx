@@ -41,6 +41,25 @@ import UpdateMaterial from "./Scripts/ProfessorFolder/pages/UpdateMaterialPage/U
 import ViewLectureMaterials from "./Scripts/ProfessorFolder/pages/ViewLectureMaterialsPage/ViewLectureMaterials";
 import ViewMaterial from "./Scripts/ProfessorFolder/pages/ViewMaterialPage/ViewMaterial";
 
+import ModifyOptionsPage from "./Scripts/AdminFolder/ModifyOptionsPage";
+import EditFirstNamePage from "./Scripts/AdminFolder/EditFirstNamePage";
+import EditLastNamePage from "./Scripts/AdminFolder/EditLastNamePage";
+import EditUnivEmailPage from "./Scripts/AdminFolder/EditUnivEmailPage";
+import EditPersEmailPage from "./Scripts/AdminFolder/EditPersEmailPage";
+import EditPasswordPage from "./Scripts/AdminFolder/EditPasswordPage";
+import ChooseAccountPage from "./Scripts/AdminFolder/ChooseAccountPage";
+import ProfilePage from "./Scripts/AdminFolder/ProfilePage";
+import ChooseSubjects from "./Scripts/AdminFolder/ChooseSubjects";
+import ModifySubjectsOptions from "./Scripts/AdminFolder/ModifySubjectsOptions";
+import EditSubjectTitle from "./Scripts/AdminFolder/EditSubjectTitle";
+import EditSubjectYear from "./Scripts/AdminFolder/EditSubjectYear";
+import EditSubjectSemester from "./Scripts/AdminFolder/EditSubjectSemester";
+import EditSubjectCredits from "./Scripts/AdminFolder/EditSubjectCredits";
+import ChooseCreate from "./Scripts/AdminFolder/ChooseCreate";
+import CreateSubject from "./Scripts/AdminFolder/CreateSubject";
+import Create from "./Scripts/AdminFolder/CreateAccount";
+
+
 function App(): JSX.Element {
   return (
     <Routes>
@@ -84,6 +103,29 @@ function App(): JSX.Element {
       <Route path="/ViewLectureMaterials" element={<ViewLectureMaterials />} />
       <Route path="/ViewMaterial" element={<ViewMaterial />} />
       <Route path="/ViewContentList" element={<ContentList />} />
+
+      <Route path="CreateAccount" element={<Create />}></Route>
+      <Route path="ChooseAccountPage" element={<ChooseAccountPage />}></Route>
+      <Route path="EditFirstNamePage" element={<EditFirstNamePage />}></Route>
+      <Route path="EditLastNamePage" element={<EditLastNamePage />}></Route>
+      <Route path="EditUnivEmailPage" element={<EditUnivEmailPage />}></Route>
+      <Route path="EditPersEmailPage" element={<EditPersEmailPage />}></Route>
+      <Route path="EditPasswordPage" element={<EditPasswordPage />}></Route>
+      <Route path="ModifyOptionsPage" element={<ModifyOptionsPage />}></Route>
+      <Route path="ProfilePage" element={<ProfilePage />}></Route>
+      <Route path="ChooseSubjects" element={<ChooseSubjects />}></Route>
+      <Route path="ModifySubjectsOptions" element={<ModifySubjectsOptions />}></Route>
+      <Route path="EditSubjectTitle" element={<EditSubjectTitle />}></Route>
+      <Route path="EditSubjectYear" element={<EditSubjectYear />}></Route>
+      <Route path="EditSubjectSemester" element={<EditSubjectSemester />}></Route>
+      <Route path="EditSubjectCredits" element={<EditSubjectCredits />}></Route>
+      <Route path="ChooseCreate" element={<ChooseCreate />}></Route>
+      <Route path="CreateSubject" element={<CreateSubject />}></Route>
+
+
+
+
+
     </Routes>
   );
 }
