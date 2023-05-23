@@ -5,9 +5,7 @@ import { SERVER_ADDRESS } from '../../../../config/config';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
-import Scroll from '../../components/ScrollComp/Scroll';
 import { Link, LinkProps } from 'react-router-dom';
-import UpdateMaterial from '../../pages/UpdateMaterialPage/UpdateMaterial';
 import withAuth from '../../../../WithAuth';
 
 
@@ -17,6 +15,7 @@ type Props = {
 };
 
 const useGetMaterials = (id_lecture: string) => {
+
   const [materials, setMaterials] = useState<any[]>([]);
 
   const fetchMaterials = async (id_lecture: string) => {
@@ -58,6 +57,8 @@ const ViewLessonMaterials: React.FC<Props> = ({ id_lecture }) => {
   
   };
 
+  const user = JSON.parse(localStorage.getItem('utilizator') || '{}');
+
   return (
     <>
       <Nav />
@@ -81,33 +82,37 @@ const ViewLessonMaterials: React.FC<Props> = ({ id_lecture }) => {
                     {material.title}
                   </a>
                 </div>
-                <div className={styles['right-side']}>
-                <Link to={`/UpdateMaterial?id=${material.id}`}>
-                <button
-                    className={styles['editButton']} 
-                  >
-                    <FontAwesomeIcon icon={faEdit} className={styles['Icon']} /> <p className={styles['p-delete']}>Edit</p>
-                  </button>
-                  </Link>
-                  <button
-                    className={styles['deleteButton']}
-                    onClick={() => handleDelete(material.id)}
-                  >
-                    <FontAwesomeIcon icon={faTrash} className={styles['Icon']} /> <p className={styles['p-delete']}>Delete</p>
-                  </button>
-                </div>
+                {user.role === 1 && (
+                  <div className={styles['right-side']}>
+                    <Link to={`/UpdateMaterial?id=${material.id}`}>
+                    <button
+                      className={styles['editButton']} 
+                    >
+                      <FontAwesomeIcon icon={faEdit} className={styles['Icon']} /> <p className={styles['p-delete']}>Edit</p>
+                    </button>
+                    </Link>
+                    <button
+                      className={styles['deleteButton']}
+                      onClick={() => handleDelete(material.id)}
+                    >
+                      <FontAwesomeIcon icon={faTrash} className={styles['Icon']} /> <p className={styles['p-delete']}>Delete</p>
+                    </button>
+                  </div>
+                )}
               </li>
             ))}
           </ol>
-          <Link to={`/CreateMaterial`}>
-          <button className={styles['createButton']}>
-            Create new material
-          </button>
-          </Link>
+          {user.role === 1 && (
+            <Link to={`/CreateMaterial`}>
+              <button className={styles['createButton']}>
+                Create new material
+              </button>
+            </Link>
+          )} 
         </div>
       </body>
     </>
   );
 };
 
-export default withAuth(ViewLessonMaterials, [1]);
+export default withAuth(ViewLessonMaterials, [1, 2]);

@@ -8,6 +8,7 @@ import MarkdownParser from "../../components/markdownToHtmlParser/MarkdownToHtml
 import Nav from '../../components/nav/Nav';
 import { renderToString } from 'react-dom/server';
 import { SERVER_ADDRESS } from "../../../../config/config";
+import withAuth from "../../../../WithAuth";
 
 interface FormValues {
     idLecture: number;
@@ -149,4 +150,4 @@ function Home() {
 
 
 
-export default Home;
+export default withAuth(Home, [1]);
