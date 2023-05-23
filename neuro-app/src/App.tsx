@@ -58,6 +58,7 @@ import EditSubjectCredits from "./Scripts/AdminFolder/EditSubjectCredits";
 import ChooseCreate from "./Scripts/AdminFolder/ChooseCreate";
 import CreateSubject from "./Scripts/AdminFolder/CreateSubject";
 import Create from "./Scripts/AdminFolder/CreateAccount";
+import ModifyQuizzTime from "./Scripts/AdminFolder/ModifyQuizzTime";
 
 
 function App(): JSX.Element {
@@ -124,7 +125,7 @@ function App(): JSX.Element {
 
 
 
-
+      <Route path="modifyquizztime" element={<ModifyQuizzTime />}></Route>
 
     </Routes>
   );
