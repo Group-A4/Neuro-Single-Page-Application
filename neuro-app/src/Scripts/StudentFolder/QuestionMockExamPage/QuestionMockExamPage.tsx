@@ -9,7 +9,7 @@ interface QuizQuestion {
   idProfessor: number;
   questionText: string;
   answersQuestion: QuizAnswer[];
-  score: string;  
+  score: string;
 }
 
 interface QuizAnswer {
@@ -25,7 +25,7 @@ const Body: React.FC<{}> = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const currentQuestion = questions[currentQuestionIndex];
   const [selectedChoices, setSelectedChoices] = useState<{ [key: number]: boolean }>({});
-  const navigate = useNavigate();  
+  const navigate = useNavigate();
 
   const handleNextQuestion = () => {
     setCurrentQuestionIndex(currentQuestionIndex + 1);
@@ -39,78 +39,87 @@ const Body: React.FC<{}> = () => {
     const newSelectedChoices = { ...selectedChoices };
     newSelectedChoices[id] = !newSelectedChoices[id];
     setSelectedChoices(newSelectedChoices);
-    const currentQuestion = questions[currentQuestionIndex];
+    const updatedQuestions = [...questions];
+    const currentQuestion = updatedQuestions[currentQuestionIndex];
     currentQuestion.answersQuestion.forEach((answer) => {
       if (answer.id === id) {
         answer.chosen = !answer.chosen;
+      } else {
+        answer.chosen = false;
       }
     });
+    setQuestions(updatedQuestions);
   };
 
   const handleFinishMockExam = () => {
-  let totalQuestions = 0;
-  let correctAnswers = 0;
+    let totalQuestions = 0;
+    let correctAnswers = 0;
 
-  questions.forEach((question) => {
-    let correctCount = 0;
-    let chosenCount = 0;
+    questions.forEach((question) => {
+      let correctCount = 0;
+      let chosenCount = 0;
 
-    question.answersQuestion.forEach((answer) => {
-      if (answer.correct) {
-        correctCount++;
-        if (answer.chosen) {
-          chosenCount++;
+      question.answersQuestion.forEach((answer) => {
+        if (answer.correct) {
+          correctCount++;
+          if (answer.chosen) {
+            chosenCount++;
+          }
+        } else {
+          if (answer.chosen) {
+            chosenCount--;
+          }
         }
-      } else {
-        if (answer.chosen) {
-          chosenCount--;
+      });
+
+      if (correctCount > 0) {
+        totalQuestions++;
+        if (chosenCount > 0) {
+          correctAnswers += Math.max(chosenCount, 0) / correctCount;
         }
+      } else if (chosenCount === 0) {
+        totalQuestions++;
+        correctAnswers += 1;
       }
+
+      const score = correctCount === 0 ? 0 : Math.max(chosenCount, 0) / correctCount;
+      question.score = score.toFixed(2);
     });
 
-    if (correctCount > 0) {
-      totalQuestions++;
-      if (chosenCount > 0) {
-        correctAnswers += Math.max(chosenCount, 0) / correctCount;
-      }
-    } else if (chosenCount === 0) {
-      totalQuestions++;
-      correctAnswers += 1;
-    }
-   const score = correctCount === 0 && chosenCount === 0 ? 1 : Math.max(chosenCount, 0) / correctCount;
-    question.score = score.toFixed(2);
-  });
+    const grade = totalQuestions > 0 ? (correctAnswers / totalQuestions) * 100 : 0;
+    const formattedGrade = grade.toFixed(2);
 
-  const grade = totalQuestions > 0 ? (correctAnswers / totalQuestions) * 100 : 0;
-  const formattedGrade = grade.toFixed(2);
+     const state = {
+      questions,
+      grade: formattedGrade,
+    };
 
-  // Pass the questions and grade data as state to the ResultMockExam page
-  const state = {
-    questions,
-    grade: formattedGrade,
+     navigate('/ResultMockExam', { state });
   };
-
-  // Navigate to the ResultMockExam page with the state
-  navigate('/ResultMockExam', { state });
-};
-
 
   const apiUrl = 'http://localhost:8192/quizz/course=';
   const completeUrl = `${apiUrl}${courseId}`;
 
-   useEffect(() => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
     const fetchQuestions = async () => {
       const response = await fetch(completeUrl);
       const data = await response.json();
       setQuestions(data);
+      setLoading(false);
     };
 
     fetchQuestions();
   }, []);
 
-  return (
+ return (
     <div className="body">
-      {currentQuestion ? (
+      {loading ? (
+        <Frame>
+          <div className="loading">Loading questions...</div>
+        </Frame>
+      ) : currentQuestion ? (
         <div className="questionPart">
           <div className="questionQuery">
             <h1 className="question">
@@ -138,12 +147,12 @@ const Body: React.FC<{}> = () => {
         </div>
       ) : (
         <Frame>
-          <div className="loading">Loading questions...</div>
+          <div className="loading">No questions available.</div>
         </Frame>
       )}
 
       <div className="button-container">
-        <button
+       <button
           className="button"
           onClick={handlePreviousQuestion}
           disabled={currentQuestionIndex === 0}
@@ -166,6 +175,7 @@ const Body: React.FC<{}> = () => {
     </div>
   );
 };
+ 
 
 function Question() {
   return (
@@ -177,4 +187,3 @@ function Question() {
 }
 
 export default Question;
-

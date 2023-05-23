@@ -12,7 +12,7 @@ import TakeAMockExam from "./Scripts/StudentFolder/TakeAMockExam/TakeAMockExamPa
 import Question from "./Scripts/StudentFolder/QuestionMockExamPage/QuestionMockExamPage";
 import MyResults from "./Scripts/StudentFolder/MyResults/MyResultsPage";
 import CodeExam from "./Scripts/StudentFolder/CodeExamPage/CodeExamPage";
-import QuestionTextPage from "./Scripts/StudentFolder/QuestionTextPage/QuestionTextPage";
+import QuestionText from "./Scripts/StudentFolder/QuestionTextPage/QuestionTextPage";
 import ViewMyExamAnswers from "./Scripts/StudentFolder/ViewMyExamAnswersPage/ViewMyExamAnswers";
 import ResultExam from "./Scripts/StudentFolder/ResultExamPage/ResultExamPage";
 import { Routes, Route } from "react-router-dom";
@@ -32,6 +32,9 @@ import AllExams from "./Scripts/ProfessorFolder/pages/AllExamsPage/AllExams";
 import ViewExam from "./Scripts/ProfessorFolder/pages/AllExamsPage/ViewExam/ViewExam";
 import Exam from "./Scripts/ProfessorFolder/pages/AllExamsPage/ExamPage/Exam";
 import AddQuestion from './Scripts/ProfessorFolder/pages/AddQuizQuestionsPage/AddQuestion';
+import ViewMaterialsStudent from "./Scripts/StudentFolder/ViewMaterials/ViewMaterials";
+import ViewLectures from './Scripts/StudentFolder/ViewLecturesStudent/ViewLecturesStudent';
+import ProfileStudent from './Scripts/StudentFolder/ProfilePage/ProfilePage';
 
 
 import AddContent from "./Scripts/ProfessorFolder/pages/AddContentPage/AddContent";
@@ -39,7 +42,6 @@ import CreateMaterial from "./Scripts/ProfessorFolder/pages/CreateMaterialPage/C
 import UpdateMaterial from "./Scripts/ProfessorFolder/pages/UpdateMaterialPage/UpdateMaterial";
 import ViewLectureMaterials from "./Scripts/ProfessorFolder/pages/ViewLectureMaterialsPage/ViewLectureMaterials";
 import ViewMaterial from "./Scripts/ProfessorFolder/pages/ViewMaterialPage/ViewMaterial";
-
 
 function App(): JSX.Element {
   return (
@@ -51,14 +53,17 @@ function App(): JSX.Element {
       <Route path="CreateAccount" element={<Create />}></Route>
       
       <Route path="Student" element={<Student />}></Route>
+      <Route path="QuestionTextPage/:courseExam" element={<QuestionText />}></Route>
       <Route path="ResultMockExam" element={<ResultMockExam />}></Route>
       <Route path="TakeAMockExam" element={<TakeAMockExam />}></Route>
       <Route path="QuestionMockExam/:courseId" element={<Question />}></Route>
       <Route path="MyResults" element={<MyResults />}></Route>
       <Route path="CodeExam" element={<CodeExam />}></Route>
-      <Route path="QuestionTextPage" element={<QuestionTextPage />}> </Route>
-      <Route path="ViewMyExamAnswers/:examId" element={<ViewMyExamAnswers />}> </Route>
+      <Route path="ViewMyExamAnswers" element={<ViewMyExamAnswers />}> </Route>
       <Route path="ResultExam" element={<ResultExam />}></Route>
+      <Route path="ViewMaterialsStudent" element={<ViewMaterialsStudent />}></Route>
+      <Route path="ViewLectures/:courseId" element={<ViewLectures />} />
+      <Route path="ProfileStudent" element={<ProfileStudent />} />
       <Route path="/" element={<Home />} />
 
 

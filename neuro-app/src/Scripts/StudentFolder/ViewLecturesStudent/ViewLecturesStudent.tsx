@@ -1,29 +1,42 @@
 import React, { useState, useEffect } from 'react';
-import styles from './MockExam.module.css';
+import { useParams, Link, useNavigate } from 'react-router-dom';
+import styles from './ViewLecturesStudent.module.css';
 import Nav from '../NavBarStudent/Nav';
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
 
-interface Course {
-  id: number;
-  title: string;
-  year: number;
-  semester: number;
-  credits: number;
-}
+
+interface ViewLecture {
+    idCourse: number;
+    id: number;
+    title: string;
+    course: ViewCourse[];
+    description: string;  
+  }
+  
+interface ViewCourse {
+    id: number;
+    title: string;
+    year: number;
+    semester: number;
+    credits: number;
+  }
+
 
 const Body: React.FC<{}> = () => {
 
+    const { courseId } = useParams<{ courseId: string }>();
     const navigate = useNavigate();
-    const goToTakeExam = (courseId : number) => {
-        navigate(`/QuestionMockExam/${courseId}`); 
+    const goToViewLectures = (lectureId : number) => {
+        navigate(`/ViewMaterial`); 
       };
 
-    const [courses, setCourses] = useState<Course[]>([]);
+    const [lectures, setCourses] = useState<ViewLecture[]>([]);
+
+    const apiUrl = 'http://localhost:8192/lectures/course_id=';
+    const completeUrl = `${apiUrl}${courseId}`;
 
     useEffect(() => {
        const fetchData = async () => {
-        const response = await fetch('http://localhost:8192/courses/student=37');
+        const response = await fetch(completeUrl);
         const data = await response.json();
         setCourses(data);
       };
@@ -35,12 +48,12 @@ const Body: React.FC<{}> = () => {
             <div className={styles['body--container']}>
                 <div className={styles['column']}>
                     <div className={styles['body--title']}>
-                            Let’s prepare you for exams!
+                        View Lecture Materials
                     </div>
                 </div>
                 <div className={styles['column']}>
                     <div className={styles['body--subtitle']}>
-                            {courses.length > 0 ? 'Subjects: ': 'Loading...'}
+                            {lectures.length > 0 ? 'Lectures: ': 'Loading...'}
                     </div>
                 </div>
 
@@ -48,12 +61,12 @@ const Body: React.FC<{}> = () => {
                     <div className={styles['body--line']}></div>
                 </div>
 
-                {courses.map(course => (
-                  <div className={styles['course-container']} key={course.title}>
+                {lectures.map(lecture => (
+                  <div className={styles['course-container']} key={lecture.title}>
                     <div className={styles['course-title']}>
-                        {course.title}
+                        {lecture.title}
                     </div>
-                    <button  onClick={() => goToTakeExam(course.id)}>Start</button>
+                    <button  onClick={() => goToViewLectures(lecture.id)}>View</button>
                   </div>
                 ))}
             </div>
@@ -62,7 +75,7 @@ const Body: React.FC<{}> = () => {
 }
 
 
-const TakeAMockExam: React.FC<{}> = () => {
+const ViewMaterialsStudent: React.FC<{}> = () => {
     return (
         <>
             <body className={styles['Body']}>
@@ -75,4 +88,4 @@ const TakeAMockExam: React.FC<{}> = () => {
     );
 }
 
-export default TakeAMockExam;
+export default ViewMaterialsStudent;
