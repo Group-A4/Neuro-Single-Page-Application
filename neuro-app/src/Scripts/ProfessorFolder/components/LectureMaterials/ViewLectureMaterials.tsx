@@ -8,6 +8,7 @@ import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import Scroll from '../../components/ScrollComp/Scroll';
 import { Link, LinkProps } from 'react-router-dom';
 import UpdateMaterial from '../../pages/UpdateMaterialPage/UpdateMaterial';
+import withAuth from '../../../../WithAuth';
 
 
 
@@ -109,4 +110,4 @@ const ViewLessonMaterials: React.FC<Props> = ({ id_lecture }) => {
   );
 };
 
-export default ViewLessonMaterials;
+export default withAuth(ViewLessonMaterials, [1]);
