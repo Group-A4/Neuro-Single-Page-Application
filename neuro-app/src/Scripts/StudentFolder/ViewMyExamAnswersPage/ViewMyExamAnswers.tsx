@@ -54,7 +54,11 @@ const Body: React.FC<{}> = () => {
   useEffect(() => {
     // Fetch data using the GET method
     fetch(
+<<<<<<< Updated upstream
       `http://localhost:8192/exam/viewExamResult/idExam=${examId}/idStudent=45`
+=======
+      `http://localhost:8192/exam/viewExamResult/idExam=${examId}/idStudent=40`
+>>>>>>> Stashed changes
     )
       .then((response) => response.json())
       .then((data) => setExam(data))
