@@ -28,6 +28,7 @@ interface ExamData {
     date: Date;
     timeExam: number;
     evaluationType: number;
+    examPoints:number;
 }
 
 interface EvaluationTypeCellProps {
@@ -79,6 +80,10 @@ function Table({ examData }: { examData: ExamData[] }) {
             {
                 Header: 'Time Exam',
                 accessor: 'timeExam',
+            },
+            {
+                Header: 'Points',
+                accessor: 'examPoints',
             },
         ],
         []
