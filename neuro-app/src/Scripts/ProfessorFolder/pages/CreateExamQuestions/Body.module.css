@@ -537,3 +537,14 @@ body .removea {
           margin-bottom: 10px;
       }
   }
+
+  .incomplete {
+      border: 2px solid red;
+  }
+
+  .error-message {
+      color: red;
+      font-weight: bold;
+      margin-left: -4%;
+      font-size: calc(10px + 0.8vw);
+  }

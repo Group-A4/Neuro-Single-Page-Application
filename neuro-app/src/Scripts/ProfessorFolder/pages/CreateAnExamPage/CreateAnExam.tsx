@@ -19,8 +19,7 @@ interface Course {
     credits: number
 }
 
-interface UserData {
-
+interface ExamData {
     id: number;
     idCourse: number;
     idProfessor: number;
@@ -29,6 +28,7 @@ interface UserData {
     date: Date;
     timeExam: number;
     evaluationType: number;
+    examPoints:number;
 }
 
 interface EvaluationTypeCellProps {
@@ -45,7 +45,7 @@ function getEvaluationTypeText(evaluationType: number): string {
             return 'Two wrong answers cancel one correct answer';
         // Add more cases as needed for other evaluation types
         default:
-            return 'Unknown';
+            return 'Perfect match';
     }
 }
 
@@ -56,8 +56,8 @@ const EvaluationTypeCell: React.FC<EvaluationTypeCellProps> = ({ value }) => {
     return <span>{evaluationTypeText}</span>;
 };
 
-function Table({ examData }: { examData: UserData[] }) {
-    const columns: Column<UserData>[] = React.useMemo(
+function Table({ examData }: { examData: ExamData[] }) {
+    const columns: Column<ExamData>[] = React.useMemo(
         () => [
             {
                 Header: 'Title',
@@ -74,12 +74,16 @@ function Table({ examData }: { examData: UserData[] }) {
             {
                 Header: 'Evaluation Type',
                 accessor: 'evaluationType',
-                Cell: ({ value }: CellProps<UserData, number>) => (
+                Cell: ({ value }: CellProps<ExamData, number>) => (
                     <EvaluationTypeCell value={value} />),
             },
             {
                 Header: 'Time Exam',
                 accessor: 'timeExam',
+            },
+            {
+                Header: 'Points',
+                accessor: 'examPoints',
             },
         ],
         []
@@ -115,7 +119,7 @@ function Table({ examData }: { examData: UserData[] }) {
                                         <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
                                     ))}
                                     <div className={styles['body--img']}>
-                                        <ScrollBlack />
+                                        <ScrollBlack idExam={row.original.id} />
                                     </div>
                                 </tr>
                             );
@@ -130,7 +134,7 @@ function Table({ examData }: { examData: UserData[] }) {
 const SelectCourse: React.FC<{ onSelectCourse: (id: number) => void }> = ({ onSelectCourse }) => {
     const [courses, setCourses] = useState<Course[]>([]);
     const [selectedCourseId, setSelectedCourseId] = useState<number | null>(null);
-    const [examData, setExamData] = useState<UserData[]>([]);
+    const [examData, setExamData] = useState<ExamData[]>([]);
 
     useEffect(() => {
         const fetchCourses = async () => {
@@ -156,7 +160,7 @@ const SelectCourse: React.FC<{ onSelectCourse: (id: number) => void }> = ({ onSe
 
                 const professorId = 52; // ID-ul profesorului curent
 
-                const filteredData = data.filter((exam: UserData) => exam.idProfessor === professorId);
+                const filteredData = data.filter((exam: ExamData) => exam.idProfessor === professorId);
                 setExamData(filteredData);
             }
         };

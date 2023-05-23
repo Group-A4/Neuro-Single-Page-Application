@@ -85,6 +85,14 @@ const Quizz_question: React.FC<{}> = () => {
     });
   };
 
+  const handleQuestionTextChangeLong = (event: React.ChangeEvent<HTMLInputElement>, questionIndex: number) => {
+    setQuestionsLongResponse((prevQuestions) => {
+      const newQuestions = [...prevQuestions];
+      newQuestions[questionIndex].questionText = event.target.value;
+      return newQuestions;
+    });
+  };
+
 
   const handleAnswerTextChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -250,10 +258,10 @@ const Quizz_question: React.FC<{}> = () => {
             />
             <input
             type="text"
-            value={question.expectedResponse}
+            value={question.questionText}
               placeholder="Type question here"
             className={styles.quest}
-            onChange={(event) => handleExpectedResponseChange(event, questionIndex)}
+              onChange={(event) => handleQuestionTextChangeLong(event, questionIndex)}
           />
             <input
               type="text"
