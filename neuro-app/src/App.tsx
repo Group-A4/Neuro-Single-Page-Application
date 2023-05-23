@@ -3,9 +3,8 @@ import "./CSS/App.css";
 import "./CSS/AdminPage.css";
 import "./CSS/NavBar.css";
 import "./Scripts/StudentFolder/QuestionMockExamPage/QuestionMockExamPage.css"
-import Create from "./Scripts/AdminFolder/CreateAccount";
-import Login from "./Scripts/LoginFolder/Login";
-import Admin from "./Scripts/AdminFolder/AdminPageRender";
+import Login from "./Scripts/LoginFolder/LoginRender";
+import Admin from "./Scripts/AdminFolder/AdminHomePage";
 import Student from "./Scripts/StudentFolder/HomePage/StudentHomePage";
 import ResultMockExam from "./Scripts/StudentFolder/ResultMockExamPage/MockExamResultPage";
 import TakeAMockExam from "./Scripts/StudentFolder/TakeAMockExam/TakeAMockExamPage";
@@ -35,8 +34,7 @@ import AddQuestion from './Scripts/ProfessorFolder/pages/AddQuizQuestionsPage/Ad
 import ViewMaterialsStudent from "./Scripts/StudentFolder/ViewMaterials/ViewMaterials";
 import ViewLectures from './Scripts/StudentFolder/ViewLecturesStudent/ViewLecturesStudent';
 import ProfileStudent from './Scripts/StudentFolder/ProfilePage/ProfilePage';
-
-
+import ContentList from './Scripts/ProfessorFolder/pages/ContentListPage/ViewContentList';
 import AddContent from "./Scripts/ProfessorFolder/pages/AddContentPage/AddContent";
 import CreateMaterial from "./Scripts/ProfessorFolder/pages/CreateMaterialPage/CreateMaterial";
 import UpdateMaterial from "./Scripts/ProfessorFolder/pages/UpdateMaterialPage/UpdateMaterial";
@@ -50,7 +48,6 @@ function App(): JSX.Element {
       <Route path="Admin" element={<Admin />}></Route>
 
       <Route path="Professor" element={<Home />}></Route>
-      <Route path="CreateAccount" element={<Create />}></Route>
       
       <Route path="Student" element={<Student />}></Route>
       <Route path="QuestionTextPage/:courseExam" element={<QuestionText />}></Route>
@@ -86,6 +83,7 @@ function App(): JSX.Element {
       <Route path="/UpdateMaterial" element={<UpdateMaterial />} />
       <Route path="/ViewLectureMaterials" element={<ViewLectureMaterials />} />
       <Route path="/ViewMaterial" element={<ViewMaterial />} />
+      <Route path="/ViewContentList" element={<ContentList />} />
     </Routes>
   );
 }

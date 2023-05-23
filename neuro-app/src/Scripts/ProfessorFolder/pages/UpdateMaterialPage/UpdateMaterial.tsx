@@ -9,6 +9,7 @@ import Nav from '../../components/nav/Nav';
 import { renderToString } from 'react-dom/server';
 import { SERVER_ADDRESS } from "../../../../config/config";
 import {GetMaterialById} from "../../components/material/getMaterialById";
+import { useLocation } from 'react-router-dom';
 
 interface FormValues {
     idLecture: number;
@@ -20,7 +21,7 @@ interface FormValues {
 }
 
 const initialFormValues: FormValues = {
-    idLecture: 2,
+    idLecture: 1,
     idProfessor: 53,
     title: "",
     markdownText: "",
@@ -30,8 +31,12 @@ const initialFormValues: FormValues = {
 
 
 
-const Markdown = () =>{
-    const material = GetMaterialById(1);
+const UpdateMaterial = () =>{
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const materialId = queryParams.get('id');
+    const material = GetMaterialById(Number(materialId));
+
     const filesName = useGetContents(53).map(content => content.name);
 
     const [formValues, setFormValues] = useState<FormValues>(initialFormValues);
@@ -73,7 +78,7 @@ const Markdown = () =>{
         event.preventDefault();
         setFormValues((prevFormValues: FormValues) => ({ ...prevFormValues, submitted: true }));
 
-        const url = SERVER_ADDRESS + "/materials/update/1";
+        const url = SERVER_ADDRESS + `/materials/update/${materialId}`;
 
         fetch(url, {
             method: "PUT",
@@ -149,7 +154,7 @@ function Home() {
     return (
         <body>
             <Nav />
-            <Markdown />
+            <UpdateMaterial />
         </body>
     );
 }

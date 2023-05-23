@@ -1,12 +1,10 @@
-
-.body
-{
+.body {
     background-color: #CFCFCF;
     min-height: 100%;
     background-size: cover;
     position: absolute;
     width: 100%;
-    height: auto; 
+    height: auto;
 }
 
 .body--text {
@@ -21,19 +19,19 @@
     padding-bottom: 6%;
     position: relative;
     text-align: left;
-    justify-content:space-between;
+    justify-content: space-between;
 
     font-weight: bold;
     font-size: calc(20px + 1.0vw);
 }
 
-.body--title{
+.body--title {
     margin-left: 5%;
     padding: 0;
 }
 
 
-.body--button{
+.body--button {
 
     margin-right: 5%;
     padding: 0;
@@ -41,7 +39,7 @@
 }
 
 
-.body--section{
+.body--section {
     position: absolute;
     /* background-size:cover; */
 }
@@ -61,6 +59,71 @@
     /* background-image: url("Line.png");
     background-size: cover; */
 }
+
+.subject-container {
+    margin-left: 6%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    /* aliniați elementele copil la dreapta containerului */
+    width: fit-content;
+    border-radius: 1px;
+    margin-top: 1%;
+    position: relative;
+}
+
+.subject-container::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 10%;
+    transform: translateY(-50%);
+    border-top: 5px solid black;
+    border-right: 5px solid transparent;
+    border-left: 5px solid transparent;
+    width: 0.3%;
+    height: auto;
+
+}
+
+.subject-container select {
+
+    color: black;
+    background-color: white;
+    /* border-radius: 20px; */
+    height: fit-content;
+    min-height: 100%;
+    width: fit-content;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    padding-left: 5%;
+    padding-right: 25%;
+
+    border: 2px solid black;
+    /* outer border */
+    /* box-shadow: 0 0 0 10px #d0cccc; */
+    /* inner border */
+
+    border-radius: 10px;
+
+    display: inline-block;
+    appearance: none;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    -webkit-appearance: none;
+}
+
+.subject-container select:focus {
+    outline: none;
+}
+
+
+.subject-options {
+    font-size: 3.0vh;
+    width: fit-content;
+    background-color: white;
+}
+
 .body--line {
     background-image: url("Line.png");
     margin-left: 7%;
@@ -70,7 +133,7 @@
 
 }
 
-.table{
+.table {
 
     margin-top: 40px;
     display: flex;
@@ -115,7 +178,7 @@ tbody tr:hover {
     background-color: rgba(255, 255, 255, 0.3);
 }
 
-tbody div{
+tbody div {
     margin: 0;
     padding: 0;
 }
@@ -134,23 +197,23 @@ tbody div td:hover:before {
     z-index: -1;
 }
 
-.line--option{
+.line--option {
 
-   position: absolute;
-   margin: 0;
-   margin-top: 10px;
-   margin-left: -2.9vw;
-   padding: 0;
+    position: absolute;
+    margin: 0;
+    margin-top: 10px;
+    margin-left: -2.9vw;
+    padding: 0;
 }
 
-.line--option img{
+.line--option img {
     width: 8px;
 }
 
 
 .body--img {
-    
-    margin:0;
+
+    margin: 0;
     padding: 0;
     margin-left: -2.9vw;
     margin-top: 10px;
@@ -162,9 +225,10 @@ tbody div td:hover:before {
         width: calc(20.0vw);
     }
 
-        th, td {
-            font-size: 15px;
-        }
+    th,
+    td {
+        font-size: 15px;
+    }
 
 
     .body--img {

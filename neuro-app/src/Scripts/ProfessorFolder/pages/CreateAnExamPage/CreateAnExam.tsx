@@ -1,46 +1,55 @@
-import React from 'react'
+import React, { useEffect, useState, } from 'react'
 import Nav from '../../components/nav/Nav';
 import ButtonCreate from '../../components/buttonCreateAnExam/ButtonCreateExam';
 import SelectSubject from '../../components/SelectSubjectComp/SelectSubject';
 import fakeData from "./mock_data.json"
 import image_dots from "./dots.png"
 
-import styles from './Body.module.css'  
+import styles from './Body.module.css'
 
 
 import { Column, useTable } from 'react-table';
 import ScrollBlack from '../../components/ScrollCompBlack/ScrollBlack';
 
-interface UserData {
-
-    subject_title:string;
-    duration:number;
-    questions:number;
-    points:number;
+interface Course {
+    id: number,
+    title: string,
+    year: number
+    semester: number,
+    credits: number
 }
 
-function Table() {
-    const data: UserData[] = React.useMemo(() => fakeData, []);
+interface UserData {
 
+    id: number;
+    idCourse: number;
+    idProfessor: number;
+    code: string;
+    title: string;
+    date: Date;
+    timeExam: number;
+    evaluationType: number;
+}
+
+function Table({ examData }: { examData: UserData[] }) {
     const columns: Column<UserData>[] = React.useMemo(
         () => [
             {
-                Header: 'Subject title',
-                accessor: 'subject_title',
+                Header: 'Title',
+                accessor: 'title',
             },
             {
-                Header: 'Duration',
-                accessor: 'duration',
+                Header: 'Code',
+                accessor: 'code',
             },
             {
-                Header: 'Questions',
-                accessor: 'questions',
+                Header: 'Evaluation Type',
+                accessor: 'evaluationType',
             },
             {
-                Header: 'Points',
-                accessor: 'points',
-            }
-            
+                Header: 'Time Exam',
+                accessor: 'timeExam',
+            },
         ],
         []
     );
@@ -51,7 +60,7 @@ function Table() {
         headerGroups,
         rows,
         prepareRow,
-    } = useTable({ columns, data });
+    } = useTable({ columns, data: examData });
 
     return (
         <div className={styles['table']}>
@@ -61,9 +70,7 @@ function Table() {
                         {headerGroups.map((headerGroup) => (
                             <tr {...headerGroup.getHeaderGroupProps()}>
                                 {headerGroup.headers.map((column) => (
-                                    <th {...column.getHeaderProps()}>
-                                        {column.render('Header')}
-                                    </th>
+                                    <th {...column.getHeaderProps()}>{column.render('Header')}</th>
                                 ))}
                             </tr>
                         ))}
@@ -72,19 +79,14 @@ function Table() {
                         {rows.map((row) => {
                             prepareRow(row);
                             return (
-                             
-
                                 <tr {...row.getRowProps()}>
                                     {row.cells.map((cell) => (
-                                        <td {...cell.getCellProps()}>{cell.render('Cell')} </td>
+                                        <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
                                     ))}
                                     <div className={styles['body--img']}>
                                         <ScrollBlack />
                                     </div>
                                 </tr>
-                                
-
-
                             );
                         })}
                     </tbody>
@@ -94,10 +96,86 @@ function Table() {
     );
 }
 
+const SelectCourse: React.FC<{ onSelectCourse: (id: number) => void }> = ({ onSelectCourse }) => {
+    const [courses, setCourses] = useState<Course[]>([]);
+    const [selectedCourseId, setSelectedCourseId] = useState<number | null>(null);
+    const [examData, setExamData] = useState<UserData[]>([]);
 
+    useEffect(() => {
+        const fetchCourses = async () => {
+            const response = await fetch('http://localhost:8192/courses/professor=52');
+            const data = await response.json();
+            setCourses(data);
+        };
+        fetchCourses();
+
+        const savedCourseId = localStorage.getItem('selectedCourseId');
+        if (savedCourseId) {
+            const courseId = parseInt(savedCourseId);
+            setSelectedCourseId(courseId);
+            onSelectCourse(courseId);
+        }
+    }, []);
+
+    useEffect(() => {
+        const fetchExamData = async () => {
+            if (selectedCourseId) {
+                const response = await fetch(`http://localhost:8192/exam/summarise/idCourse=${selectedCourseId}`);
+                const data = await response.json();
+
+                const professorId = 52; // ID-ul profesorului curent
+
+                const filteredData = data.filter((exam: UserData) => exam.idProfessor === professorId);
+                setExamData(filteredData);
+            }
+        };
+        fetchExamData();
+    }, [selectedCourseId]);
+
+    const handleCourseSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        const courseId = parseInt(event.target.value);
+        setSelectedCourseId(courseId);
+        onSelectCourse(courseId);
+        localStorage.setItem('selectedCourseId', String(courseId));
+    };
+
+    return (
+        <>
+            <div className={styles['subject-container']}>
+                <select value={selectedCourseId ?? ""} onChange={handleCourseSelect}>
+                    <option value="" disabled hidden>
+                        Courses options
+                    </option>
+                    {courses.map((course) => (
+                        <option
+                            className={styles['subject-options']}
+                            key={course.id}
+                            value={course.id}
+                        >
+                            {course.title}
+                        </option>
+                    ))}
+                </select>
+
+            </div>
+            <Table examData={examData} />
+        </>
+    );
+};
 
 
 const Body: React.FC<{}> = () => {
+    const [idC, setIdC] = useState<number | null>(() => {
+        const savedCourseId = localStorage.getItem('selectedCourseId');
+        return savedCourseId ? parseInt(savedCourseId) : null;
+    });
+
+    const handleCourseSelect = (courseId: number) => {
+        setIdC(courseId);
+        localStorage.setItem('selectedCourseId', String(courseId));
+    };
+
+
     return (
 
         <>
@@ -105,22 +183,21 @@ const Body: React.FC<{}> = () => {
             <div className={styles['body--text']}>
                 <div className={styles['body--title']}>
                     Exams
-                </div> 
+                </div>
                 <div className={styles['body--button']}>
                     <ButtonCreate />
                 </div>
-            </div>   
+            </div>
 
             <div className={styles['body--subtitle--container']}>
-
-                <SelectSubject />
-                
+                <div className={styles['selects']}>
+                    <SelectCourse onSelectCourse={handleCourseSelect} />
+                </div>
             </div>
-        
-            <div className={styles['body--line']}></div>
+
+            {/* <div className={styles['body--line']}></div> */}
 
 
-            <Table/>
 
         </>
 
