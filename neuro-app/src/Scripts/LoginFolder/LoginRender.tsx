@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./Login.css";
+import withAuth from "../../WithAuth";
 
 interface FormValues {
   emailFaculty: string;
@@ -82,17 +83,17 @@ function LoginRender() {
       // redirect to the page where the user should be
       getEmailData();
 
-      const utilizator = localStorage.getItem("utilizator");
-      if (utilizator !== null) {
-        const parsedUtilizator = JSON.parse(utilizator);
-        if (parsedUtilizator.role == 0) {
-          window.location.href = "/Admin";
-        } else if (parsedUtilizator.role == 1) {
-          window.location.href = "/Professor";
-        } else if (parsedUtilizator.role == 2) {
-          window.location.href = "/Student";
-        }
-      }
+      // const utilizator = localStorage.getItem("utilizator");
+      // if (utilizator !== null) {
+      //   const parsedUtilizator = JSON.parse(utilizator);
+      //   if (parsedUtilizator.role == 0) {
+      //     window.location.href = "/Admin";
+      //   } else if (parsedUtilizator.role == 1) {
+      //     window.location.href = "/Professor";
+      //   } else if (parsedUtilizator.role == 2) {
+      //     window.location.href = "/Student";
+      //   }
+      // }
     }
   };
 
@@ -471,4 +472,4 @@ function LoginRender() {
   );
 }
 
-export default LoginRender;
+export default withAuth(LoginRender, [0, 1, 2]);
