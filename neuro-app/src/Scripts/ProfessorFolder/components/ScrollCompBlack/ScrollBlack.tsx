@@ -44,9 +44,6 @@ const ScrollBlack: React.FC<ScrollBlackProps> = ({ idExam }) => {
       {open && (
         <ul>
           <li>
-            <Link to="/ViewExamAnswers">View</Link>
-          </li>
-          <li>
             <Link to="/EditQuestions">Edit</Link>
           </li>
           <li>
