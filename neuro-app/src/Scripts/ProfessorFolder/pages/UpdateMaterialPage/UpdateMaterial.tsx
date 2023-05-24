@@ -98,7 +98,7 @@ const UpdateMaterial = () =>{
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
                 }else if (response.status === 204) {
-                    window.location.href = "/viewLectureMaterials";
+                    window.location.href = `/viewLectureMaterials?lectureId=${formValues.idLecture}`;
                 }
                 console.log("Actualizarea materialului a fost realizata cu succes!");
                 return response.text();

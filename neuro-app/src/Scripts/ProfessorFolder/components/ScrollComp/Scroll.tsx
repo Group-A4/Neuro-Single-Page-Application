@@ -1,14 +1,15 @@
 import React, { useState, useRef } from 'react';
 import styles from './Body.module.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import photo_option from './option.png';
 
 interface ScrollProps {
   onDeleteLecture: () => void;
   onRenameLecture: (newTitle: string) => void;
+  lectureId: number;
 }
 
-const Scroll: React.FC<ScrollProps> = ({ onDeleteLecture, onRenameLecture }) => {
+const Scroll: React.FC<ScrollProps> = ({ onDeleteLecture, onRenameLecture, lectureId }) => {
   const [open, setOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -36,6 +37,7 @@ const Scroll: React.FC<ScrollProps> = ({ onDeleteLecture, onRenameLecture }) => 
   };
 
   window.addEventListener('click', handleClickOutsideDropDown);
+  const navigate = useNavigate();
 
   return (
     <div className={styles['body-scroll']} ref={dropdownRef}>
@@ -45,10 +47,10 @@ const Scroll: React.FC<ScrollProps> = ({ onDeleteLecture, onRenameLecture }) => 
       {open && (
         <ul>
           <li>
-            <Link to="/CreateMaterial">Add materials </Link>
+            <a onClick={()=>{navigate('/CreateMaterial',{state:{lectureId}});}}>Create material</a>
           </li>
           <li>
-            <Link to="/ViewLectureMaterials">View materials </Link>
+          <a onClick={()=>{navigate('/ViewLectureMaterials',{state:{lectureId}});}}>View materials </a>
           </li>
         </ul>
       )}

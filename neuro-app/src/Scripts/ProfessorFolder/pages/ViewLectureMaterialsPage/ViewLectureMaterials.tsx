@@ -3,9 +3,11 @@ import ViewLessonMaterials from '../../components/LectureMaterials/ViewLectureMa
 
 
 const ViewLesson: React.FC<{}> = () => {
+  const searchParams = new URLSearchParams(window.location.search);
+  const lectureId = searchParams.get('lectureId');
   return (
     <div>
-      <ViewLessonMaterials id_lecture="1" />
+      <ViewLessonMaterials id_lecture={lectureId} />
     </div>
   );
 };

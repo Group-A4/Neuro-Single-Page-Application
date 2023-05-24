@@ -42,6 +42,8 @@ const useGetMaterials = (id_lecture: string) => {
 const ViewLessonMaterials: React.FC<Props> = ({ id_lecture }) => {
   const token = localStorage.getItem('token');
   const { materials, fetchMaterials } = useGetMaterials(id_lecture); // Destructure fetchMaterials
+  const searchParams = new URLSearchParams(window.location.search);
+  const lectureId = searchParams.get('lectureId');
 
   const handleDelete = async (materialId: string) => {
     if (window.confirm('Are you sure you want to delete this material?')) {
@@ -103,7 +105,7 @@ const ViewLessonMaterials: React.FC<Props> = ({ id_lecture }) => {
             ))}
           </ol>
           {user.role === 1 && (
-            <Link to={`/CreateMaterial`}>
+            <Link to={`/CreateMaterial?lectureId=${lectureId}`}>
               <button className={styles['createButton']}>
                 Create new material
               </button>
