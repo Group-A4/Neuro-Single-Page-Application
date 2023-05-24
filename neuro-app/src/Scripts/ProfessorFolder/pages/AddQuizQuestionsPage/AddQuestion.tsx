@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Nav from '../../components/nav/Nav';
 import styles from './Body.module.css';
 import Quizz_question from './quizz_question';
-import { Link } from "react-router-dom";
-import ButtonSaveExit from '../../components/buttonSaveAndExit/ButtonAddQuestion';
+import withAuth from '../../../../WithAuth';
 // import { Link } from 'react-router-dom';
 
 interface Course {
@@ -186,4 +185,4 @@ const AddQuestion: React.FC<{}> = () => {
     );
 }
 
-export default AddQuestion;
+export default withAuth(AddQuestion, [1]);

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useState } from "react";
 import styles from './Body.module.css'
+import withAuth from '../../../../../WithAuth';
 
 interface Answer {
   id: number;
@@ -337,4 +338,4 @@ const Questions: React.FC<QuestionsProps> = ({ idCourse, idLecture }) => {
     </div>
   );
 };
-export default Questions;
+export default withAuth(Questions, [1]);

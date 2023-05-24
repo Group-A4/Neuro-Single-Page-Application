@@ -1,9 +1,7 @@
 import React, { useEffect, useState, } from 'react'
 import Nav from '../../components/nav/Nav';
 import ButtonCreate from '../../components/buttonCreateAnExam/ButtonCreateExam';
-import SelectSubject from '../../components/SelectSubjectComp/SelectSubject';
-import fakeData from "./mock_data.json"
-import image_dots from "./dots.png"
+import WithAuth from '../../../../WithAuth';
 
 import styles from './Body.module.css'
 
@@ -58,6 +56,7 @@ const EvaluationTypeCell: React.FC<EvaluationTypeCellProps> = ({ value }) => {
 
 
 function Table({ examData }: { examData: ExamData[] }) {
+    const token = localStorage.getItem('token');
 
 
     const [isExamStarted, setIsExamStarted] = useState(false);
@@ -65,7 +64,7 @@ function Table({ examData }: { examData: ExamData[] }) {
     const handleStartExam = (idExam: number) => {
         const endpoint = `http://localhost:8192/exam/activate/idExam=${idExam}`;
 
-        fetch(endpoint, { method: 'POST' })
+        fetch(endpoint, { method: 'POST', headers: { 'Authorization': `Bearer ${token}` } })
             .then(response => {
                 if (response.ok) {
                     console.log('Exam activation successful');
@@ -82,7 +81,7 @@ function Table({ examData }: { examData: ExamData[] }) {
     const handleStopExam = (idExam: number) => {
         const endpoint = `http://localhost:8192/exam/deactivate/idExam=${idExam}`;
 
-        fetch(endpoint, { method: 'DELETE' })
+        fetch(endpoint, { method: 'DELETE', headers: { 'Authorization': `Bearer ${token}` } })
             .then(response => {
                 if (response.ok) {
                     console.log('Exam deactivation successful');
@@ -192,9 +191,13 @@ const SelectCourse: React.FC<{ onSelectCourse: (id: number) => void }> = ({ onSe
     const [selectedCourseId, setSelectedCourseId] = useState<number | null>(null);
     const [examData, setExamData] = useState<ExamData[]>([]);
 
+    const token = localStorage.getItem('token');
+    const user = JSON.parse(localStorage.getItem('utilizator') || '{}');
+
     useEffect(() => {
         const fetchCourses = async () => {
-            const response = await fetch('http://localhost:8192/courses/professor=52');
+            const response = await fetch(`http://localhost:8192/courses/professor=${user.id}`,
+                { headers: { 'Authorization': `Bearer ${token}` } } );
             const data = await response.json();
             setCourses(data);
         };
@@ -211,7 +214,8 @@ const SelectCourse: React.FC<{ onSelectCourse: (id: number) => void }> = ({ onSe
     useEffect(() => {
         const fetchExamData = async () => {
             if (selectedCourseId) {
-                const response = await fetch(`http://localhost:8192/exam/summarise/idCourse=${selectedCourseId}`);
+                const response = await fetch(`http://localhost:8192/exam/summarise/idCourse=${selectedCourseId}`, 
+                { headers: { 'Authorization': `Bearer ${token}` } });
                 const data = await response.json();
 
                 const professorId = 52; // ID-ul profesorului curent
@@ -305,4 +309,4 @@ const CreateAnExam: React.FC<{}> = () => {
     );
 }
 
-export default CreateAnExam;
+export default WithAuth(CreateAnExam, [1]);

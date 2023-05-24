@@ -5,7 +5,9 @@ import Questions from './Questions';
 import ButtonAddQuestion from '../../../components/buttonAddQuestion/ButtonAddQuestion';
 import { Link } from 'react-router-dom';
 import { useState } from "react";
-import { number } from 'yargs';
+import withAuth from '../../../../../WithAuth';
+
+
 interface Course {
     id: number,
     title: string,
@@ -192,4 +194,4 @@ const AllQuestions: React.FC<{}> = () => {
     );
 }
 
-export default AllQuestions;
+export default withAuth(AllQuestions, [1]);

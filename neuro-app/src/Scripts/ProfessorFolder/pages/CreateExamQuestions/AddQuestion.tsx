@@ -4,6 +4,7 @@ import styles from './Body.module.css';
 import {useNavigate } from "react-router-dom";
 import AddExam from '../../components/buttonAddExam/AddExam';
 import Header from './header'
+import WithAuth from '../../../../WithAuth';
 
 interface Exam {
     idCourse: number;
@@ -63,10 +64,13 @@ const SelectCourse: React.FC<{ onSelectCourse: (id: number) => void }> = ({ onSe
     const [courses, setCourses] = useState<Course[]>([]);
     const [selectedCourseId, setSelectedCourseId] = useState<number | null>(null);
     const [examData, setExamData] = useState<ExamData[]>([]);
+    const token = localStorage.getItem('token');
+    const user = JSON.parse(localStorage.getItem('utilizator') || '{}');
 
     useEffect(() => {
         const fetchCourses = async () => {
-            const response = await fetch('http://localhost:8192/courses/professor=52');
+            const response = await fetch(`http://localhost:8192/courses/professor=${user.id}`, 
+            { headers: { 'Authorization': `Bearer ${token}` } });
             const data = await response.json();
             setCourses(data);
         };
@@ -140,6 +144,7 @@ const SelectEvaluationType: React.FC<{ onSelectEvaluationType: (evaluationType: 
 }
 
 const AddQuestion: React.FC<{}> = () => {
+    const token = localStorage.getItem('token');
     const navigate = useNavigate();
 
     const [idC, setIdC] = useState<number | null>(() => {
@@ -184,6 +189,7 @@ const AddQuestion: React.FC<{}> = () => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
                 },
                 body: JSON.stringify(examData),
             });
@@ -667,4 +673,4 @@ const AddQuestion: React.FC<{}> = () => {
     );
 }
 
-export default AddQuestion;
+export default WithAuth(AddQuestion, [1]);
