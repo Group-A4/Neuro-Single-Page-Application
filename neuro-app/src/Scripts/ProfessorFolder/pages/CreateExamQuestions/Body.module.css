@@ -546,5 +546,35 @@ body .removea {
       color: red;
       font-weight: bold;
       margin-left: -4%;
-      font-size: calc(10px + 0.8vw);
+      font-size: calc(8px + 0.8vw);
+  }
+  .error-message-answer{
+        color: red;
+        font-weight: bold;
+        margin-left: 10%;
+        margin-top: 1%;
+        font-size: calc(8px + 0.8vw);
+  }
+  .error-message-quest{
+        color: red;
+        font-weight: bold;
+        margin-left: 10%;
+        margin-top: 5%;
+        margin-bottom: -5%;
+        font-size: calc(8px + 0.8vw);
+  }
+  .error-message-text-answer{
+        color: red;
+        font-weight: bold;
+        margin-left: 17%;
+        margin-top: 1%;
+        margin-bottom: -5%;
+        font-size: calc(8px + 0.8vw);
+  }
+  .error-message-points{
+        color: rgb(220, 143, 0);
+        font-size: calc(8px + 0.8vw);
+        font-weight: bold;
+        float: right;
+        margin-right: 4%;
   }

@@ -14,7 +14,7 @@ const header: React.FC<HeaderProps> = ({ point, setPoint }) => {
         Points:
         <input
           type="number"
-          step="0.01"
+          step="1"
           min="0"
           value={point}
           onChange={(event) => setPoint(event.target.value)}

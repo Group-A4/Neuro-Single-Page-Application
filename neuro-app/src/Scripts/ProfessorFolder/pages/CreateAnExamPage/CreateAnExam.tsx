@@ -56,7 +56,47 @@ const EvaluationTypeCell: React.FC<EvaluationTypeCellProps> = ({ value }) => {
     return <span>{evaluationTypeText}</span>;
 };
 
+
 function Table({ examData }: { examData: ExamData[] }) {
+
+
+    const [isExamStarted, setIsExamStarted] = useState(false);
+
+    const handleStartExam = (idExam: number) => {
+        const endpoint = `http://localhost:8192/exam/activate/idExam=${idExam}`;
+
+        fetch(endpoint, { method: 'POST' })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Exam activation successful');
+                    setIsExamStarted(true); // Actualizăm starea pentru a indica că examenul a început
+                } else {
+                    throw new Error('Exam activation failed');
+                }
+            })
+            .catch(error => {
+                console.error('Failed to activate exam:', error);
+            });
+    };
+
+    const handleStopExam = (idExam: number) => {
+        const endpoint = `http://localhost:8192/exam/deactivate/idExam=${idExam}`;
+
+        fetch(endpoint, { method: 'DELETE' })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Exam deactivation successful');
+                    setIsExamStarted(false); // Actualizăm starea pentru a indica că examenul s-a oprit
+                } else {
+                    throw new Error('Exam deactivation failed');
+                }
+            })
+            .catch(error => {
+                console.error('Failed to deactivate exam:', error);
+            });
+    };
+
+
     const columns: Column<ExamData>[] = React.useMemo(
         () => [
             {
@@ -118,9 +158,18 @@ function Table({ examData }: { examData: ExamData[] }) {
                                     {row.cells.map((cell) => (
                                         <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
                                     ))}
-                                    <div className={styles['body--img']}>
+                                    <td className={styles['last--td']}>
+                                        <button
+                                            className={` ${isExamStarted ? styles['button-stop'] : styles['button-start']}`}
+                                            onClick={() => isExamStarted ? handleStopExam(row.original.id) : handleStartExam(row.original.id)}
+                                        
+                                        >
+                                            {isExamStarted ? 'STOP' : 'START'}
+                                        </button>
+                                    </td>
+                                    <td className={styles['body--img']}>
                                         <ScrollBlack idExam={row.original.id} />
-                                    </div>
+                                    </td>
                                 </tr>
                             );
                         })}
