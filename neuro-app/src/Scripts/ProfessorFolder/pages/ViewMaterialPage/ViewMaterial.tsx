@@ -11,7 +11,16 @@ import { useNavigate } from 'react-router-dom';
 const ViewMaterial: React.FC<{}> = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const materialId = location.state.materialId;
+
+    const materialId = location.state?.materialId;
+
+    useEffect(() => {
+        if(!materialId){
+            navigate('/');
+        }
+    }, [materialId, navigate]);
+
+
     const material = GetMaterialById(Number(materialId));
 
     return (

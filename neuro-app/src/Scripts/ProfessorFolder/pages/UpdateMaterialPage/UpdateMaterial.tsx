@@ -36,7 +36,15 @@ const initialFormValues: FormValues = {
 const UpdateMaterial = () =>{
     const location = useLocation();
     const navigate = useNavigate();
-    const materialId = location.state.materialId;
+    const materialId = location.state?.materialId;
+    const lectureId = location.state?.lectureId;
+
+    useEffect(() => {
+        if(!materialId || !lectureId){
+            navigate('/');
+        }
+    }, [materialId, lectureId, navigate]);
+
     const material = GetMaterialById(Number(materialId));
     
     const user = JSON.parse(localStorage.getItem('utilizator') || '{}');
@@ -46,7 +54,7 @@ const UpdateMaterial = () =>{
 
     const [formValues, setFormValues] = useState<FormValues>(initialFormValues);
     formValues.idProfessor = user.id;
-    formValues.idLecture = Number(location.state.lectureId);
+    formValues.idLecture = Number(lectureId);
 
     const markdownParser = new MarkdownParser("neuroapi", "professor" + formValues.idProfessor, filesName);
 
