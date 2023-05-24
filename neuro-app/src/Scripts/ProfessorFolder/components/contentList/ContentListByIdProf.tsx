@@ -14,13 +14,14 @@ interface Content {
 }
 
 const useGetContents = (professorId: number) => {
+  const token = localStorage.getItem('token');
   const [contents, setContents] = useState<Content[]>([]);
 
   useEffect(() => {
     const url = SERVER_ADDRESS + `/content/professor/${professorId}`;
 
     const fetchData = async () => {
-      const response = await fetch(url);
+      const response = await fetch(url, { headers: { Authorization: `Bearer ${token}` } });
       const data = await response.json();
       setContents(data);
     };
