@@ -53,7 +53,7 @@ const Body: React.FC<{}> = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const apiUrl = 'http://localhost:8192/exam/code=' + courseExam + '/idStudent=' + 218;
+        const apiUrl = 'http://localhost:8192/exam/code=' + courseExam + '/idStudent=218';
         const response = await fetch(apiUrl);
         const data = await response.json();
         setExamData(data);
@@ -189,7 +189,7 @@ const handleFinishMockExam = async () => {
 
 
   const formatTime = (time: number) => {
-    const minutes = Math.floor(time / 60);
+    const minutes = time;
     const seconds = time % 60;
 
     return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
