@@ -4,7 +4,6 @@ import Nav from '../NavBarStudent/Nav';
 import Frame from '../Components/Frame';
  
 
-
 interface Exam {
   id: number;
   idCourse: number;
@@ -54,13 +53,13 @@ const Body: React.FC<{}> = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const apiUrl = 'http://localhost:8192/exam/code=' + courseExam;
+        const apiUrl = 'http://localhost:8192/exam/code=' + courseExam + '/idStudent=' + 218;
         const response = await fetch(apiUrl);
         const data = await response.json();
         setExamData(data);
 
         if (data && data.timeExam) {
-          setRemainingTime(data.timeExam*10); // Convert minutes to seconds
+          setRemainingTime(data.timeExam*10);  
         }
       } catch (error) {
         console.error('Error fetching exam data:', error);
@@ -75,7 +74,7 @@ const Body: React.FC<{}> = () => {
         const updatedTime = prevTime - 1;
          if (updatedTime <= 0) {
           clearInterval(timer);
-          navigate('/ResultExam'); // Navigate to '/ResultExam' when time is up
+          navigate('/ResultExam');  
           handleFinishMockExam();
         }
         return updatedTime;
@@ -166,7 +165,7 @@ const handleInputAnswer = (answer: string, id: number) => {
 
 const handleFinishMockExam = async () => {
   try {
-    const apiUrl = 'http://localhost:8192/exam/evaluate/idStudent=210';
+    const apiUrl = 'http://localhost:8192/exam/evaluate/idStudent=218';
     const response = await fetch(apiUrl, {
       method: 'POST',
       headers: {
@@ -196,7 +195,7 @@ const handleFinishMockExam = async () => {
     return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
   };
 
-  if (!examData) {
+  if (!examData || !examData.questionsMultipleChoice) {
     return (
       <div className="body">
         <Frame>
