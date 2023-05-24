@@ -6,9 +6,10 @@ import photo_option from './dots.png';
 
 interface ScrollBlackProps {
   idExam?: number | null;
+  code?: string | null;
 }
 
-const ScrollBlack: React.FC<ScrollBlackProps> = ({ idExam }) => {
+const ScrollBlack: React.FC<ScrollBlackProps> = ({ idExam,code }) => {
   const [open, setOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const handleDropDownFocus = (state: boolean) => {
