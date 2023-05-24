@@ -63,11 +63,8 @@ const Body: React.FC<{}> = () => {
           if (answer.chosen) {
             chosenCount++;
           }
-        } else {
-          if (answer.chosen) {
-            chosenCount--;
-          }
-        }
+        }  
+    
       });
 
       if (correctCount > 0) {
