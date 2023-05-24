@@ -123,6 +123,8 @@
     display: flex;
     justify-content: space-between;
     background-color: #002F35;
+    padding: 2.0vh;
+    border-radius: 1.0vh;
 }
 
 .lecture-title{
