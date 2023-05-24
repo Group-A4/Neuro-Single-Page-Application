@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 import styles from './Body.module.css';
+import withAuth from '../../../../../WithAuth';
 
 interface Props {
   label: string;
@@ -88,6 +89,7 @@ const NumberField: React.FC<Props> = ({ label, onSubmit, studentPoints, points})
 const Questions: React.FC<QuestionsProps> = ({ examId, studentId }) => {
   const [examResults, setExamResults] = useState<ExamResult[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const token = localStorage.getItem('token');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -95,7 +97,8 @@ const Questions: React.FC<QuestionsProps> = ({ examId, studentId }) => {
         setIsLoading(true); // Set the loading state to true
         console.log(examId, studentId);
         const response = await fetch(
-          `http://localhost:8192/exam/viewExamResult/idExam=${examId}/idStudent=${studentId}`
+          `http://localhost:8192/exam/viewExamResult/idExam=${examId}/idStudent=${studentId}`,
+          { headers: { Authorization: `Bearer ${token}` } }
         );
         const data = await response.json();
         console.log('Fetched data:', data);
@@ -118,6 +121,7 @@ const Questions: React.FC<QuestionsProps> = ({ examId, studentId }) => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
         },
         body: value, // convertiți obiectul în format JSON
       });
@@ -195,4 +199,4 @@ const Questions: React.FC<QuestionsProps> = ({ examId, studentId }) => {
   );
 };
 
-export default Questions;
+export default withAuth(Questions, [1]);

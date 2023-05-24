@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import styles from './viewExam.module.css';
 import ButtonStudentExam from '../../../components/buttonStudentExam/ButtonStudentExam';
 import Nav from '../../../components/nav/Nav';
+import withAuth from '../../../../../WithAuth';
 
 interface ExamResult {
   code: string;
@@ -45,12 +46,15 @@ const Body: React.FC<{}> = () => {
   const examId = queryParams.get('id');
   const parsedExamId = examId ? parseInt(examId) : 0; // Convert examId to a number or set it to 0 if it's null
 
+  const token = localStorage.getItem('token');
+
   const [examResults, setExamResults] = useState<ExamResult[]>([]);
 
   useEffect(() => {
     const fetchExamResults = async () => {
       try {
-        const response = await fetch(`http://localhost:8192/exam/students/idExam=${parsedExamId}`);
+        const response = await fetch(`http://localhost:8192/exam/students/idExam=${parsedExamId}`, 
+          { headers: { Authorization: `Bearer ${token}` } });
         const data = await response.json();
         setExamResults(data);
       } catch (error) {
@@ -80,4 +84,4 @@ const ViewExam: React.FC<{}> = () => {
   );
 };
 
-export default ViewExam;
+export default withAuth(ViewExam, [1]);

@@ -145,6 +145,7 @@ const SelectEvaluationType: React.FC<{ onSelectEvaluationType: (evaluationType: 
 
 const AddQuestion: React.FC<{}> = () => {
     const token = localStorage.getItem('token');
+    const user = JSON.parse(localStorage.getItem('utilizator') || '{}');
     const navigate = useNavigate();
 
     const [idC, setIdC] = useState<number | null>(() => {
@@ -174,7 +175,7 @@ const AddQuestion: React.FC<{}> = () => {
 
         const examData: Exam = {
             idCourse: idC!,
-            idProfessor: 52,
+            idProfessor: user.id,
             title: examName,
             timeExam: time,
             date: new Date(examDate),
@@ -336,7 +337,7 @@ const AddQuestion: React.FC<{}> = () => {
 
     const addQuestionLong = () => {
         const newQuestion: LongResponse = {
-            idProfessor: 52,
+            idProfessor: user.id,
             questionText: '',
             points: 0,
             expectedResponse: '',
@@ -350,7 +351,7 @@ const AddQuestion: React.FC<{}> = () => {
     const addMultipleChoice = () => {
         const newQuestion: MultipleChoice = {
             id: 0,
-            idProfessor: 52,
+            idProfessor: user.id,
             questionText: '',
             points: 0,
             answersQuestion: [],

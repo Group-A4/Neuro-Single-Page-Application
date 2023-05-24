@@ -6,6 +6,7 @@ import { useLocation } from 'react-router-dom';
 import { Column, useTable } from 'react-table';
 import ButtonSaveExit from '../../../components/buttonSaveAndExit/ButtonAddQuestion';
 import Nav from '../../../components/nav/Nav';
+import withAuth from '../../../../../WithAuth';
 
 interface UserData {
   idExam: string;
@@ -79,12 +80,14 @@ const Table: React.FC<{ data: UserData[]; studentCode: string }> = ({ data, stud
 
 const Body: React.FC<{ userData: UserData[]; studentCode: string; studentId: string; examId: string}> = ({ userData, studentCode, studentId, examId }) => {
   const [examTitle, setExamTitle] = useState<string>('');
+  const token = localStorage.getItem('token');
 
   useEffect(() => {
     const fetchExamTitle = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8192/exam/viewExamResult/idExam=${examId}/idStudent=${studentId}`
+          `http://localhost:8192/exam/viewExamResult/idExam=${examId}/idStudent=${studentId}`,
+          { headers: { Authorization: `Bearer ${token}` } }
         );
         const data = await response.json();
         setExamTitle(data.title);
@@ -122,11 +125,14 @@ const Exam: React.FC<{}> = () => {
   const [userData, setUserData] = useState<UserData[]>([]);
   const [studentCode, setStudentCode] = useState<string>('');
 
+  const token = localStorage.getItem('token');
+
   useEffect(() => {
     const fetchStudentCode = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8192/exam/students/idExam=${examId}`
+          `http://localhost:8192/exam/students/idExam=${examId}`,
+          { headers: { Authorization: `Bearer ${token}` } }
         );
         const data = await response.json();
 
@@ -146,7 +152,8 @@ const Exam: React.FC<{}> = () => {
     const fetchStudentPoints = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8192/exam/viewExamResult/idExam=${examId}/idStudent=${studentId}`
+          `http://localhost:8192/exam/viewExamResult/idExam=${examId}/idStudent=${studentId}`,
+          { headers: { Authorization: `Bearer ${token}` } }
         );
         const data = await response.json();
     
@@ -171,4 +178,4 @@ const Exam: React.FC<{}> = () => {
   );
 };
 
-export default Exam;
+export default withAuth(Exam, [1]);
