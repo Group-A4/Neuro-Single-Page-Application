@@ -11,6 +11,7 @@ import { SERVER_ADDRESS } from "../../../../config/config";
 import {GetMaterialById} from "../../components/material/getMaterialById";
 import { useLocation } from 'react-router-dom';
 import withAuth from "../../../../WithAuth";
+import { useNavigate } from 'react-router-dom';
 
 interface FormValues {
     idLecture: number;
@@ -22,7 +23,7 @@ interface FormValues {
 }
 
 const initialFormValues: FormValues = {
-    idLecture: 1,
+    idLecture: -1,
     idProfessor: -1,
     title: "",
     markdownText: "",
@@ -34,8 +35,8 @@ const initialFormValues: FormValues = {
 
 const UpdateMaterial = () =>{
     const location = useLocation();
-    const queryParams = new URLSearchParams(location.search);
-    const materialId = queryParams.get('id');
+    const navigate = useNavigate();
+    const materialId = location.state.materialId;
     const material = GetMaterialById(Number(materialId));
     
     const user = JSON.parse(localStorage.getItem('utilizator') || '{}');
@@ -45,6 +46,7 @@ const UpdateMaterial = () =>{
 
     const [formValues, setFormValues] = useState<FormValues>(initialFormValues);
     formValues.idProfessor = user.id;
+    formValues.idLecture = Number(location.state.lectureId);
 
     const markdownParser = new MarkdownParser("neuroapi", "professor" + formValues.idProfessor, filesName);
 
@@ -98,7 +100,7 @@ const UpdateMaterial = () =>{
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
                 }else if (response.status === 204) {
-                    window.location.href = `/viewLectureMaterials?lectureId=${formValues.idLecture}`;
+                    navigate('/viewLectureMaterials',{state:{lectureId: formValues.idLecture}});
                 }
                 console.log("Actualizarea materialului a fost realizata cu succes!");
                 return response.text();

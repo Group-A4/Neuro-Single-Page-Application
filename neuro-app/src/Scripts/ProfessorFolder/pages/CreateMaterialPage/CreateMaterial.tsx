@@ -10,6 +10,7 @@ import { renderToString } from 'react-dom/server';
 import { SERVER_ADDRESS } from "../../../../config/config";
 import withAuth from "../../../../WithAuth";
 import {useLocation} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 interface FormValues {
     idLecture: number;
@@ -35,8 +36,9 @@ const initialFormValues: FormValues = {
 const Markdown = () =>{
     const user = JSON.parse(localStorage.getItem('utilizator') || '{}');
     const token = localStorage.getItem('token');
-    const location = useLocation();
-    const lectureId = location.state.lectureId;
+    const lectureId = useLocation().state.lectureId;
+    
+    const navigate = useNavigate();
 
     const filesName = useGetContents(user.id).map(content => content.name);
 
@@ -89,7 +91,7 @@ const Markdown = () =>{
                 }
                 console.log("Crearea materialului a fost realizata cu succes!");
                 if (response.status === 201) {
-                    window.location.href = `/viewLectureMaterials?lectureId=${formValues.idLecture}`;
+                    navigate('/viewLectureMaterials', { state: { lectureId: formValues.idLecture } });
                 }
                 return response.text();
             })
