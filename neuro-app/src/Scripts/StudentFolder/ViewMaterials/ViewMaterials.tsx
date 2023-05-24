@@ -3,6 +3,7 @@ import styles from './ViewMaterials.module.css';
 import Nav from '../NavBarStudent/Nav';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 interface Course {
   id: number;
@@ -23,7 +24,7 @@ const Body: React.FC<{}> = () => {
 
     useEffect(() => {
        const fetchData = async () => {
-        const response = await fetch('http://localhost:8192/courses/student=37');
+        const response = await fetch('http://localhost:8192/courses/student=51');
         const data = await response.json();
         setCourses(data);
       };
