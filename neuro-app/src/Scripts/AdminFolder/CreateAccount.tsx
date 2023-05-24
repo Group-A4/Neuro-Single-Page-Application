@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Nav from "./NavBarAdmin/Nav";
-import "./CreateAccount.css"
+import "./CreateAccount.css";
+import WithAuth from "../../WithAuth";
 
 interface FormValues {
   firstName: string;
@@ -116,5 +117,5 @@ const CreateAccount = () => {
 };
 
 
-export default CreateAccount;
+export default WithAuth(CreateAccount, [0]);
 

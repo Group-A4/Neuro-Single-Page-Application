@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { GetMaterialById } from '../../components/material/getMaterialById';
 import Nav from '../../../NavBarFolder/Nav';
 import styles from './ViewMaterial.module.css';
-import { Link, useParams } from 'react-router-dom';
 import withAuth from '../../../../WithAuth';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';

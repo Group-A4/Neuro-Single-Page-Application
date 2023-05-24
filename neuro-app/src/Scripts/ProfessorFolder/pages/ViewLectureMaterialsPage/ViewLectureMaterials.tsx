@@ -3,6 +3,7 @@ import ViewLessonMaterials from '../../components/LectureMaterials/ViewLectureMa
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import WithAuth from '../../../../WithAuth';
 
 
 const ViewLesson: React.FC<{}> = () => {
@@ -23,4 +24,4 @@ const ViewLesson: React.FC<{}> = () => {
   );
 };
 
-export default ViewLesson;
+export default WithAuth(ViewLesson, [1, 2]);
