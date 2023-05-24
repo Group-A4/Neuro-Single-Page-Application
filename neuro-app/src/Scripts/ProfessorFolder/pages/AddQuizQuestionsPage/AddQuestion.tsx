@@ -103,7 +103,6 @@ const SelectLecture: React.FC<{ onSelectLecture: (id: number) => void; idCourse:
                 <option value="" disabled hidden>
                     Lectures options
                 </option>
-                <option className={styles['subject-options']} value="">All Lectures</option>
                 {lectures.map((lecture) => (
                     <option
                         className={styles['subject-options']}
