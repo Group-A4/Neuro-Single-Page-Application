@@ -3,6 +3,7 @@ import styles from './Body.module.css';
 import { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import photo_option from './dots.png';
+import withAuth from '../../../../WithAuth';
 
 interface ScrollBlackProps {
   idExam?: number | null;
@@ -12,6 +13,7 @@ interface ScrollBlackProps {
 const ScrollBlack: React.FC<ScrollBlackProps> = ({ idExam,code }) => {
   const [open, setOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const token = localStorage.getItem('token');
   const handleDropDownFocus = (state: boolean) => {
     setOpen(!state);
   };
@@ -27,6 +29,7 @@ const ScrollBlack: React.FC<ScrollBlackProps> = ({ idExam,code }) => {
       try {
         const response = await fetch(`http://localhost:8192/exam/idExam=${idExam}`, {
           method: 'DELETE',
+          headers: {  Authorization: `Bearer ${token}` },
         });
         // Handle response as needed
       } catch (error) {
@@ -58,4 +61,4 @@ const ScrollBlack: React.FC<ScrollBlackProps> = ({ idExam,code }) => {
   );
 };
 
-export default ScrollBlack;
+export default withAuth(ScrollBlack, [1]);

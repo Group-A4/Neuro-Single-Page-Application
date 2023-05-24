@@ -1,8 +1,6 @@
 import React, { useEffect, useState, } from 'react'
 import styles from './Body1.module.css'
-
-
-import SelectSubject from '../../components/SelectSubjectComp/SelectSubject';
+import withAuth from '../../../../WithAuth';
 
 import fakeData from "./mock_data.json"
 import { Column, CellProps,useTable } from 'react-table';
@@ -146,6 +144,7 @@ const SelectCourse: React.FC<{ onSelectCourse: (id: number) => void }> = ({ onSe
     const [courses, setCourses] = useState<Course[]>([]);
     const [selectedCourseId, setSelectedCourseId] = useState<number | null>(null);
     const [examData, setExamData] = useState<ExamData[]>([]);
+    
 
     useEffect(() => {
         const fetchCourses = async () => {
@@ -255,4 +254,4 @@ const AllExams: React.FC<{}> = () => {
     );
 }
 
-export default AllExams;
+export default withAuth(AllExams, [1]);
