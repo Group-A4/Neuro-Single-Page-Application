@@ -43,14 +43,6 @@
 
 }
 
-.body--subtitle--container>div {
-
-    /* margin-left: 5%; */
-    /* display: flex; */
-    /* margin-right: 5%; */
-
-
-}
 
 .body--subtitle {
     padding-right: 2%;
@@ -121,6 +113,7 @@ h3 input {
     margin-top: 1%;
 }
 
+
 .body input[type="checkbox"] {
     background-color: #807d7d;
     width: 30px;
@@ -135,6 +128,7 @@ h3 input {
 .body input[type="checkbox"]:checked {
     background-color: #6AFFC7;
 }
+
 
 .ull {
     margin-top: 0%;
@@ -172,7 +166,6 @@ h3 {
 }
 
 .subject-container {
-    /* margin-left: 20%; */
     display: flex;
     align-items: center;
     justify-content: flex-end;
@@ -181,7 +174,7 @@ h3 {
     border-radius: 1px;
     margin-top: 1%;
     position: relative;
-    
+
 }
 
 .subject-container::after {
@@ -193,7 +186,6 @@ h3 {
     border-top: 5px solid black;
     border-right: 5px solid transparent;
     border-left: 5px solid transparent;
-    /* width: 0.3%; */
     height: auto;
 
 }
@@ -217,6 +209,7 @@ h3 {
     /* inner border */
 
     border-radius: 10px;
+
     font-size: calc(15px + 0.8vw);
     display: inline-block;
     flex-wrap: wrap;
@@ -230,7 +223,6 @@ h3 {
         /* white-space: normal; */
     
 }
-
 
 .subject-container select:focus {
     outline: none;
@@ -320,6 +312,7 @@ body .removea:hover {
     background-color: #ff7070;
 }
 
+
 .addansw:hover {
     background-color: #f3d29a;
 }
@@ -350,6 +343,7 @@ body .removea:hover {
     justify-content: space-between;
     margin-right: 5%;
 }
+
 
 .select_stile {
     padding: 8px;
@@ -396,3 +390,4 @@ body .removea:hover {
         font-size: 1.5vi;
     }
 }
+

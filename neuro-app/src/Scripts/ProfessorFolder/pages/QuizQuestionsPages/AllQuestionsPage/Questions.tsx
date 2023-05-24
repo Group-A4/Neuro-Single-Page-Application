@@ -16,12 +16,14 @@ interface Question {
   idLecture: number;
   idProfessor: number;
   answersQuestion: Answer[];
+
   isEditing: boolean;
   error: string;
 }
 interface QuestionsProps {
   idCourse: number | null;
   idLecture: number | null;
+
 }
 const Questions: React.FC<QuestionsProps> = ({ idCourse, idLecture }) => {
 
@@ -29,6 +31,7 @@ const Questions: React.FC<QuestionsProps> = ({ idCourse, idLecture }) => {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
+
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -254,6 +257,7 @@ const Questions: React.FC<QuestionsProps> = ({ idCourse, idLecture }) => {
                 )}
               </div >
               <div className={styles.but}>
+
                 <button className={styles.edit} onClick={() => handleDelete(question.id)}>
                   Delete
                 </button>
@@ -272,66 +276,68 @@ const Questions: React.FC<QuestionsProps> = ({ idCourse, idLecture }) => {
             {editQuestionId === question.id ? (
               <>
                 <h3 className={styles.questionTitle}>Question:
+
                   <input
                     id={`question-${question.id}`}
                     type="text"
                     value={question.questionText}
                     onChange={(e) => handleQuestionTextChange(e.target.value, question.id)}
                   /> </h3>
-              </>
+                  </>
+                 
+                ) : (
+                  <h3 className={styles.questionTitle}>{question.questionText}</h3>
+                )
+                }
+                <ul className={styles.ull}>
+                  {question.answersQuestion?.map((answer, index) => (
+                    <li key={index} className={editQuestionId===question.id?styles ['answer']:answer.correct ? styles['correct-answer'] : styles['answer']}>
+                      {editQuestionId === question.id ? (
+                        <>
+                        
+                  <input
+                    type="checkbox"
+                    checked={answer.correct}
+                    onChange={() => handleAnswerCheckboxChange(question.id, index)}
+                  />
+                
+              
+                          <label htmlFor={`answer-${question.id}-${index}`}>Answer:</label>
+                          <input
+                            id={`answer-${question.id}-${index}`}
+                            type="text"
+                            value={answer.answerText}
+                            onChange={(e) => handleAnswerTextChange(e.target.value, question.id, index)}
 
-            ) : (
-              <h3 className={styles.questionTitle}>{question.questionText}</h3>
-            )
-            }
-            <ul className={styles.ull}>
-              {question.answersQuestion?.map((answer, index) => (
-                <li key={index} className={editQuestionId === question.id ? styles['answer'] : answer.correct ? styles['correct-answer'] : styles['answer']}>
+                          />
+                           <button
+                      type="button"
+                      onClick={() => removeAnswer(indexQ, index)}
+                      className={styles.removea}
+                    >
+                      Remove
+                    </button>
+                        </>
+                        
+                      ) : (
+                        answer.answerText
+                      )}
+                    </li>
+                  ))}
                   {editQuestionId === question.id ? (
-                    <>
+                     <button type="button" onClick={() => addAnswer(indexQ, question.id)} className={styles.addansw}>
+                     + Add answer
+                   </button>
+                     ):( " " ) 
+                    }
+                </ul>
+              </div>
+            ))
+          ) : (
+            <p>Waiting for a course to be selected...</p>
+          )}
+        </div>
+    );
+          };
 
-                      <input
-                        type="checkbox"
-                        checked={answer.correct}
-                        onChange={() => handleAnswerCheckboxChange(question.id, index)}
-                      />
-
-
-                      <label htmlFor={`answer-${question.id}-${index}`}>Answer:</label>
-                      <input
-                        id={`answer-${question.id}-${index}`}
-                        type="text"
-                        value={answer.answerText}
-                        onChange={(e) => handleAnswerTextChange(e.target.value, question.id, index)}
-
-                      />
-                      <button
-                        type="button"
-                        onClick={() => removeAnswer(indexQ, index)}
-                        className={styles.removea}
-                      >
-                        Remove
-                      </button>
-                    </>
-
-                  ) : (
-                    answer.answerText
-                  )}
-                </li>
-              ))}
-              {editQuestionId === question.id ? (
-                <button type="button" onClick={() => addAnswer(indexQ, question.id)} className={styles.addansw}>
-                  + Add answer
-                </button>
-              ) : (" ")
-              }
-            </ul>
-          </div>
-        ))
-      ) : (
-          <p>There are no quiz questions for the selected course or lecture...</p>
-      )}
-    </div>
-  );
-};
 export default Questions;

@@ -37,15 +37,6 @@
     justify-content: center;
 
 }
-/* 
-.body--subtitle--container>div {
-
-    margin-left: 5%;
-    display: flex;
-    margin-right: 5%;
-
-
-} */
 
 .body--subtitle {
     padding-right: 2%;
@@ -399,7 +390,6 @@ input {
     border-radius: 1px;
     margin-top: 1%;
     position: relative;
-
 }
 
 .subject-container::after {
@@ -428,7 +418,6 @@ input {
     font-weight: bold;
     /* padding-left: 5%; */
     padding-right: 15px;
-
     border: 2px solid black;
     /* outer border */
     /* box-shadow: 0 0 0 10px #d0cccc; */
@@ -442,11 +431,6 @@ input {
     background-repeat: no-repeat;
     cursor: pointer;
     -webkit-appearance: none;
-
-    /* word-break: break-all; */
-    /* overflow: auto; */
-    /* white-space: normal; */
-
 }
 
 .subject-container select:focus {
@@ -469,4 +453,5 @@ input {
     color: red;
     font-size: 20px;
     margin-top: 4px;
+
 }

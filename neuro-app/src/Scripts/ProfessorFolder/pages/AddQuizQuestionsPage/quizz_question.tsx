@@ -4,6 +4,7 @@ import Header from './header';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
+
 interface Answer {
   answerText: string;
   correct: boolean;
@@ -38,6 +39,7 @@ const Quizz_question: React.FC<QuizzQuestionProps> = ({ idLect }) => {
       };
     }
   }, [successMessageVisible, navigate]);
+
 
 
   const addQuestion = () => {
@@ -94,7 +96,7 @@ const Quizz_question: React.FC<QuizzQuestionProps> = ({ idLect }) => {
     });
   };
 
-
+ 
   const removeQuestion = (questionIndex: number) => {
     setQuestions((prevQuestions) => {
       const newQuestions = [...prevQuestions];
@@ -147,6 +149,7 @@ const Quizz_question: React.FC<QuizzQuestionProps> = ({ idLect }) => {
 
       setTimeout(() => {
         setSuccessMessageVisible(false);
+
         if (results.length > 0) {
           navigate('/AllQuestions');
         }
@@ -177,6 +180,7 @@ const Quizz_question: React.FC<QuizzQuestionProps> = ({ idLect }) => {
       </div>
       {questions.map((question, questionIndex) => (
         <div key={`question_${questionIndex}`}>
+
           <div className={styles['box']}>
             <Header
               time={question.timeMinutes}
@@ -244,6 +248,7 @@ const Quizz_question: React.FC<QuizzQuestionProps> = ({ idLect }) => {
         </button>
 
       </div>
+
 
       {successMessageVisible && <div className={styles.successMessage}>
         Questions successfully saved waiting to be redirected!</div>}
