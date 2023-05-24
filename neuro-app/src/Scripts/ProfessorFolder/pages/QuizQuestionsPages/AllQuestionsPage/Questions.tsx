@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useState } from "react";
 import styles from './Body.module.css'
+import withAuth from '../../../../../WithAuth';
 
 interface Answer {
   id: number;
@@ -29,6 +30,7 @@ const Questions: React.FC<QuestionsProps> = ({ idCourse, idLecture }) => {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
+  const token = localStorage.getItem('token');
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -37,7 +39,7 @@ const Questions: React.FC<QuestionsProps> = ({ idCourse, idLecture }) => {
         if (idLecture !== null) {
           url = `http://localhost:8192/questionQuizz/course=${idCourse}/lecture=${idLecture}`;
         }
-        const response = await fetch(url);
+        const response = await fetch(url, { headers: { 'Authorization': `Bearer ${token}` } });
         const data = await response.json();
         setQuestions(data);
         console.log(data);
@@ -50,6 +52,7 @@ const Questions: React.FC<QuestionsProps> = ({ idCourse, idLecture }) => {
     try {
       const response = await fetch(`http://localhost:8192/questionQuizz/delete/${questionId}`, {
         method: 'DELETE',
+        headers: { 'Authorization': `Bearer ${token}` }
       });
       if (response.ok) {
         setQuestions((prevQuestions) => prevQuestions.filter((q) => q.id !== questionId));
@@ -116,6 +119,7 @@ const Questions: React.FC<QuestionsProps> = ({ idCourse, idLecture }) => {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
           },
           body: JSON.stringify(questionToUpdate),
         });
@@ -334,4 +338,4 @@ const Questions: React.FC<QuestionsProps> = ({ idCourse, idLecture }) => {
     </div>
   );
 };
-export default Questions;
+export default withAuth(Questions, [1]);
