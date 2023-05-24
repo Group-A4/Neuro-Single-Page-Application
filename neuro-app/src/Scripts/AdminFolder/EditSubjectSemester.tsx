@@ -97,7 +97,6 @@ function EditSubjectYear() {
                     <input className="label-number" type="number" id="newSemester" name="newSemester"  min="1" max="2" step="1" value={formValues.newSemester} onChange={handleChange} />
                     <br /><br />
                         <input type="submit" value="Edit semester" />
-                    
 
                 </form>
             </div>

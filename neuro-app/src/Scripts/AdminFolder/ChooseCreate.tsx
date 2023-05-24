@@ -9,7 +9,7 @@ function ChooseCreate() {
         <div className="main-body">
             <div> <Nav /> </div>
             <div className="button-container">
-                <Link to="/CreateAccount">
+                <Link to="/SelectCreateAccount">
                     <img className="button-2" src='images/AdminPageImages/create-account.png' alt="create-account" />
                 </Link>
 

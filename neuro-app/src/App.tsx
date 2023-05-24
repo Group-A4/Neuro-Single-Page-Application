@@ -56,9 +56,12 @@ import EditSubjectSemester from "./Scripts/AdminFolder/EditSubjectSemester";
 import EditSubjectCredits from "./Scripts/AdminFolder/EditSubjectCredits";
 import ChooseCreate from "./Scripts/AdminFolder/ChooseCreate";
 import CreateSubject from "./Scripts/AdminFolder/CreateSubject";
-import Create from "./Scripts/AdminFolder/CreateAccount";
+import Create from "./Scripts/AdminFolder/CreateAdmin";
 import ModifyQuizzTime from "./Scripts/AdminFolder/ModifyQuizzTime";
-
+import SelectCreateAccount from "./Scripts/AdminFolder/SelectCreateAccount";
+import CreateAdmin from "./Scripts/AdminFolder/CreateAdmin";
+import CreateProfessor from "./Scripts/AdminFolder/CreateProfessor";
+import CreateStudent from "./Scripts/AdminFolder/CreateStudent";
 
 function App(): JSX.Element {
   return (
@@ -120,7 +123,10 @@ function App(): JSX.Element {
       <Route path="EditSubjectCredits" element={<EditSubjectCredits />}></Route>
       <Route path="ChooseCreate" element={<ChooseCreate />}></Route>
       <Route path="CreateSubject" element={<CreateSubject />}></Route>
-
+      <Route path="SelectCreateAccount" element={<SelectCreateAccount />}></Route>
+      <Route path="CreateAdmin" element={<CreateAdmin />}></Route>
+      <Route path="CreateProfessor" element={<CreateProfessor />}></Route>
+      <Route path="CreateStudent" element={<CreateStudent />}></Route>
 
 
       <Route path="modifyquizztime" element={<ModifyQuizzTime />}></Route>
