@@ -112,6 +112,7 @@ const Quizz_question: React.FC<QuizzQuestionProps> = ({ idLect }) => {
   };
 
   const handleSubmit = async (event: React.FormEvent) => {
+    const token = localStorage.getItem('token');
     event.preventDefault();
     setSuccessMessageVisible(true);
 
@@ -132,6 +133,7 @@ const Quizz_question: React.FC<QuizzQuestionProps> = ({ idLect }) => {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify(question),
         });

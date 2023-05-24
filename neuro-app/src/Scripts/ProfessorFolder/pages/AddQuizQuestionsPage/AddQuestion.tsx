@@ -22,10 +22,12 @@ interface Lecture {
 const SelectCourse: React.FC<{ onSelectCourse: (id: number) => void }> = ({ onSelectCourse }) => {
     const [courses, setCourses] = useState<Course[]>([]);
     const [selectedCourseId, setSelectedCourseId] = useState<number | null>(null);
+    const token = localStorage.getItem('token');
+    const user = JSON.parse(localStorage.getItem('utilizator') || '{}');
 
     useEffect(() => {
         const fetchCourses = async () => {
-            const response = await fetch("http://localhost:8192/courses/professor=52");
+            const response = await fetch(`http://localhost:8192/courses/professor=${user.id}`, { headers: { 'Authorization': `Bearer ${token}` } });
             const data = await response.json();
             setCourses(data);
         };
@@ -72,11 +74,12 @@ const SelectLecture: React.FC<{ onSelectLecture: (id: number) => void; idCourse:
 }) => {
     const [lectures, setLectures] = useState<Lecture[]>([]);
     const [selectedLectureId, setSelectedLectureId] = useState<number | null>(null);
+    const token = localStorage.getItem('token');
 
     useEffect(() => {
         const fetchLectures = async () => {
             if (idCourse) {
-                const response = await fetch(`http://localhost:8192/lectures/course_id=${idCourse}`);
+                const response = await fetch(`http://localhost:8192/lectures/course_id=${idCourse}`, { headers: { 'Authorization': `Bearer ${token}` } } );
                 const data = await response.json();
                 setLectures(data);
             }
@@ -103,7 +106,6 @@ const SelectLecture: React.FC<{ onSelectLecture: (id: number) => void; idCourse:
                 <option value="" disabled hidden>
                     Lectures options
                 </option>
-                <option className={styles['subject-options']} value="">All Lectures</option>
                 {lectures.map((lecture) => (
                     <option
                         className={styles['subject-options']}
