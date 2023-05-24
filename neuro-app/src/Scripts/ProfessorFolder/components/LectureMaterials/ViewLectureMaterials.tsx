@@ -15,13 +15,15 @@ type Props = {
 };
 
 const useGetMaterials = (id_lecture: string) => {
+  const token = localStorage.getItem('token');
 
   const [materials, setMaterials] = useState<any[]>([]);
 
   const fetchMaterials = async (id_lecture: string) => {
     try {
       const response = await fetch(
-        SERVER_ADDRESS + `/materials/id_lecture=${id_lecture}`
+        SERVER_ADDRESS + `/materials/id_lecture=${id_lecture}`,
+        { headers: { Authorization: `Bearer ${token}` } }
       );
       const data = await response.json();
       setMaterials(data);
@@ -38,6 +40,7 @@ const useGetMaterials = (id_lecture: string) => {
 };
 
 const ViewLessonMaterials: React.FC<Props> = ({ id_lecture }) => {
+  const token = localStorage.getItem('token');
   const { materials, fetchMaterials } = useGetMaterials(id_lecture); // Destructure fetchMaterials
 
   const handleDelete = async (materialId: string) => {
@@ -45,7 +48,8 @@ const ViewLessonMaterials: React.FC<Props> = ({ id_lecture }) => {
       try {
         await fetch(
           SERVER_ADDRESS + `/materials/${materialId}`,
-          { method: 'DELETE' }
+          { method: 'DELETE' ,
+           headers: { Authorization: `Bearer ${token}` } }
         );
         // Refresh the materials after deleting
         fetchMaterials(id_lecture);
@@ -74,13 +78,9 @@ const ViewLessonMaterials: React.FC<Props> = ({ id_lecture }) => {
             {materials.map((material) => (
               <li key={material.id} className={styles['li-style']}>
                 <div className={styles['left-side']}>
-                  <a
-                    className={styles['a--style']}
-                    href="http://localhost:3000/ViewMaterial"
-                    rel="noopener noreferrer"
-                  >
+                  <Link to={`/ViewMaterial?id=${material.id}`} className={styles['a--style']}>
                     {material.title}
-                  </a>
+                  </Link>
                 </div>
                 {user.role === 1 && (
                   <div className={styles['right-side']}>
