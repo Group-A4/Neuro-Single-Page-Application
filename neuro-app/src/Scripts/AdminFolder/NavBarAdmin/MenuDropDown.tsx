@@ -8,6 +8,9 @@ import { Link } from 'react-router-dom';
 //   value: string
 // }
 
+const handleLogout = () => {
+  localStorage.clear();
+};
 
 const MenuDropDown:React.FC<{}> = () => {
   const[open,setOpen]=useState<boolean>(false);
@@ -35,6 +38,9 @@ const MenuDropDown:React.FC<{}> = () => {
           </li>
           <li>
             <Link to='/ChooseSubjects'> Modify/Delete a subject </Link> 
+          </li>
+          <li>
+            <Link to='/' onClick={handleLogout}> Logout </Link>
           </li>
        </ul>
       )

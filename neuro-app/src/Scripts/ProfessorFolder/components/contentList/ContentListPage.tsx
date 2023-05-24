@@ -18,13 +18,15 @@ interface Content {
 }
 
 const useGetContents = (professorId: number) => {
+  const token = localStorage.getItem('token');
+
   const [contents, setContents] = useState<Content[]>([]);
 
   useEffect(() => {
     const url = SERVER_ADDRESS + `/content/professor/${professorId}`;
 
     const fetchData = async () => {
-      const response = await fetch(url);
+      const response = await fetch(url, { method: 'GET', headers: { Authorization: `Bearer ${token}` } });
       const data = await response.json();
       setContents(data);
     };
@@ -36,6 +38,8 @@ const useGetContents = (professorId: number) => {
 };
 
 const ContentList: React.FC<Props> = ({ professorId }) => {
+  const token = localStorage.getItem('token');
+
   const contents = useGetContents(professorId);
   const setContents = useState<Content[]>([])[1]; // Added setContents declaration
 
@@ -43,8 +47,12 @@ const ContentList: React.FC<Props> = ({ professorId }) => {
     if (window.confirm('Are you sure you want to delete this content?')) {
       try {
         await fetch(SERVER_ADDRESS + `/content/${contentId}`, {
-          method: 'DELETE'
-        });
+          method: 'DELETE',
+          headers: { Authorization: `Bearer ${token}` },
+        }).then((response) => {
+          if (response.status === 204) {
+            window.location.reload();
+          }});
       } catch (error) {
         console.error(error);
       }
