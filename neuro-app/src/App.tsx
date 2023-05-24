@@ -21,7 +21,6 @@ import Home from "./Scripts/ProfessorFolder/pages/HomePage/Home";
 import AllMySubjects from "./Scripts/ProfessorFolder/pages/AllMySubjectsPage/AllMySubjects";
 import CreateAnExam from "./Scripts/ProfessorFolder/pages/CreateAnExamPage/CreateAnExam";
 import ViewQuestions from "./Scripts/ProfessorFolder/pages/ViewMaterialsPages/ViewQuestionsPage/ViewQuestions";
-import ViewLessonMaterials from "./Scripts/ProfessorFolder/pages/ViewMaterialsPages/ViewLessonMaterialsPage/ViewLessonMaterials";
 import ViewQuestionAnswer from "./Scripts/ProfessorFolder/pages/ViewMaterialsPages/ViewQuestionAnswerPage/ViewQuestionAnswer";
 import AllQuestions from "./Scripts/ProfessorFolder/pages/QuizQuestionsPages/AllQuestionsPage/AllQuestions";
 import EditQuestions from "./Scripts/ProfessorFolder/pages/EditQuestions/EditQuestions";
@@ -86,7 +85,6 @@ function App(): JSX.Element {
 
       <Route path="/AllMySubjects" element={<AllMySubjects />} />
       <Route path="/ViewQuestions" element={<ViewQuestions />} />
-      <Route path="/ViewLessonMaterials" element={<ViewLessonMaterials />} />
       <Route path="/AddQuestion" element={<AddQuestion />} />
       <Route path="/ViewQuestionAnswer" element={<ViewQuestionAnswer />} />
       <Route path="/AllQuestions" element={<AllQuestions />} />

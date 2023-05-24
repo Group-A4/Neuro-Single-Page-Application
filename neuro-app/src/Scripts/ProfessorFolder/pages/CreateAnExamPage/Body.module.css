@@ -174,6 +174,7 @@ thead th {
     background-color: #005863;
 }
 
+
 tbody tr:hover {
     background-color: rgba(255, 255, 255, 0.3);
 }
@@ -212,10 +213,10 @@ tbody div td:hover:before {
 
 
 .body--img {
-
+    width: 20px;
     margin: 0;
     padding: 0;
-    margin-left: -2.9vw;
+    /* margin-left: -2.9vw; */
     margin-top: 10px;
 }
 
@@ -257,7 +258,23 @@ tbody div td:hover:before {
 
         margin: 0;
         padding: 0;
-        margin-left: -4.9vw;
+        /* margin-left: -4.9vw; */
         margin-top: 10px;
     }
+}
+
+.last--td button{
+    margin: 0;
+    text-align: center;
+    width: 100px;
+    font-size: calc(8px + 1vw);
+}
+
+
+.button-start {
+    background-color: green;
+}
+
+.button-stop {
+    background-color: red;
 }

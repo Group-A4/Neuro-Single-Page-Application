@@ -45,16 +45,10 @@ const Scroll: React.FC<ScrollProps> = ({ onDeleteLecture, onRenameLecture }) => 
       {open && (
         <ul>
           <li>
-            <Link to="/AddMAterialsLesson">Add materials </Link>
+            <Link to="/CreateMaterial">Add materials </Link>
           </li>
           <li>
-            <Link to="/ViewLessonMaterials">View materials </Link>
-          </li>
-          <li>
-            <a href="" onClick={handleRenameLecture}>Rename</a>
-          </li>
-          <li>
-            <a href="" onClick={handleDeleteLecture}>Delete</a>
+            <Link to="/ViewLectureMaterials">View materials </Link>
           </li>
         </ul>
       )}
