@@ -147,6 +147,13 @@ function Table({ examData }: { examData: ExamData[] }) {
                                 {headerGroup.headers.map((column) => (
                                     <th {...column.getHeaderProps()}>{column.render('Header')}</th>
                                 ))}
+
+                                <th >
+
+                                </th>
+                                <th >
+
+                                </th>
                             </tr>
                         ))}
                     </thead>
@@ -168,7 +175,7 @@ function Table({ examData }: { examData: ExamData[] }) {
                                         </button>
                                     </td>
                                     <td className={styles['body--img']}>
-                                        <ScrollBlack idExam={row.original.id} />
+                                        <ScrollBlack idExam={row.original.id} code={row.original.code} />
                                     </td>
                                 </tr>
                             );
