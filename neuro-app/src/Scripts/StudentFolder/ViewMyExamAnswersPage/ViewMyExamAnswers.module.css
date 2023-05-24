@@ -65,7 +65,7 @@ Body {
     font-style: italic;
 }
 
-.choices, .textQuestionAnswers{
+.choices, .textQuestionAnswers, .expectedResponse {
     margin-top: 1rem;
     margin-right: 2rem;
     background-color: #bd9d6d;
@@ -74,10 +74,14 @@ Body {
     padding-left: 1em;
 }
 
-.textQuestionAnswers{
+.textQuestionAnswers, .expectedResponse{
     margin-left: 2rem;
     padding-top: 1em;
     padding-bottom: 1em;
+}
+
+.expectedResponse {
+    background-color: #45f57d;
 }
 
 .correctAnswers {
@@ -88,7 +92,7 @@ Body {
     font-size: 1.5rem;
     padding-left: 1em;
     font-style: italic;
-    font-weight: bold;
+    /* font-weight: bold; */
 }
 
 .yourAnswers, .yourScore {
@@ -103,3 +107,27 @@ Body {
     font-weight: bold;
 }
 
+.loading{
+    font-size: 3rem;
+    text-align: center;
+    font-weight: bold;
+}
+
+.incorrectAnswer {
+  background-color: #fb2121;
+    margin-top: 1rem;
+    margin-right: 2rem;
+    border-radius: 10px;
+    font-size: 1.5rem;
+    padding-left: 1em;
+    font-style: italic;
+}
+
+.selectedAnswer {
+  font-weight: bold;
+}
+
+.boldText {
+    font-weight: bold;
+    font-style: italic;
+}

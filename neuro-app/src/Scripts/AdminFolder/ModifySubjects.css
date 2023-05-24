@@ -1,0 +1,44 @@
+body {
+    background-image: url("background-page.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    margin: 0;
+    padding: 0;
+}
+ 
+.edit-container{
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    justify-content: center;
+    margin-top:15em;
+}
+
+.button-category{
+    padding: 0.5em;
+    opacity: 0.85;
+    width: 270px;
+    height: 100px;
+}
+.button-category:hover{
+    opacity:1;
+}
+
+
+@media only screen and (max-width: 1200px) {
+
+    .edit-container{
+        grid-template-columns: auto auto;
+        margin-top:8em;
+    }
+
+}
+
+@media only screen and (max-width: 600px){
+    .edit-container{
+        grid-template-columns: auto;
+        margin-top:2em;
+    }
+
+}

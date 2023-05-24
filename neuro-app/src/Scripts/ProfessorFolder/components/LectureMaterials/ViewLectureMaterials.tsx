@@ -5,9 +5,9 @@ import { SERVER_ADDRESS } from '../../../../config/config';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
-import Scroll from '../../components/ScrollComp/Scroll';
 import { Link, LinkProps } from 'react-router-dom';
-import UpdateMaterial from '../../pages/UpdateMaterialPage/UpdateMaterial';
+import withAuth from '../../../../WithAuth';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -16,12 +16,15 @@ type Props = {
 };
 
 const useGetMaterials = (id_lecture: string) => {
+  const token = localStorage.getItem('token');
+
   const [materials, setMaterials] = useState<any[]>([]);
 
   const fetchMaterials = async (id_lecture: string) => {
     try {
       const response = await fetch(
-        SERVER_ADDRESS + `/materials/id_lecture=${id_lecture}`
+        SERVER_ADDRESS + `/materials/id_lecture=${id_lecture}`,
+        { headers: { Authorization: `Bearer ${token}` } }
       );
       const data = await response.json();
       setMaterials(data);
@@ -38,14 +41,18 @@ const useGetMaterials = (id_lecture: string) => {
 };
 
 const ViewLessonMaterials: React.FC<Props> = ({ id_lecture }) => {
+  const token = localStorage.getItem('token');
   const { materials, fetchMaterials } = useGetMaterials(id_lecture); // Destructure fetchMaterials
+
+  const navigate = useNavigate();
 
   const handleDelete = async (materialId: string) => {
     if (window.confirm('Are you sure you want to delete this material?')) {
       try {
         await fetch(
           SERVER_ADDRESS + `/materials/${materialId}`,
-          { method: 'DELETE' }
+          { method: 'DELETE' ,
+           headers: { Authorization: `Bearer ${token}` } }
         );
         // Refresh the materials after deleting
         fetchMaterials(id_lecture);
@@ -56,6 +63,8 @@ const ViewLessonMaterials: React.FC<Props> = ({ id_lecture }) => {
 
   
   };
+
+  const user = JSON.parse(localStorage.getItem('utilizator') || '{}');
 
   return (
     <>
@@ -72,41 +81,41 @@ const ViewLessonMaterials: React.FC<Props> = ({ id_lecture }) => {
             {materials.map((material) => (
               <li key={material.id} className={styles['li-style']}>
                 <div className={styles['left-side']}>
-                  <a
-                    className={styles['a--style']}
-                    href="http://localhost:3000/ViewMaterial"
-                    rel="noopener noreferrer"
-                  >
+                  <a onClick={() => {navigate('/ViewMaterial', {state:{materialId: material.id, lectureId: id_lecture}})} } className={styles['a--style']}>
                     {material.title}
                   </a>
                 </div>
-                <div className={styles['right-side']}>
-                <Link to={`/UpdateMaterial?id=${material.id}`}>
-                <button
-                    className={styles['editButton']} 
-                  >
-                    <FontAwesomeIcon icon={faEdit} className={styles['Icon']} /> <p className={styles['p-delete']}>Edit</p>
-                  </button>
-                  </Link>
-                  <button
-                    className={styles['deleteButton']}
-                    onClick={() => handleDelete(material.id)}
-                  >
-                    <FontAwesomeIcon icon={faTrash} className={styles['Icon']} /> <p className={styles['p-delete']}>Delete</p>
-                  </button>
-                </div>
+                {user.role === 1 && (
+                  <div className={styles['right-side']}>
+                    <a onClick={()=>{navigate('/UpdateMaterial',{state:{materialId: material.id, lectureId: id_lecture}});}} >
+                    <button
+                      className={styles['editButton']} 
+                    >
+                      <FontAwesomeIcon icon={faEdit} className={styles['Icon']} /> <p className={styles['p-delete']}>Edit</p>
+                    </button>
+                    </a>
+                    <button
+                      className={styles['deleteButton']}
+                      onClick={() => handleDelete(material.id)}
+                    >
+                      <FontAwesomeIcon icon={faTrash} className={styles['Icon']} /> <p className={styles['p-delete']}>Delete</p>
+                    </button>
+                  </div>
+                )}
               </li>
             ))}
           </ol>
-          <Link to={`/CreateMaterial`}>
-          <button className={styles['createButton']}>
-            Create new material
-          </button>
-          </Link>
+          {user.role === 1 && (
+            <a onClick={()=>{navigate('/CreateMaterial',{state:{lectureId: id_lecture}});}}>
+              <button className={styles['createButton']}>
+                Create new material
+              </button>
+            </a>
+          )} 
         </div>
       </body>
     </>
   );
 };
 
-export default ViewLessonMaterials;
+export default withAuth(ViewLessonMaterials, [1, 2]);

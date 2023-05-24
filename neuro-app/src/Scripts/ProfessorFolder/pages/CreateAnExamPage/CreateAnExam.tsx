@@ -1,9 +1,7 @@
 import React, { useEffect, useState, } from 'react'
 import Nav from '../../components/nav/Nav';
 import ButtonCreate from '../../components/buttonCreateAnExam/ButtonCreateExam';
-import SelectSubject from '../../components/SelectSubjectComp/SelectSubject';
-import fakeData from "./mock_data.json"
-import image_dots from "./dots.png"
+import WithAuth from '../../../../WithAuth';
 
 import styles from './Body.module.css'
 
@@ -56,7 +54,48 @@ const EvaluationTypeCell: React.FC<EvaluationTypeCellProps> = ({ value }) => {
     return <span>{evaluationTypeText}</span>;
 };
 
+
 function Table({ examData }: { examData: ExamData[] }) {
+    const token = localStorage.getItem('token');
+
+
+    const [isExamStarted, setIsExamStarted] = useState(false);
+
+    const handleStartExam = (idExam: number) => {
+        const endpoint = `http://localhost:8192/exam/activate/idExam=${idExam}`;
+
+        fetch(endpoint, { method: 'POST', headers: { 'Authorization': `Bearer ${token}` } })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Exam activation successful');
+                    setIsExamStarted(true); // Actualizăm starea pentru a indica că examenul a început
+                } else {
+                    throw new Error('Exam activation failed');
+                }
+            })
+            .catch(error => {
+                console.error('Failed to activate exam:', error);
+            });
+    };
+
+    const handleStopExam = (idExam: number) => {
+        const endpoint = `http://localhost:8192/exam/deactivate/idExam=${idExam}`;
+
+        fetch(endpoint, { method: 'DELETE', headers: { 'Authorization': `Bearer ${token}` } })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Exam deactivation successful');
+                    setIsExamStarted(false); // Actualizăm starea pentru a indica că examenul s-a oprit
+                } else {
+                    throw new Error('Exam deactivation failed');
+                }
+            })
+            .catch(error => {
+                console.error('Failed to deactivate exam:', error);
+            });
+    };
+
+
     const columns: Column<ExamData>[] = React.useMemo(
         () => [
             {
@@ -107,6 +146,13 @@ function Table({ examData }: { examData: ExamData[] }) {
                                 {headerGroup.headers.map((column) => (
                                     <th {...column.getHeaderProps()}>{column.render('Header')}</th>
                                 ))}
+
+                                <th >
+
+                                </th>
+                                <th >
+
+                                </th>
                             </tr>
                         ))}
                     </thead>
@@ -118,9 +164,18 @@ function Table({ examData }: { examData: ExamData[] }) {
                                     {row.cells.map((cell) => (
                                         <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
                                     ))}
-                                    <div className={styles['body--img']}>
-                                        <ScrollBlack idExam={row.original.id} />
-                                    </div>
+                                    <td className={styles['last--td']}>
+                                        <button
+                                            className={` ${isExamStarted ? styles['button-stop'] : styles['button-start']}`}
+                                            onClick={() => isExamStarted ? handleStopExam(row.original.id) : handleStartExam(row.original.id)}
+                                        
+                                        >
+                                            {isExamStarted ? 'STOP' : 'START'}
+                                        </button>
+                                    </td>
+                                    <td className={styles['body--img']}>
+                                        <ScrollBlack idExam={row.original.id} code={row.original.code} />
+                                    </td>
                                 </tr>
                             );
                         })}
@@ -136,9 +191,13 @@ const SelectCourse: React.FC<{ onSelectCourse: (id: number) => void }> = ({ onSe
     const [selectedCourseId, setSelectedCourseId] = useState<number | null>(null);
     const [examData, setExamData] = useState<ExamData[]>([]);
 
+    const token = localStorage.getItem('token');
+    const user = JSON.parse(localStorage.getItem('utilizator') || '{}');
+
     useEffect(() => {
         const fetchCourses = async () => {
-            const response = await fetch('http://localhost:8192/courses/professor=52');
+            const response = await fetch(`http://localhost:8192/courses/professor=${user.id}`,
+                { headers: { 'Authorization': `Bearer ${token}` } } );
             const data = await response.json();
             setCourses(data);
         };
@@ -155,7 +214,8 @@ const SelectCourse: React.FC<{ onSelectCourse: (id: number) => void }> = ({ onSe
     useEffect(() => {
         const fetchExamData = async () => {
             if (selectedCourseId) {
-                const response = await fetch(`http://localhost:8192/exam/summarise/idCourse=${selectedCourseId}`);
+                const response = await fetch(`http://localhost:8192/exam/summarise/idCourse=${selectedCourseId}`, 
+                { headers: { 'Authorization': `Bearer ${token}` } });
                 const data = await response.json();
 
                 const professorId = 52; // ID-ul profesorului curent
@@ -249,4 +309,4 @@ const CreateAnExam: React.FC<{}> = () => {
     );
 }
 
-export default CreateAnExam;
+export default WithAuth(CreateAnExam, [1]);

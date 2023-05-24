@@ -1,0 +1,118 @@
+
+.tables{
+    display: flex;
+    justify-content: space-evenly;
+    margin-top:30px;
+}
+.profile-page{
+    padding: 40px 0;
+    z-index: 999;
+    width: 500px;
+    height: 460px;
+    background-color: #bfb3b3b3;
+    color: #C49C60;
+    font-size: 1.5em;
+    box-shadow: 5px 8px 10px #00000033;
+    border-radius: 15px;
+    z-index: 999;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
+}
+
+.profile-page h5{
+    margin-top:-20px;
+    background-color: rgba(0, 47, 53,0.9);
+    padding: 15px;
+}
+
+.categories{
+    color: rgba(0, 47, 53,0.9);
+    align-self: flex-start;
+    margin-left: 1.5em;
+    margin-bottom: 1em;
+    font-size: 20px;
+}
+
+.courses-list{
+    max-height: 200px;
+    overflow-y: scroll;
+    width: 80%;
+    align-self: center;
+    border: 3px solid rgba(0, 47, 53,0.9);
+    border-radius: 10px;
+}
+
+.course{
+    background-color: #d8ccccb3;
+    padding: 7px;
+    color:rgba(0, 47, 53,0.9);
+    border: 1px solid rgba(0, 47, 53,0.9);
+    font-size: 23px;
+}
+
+.change-password{
+    width: 400px;
+    height:70px;
+    margin-bottom:2em;
+    margin-top:2em;
+    background-color: rgba(0, 47, 53,0.9);
+    border: 1px solid rgba(0, 47, 53,0.9);
+    color:#C49C60;
+    font-size:15px;
+    font-weight: 500;
+    border-radius:10px;
+    align-self: center;
+}
+
+.change-pers-email{
+    width: 400px;
+    height:70px;
+    background-color: rgba(0, 47, 53,0.9);
+    border: 1px solid rgba(0, 47, 53,0.9);
+    color:#C49C60;
+    font-size:15px;
+    font-weight: 500;
+    border-radius:10px;
+    align-self: center;
+}
+
+
+.change-password:hover{
+    cursor: pointer;
+    background-color: rgba(2, 26, 29, 0.9);
+}
+
+.change-pers-email:hover{
+    cursor: pointer;
+    background-color: rgba(2, 26, 29, 0.9);
+}
+
+@media only screen and (max-width: 1050px){
+
+    .profile-page{
+        width: 280px;
+        height: 460px;
+    }
+
+    .categories{
+        font-size: 14px;
+    }
+
+    .course{
+        padding: 3px;
+        font-size:14px;
+    }
+
+    .change-password{
+        width: 200px;
+        height:40px;
+        margin-top:3em;
+    }
+
+    .change-pers-email{
+        width: 200px;
+        height:40px;
+    }
+}

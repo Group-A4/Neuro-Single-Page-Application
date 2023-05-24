@@ -8,13 +8,15 @@ import { Link } from 'react-router-dom';
 //   value: string
 // }
 
-
+const handleLogout = () => {
+  localStorage.clear();
+};
 const MenuDropDown:React.FC<{}> = () => {
   const[open,setOpen]=useState<boolean>(false);
   const dropdownRef=useRef<HTMLDivElement>(null);
   const handleDropDownFocus=(state:boolean)=>
   {setOpen(!state);};
-  // console.log(open, dropdownRef.current);
+  console.log(open, dropdownRef.current);
   const handleClickOutsideDropDown=(e:any)=>
   {
     if(open && !dropdownRef.current?.contains(e.target as Node))
@@ -27,7 +29,7 @@ const MenuDropDown:React.FC<{}> = () => {
       {open &&(
         <ul>
           <li>
-            <Link to='/Student'>View materials</Link>  
+            <Link to='/ViewMaterialsStudent'>View materials</Link>  
           </li>
           <li>
             <Link to='/TakeAMockExam'>Take a mock exam</Link>  
@@ -37,6 +39,9 @@ const MenuDropDown:React.FC<{}> = () => {
           </li>
           <li>
             <Link to='/MyResults'>My exam results</Link>  
+          </li>
+          <li>
+            <Link to='/' onClick={handleLogout}> Logout </Link>
           </li>
        </ul>
       )

@@ -7,6 +7,7 @@ import photo_ViewMaterials from './Images/BoxViewMaterials.png';
 import styles from '../../../CSS/Body.module.css'
 import { Link } from 'react-router-dom';
 import Nav from '../NavBarStudent/Nav';
+import withAuth from '../../../WithAuth';
 
 
 const Body: React.FC<{}> = () => {
@@ -17,7 +18,7 @@ const Body: React.FC<{}> = () => {
             <div className={styles['body--img--container']}>
 
                 <ul className={styles['link--image']} >
-                    <Link to='/ResultMockExam'>
+                    <Link to='/ViewMaterialsStudent'>
                         <img src={photo_ViewMaterials} alt="" className={styles['body--img']} />
                     </Link>
                 </ul>
@@ -56,4 +57,4 @@ function Home() {
     );
 }
 
-export default Home;
+export default withAuth(Home, [2]);

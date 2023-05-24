@@ -1,176 +1,193 @@
-import React, { useState } from 'react';
-import Nav from '../NavBarStudent/Nav';
-import styles from './ViewMyExamAnswers.module.css';
-import '../QuestionMockExamPage/QuestionMockExamPage';
+import React, { useEffect, useState } from "react";
+import Nav from "../NavBarStudent/Nav";
+import styles from "./ViewMyExamAnswers.module.css";
+import "../QuestionMockExamPage/QuestionMockExamPage";
 import Frame from "../Components/Frame";
+import { useParams, Link, useNavigate } from 'react-router-dom';
 
-interface QuizQuestion {
-    id: number;
-    idCourse: number;
-    idProfessor: number;
-    questionText: string;
-    answersQuestion?: QuizAnswer[];
-    isMultipleChoice: boolean; 
+interface Answer {
+  id: number;
+  idQuestion: number;
+  answerText: string;
+  correct: boolean;
+  chosenByStudent: boolean;
 }
 
-interface QuizAnswer {
-    idQuestion: number;
-    answerText: string;
-    correct?: boolean;
-    chosen?: boolean;
-    score?: number;
+interface QuestionMultipleChoice {
+  id: number;
+  idExam: number;
+  idProfessor: number;
+  questionText: string;
+  points: number;
+  studentPoints: number;
+  answersQuestionResult: Answer[];
 }
 
-const hardcodedQuestions: QuizQuestion[] = [
+interface QuestionLongResponse {
+  id: number;
+  idExam: number;
+  idProfessor: number;
+  questionText: string;
+  points: number;
+  studentPoints: number;
+  expectedResponse: string;
+  studentResponse: string;
+}
 
-     {
-        id: 1,
-        idCourse: 1,
-        idProfessor: 1,
-        questionText: "What is the formula for water?",
-        answersQuestion: [],
-        isMultipleChoice: false,
-    },
-    {
-        id: 2,
-        idCourse: 1,
-        idProfessor: 1,
-        questionText: "What is the symbol for the element oxygen?",
-        answersQuestion: [],
-        isMultipleChoice: false,
-    },
-    {
-        id: 3,
-        idCourse: 1,
-        idProfessor: 1,
-        questionText: "What is the capital of France?",
-        answersQuestion: [
-            {
-                idQuestion: 1,
-                answerText: "Paris",
-                correct: true,
-            },
-            {
-                idQuestion: 1,
-                answerText: "Madrid",
-                correct: false,
-            },
-            {
-                idQuestion: 1,
-                answerText: "Berlin",
-                correct: false,
-            },
-            {
-                idQuestion: 1,
-                answerText: "London",
-                correct: false,
-            },
-        ],
-        isMultipleChoice: true,
-    },
-    {
-        id: 4,
-        idCourse: 1,
-        idProfessor: 1,
-        questionText: "What is the largest ocean in the world?",
-        answersQuestion: [
-            {
-                idQuestion: 2,
-                answerText: "Atlantic Ocean",
-                correct: false,
-            },
-            {
-                idQuestion: 2,
-                answerText: "Indian Ocean",
-                correct: false,
-            },
-            {
-                idQuestion: 2,
-                answerText: "Arctic Ocean",
-                correct: false,
-            },
-            {
-                idQuestion: 2,
-                answerText: "Pacific Ocean",
-                correct: true,
-            },
-        ],
-        isMultipleChoice: true,
-    }
-];
-
-const userAnswers: QuizAnswer[] = [
-  { idQuestion: 1, answerText: "Response1" , score: 0.5},
-  { idQuestion: 2, answerText: "Response2" , score: 1},
-  { idQuestion: 3, answerText: "Paris", correct: true, chosen: true , score: 1},
-  { idQuestion: 4, answerText: "Indian Ocean", correct: false, chosen: true, score: 0},
-];
+interface Exam {
+  id: number;
+  idCourse: number;
+  idProfessor: number;
+  title: string;
+  date: string;
+  timeExam: number;
+  evaluationType: number;
+  totalPoints: number;
+  questionsMultipleChoiceResult: QuestionMultipleChoice[];
+  questionsLongResponseResult: QuestionLongResponse[];
+}
 
 const Body: React.FC<{}> = () => {
-  const [questions, setQuestions] =
-    useState<QuizQuestion[]>(hardcodedQuestions);
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [exam, setExam] = useState<Exam | null>(null);
+  const { examId } = useParams<{ examId: string }>();
+
+  useEffect(() => {
+    // Fetch data using the GET method
+    fetch(
+       `http://localhost:8192/exam/viewExamResult/idExam=${examId}/idStudent=45`
+
+    )
+      .then((response) => response.json())
+      .then((data) => setExam(data))
+      .catch((error) => console.error(error));
+  }, [examId]);
+
+  if (!exam) {
+    return (
+      <div className={styles.body}>
+        <div className={styles.bodyTitle}>Loading answers...</div>
+      </div>
+    );
+  }
 
   return (
-    <div className="body">
-      <div className={styles["bodyTitle"]}>
-        Here are your answers to the exam
-      </div>
+    <div className={styles.body}>
+      <div className={styles.bodyTitle}>Here are your answers to the exam</div>
 
-      {questions.map((question, index) => {
-        return (
-          <div key={question.id} className={styles["questionPart"]}>
-            <h1 className={styles["questionTitle"]}>
-              {index + 1}/{questions.length} {question.questionText}
+      {exam.questionsMultipleChoiceResult.map(
+        (question: QuestionMultipleChoice, index: number) => (
+          <div key={question.id} className={styles.questionPart}>
+            <h1 className={styles.questionTitle}>
+              {index + 1}/
+              {exam.questionsMultipleChoiceResult.length +
+                exam.questionsLongResponseResult.length}{" "}
+              {question.questionText}
             </h1>
 
-            {question.isMultipleChoice ? (
-              <div className={styles["questionAnswers"]}>
-                {question.answersQuestion ? (
+            {question.answersQuestionResult &&
+              question.answersQuestionResult.length > 0 && (
+                <div className={styles.questionAnswers}>
                   <ul>
-                    {question.answersQuestion.map((answer, index) => (
-                      <li
-                        key={index}
-                        className={
-                          answer.correct
-                            ? styles.correctAnswers
-                            : styles.choices
-                        }
-                      >
-                        {answer.answerText}
-                      </li>
-                    ))}
+                    {question.answersQuestionResult.map(
+                      (answer: Answer, index: number) => (
+                        <li
+                          key={answer.id}
+                          className={`${
+                            answer.correct
+                              ? styles.correctAnswers
+                              : answer.chosenByStudent
+                              ? styles.incorrectAnswer
+                              : styles.choices
+                          } ${
+                            answer.chosenByStudent ? styles.selectedAnswer : ""
+                          }`}
+                        >
+                          {String.fromCharCode(97 + index)}. {answer.answerText}
+                        </li>
+                      )
+                    )}
                   </ul>
-                ) : (
-                  ""
-                )}
-                <p className={styles["yourAnswers"]}>
-                  Your answer/s: {userAnswers[index].answerText}
-                </p>
-              </div>
-            ) : (
-              <p className={styles["textQuestionAnswers"]}>
-                {userAnswers[index].answerText}
-              </p>
-            )}
-            <p className={styles["yourScore"]}>
-              Score: {userAnswers[index].score} / 1
+                </div>
+              )}
+
+            <p className={styles.yourAnswers}>
+              {question.answersQuestionResult?.length > 0 &&
+              question.answersQuestionResult.some(
+                (answer: Answer) => answer.chosenByStudent
+              ) ? (
+                <>
+                  Your answer/s:{" "}
+                  {question.answersQuestionResult
+                    .filter((answer: Answer) => answer.chosenByStudent)
+                    .map(
+                      (
+                        answer: Answer,
+                        index: number,
+                        answersArray: Answer[]
+                      ) => (
+                        <span
+                          key={answer.id}
+                          className={styles.multipleChoiceAnswer}
+                        >
+                          {String.fromCharCode(
+                            97 + question.answersQuestionResult.indexOf(answer)
+                          )}
+                          ){index !== answersArray.length - 1 && ","}
+                        </span>
+                      )
+                    )}
+                </>
+              ) : (
+                "Your answer/s: -"
+              )}
+            </p>
+
+            <p className={styles.yourScore}>
+              Score: {question.studentPoints} / {question.points}
             </p>
           </div>
-        );
-      })}
+        )
+      )}
+
+      {exam.questionsLongResponseResult.map(
+        (question: QuestionLongResponse, index: number) => (
+          <div key={question.id} className={styles.questionPart}>
+            <h1 className={styles.questionTitle}>
+              {index + 1 + exam.questionsMultipleChoiceResult.length}/
+              {exam.questionsMultipleChoiceResult.length +
+                exam.questionsLongResponseResult.length}{" "}
+              {question.questionText}
+            </h1>
+
+            <p className={styles.textQuestionAnswers}>
+              <span className={styles.boldText}>Your answer: </span>{" "}
+              {question.studentResponse || "-"}
+            </p>
+
+            <p className={styles.expectedResponse}>
+              <span className={styles.boldText}>Expected response: </span>
+              {question.expectedResponse}
+            </p>
+
+            <p className={styles.yourScore}>
+              Score: {question.studentPoints} / {question.points}
+            </p>
+          </div>
+        )
+      )}
     </div>
   );
 };
 
 
 const ExamAnswers: React.FC<{}> = () => {
-    return (
-      <>
-        <Nav />
-        <Body/>
-      </>
-    );
-}
+  return (
+    <>
+      <Nav />
+      <Body />
+    </>
+  );
+};
 
 export default ExamAnswers;
+

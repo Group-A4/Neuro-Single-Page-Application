@@ -10,14 +10,15 @@ import { renderToString } from 'react-dom/server';
 import { SERVER_ADDRESS } from "../../../../config/config";
 import {GetMaterialById} from "../../components/material/getMaterialById";
 import { useLocation } from 'react-router-dom';
+import withAuth from "../../../../WithAuth";
 
 
 
 const ViewContentList = () =>{    
-
+    const user = JSON.parse(localStorage.getItem('utilizator') || '{}');
     return (
         <>
-            <ContentList professorId={53} />
+            <ContentList professorId={user.id} />
         </>
     )
 }
@@ -32,4 +33,4 @@ function Home() {
 
 
 
-export default Home;
+export default withAuth(Home, [1]);

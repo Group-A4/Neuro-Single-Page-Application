@@ -28,10 +28,12 @@
     justify-content: center;
     font-weight: bold;
     /* font-size: calc(10px + 1.5vw); */
-    font-size: 2.5rem;
+    font-size: 3rem;
     font-style: normal;
     color: #3E3E3E;
     opacity: 100%;
+    font-style: italic;
+    font-weight: bold;
 }
 
 .body--line{
@@ -47,7 +49,8 @@
 .course-container--header {
     display: flex;
     /* justify-content: space-between; */
-    font-style: bold;
+    font-style: italic;
+    font-weight: bold;
     align-items: flex-end;
     margin-left: 6%;
     margin-right: 6%;
@@ -58,7 +61,15 @@
     font-size: calc(10px + 1.2vw);
     color:#3E3E3E;
     opacity: 100%;
-    inline-size: 15%;
+    inline-size: 20%;
+}
+
+.date--container {
+    font-size: calc(10px + 1.2vw);
+    color:#3E3E3E;
+    opacity: 100%;
+    inline-size: 35%;
+    writing-mode: horizontal-tb;
 }
 
 .exam--container {
@@ -99,6 +110,7 @@
     padding-left: 5%;
     padding-right: 5%;
     transition-duration: 0.4s;
+    font-style: italic;
 }
 
 .course-container {
@@ -138,4 +150,13 @@
 .course-container button:hover{
     opacity: 100%;
     background-color:#00191d;
+}
+
+.loading, .no-exams {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  font-size: 18px;
+  color: #555;
 }

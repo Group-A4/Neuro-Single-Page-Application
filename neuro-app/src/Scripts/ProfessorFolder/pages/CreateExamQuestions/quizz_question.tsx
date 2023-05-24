@@ -24,12 +24,21 @@ interface LongResponse {
   points: number;
   expectedResponse: string;
 }
+interface Quizz_questionProps {
+  questionsMultipleChoice: MultipleChoice[];
+  questionsLongResponse: LongResponse[];
+  setQuestionsMultipleChoice: (questionsMultipleChoice: MultipleChoice[]) => void;
+  setQuestionsLongResponse: (questionsLongResponse: LongResponse[]) => void;
+}
 
-
-const Quizz_question: React.FC<{}> = () => {
-  
-  const [questionsMultipleChoice, setQuestionsMultipleChoice] = useState<MultipleChoice[]>([]);
-  const [questionsLongResponse, setQuestionsLongResponse] = useState<LongResponse[]>([]); 
+const Quizz_question: React.FC<Quizz_questionProps> = ({
+  questionsMultipleChoice: propQuestionsMultipleChoice,
+  questionsLongResponse: propQuestionsLongResponse,
+  setQuestionsMultipleChoice: propSetQuestionsMultipleChoice,
+  setQuestionsLongResponse: propSetQuestionsLongResponse,
+}) => {
+  const [questionsMultipleChoice, setQuestionsMultipleChoice] = useState<MultipleChoice[]>(propQuestionsMultipleChoice);
+  const [questionsLongResponse, setQuestionsLongResponse] = useState<LongResponse[]>(propQuestionsLongResponse);
   const [successMessageVisible, setSuccessMessageVisible] = useState(false);
   const lastQuestionRef = useRef<HTMLDivElement>(null);
   const lastLongResponseRef = useRef<HTMLDivElement>(null);
@@ -188,6 +197,33 @@ const Quizz_question: React.FC<{}> = () => {
     setQuestionsLongResponse(newQuestionsLongResponse);
   };
 
+  const handleSaveMultipleChoiceQuestion = (questionIndex: number) => {
+    const question = questionsMultipleChoice[questionIndex];
+    const idExam = 123; // ID-ul examenului specific, înlocuiți cu valoarea corespunzătoare
+    const endpoint = `http://localhost:8192/questionExam/multipleChoice/create/idExam=${idExam}`;
+
+    // Realizați cererea HTTP folosind metoda preferată (fetch, axios, etc.)
+    // În exemplul de mai jos, se utilizează metoda fetch pentru a efectua o cerere POST
+    fetch(endpoint, {
+      method: 'POST',
+      body: JSON.stringify(question),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        // Verificați răspunsul pentru a gestiona erorile sau a afișa un mesaj de succes
+        if (response.ok) {
+          console.log('Question saved successfully.');
+        } else {
+          console.error('Error saving question:', response.statusText);
+        }
+      })
+      .catch((error) => {
+        console.error('Error saving question:', error);
+      });
+  };
+
 
   return (
     <form onSubmit={handleSubmit}>
@@ -279,6 +315,7 @@ const Quizz_question: React.FC<{}> = () => {
 
       <button type="button" className={styles.addquest} onClick={addMultipleChoice}>+ Add Multiple Choice</button>
       <button type="button" className={styles.addquestL} onClick={addQuestionLong}>+ Add Short Answer</button>
+      <button type="submit">Submit</button>
     </form>
   );
 };

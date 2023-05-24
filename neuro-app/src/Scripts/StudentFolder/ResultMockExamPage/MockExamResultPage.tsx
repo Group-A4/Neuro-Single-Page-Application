@@ -85,8 +85,7 @@ const Body: React.FC<{}> = () => {
 };
 
 const MockExamResult: React.FC = () => {
-  const score = "50.5%";
-
+ 
   return (
     <body className="page">
       <Nav />
