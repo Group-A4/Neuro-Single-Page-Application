@@ -8,7 +8,9 @@ import { Link } from 'react-router-dom';
 //   value: string
 // }
 
-
+const handleLogout = () => {
+  localStorage.clear();
+};
 const MenuDropDown: React.FC<{}> = () => {
   const [open, setOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -33,7 +35,9 @@ const MenuDropDown: React.FC<{}> = () => {
           <li><a href="/CreateAnExam">  Create an exam </a></li>
           {/* <li><Link to='/MyStudentExams'> Student's exams </Link> </li> */}
           <li><a href='/MyStudentExams'> Student's exams </a> </li>
-
+          <li>
+            <Link to='/' onClick={handleLogout}> Logout </Link>
+          </li>
         </ul>
       )
       }

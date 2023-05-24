@@ -8,6 +8,7 @@ import MarkdownParser from "../../components/markdownToHtmlParser/MarkdownToHtml
 import Nav from '../../components/nav/Nav';
 import { renderToString } from 'react-dom/server';
 import { SERVER_ADDRESS } from "../../../../config/config";
+import withAuth from "../../../../WithAuth";
 
 interface FormValues {
     idLecture: number;
@@ -20,7 +21,7 @@ interface FormValues {
 
 const initialFormValues: FormValues = {
     idLecture: 1,
-    idProfessor: 53,
+    idProfessor: -1,
     title: "",
     markdownText: "",
     html: "",
@@ -31,9 +32,13 @@ const initialFormValues: FormValues = {
 
 
 const Markdown = () =>{
-    const filesName = useGetContents(53).map(content => content.name);
+    const user = JSON.parse(localStorage.getItem('utilizator') || '{}');
+    const token = localStorage.getItem('token');
+
+    const filesName = useGetContents(user.id).map(content => content.name);
 
     const [formValues, setFormValues] = useState<FormValues>(initialFormValues);
+    formValues.idProfessor = user.id;
 
     const markdownParser = new MarkdownParser("neuroapi", "professor" + formValues.idProfessor, filesName);
 
@@ -62,12 +67,14 @@ const Markdown = () =>{
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         setFormValues((prevFormValues: FormValues) => ({ ...prevFormValues, submitted: true }));
+        formValues.idProfessor = user.id;
 
         const url = SERVER_ADDRESS + "/materials/create";
 
         fetch(url, {
             method: "POST",
             headers: {
+                Authorization: `Bearer ${token}`,
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(formValues)
@@ -98,7 +105,7 @@ const Markdown = () =>{
     return (
         <>
             <div className={styles['body']}>
-                <ContentList professorId={53} />
+                <ContentList professorId={user.id} />
                 <form className={styles['markdown-form']} onSubmit={handleSubmit}>
                     <label className={styles['title-lable']}>
                         <p className={styles.p}>Titlul materialului:</p>
@@ -149,4 +156,4 @@ function Home() {
 
 
 
-export default Home;
+export default withAuth(Home, [1]);
