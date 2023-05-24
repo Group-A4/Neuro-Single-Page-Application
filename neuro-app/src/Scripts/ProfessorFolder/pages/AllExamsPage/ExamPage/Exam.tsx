@@ -14,7 +14,9 @@ interface UserData {
   code: string;
   idStudent: string;
   studentCode: string;
+  examPoints: string;
 }
+
 
 const Table: React.FC<{ data: UserData[]; studentCode: string }> = ({ data, studentCode }) => {
   data = data.map((item: UserData) => {
@@ -28,7 +30,7 @@ const Table: React.FC<{ data: UserData[]; studentCode: string }> = ({ data, stud
       },
       {
         Header: 'Score',
-        accessor: 'studentPoints',
+        accessor: (row) => `${row.studentPoints} / ${row.examPoints}`,
       },
     ],
     []
@@ -76,7 +78,7 @@ const Table: React.FC<{ data: UserData[]; studentCode: string }> = ({ data, stud
 };
 
 const Body: React.FC<{ userData: UserData[]; studentCode: string; studentId: string; examId: string}> = ({ userData, studentCode, studentId, examId }) => {
-  const [examTitle, setExamTitle] = useState<string>(''); // Adăugăm starea pentru atributul "title"
+  const [examTitle, setExamTitle] = useState<string>('');
 
   useEffect(() => {
     const fetchExamTitle = async () => {
@@ -85,7 +87,7 @@ const Body: React.FC<{ userData: UserData[]; studentCode: string; studentId: str
           `http://localhost:8192/exam/viewExamResult/idExam=${examId}/idStudent=${studentId}`
         );
         const data = await response.json();
-        setExamTitle(data.title); // Obținem atributul "title" și îl setăm în starea examTitle
+        setExamTitle(data.title);
       } catch (error) {
         console.error('Error fetching exam title:', error);
       }
@@ -97,7 +99,7 @@ const Body: React.FC<{ userData: UserData[]; studentCode: string; studentId: str
   return (
     <>
       <div className={styles['body--content']}>
-        <div className={styles['body--title']}>Exam: {examTitle}</div> {/* Utilizăm atributul "title" în acest element */}
+        <div className={styles['body--title']}>Exam: {examTitle}</div>
         <Link to={`/ViewExam?id=${examId}`}>
           <ButtonSaveExit />
         </Link>
@@ -129,7 +131,6 @@ const Exam: React.FC<{}> = () => {
         const data = await response.json();
 
         const stringstudentId1 = String(studentId);
-        // Find the student code based on studentId
         const student = data.find((item: UserData) => {
           const stringstudentId2 = String(item.idStudent);
           return stringstudentId1 === stringstudentId2;
@@ -145,20 +146,12 @@ const Exam: React.FC<{}> = () => {
     const fetchStudentPoints = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8192/exam/points/idStudent=${studentId}`
+          `http://localhost:8192/exam/viewExamResult/idExam=${examId}/idStudent=${studentId}`
         );
         const data = await response.json();
-
-        // Convert examId to string
-        const stringExamId = String(examId);
-
-        // Filter the data based on matching idExam
-        const filteredData = data.filter((item: UserData) => {
-          const stringIdExam = String(item.idExam);
-          return stringIdExam === stringExamId;
-        });
-
-        setUserData(filteredData);
+    
+        setUserData([data]); // Wrap the data in an array
+    
       } catch (error) {
         console.error('Error fetching student points:', error);
       }
@@ -167,8 +160,6 @@ const Exam: React.FC<{}> = () => {
     fetchStudentCode();
     fetchStudentPoints();
   }, [studentId, examId]);
-
-  // ...
 
   return (
     <>

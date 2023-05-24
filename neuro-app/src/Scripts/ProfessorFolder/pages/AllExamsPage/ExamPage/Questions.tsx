@@ -1,9 +1,12 @@
 import React, { useEffect } from 'react';
-import { useState } from "react";
+import { useState } from 'react';
 import styles from './Body.module.css';
 
 interface Props {
   label: string;
+  studentPoints : number;
+  onSubmit: (value: string) => void;
+  points: number;
 }
 
 interface QuestionsProps {
@@ -54,13 +57,23 @@ interface ExamResult {
   questionsLongResponseResult: LongResponseQuestion[];
 }
 
-const NumberField: React.FC<Props> = ({ label }) => {
+const NumberField: React.FC<Props> = ({ label, onSubmit, studentPoints, points}) => {
   const [value, setValue] = useState<string | undefined>(undefined);
+
+  useEffect(() => {
+    setValue(studentPoints.toString());
+  }, [studentPoints]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = event.target.value;
-    if (/^-?\d*$/.test(newValue)) { // Only allow digits and minus sign
-      setValue(newValue);
+    if (/^-?\d*$/.test(newValue)) {
+      if (Number(newValue) > Number(points)) {
+        window.alert("The value is greater than the available points!");
+      }
+      else{
+        setValue(newValue);
+        onSubmit(newValue);
+      }
     }
   };
 
@@ -97,6 +110,29 @@ const Questions: React.FC<QuestionsProps> = ({ examId, studentId }) => {
     fetchData();
   }, []);
 
+  const submitAnswer = async (value: string, idQuestion: number) => {
+    const url = `http://localhost:8192/exam/evaluate/idStudent=${studentId}/idQuestion=${idQuestion}`;
+  
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: value, // convertiți obiectul în format JSON
+      });
+  
+      // Verificați răspunsul și gestionați-l în consecință
+      if (response.ok) {
+        console.log('Value submitted successfully!');
+      } else {
+        console.error('Failed to submit value:', response.status);
+      }
+    } catch (error) {
+      console.error('Error submitting value:', error);
+    }
+  };
+
   if (isLoading) {
     return <div className={styles['answer']}>Loading questions, please wait...</div>;
   }
@@ -107,44 +143,48 @@ const Questions: React.FC<QuestionsProps> = ({ examId, studentId }) => {
         <div key={examResult.id} className={styles.quest}>
           {examResult.questionsMultipleChoiceResult.map((question) => (
             <div key={question.id}>
-              <h3 className={styles.questionTitle}>{question.questionText}
-              <div className={styles['question-points']}>{question.studentPoints}/{question.points}</div>
+              <h3 className={styles.questionTitle}>
+                {question.questionText}
+                <div className={styles['question-points']}>{question.studentPoints}/{question.points}</div>
               </h3>
               <ul className={styles.ull}>
-              {question.answersQuestionResult.map((answer) => (
-              <li
-                key={answer.id}
-                className={
-                  answer.correct === answer.chosenByStudent
-                    ? styles['correct-answer']
-                    : styles['wrong-answer']
-                }
-              >
-                {answer.answerText}
-              </li>
-            ))}
+                {question.answersQuestionResult.map((answer) => (
+                  <li
+                    key={answer.id}
+                    className={
+                      answer.correct === answer.chosenByStudent && answer.correct === true
+                        ? styles['correct-answer']
+                        : answer.correct || answer.chosenByStudent
+                        ? styles['wrong-answer']
+                        : styles['answer']
+                    }
+                  >
+                    {answer.answerText}
+                  </li>
+                ))}
               </ul>
             </div>
           ))}
 
           {examResult.questionsLongResponseResult.map((question) => (
             <div key={question.id}>
-              <h3 className={styles.questionTitle}>{question.questionText}
-              <div className={styles['question-points']}>
-              <NumberField label="Points: "/>
+              <h3 className={styles.questionTitle}>
+                {question.questionText}
+                <div className={styles['question-points']}>
+                <NumberField studentPoints={question.studentPoints} points={question.points} label={`Points: `} onSubmit={(value) => submitAnswer(value, question.id)} />
                   <div className={styles['maxim--points']}>/{question.points}</div>
-              </div>
+                </div>
               </h3>
               <ul className={styles.ull}>
                 <li>
-                  <div className={styles['answer']}>
+                  <div className={styles['answer-longResponse']}>
                     Expected response: {question.expectedResponse}
                   </div>
                 </li>
                 <li>
-                  <div className={styles['answer']}>
-                      Student response: {question.studentResponse}
-                    </div>
+                  <div className={styles['answer-longResponse']}>
+                    Student response: {question.studentResponse}
+                  </div>
                 </li>
               </ul>
             </div>
