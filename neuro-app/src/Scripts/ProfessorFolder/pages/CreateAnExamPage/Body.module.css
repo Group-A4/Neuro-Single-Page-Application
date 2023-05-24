@@ -1,4 +1,5 @@
 .body {
+    background-image: url("Background.png");
     background-color: #CFCFCF;
     min-height: 100%;
     background-size: cover;
