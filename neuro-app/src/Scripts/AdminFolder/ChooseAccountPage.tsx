@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Nav from "./NavBarAdmin/Nav";
 import "./ChooseAccount.css";
+import WithAuth from "../../WithAuth";
 
 interface User {
   id: number;
@@ -109,4 +110,4 @@ function ChooseAccount() {
   );
 }
 
-export default ChooseAccount;
+export default WithAuth(ChooseAccount, [0]);

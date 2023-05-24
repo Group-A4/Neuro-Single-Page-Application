@@ -3,13 +3,24 @@ import React, { useEffect, useState } from 'react';
 import { GetMaterialById } from '../../components/material/getMaterialById';
 import Nav from '../../../NavBarFolder/Nav';
 import styles from './ViewMaterial.module.css';
-import { Link, useParams } from 'react-router-dom';
 import withAuth from '../../../../WithAuth';
+import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const ViewMaterial: React.FC<{}> = () => {
-    const searchParams = new URLSearchParams(window.location.search);
-    const id = searchParams.get('id');
-    const material = GetMaterialById(Number(id));
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const materialId = location.state?.materialId;
+
+    useEffect(() => {
+        if(!materialId){
+            navigate('/');
+        }
+    }, [materialId, navigate]);
+
+
+    const material = GetMaterialById(Number(materialId));
 
     return (
         <>
@@ -21,9 +32,9 @@ const ViewMaterial: React.FC<{}> = () => {
                         <div className={styles['text']} dangerouslySetInnerHTML={{ __html: material.html }} />
                     </div>
                     <div>
-                    <Link to={`/ViewLectureMaterials`} className={styles["bn11"]}>
+                    <a onClick={() => {navigate('/ViewLectureMaterials', {state:{lectureId: location.state.lectureId}})} }  className={styles["bn11"]}>
                         Back
-                    </Link>
+                    </a>
                     </div>
                 </div>
             </body>

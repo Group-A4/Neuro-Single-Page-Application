@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
 import Nav from './NavBarAdmin/Nav';
 import "./AdminPage.css";
+import WithAuth from "../../WithAuth";
 
 interface FormValues {
   oldPassword: string;
@@ -61,4 +61,4 @@ function EditPassword() {
   );
 }
 
-export default EditPassword;
+export default WithAuth(EditPassword, [0]);

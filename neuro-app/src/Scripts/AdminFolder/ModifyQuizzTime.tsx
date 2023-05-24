@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
 import Nav from "./NavBarAdmin/Nav";
 import "./AdminPage.css";
+import WithAuth from "../../WithAuth";
 
 interface FormValues {
   quizTime: string;
@@ -32,7 +32,7 @@ const Body: React.FC<{}> = () => {
           {
             method: "PUT",
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
+              "Authorization": `Bearer ${localStorage.getItem("token")}`,
               "Content-Type": "application/json",
             },
             body: JSON.stringify(formValues)
@@ -75,4 +75,4 @@ const Body: React.FC<{}> = () => {
   );
 };
 
-export default Body;
+export default WithAuth(Body, [0]);

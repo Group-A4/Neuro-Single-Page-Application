@@ -23,10 +23,12 @@ const Lectures: React.FC<LectureProps> = ({ idCourse }) => {
     const [editedTitle, setEditedTitle] = useState<string>('');
     const inputRef = useRef<HTMLInputElement>(null);
 
+    const token = localStorage.getItem('token');
+
     useEffect(() => {
         const fetchLectures = async () => {
             if (idCourse !== null) {
-                const response = await fetch(`http://localhost:8192/lectures/course_id=${idCourse}`);
+                const response = await fetch(`http://localhost:8192/lectures/course_id=${idCourse}`, {headers: { Authorization: `Bearer ${token}` }});
                 const data = await response.json();
                 setLectures(data);
                 console.log(data);
@@ -40,6 +42,7 @@ const Lectures: React.FC<LectureProps> = ({ idCourse }) => {
         try {
             const response = await fetch(`http://localhost:8192/lectures/${lectureId}`, {
                 method: 'DELETE',
+                headers: { Authorization: `Bearer ${token}` }
             });
             if (response.ok) {
                 setLectures((prevLectures) => prevLectures.filter((lecture) => lecture.id !== lectureId));
@@ -59,6 +62,7 @@ const Lectures: React.FC<LectureProps> = ({ idCourse }) => {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
+                        Authorization: `Bearer ${token}`,
                     },
                     body: JSON.stringify({ title: newTitle, description, idCourse }),
                 });
@@ -101,6 +105,7 @@ const Lectures: React.FC<LectureProps> = ({ idCourse }) => {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
+                        Authorization: `Bearer ${token}`,
                     },
                     body: JSON.stringify({ title: editedTitle, description, idCourse }),
                 });
@@ -181,6 +186,7 @@ const Lectures: React.FC<LectureProps> = ({ idCourse }) => {
                                 <Scroll
                                     onDeleteLecture={() => deleteLecture(lecture.id)}
                                     onRenameLecture={(newTitle: string) => renameLecture(lecture.id, newTitle)}
+                                    lectureId={lecture.id}
                                 />
                             </div>
                         </div>

@@ -12,6 +12,7 @@ const ButtonAddCourse: React.FC<ButtonAddCourseProps> = ({ idCourse }) => {
     const navigate = useNavigate();
 
     const handleAddCourse = async () => {
+        const token = localStorage.getItem('token');
         if (idCourse !== null) {
             const lectureData = {
                 title: 'New course',
@@ -23,6 +24,7 @@ const ButtonAddCourse: React.FC<ButtonAddCourseProps> = ({ idCourse }) => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
                 },
                 body: JSON.stringify(lectureData),
             });

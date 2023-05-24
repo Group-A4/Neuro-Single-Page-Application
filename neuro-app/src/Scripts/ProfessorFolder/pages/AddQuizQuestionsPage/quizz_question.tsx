@@ -3,6 +3,7 @@ import styles from './Body.module.css';
 import Header from './header';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import withAuth from '../../../../WithAuth';
 
 interface Answer {
   answerText: string;
@@ -112,6 +113,7 @@ const Quizz_question: React.FC<QuizzQuestionProps> = ({ idLect }) => {
   };
 
   const handleSubmit = async (event: React.FormEvent) => {
+    const token = localStorage.getItem('token');
     event.preventDefault();
     setSuccessMessageVisible(true);
 
@@ -132,6 +134,7 @@ const Quizz_question: React.FC<QuizzQuestionProps> = ({ idLect }) => {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify(question),
         });
@@ -250,4 +253,4 @@ const Quizz_question: React.FC<QuizzQuestionProps> = ({ idLect }) => {
     </form>
   );
 };
-export default Quizz_question;
+export default withAuth(Quizz_question, [1]);

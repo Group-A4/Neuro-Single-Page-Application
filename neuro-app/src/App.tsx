@@ -21,7 +21,6 @@ import Home from "./Scripts/ProfessorFolder/pages/HomePage/Home";
 import AllMySubjects from "./Scripts/ProfessorFolder/pages/AllMySubjectsPage/AllMySubjects";
 import CreateAnExam from "./Scripts/ProfessorFolder/pages/CreateAnExamPage/CreateAnExam";
 import ViewQuestions from "./Scripts/ProfessorFolder/pages/ViewMaterialsPages/ViewQuestionsPage/ViewQuestions";
-import ViewLessonMaterials from "./Scripts/ProfessorFolder/pages/ViewMaterialsPages/ViewLessonMaterialsPage/ViewLessonMaterials";
 import ViewQuestionAnswer from "./Scripts/ProfessorFolder/pages/ViewMaterialsPages/ViewQuestionAnswerPage/ViewQuestionAnswer";
 import AllQuestions from "./Scripts/ProfessorFolder/pages/QuizQuestionsPages/AllQuestionsPage/AllQuestions";
 import EditQuestions from "./Scripts/ProfessorFolder/pages/EditQuestions/EditQuestions";
@@ -57,9 +56,12 @@ import EditSubjectSemester from "./Scripts/AdminFolder/EditSubjectSemester";
 import EditSubjectCredits from "./Scripts/AdminFolder/EditSubjectCredits";
 import ChooseCreate from "./Scripts/AdminFolder/ChooseCreate";
 import CreateSubject from "./Scripts/AdminFolder/CreateSubject";
-import Create from "./Scripts/AdminFolder/CreateAccount";
+import Create from "./Scripts/AdminFolder/CreateAdmin";
 import ModifyQuizzTime from "./Scripts/AdminFolder/ModifyQuizzTime";
-
+import SelectCreateAccount from "./Scripts/AdminFolder/SelectCreateAccount";
+import CreateAdmin from "./Scripts/AdminFolder/CreateAdmin";
+import CreateProfessor from "./Scripts/AdminFolder/CreateProfessor";
+import CreateStudent from "./Scripts/AdminFolder/CreateStudent";
 
 function App(): JSX.Element {
   return (
@@ -86,7 +88,6 @@ function App(): JSX.Element {
 
       <Route path="/AllMySubjects" element={<AllMySubjects />} />
       <Route path="/ViewQuestions" element={<ViewQuestions />} />
-      <Route path="/ViewLessonMaterials" element={<ViewLessonMaterials />} />
       <Route path="/AddQuestion" element={<AddQuestion />} />
       <Route path="/ViewQuestionAnswer" element={<ViewQuestionAnswer />} />
       <Route path="/AllQuestions" element={<AllQuestions />} />
@@ -122,7 +123,10 @@ function App(): JSX.Element {
       <Route path="EditSubjectCredits" element={<EditSubjectCredits />}></Route>
       <Route path="ChooseCreate" element={<ChooseCreate />}></Route>
       <Route path="CreateSubject" element={<CreateSubject />}></Route>
-
+      <Route path="SelectCreateAccount" element={<SelectCreateAccount />}></Route>
+      <Route path="CreateAdmin" element={<CreateAdmin />}></Route>
+      <Route path="CreateProfessor" element={<CreateProfessor />}></Route>
+      <Route path="CreateStudent" element={<CreateStudent />}></Route>
 
 
       <Route path="modifyquizztime" element={<ModifyQuizzTime />}></Route>
