@@ -36,7 +36,7 @@ function Nav() {
         </ul>
 
         <ul className={styles['link']} >
-          <Link to="/ViewContentList">Add content
+          <Link to="/ViewContentList">View content
           </Link>
         </ul>
 

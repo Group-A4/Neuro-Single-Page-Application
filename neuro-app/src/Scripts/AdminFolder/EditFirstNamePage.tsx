@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Nav from './NavBarAdmin/Nav';
 import "./AdminPage.css";
+import WithAuth from "../../WithAuth";
 
 interface FormValues {
   oldName: string;
@@ -104,4 +105,4 @@ const Body: React.FC<{}> = () => {
   );
 }
 
-export default Body;
+export default WithAuth(Body, [0]);

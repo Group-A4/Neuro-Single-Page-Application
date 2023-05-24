@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Nav from './NavBarAdmin/Nav';
 import "./AdminPage.css";
-
+import WithAuth from "../../WithAuth";
 
 interface FormValues {
   oldName: string;
@@ -115,4 +115,5 @@ function EditUnivEmail() {
   );
 }
 
-export default EditUnivEmail;
+
+export default WithAuth(EditUnivEmail, [0]);

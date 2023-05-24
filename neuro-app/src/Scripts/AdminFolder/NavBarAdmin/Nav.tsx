@@ -25,11 +25,6 @@ function Nav(){
           <Link to="/Admin">Home
                   </Link>
               </ul>
-
-              <ul className={styles['link']} >
-                  <Link to="/ProfilePage">Profile
-                  </Link>
-              </ul>
               
               <ul className={styles['menu']}>
               <MenuDropDown/>

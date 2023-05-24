@@ -22,10 +22,12 @@ interface Lecture {
 const SelectCourse: React.FC<{ onSelectCourse: (id: number) => void }> = ({ onSelectCourse }) => {
     const [courses, setCourses] = useState<Course[]>([]);
     const [selectedCourseId, setSelectedCourseId] = useState<number | null>(null);
+    const token = localStorage.getItem('token');
+    const user = JSON.parse(localStorage.getItem('utilizator') || '{}');
 
     useEffect(() => {
         const fetchCourses = async () => {
-            const response = await fetch("http://localhost:8192/courses/professor=52");
+            const response = await fetch(`http://localhost:8192/courses/professor=${user.id}`, { headers: { 'Authorization': `Bearer ${token}` } });
             const data = await response.json();
             setCourses(data);
         };

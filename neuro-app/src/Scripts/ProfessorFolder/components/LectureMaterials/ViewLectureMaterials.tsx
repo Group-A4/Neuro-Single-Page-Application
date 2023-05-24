@@ -7,6 +7,7 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { Link, LinkProps } from 'react-router-dom';
 import withAuth from '../../../../WithAuth';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -43,6 +44,8 @@ const ViewLessonMaterials: React.FC<Props> = ({ id_lecture }) => {
   const token = localStorage.getItem('token');
   const { materials, fetchMaterials } = useGetMaterials(id_lecture); // Destructure fetchMaterials
 
+  const navigate = useNavigate();
+
   const handleDelete = async (materialId: string) => {
     if (window.confirm('Are you sure you want to delete this material?')) {
       try {
@@ -78,19 +81,19 @@ const ViewLessonMaterials: React.FC<Props> = ({ id_lecture }) => {
             {materials.map((material) => (
               <li key={material.id} className={styles['li-style']}>
                 <div className={styles['left-side']}>
-                  <Link to={`/ViewMaterial?id=${material.id}`} className={styles['a--style']}>
+                  <a onClick={() => {navigate('/ViewMaterial', {state:{materialId: material.id, lectureId: id_lecture}})} } className={styles['a--style']}>
                     {material.title}
-                  </Link>
+                  </a>
                 </div>
                 {user.role === 1 && (
                   <div className={styles['right-side']}>
-                    <Link to={`/UpdateMaterial?id=${material.id}`}>
+                    <a onClick={()=>{navigate('/UpdateMaterial',{state:{materialId: material.id, lectureId: id_lecture}});}} >
                     <button
                       className={styles['editButton']} 
                     >
                       <FontAwesomeIcon icon={faEdit} className={styles['Icon']} /> <p className={styles['p-delete']}>Edit</p>
                     </button>
-                    </Link>
+                    </a>
                     <button
                       className={styles['deleteButton']}
                       onClick={() => handleDelete(material.id)}
@@ -103,11 +106,11 @@ const ViewLessonMaterials: React.FC<Props> = ({ id_lecture }) => {
             ))}
           </ol>
           {user.role === 1 && (
-            <Link to={`/CreateMaterial`}>
+            <a onClick={()=>{navigate('/CreateMaterial',{state:{lectureId: id_lecture}});}}>
               <button className={styles['createButton']}>
                 Create new material
               </button>
-            </Link>
+            </a>
           )} 
         </div>
       </body>

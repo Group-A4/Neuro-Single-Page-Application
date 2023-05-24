@@ -1,7 +1,7 @@
-
 import { Link } from 'react-router-dom';
 import Nav from './NavBarAdmin/Nav';
 import "./ChooseCreate.css";
+import WithAuth from "../../WithAuth";
 
 
 function ChooseCreate() {
@@ -22,4 +22,4 @@ function ChooseCreate() {
     );
 }
 
-export default ChooseCreate;
+export default WithAuth(ChooseCreate, [0]);
