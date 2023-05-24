@@ -44,9 +44,7 @@ const Body: React.FC<{}> = () => {
     currentQuestion.answersQuestion.forEach((answer) => {
       if (answer.id === id) {
         answer.chosen = !answer.chosen;
-      } else {
-        answer.chosen = false;
-      }
+      }  
     });
     setQuestions(updatedQuestions);
   };
@@ -151,9 +149,9 @@ const Body: React.FC<{}> = () => {
         </Frame>
       )}
 
-      <div className="button-container">
+      <div className="button-container1">
        <button
-          className="button"
+          className="button1"
           onClick={handlePreviousQuestion}
           disabled={currentQuestionIndex === 0}
         >
@@ -161,6 +159,7 @@ const Body: React.FC<{}> = () => {
         </button>
 
         <button
+           className="button1"
           onClick={
             currentQuestionIndex < questions.length - 1 ? handleNextQuestion : handleFinishMockExam
           }

@@ -23,7 +23,7 @@ const Body: React.FC<{}> = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:8192/students/36');
+        const response = await fetch('http://localhost:8192/students/210');
         const data = await response.json();
         setStudent(data);
       } catch (error) {

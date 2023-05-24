@@ -18,7 +18,7 @@ const CodeExamPage: React.FC = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const apiUrl = 'http://localhost:8192/exam/code='+ codeExam +'/idStudent=46';
+    const apiUrl = 'http://localhost:8192/exam/code='+ codeExam +'/idStudent=210';
 
     try {
       const response = await fetch(apiUrl, {
@@ -27,13 +27,16 @@ const CodeExamPage: React.FC = () => {
           accept: 'application/json',
         },
       });
+      console.log(codeExam);
 
-      if (response.status === 400) {
-        setErrorMessage('The exam code introduced is not valid.'); // Set the error message state
-      } else {
-                  navigate(`/QuestionTextPage/${codeExam}`);
-
-      }
+      if (response.status === 405) {
+        setErrorMessage('You have already given this exam.');}
+       else if (response.status === 404) {
+         setErrorMessage('The exam code introduced is not valid.');
+ 
+  } else {
+    navigate(`/QuestionTextPage/${codeExam}`);
+  }
     } catch (error) {
       console.error('An error occurred:', error);
     }

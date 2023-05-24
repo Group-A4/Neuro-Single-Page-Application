@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import Nav from '../NavBarStudent/Nav';
 import Frame from '../Components/Frame';
+ 
+
 
 interface Exam {
   id: number;
@@ -164,7 +166,7 @@ const handleInputAnswer = (answer: string, id: number) => {
 
 const handleFinishMockExam = async () => {
   try {
-    const apiUrl = 'http://localhost:8192/exam/evaluate/idStudent=42';
+    const apiUrl = 'http://localhost:8192/exam/evaluate/idStudent=210';
     const response = await fetch(apiUrl, {
       method: 'POST',
       headers: {
@@ -262,9 +264,9 @@ const handleFinishMockExam = async () => {
         </Frame>
       )}
 
-      <div className="button-container">
+      <div className="button-container1">
         <button
-          className="button"
+          className="button1"
           onClick={handlePreviousQuestion}
           disabled={currentQuestionIndex === 0}
         >
@@ -272,6 +274,7 @@ const handleFinishMockExam = async () => {
         </button>
 
         <button
+          className="button1"
           onClick={
             currentQuestionIndex < questions.length - 1 ? handleNextQuestion : handleFinishMockExam
           }
