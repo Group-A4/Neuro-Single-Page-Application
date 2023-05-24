@@ -1,123 +1,83 @@
-import React from 'react'
-import styles from './viewExam.module.css'
+import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import styles from './viewExam.module.css';
 import ButtonStudentExam from '../../../components/buttonStudentExam/ButtonStudentExam';
-
-
-
-import fakeData from "./mock_data.json"
-import { Column, useTable } from 'react-table';
 import Nav from '../../../components/nav/Nav';
 
-
-interface UserData {
-
-    subject_title: string;
-    score: string;
-
+interface ExamResult {
+  code: string;
+  pointsExam: number;
+  pointsStudent: number;
+  idStudent: number;
 }
 
-
-function Table() {
-    const data: UserData[] = React.useMemo(() => fakeData, []);
-
-    const columns: Column<UserData>[] = React.useMemo(
-        () => [
-            {
-                Header: 'NR. MATRICOL',
-                accessor: 'subject_title',
-            },
-            {
-                Header: 'Score',
-                accessor: 'score',
-            }
-
-        ],
-        []
-    );
-
-    const {
-        getTableProps,
-        getTableBodyProps,
-        headerGroups,
-        rows,
-        prepareRow,
-    } = useTable({ columns, data });
-
-    return (
-        <div className={styles['table']}>
-            <div className="container">
-                <table {...getTableProps()}>
-                    <thead>
-                        {headerGroups.map((headerGroup) => (
-                            <tr {...headerGroup.getHeaderGroupProps()}>
-                                {headerGroup.headers.map((column) => (
-                                    <th {...column.getHeaderProps()}>
-                                        {column.render('Header')}
-                                    </th>
-                                ))}
-
-                                <th >
-
-                                </th>
-                            </tr>
-                        ))}
-                    </thead>
-                    <tbody {...getTableBodyProps()}>
-                        {rows.map((row) => {
-                            prepareRow(row);
-                            return (
-
-
-                                <tr {...row.getRowProps()}>
-                                    {row.cells.map((cell) => (
-                                        <td {...cell.getCellProps()}>{cell.render('Cell')} </td>
-                                    ))}
-                                    <td className={styles['last--td']}>
-                                        <ButtonStudentExam />
-                                    </td>
-                                </tr>
-
-
-
-                            );
-                        })}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    );
-}
-
+const Table: React.FC<{ examResults: ExamResult[]; examId: number }> = ({ examResults, examId }) => {
+  return (
+    <div className={styles['table']}>
+      <div className="container">
+        <table>
+          <thead>
+            <tr>
+              <th>NR. MATRICOL</th>
+              <th>Score</th>
+            </tr>
+          </thead>
+          <tbody>
+            {examResults.map((result, index) => (
+              <tr key={index}>
+                <td>{result.code}</td> {/* Display the student's NR. MATRICOL */}
+                <td>{result.pointsStudent}/{result.pointsExam}</td>
+                <td className={styles['last--td']}>
+                  <ButtonStudentExam examId={examId} studentId={result.idStudent} />
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+};
 
 const Body: React.FC<{}> = () => {
-    return (
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const examId = queryParams.get('id');
+  const parsedExamId = examId ? parseInt(examId) : 0; // Convert examId to a number or set it to 0 if it's null
 
-        <>
+  const [examResults, setExamResults] = useState<ExamResult[]>([]);
 
-            <div className={styles['body--text']}>
-                <div className={styles['body--title']}>
-                    Student exams
-                </div>
+  useEffect(() => {
+    const fetchExamResults = async () => {
+      try {
+        const response = await fetch(`http://localhost:8192/exam/students/idExam=${parsedExamId}`);
+        const data = await response.json();
+        setExamResults(data);
+      } catch (error) {
+        console.error('Error fetching exam results:', error);
+      }
+    };
 
-            </div>
+    fetchExamResults();
+  }, [parsedExamId]);
 
-
-            <Table />
-
-
-        </>
-
-
-    )
-}
+  return (
+    <>
+      <div className={styles['body--text']}>
+        <div className={styles['body--title']}>Student exams</div>
+      </div>
+      <Table examResults={examResults} examId={parsedExamId} />
+    </>
+  );
+};
 
 const ViewExam: React.FC<{}> = () => {
-    return (
-        <body className={styles['body']}>
-            <Nav />
-            <Body />
-        </body>
-    );
-}
+  return (
+    <body className={styles['body']}>
+      <Nav />
+      <Body />
+    </body>
+  );
+};
 
 export default ViewExam;
