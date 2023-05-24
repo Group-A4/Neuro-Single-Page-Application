@@ -125,7 +125,7 @@ function Table({ examData }: { examData: ExamData[] }) {
                                         <td {...cell.getCellProps()}>{cell.render('Cell')} </td>
                                     ))}
                                     <td className={styles['last--td']}>
-                                        <ButtonViewExam />
+                                        <ButtonViewExam examId={row.original.id}/>
                                     </td>
                                 </tr>
 
@@ -144,11 +144,15 @@ const SelectCourse: React.FC<{ onSelectCourse: (id: number) => void }> = ({ onSe
     const [courses, setCourses] = useState<Course[]>([]);
     const [selectedCourseId, setSelectedCourseId] = useState<number | null>(null);
     const [examData, setExamData] = useState<ExamData[]>([]);
+
+    const user = JSON.parse(localStorage.getItem('utilizator') || '{}');
+    const token = localStorage.getItem('token');
     
 
     useEffect(() => {
         const fetchCourses = async () => {
-            const response = await fetch('http://localhost:8192/courses/professor=52');
+            const response = await fetch(`http://localhost:8192/courses/professor=${user.id}`, 
+            { headers: { 'Authorization': `Bearer ${token}` }});
             const data = await response.json();
             setCourses(data);
         };
@@ -165,10 +169,11 @@ const SelectCourse: React.FC<{ onSelectCourse: (id: number) => void }> = ({ onSe
     useEffect(() => {
         const fetchExamData = async () => {
             if (selectedCourseId) {
-                const response = await fetch(`http://localhost:8192/exam/summarise/idCourse=${selectedCourseId}`);
+                const response = await fetch(`http://localhost:8192/exam/summarise/idCourse=${selectedCourseId}`, 
+                { headers: { 'Authorization': `Bearer ${token}` }});
                 const data = await response.json();
 
-                const professorId = 52; // ID-ul profesorului curent
+                const professorId = user.id;
 
                 const filteredData = data.filter((exam: ExamData) => exam.idProfessor === professorId);
                 setExamData(filteredData);
