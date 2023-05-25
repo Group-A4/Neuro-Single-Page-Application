@@ -3,6 +3,7 @@ import { useNavigate, useParams, Link } from 'react-router-dom';
 import Nav from '../NavBarStudent/Nav';
 import Frame from '../Components/Frame';
 import withAuth from '../../../WithAuth';
+import Exam from '../../ProfessorFolder/pages/AllExamsPage/ExamPage/Exam';
  
 
 interface Exam {
@@ -52,35 +53,41 @@ const Body: React.FC<{}> = () => {
   const [remainingTime, setRemainingTime] = useState<number>(0);
   const user = JSON.parse(localStorage.getItem('utilizator') || '{}');
   const token = localStorage.getItem('token') || '';
+  const [isDataFetched, setIsDataFetched] = useState(false);
+
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const apiUrl = `http://localhost:8192/exam/code=${courseExam}/idStudent=${user.id}`;
-        const response = await fetch(apiUrl, { headers: { Authorization: `Bearer ${token}`, } });
+         const response = await fetch(apiUrl, { headers: { Authorization: `Bearer ${token}`, } });
         const data = await response.json();
+
         setExamData(data);
 
         if (data && data.timeExam) {
-          setRemainingTime(data.timeExam*60);  
-        }
+            setRemainingTime(data.timeExam*60);  
+         }
       } catch (error) {
         console.error('Error fetching exam data:', error);
+      } finally{
+          setIsDataFetched(true); 
+
       }
     };
     fetchData();
   }, [courseExam]);
 
 
-
-  useEffect(() => {
-     const timer = setInterval(() => {
+useEffect(() => {
+  if (isDataFetched) {
+    const timer = setInterval(() => {
       setRemainingTime((prevTime) => {
         const updatedTime = prevTime - 1;
          if (updatedTime <= 0) {
           clearInterval(timer);
-          navigate('/ResultExam');  
           handleFinishMockExam();
+          navigate('/ResultExam');
         }
         return updatedTime;
       });
@@ -89,7 +96,10 @@ const Body: React.FC<{}> = () => {
     return () => {
       clearInterval(timer);
     };
-  }, [navigate, remainingTime]);
+  }
+}, [isDataFetched, navigate, remainingTime]);
+
+
 
 
 const handleChoiceSelect = (id: number) => {
@@ -181,7 +191,7 @@ const handleFinishMockExam = async () => {
       body: JSON.stringify(examData),
     });
 
-
+  
     if (response.ok) {
         console.log("Evaluation succeeded.");
 
@@ -195,7 +205,7 @@ const handleFinishMockExam = async () => {
 
 
 const formatTime = (time: number) => {
-  const hours = Math.floor(time / 60 / 60).toString().padStart(2, '0');
+   const hours = Math.floor(time / 60 / 60).toString().padStart(2, '0');
   const minutes = Math.floor((time / 60) % 60).toString().padStart(2, '0');
   const seconds = (time % 60).toString().padStart(2, '0');
   return `${hours}:${minutes}:${seconds}`;

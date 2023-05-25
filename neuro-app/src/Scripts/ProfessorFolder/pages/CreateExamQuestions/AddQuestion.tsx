@@ -121,7 +121,17 @@ const SelectEvaluationType: React.FC<{ onSelectEvaluationType: (evaluationType: 
         const evaluationType = event.target.value;
         setSelectedEvaluationType(evaluationType);
         onSelectEvaluationType(evaluationType);
+        localStorage.setItem('selectedEvaluationType', evaluationType);
     };
+
+    useEffect(() => {
+        const storedEvaluationType = localStorage.getItem('selectedEvaluationType');
+        if (storedEvaluationType) {
+            setSelectedEvaluationType(storedEvaluationType);
+        }
+    }, []);
+
+    
 
     return (
         <div className={styles.evaluationContainer}>
@@ -136,7 +146,7 @@ const SelectEvaluationType: React.FC<{ onSelectEvaluationType: (evaluationType: 
                     One wrong answer cancels one correct answer
                 </option>
                 <option className={styles.evaluationOption} value="Option 2">
-                    Two wrong answers cancel one correct answer
+                    One wrong answer cancels two correct answers
                 </option>
             </select>
         </div>
@@ -198,7 +208,10 @@ const AddQuestion: React.FC<{}> = () => {
                 // Examenul a fost creat cu succes
                 console.log('Examen creat!');
             
-
+                localStorage.removeItem('examName');
+                localStorage.removeItem('time');
+                localStorage.removeItem('examDate');
+                localStorage.removeItem('selectedEvaluationType');
                 navigate("/CreateAnExam");
             }
         } catch (error) {
@@ -222,22 +235,26 @@ const AddQuestion: React.FC<{}> = () => {
     const handleExamNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setExamName(event.target.value);
         setIsExamTitleValid(true);
+
+        localStorage.setItem('examName', event.target.value);
     };
 
     
     const handleTimeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const enteredTime = parseFloat(event.target.value);
+        const enteredTime = parseInt(event.target.value);
         if (enteredTime >= 0) {
             setTime(enteredTime);
             setIsTimeValid(true);
         } else {
             setIsTimeValid(false);
         }
+        localStorage.setItem('time', event.target.value);
     };
 
     const handleExamDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setExamDate(event.target.value);
         setIsExamDateValid(true);
+        localStorage.setItem('examDate', event.target.value);
     };
 
     const handleSubmit = (event: React.FormEvent) => {
@@ -357,10 +374,10 @@ const AddQuestion: React.FC<{}> = () => {
             answersQuestion: [],
         };
         setQuestionsMultipleChoice((prevQuestions) => [...prevQuestions, newQuestion]);
+        localStorage.setItem('questionsMultipleChoice', JSON.stringify([...questionsMultipleChoice, newQuestion]));
         if (lastQuestionRef.current) {
             lastQuestionRef.current.scrollIntoView({ behavior: 'smooth' });
         }
-
     };
 
 
@@ -373,6 +390,7 @@ const AddQuestion: React.FC<{}> = () => {
         };
         newQuestions[questionIndex].answersQuestion.push(newAnswer);
         setQuestionsMultipleChoice(newQuestions);
+        localStorage.setItem('questionsMultipleChoice', JSON.stringify(newQuestions));
     };
 
 
@@ -386,6 +404,7 @@ const AddQuestion: React.FC<{}> = () => {
                 setQuestionTextChangeValid(false);
             else
                 setQuestionTextChangeValid(true);
+            localStorage.setItem('questionsMultipleChoice', JSON.stringify(newQuestions));
             return newQuestions;
         });
 
@@ -400,6 +419,7 @@ const AddQuestion: React.FC<{}> = () => {
                 setQuestionTextLongValid(false);
             else
                 setQuestionTextLongValid(true);
+            localStorage.setItem('questionsLongResponse', JSON.stringify(newQuestions));
             return newQuestions;
         });
     };
@@ -417,6 +437,7 @@ const AddQuestion: React.FC<{}> = () => {
                 setAnswerTextValid(false);
             else
                 setAnswerTextValid(true);
+            localStorage.setItem('questionsMultipleChoice', JSON.stringify(newQuestions));
             return newQuestions;
         });
     };
@@ -430,6 +451,7 @@ const AddQuestion: React.FC<{}> = () => {
         setQuestionsMultipleChoice((prevQuestions) => {
             const newQuestions = [...prevQuestions];
             newQuestions[questionIndex].answersQuestion[answerIndex].correct = event.target.checked;
+            localStorage.setItem('questionsMultipleChoice', JSON.stringify(newQuestions));
             return newQuestions;
         });
     };
@@ -438,6 +460,8 @@ const AddQuestion: React.FC<{}> = () => {
         setQuestionsLongResponse((prevQuestions) => {
             const newQuestions = [...prevQuestions];
             newQuestions[questionIndex].expectedResponse = event.target.value;
+            localStorage.setItem('questionsLongResponse', JSON.stringify(newQuestions));
+
             return newQuestions;
         });
     };
@@ -448,6 +472,7 @@ const AddQuestion: React.FC<{}> = () => {
             setQuestionsMultipleChoice((prevQuestions) => {
                 const newQuestions = [...prevQuestions];
                 newQuestions.splice(questionIndex, 1);
+                localStorage.setItem('questionsMultipleChoice', JSON.stringify(newQuestions));
                 return newQuestions;
             });
         }
@@ -463,6 +488,7 @@ const AddQuestion: React.FC<{}> = () => {
                     (_, index) => index !== answerIndex
                 ),
             };
+            localStorage.setItem('questionsMultipleChoice', JSON.stringify(newQuestions));
             return newQuestions;
         });
     };
@@ -473,6 +499,7 @@ const AddQuestion: React.FC<{}> = () => {
             setQuestionsLongResponse((prevQuestions) => {
                 const newQuestions = [...prevQuestions];
                 newQuestions.splice(questionIndex, 1);
+                localStorage.setItem('questionsLongResponse', JSON.stringify(newQuestions));
                 return newQuestions;
             });
         }
@@ -483,6 +510,7 @@ const AddQuestion: React.FC<{}> = () => {
         const newQuestionsMultipleChoice = [...questionsMultipleChoice];
         newQuestionsMultipleChoice[questionIndex].points = value;
         setQuestionsMultipleChoice(newQuestionsMultipleChoice);
+        localStorage.setItem('questionsMultipleChoice', JSON.stringify(newQuestionsMultipleChoice));
 
     };
 
@@ -490,7 +518,42 @@ const AddQuestion: React.FC<{}> = () => {
         const newQuestionsLongResponse = [...questionsLongResponse];
         newQuestionsLongResponse[questionIndex].points = value;
         setQuestionsLongResponse(newQuestionsLongResponse);
+        localStorage.setItem('questionsLongResponse', JSON.stringify(newQuestionsLongResponse));
     };
+
+    useEffect(() => {
+        // Verifică dacă există valori salvate în localStorage
+        const savedExamName = localStorage.getItem('examName');
+        const savedTime = localStorage.getItem('time');
+        const savedExamDate = localStorage.getItem('examDate');
+
+
+        // Setează valorile în starea componentei dacă există
+        if (savedExamName) {
+            setExamName(savedExamName);
+        }
+        if (savedTime) {
+            setTime(parseInt(savedTime));
+        }
+        if (savedExamDate) {
+            setExamDate(savedExamDate);
+        }
+    }, []);
+    useEffect(() => {
+        const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+            // Afisează un mesaj de avertizare
+            event.preventDefault();
+            event.returnValue = 'The changes you made may not be saved.';
+        };
+
+        // Adaugă evenimentul pentru gestionarea înainte de a închide fereastra
+        window.addEventListener('beforeunload', handleBeforeUnload);
+
+        return () => {
+            // Elimină evenimentul atunci când componenta este demontată
+            window.removeEventListener('beforeunload', handleBeforeUnload);
+        };
+    }, []);
 
 
     return (
