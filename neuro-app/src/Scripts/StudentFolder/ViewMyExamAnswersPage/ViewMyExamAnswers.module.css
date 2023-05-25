@@ -1,0 +1,133 @@
+Body {
+    font-family: Outfit;
+}
+
+.bodyTitle {
+    font-family: Outfit;
+    font-weight: bold;
+    background-size: cover;
+    min-height: 10%;
+    width: auto;
+    height: auto;
+
+    padding-top: 1%;
+    padding-bottom: 1%;
+    text-align: center;
+    font-size: 3.4rem;
+
+    color: #C49C60;
+    background-color: #002f358f;
+    margin-top: 2rem;
+    margin-left: 4rem;
+    margin-right:4rem;
+    border-radius: 10px;
+
+    font-style: italic;
+}
+
+.questionAnswers {
+    margin-top: 20px;
+    margin-left: 5px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.questionAnswers ul label {
+    margin-top: 1rem;
+    margin-right: 2rem;
+    margin-left: 2rem;
+    padding-left: 2rem;
+    background-color: #bd9d6d;
+    border-radius: 10px;
+    font-size: 1.5rem;
+}
+
+.questionPart{
+
+    display: flex;
+    flex-direction: column;
+    margin-top: 2rem;
+    margin-left: 4rem;
+    margin-right:4rem;
+    background-color: #002F35;
+    border-radius: 10px;
+}
+
+.questionTitle{
+    font-size: 1.8rem;
+    background-color: #C49C60;
+    border-radius: 10px;
+    margin-top: 1rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    font-style: italic;
+}
+
+.choices, .textQuestionAnswers, .expectedResponse {
+    margin-top: 1rem;
+    margin-right: 2rem;
+    background-color: #bd9d6d;
+    border-radius: 10px;
+    font-size: 1.5rem;
+    padding-left: 1em;
+}
+
+.textQuestionAnswers, .expectedResponse{
+    margin-left: 2rem;
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+
+.expectedResponse {
+    background-color: #45f57d;
+}
+
+.correctAnswers {
+    margin-top: 1rem;
+    margin-right: 2rem;
+    background-color: #45f57d;
+    border-radius: 10px;
+    font-size: 1.5rem;
+    padding-left: 1em;
+    font-style: italic;
+    /* font-weight: bold; */
+}
+
+.yourAnswers, .yourScore {
+    margin-top: 1rem;
+    margin-right: 2rem;
+    margin-left: 2rem;
+    border-radius: 10px;
+    font-size: 1.5rem;
+    padding-left: 1em;
+    color: #C49C60;
+    font-style: italic;
+    font-weight: bold;
+}
+
+.loading{
+    font-size: 3rem;
+    text-align: center;
+    font-weight: bold;
+}
+
+.incorrectAnswer {
+  background-color: #fb2121;
+    margin-top: 1rem;
+    margin-right: 2rem;
+    border-radius: 10px;
+    font-size: 1.5rem;
+    padding-left: 1em;
+    font-style: italic;
+}
+
+.selectedAnswer {
+  font-weight: bold;
+}
+
+.boldText {
+    font-weight: bold;
+    font-style: italic;
+}

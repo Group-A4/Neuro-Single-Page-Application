@@ -1,0 +1,21 @@
+[
+    {
+       
+
+        "subject_title" : "Matematică",
+        "idProfessor": 52,
+        "duration": 120,
+        "date": "10.05.2023",
+        "points": 100
+
+
+    },
+    {
+        "subject_title": "Logică",
+        "idProfessor": 52,
+        "duration": 60,
+        "date": "24.05.2023",
+        "points": 100
+    }
+    
+]

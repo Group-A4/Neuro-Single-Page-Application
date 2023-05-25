@@ -1,0 +1,176 @@
+:root{
+    --default-color: rgba(30, 96, 250);
+    --default-bkg-color: rgba(30, 96, 250, 0.5);
+}
+
+.body {
+    margin: 0;
+    background-image: url("background-page.png");
+    min-height: 100%;
+    background-size: cover;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+
+}
+
+.input-file-container {
+    display: none;
+}
+
+.body--text {
+    box-sizing: border-box;
+    background: var(--default-bkg-color);
+    color: white;
+    margin-top: 3%;
+    padding: 2% 8%;
+    text-align: center;
+    font-weight: bold;
+    font-size: calc(22px + 1.0vw);
+    width: 100%;
+}
+
+
+.body--form{
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 3% 0;
+    padding: 1% 5%;
+}
+
+.body--drag-file-element{
+    margin: 0;
+    display: flex;  
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.body--content {
+    box-sizing: border-box;
+    min-height: 40%;
+    width: 70%;
+    margin: 0 20% 3%;
+    background-color: #c9c9c9;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 85px;
+
+    background-image: linear-gradient(90deg, var(--default-color) 50%, transparent 50%), linear-gradient(90deg, var(--default-color) 50%, transparent 50%), linear-gradient(0deg, var(--default-color) 50%, transparent 50%), linear-gradient(0deg, var(--default-color) 50%, transparent 50%);
+    background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
+    background-size: 25px 3px, 25px 3px, 3px 25px, 3px 25px;
+    background-position: left top, right bottom, left bottom, right   top;
+}
+
+.body--redirect{
+    width: fit-content;
+}
+
+.buttons--div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 50%;
+    padding-left: 20%;
+    padding-right: 20%;
+}
+
+.body--button--publish {
+    box-sizing: border-box;
+    background-color: var(--default-color);
+    border: solid var(--default-color);
+    margin: 0;
+    font-size: calc(10px + 1.0vw);
+    padding: 0.5% 0;
+    width: calc(60px + 5.0vw);
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+.body--button--back {
+  box-sizing: border-box;
+  background-color: var(--default-color);
+  border: solid var(--default-color);
+  margin: 0;
+  font-size: calc(10px + 1.0vw);
+  padding: 0.5% 0;
+  width: calc(60px + 5.0vw);
+  border-radius: 10px;
+  font-weight: bold;
+
+}
+
+.body--button{
+  box-sizing: border-box;
+  margin: 0;
+  font-size: calc(10px + 1.0vw);
+  padding: 0.5% 0;
+  width: calc(60px + 5.0vw);
+  border-radius: 10px;
+  font-weight: bold;
+
+}
+
+.body--content-text {
+    text-align: center;
+    color: var(--default-color);
+    font-size: calc(10px + 1.0vw);
+    height: 7rem;
+}
+
+
+.body--button--add {
+    box-sizing: border-box;
+    background-color: var(--default-color);
+    border: solid var(--default-color);
+    font-size: calc(10px + 1.0vw);
+    padding: 0.5% 0;
+    width: calc(60px + 5.0vw);
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+.body--button--add:hover, .body--button--publish:hover, .body--button--back:hover {
+    color: var(--default-color);
+    background-color: white;
+}
+
+.drag-active{
+    animation: border-dance 2s infinite linear;
+}
+
+
+  @keyframes border-dance {
+    0% {
+      background-position: left top, right bottom, left bottom, right   top;
+    }
+
+    25% {
+      background-position: left 25px top, right 25px bottom, left bottom 25px, right   top 25px;
+    }
+
+    50% {
+      background-position: left 50px top, right 50px bottom, left bottom 50px, right   top 50px;
+    }
+
+    75% {
+      background-position: left 75px top, right 75px bottom, left bottom 75px, right   top 75px;
+    }
+
+    100% {
+      background-position: left 100px top, right 100px bottom, left bottom 100px, right   top 100px;
+    }
+
+  }

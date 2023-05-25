@@ -1,0 +1,38 @@
+.body {
+    font-family: Outfit;
+    font-weight: bold;
+}
+
+.title {
+    min-height: 5%;
+    position: fixed;
+    width: 100%;
+    height: auto;
+
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+
+    margin-top: 5em;
+    position: relative;
+    text-align: center;
+    justify-content: center;
+
+    color: #C49C60;
+    background-color: rgba(0, 47, 53, 0.5);
+    font-size: 3.5rem;
+    font-style: italic;
+}
+
+@media (max-width:700px)
+{
+    .title{
+        font-size: calc(10px + 1.0vw);
+    }
+}
+
+@media (max-width:400px)
+{
+    .title{
+        font-size: calc(8px + 1.0vw);
+    }
+}

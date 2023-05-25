@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit&display=swap');
+
+ .examHeading {
+     font-size: 3em;
+     font-weight: bold;
+     font-family: 'Outfit';
+     color: #002F35;
+     margin-top: -0.5rem;     
+ }
+
+ .content {
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     justify-content: center;
+ }
+ .submitButton {
+     background-color: #002F35;
+     color: white;
+     padding: 10px 20px;
+     cursor: pointer;
+     border-radius: 5px;
+     margin-left: 10px;
+
+}
+
+ .submitButton:hover {
+     background-color: #011d27;
+  }
+
+ .error {
+      margin-top: 10px;
+      font-size: 1.5rem;
+ }
+
+ .inputField {
+     width: 200px;
+     padding: 10px;
+     border: 1px solid #ccc;
+     border-radius: 5px;
+ }
+
+ .inputField:focus {
+     outline: none;
+     border-color: #011d27;
+ }
+ 

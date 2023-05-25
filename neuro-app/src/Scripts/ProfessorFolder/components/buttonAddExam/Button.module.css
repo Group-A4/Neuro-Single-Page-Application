@@ -1,0 +1,24 @@
+.button--create {
+    background-color: #002F35;
+
+    /* text-align: center; */
+    font-size: calc(10px + 0.8vw);
+
+
+    width: fit-content;
+
+    padding: 0.8vw;
+    padding-left: 2.0vw;
+    padding-right: 2.0vw;
+
+    border-radius: 20px;
+    border-width: 1px;
+    border-color: black;
+    font-weight: bold;
+    /* float: right; */
+    /* margin-right: 8%; */
+}
+
+.button--create:hover {
+    background-color:#9dffd9;
+}
