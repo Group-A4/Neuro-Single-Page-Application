@@ -36,7 +36,7 @@ const goToExamAnswers = (examId: number) => {
   };
 
   useEffect(() => {
-    fetch("http://localhost:8192/exam/summarise/idStudent=45", {
+    fetch("http://localhost:8192/exam/summarise/idStudent= 219", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -54,7 +54,7 @@ const goToExamAnswers = (examId: number) => {
         setIsLoading(false);
       });
 
-    fetch("http://localhost:8192/exam/points/idStudent=45", {
+    fetch("http://localhost:8192/exam/points/idStudent= 219", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
