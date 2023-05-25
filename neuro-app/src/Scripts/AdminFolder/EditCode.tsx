@@ -97,8 +97,6 @@ const Body: React.FC<{}> = () => {
             <input type="text" id="newCode" name="newCode" value={formValues.newCode}  onChange={handleChange} />
             <br /><br />
             <input type="submit" value="Edit code" />
-            
-          
         </form>
       </div>
     </div>

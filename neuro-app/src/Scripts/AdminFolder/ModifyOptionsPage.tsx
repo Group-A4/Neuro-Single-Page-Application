@@ -50,6 +50,7 @@ const BodyStudent: React.FC<{}> = () => {
           <Link to='/EditCode'>
           <img className='button-category' src='images/AdminPageImages/edit-code-g.png' alt="" />
           </Link>
+          
         </div>
   );
 }
