@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./Body.module.css";
 import Nav from "../NavBarStudent/Nav";
 import { useNavigate } from "react-router-dom";
+import withAuth from "../../../WithAuth";
 
 interface ExamData {
   id: number;
@@ -21,6 +22,8 @@ interface ExamScoreData {
 }
 
 const Body: React.FC<{}> = () => {
+  const user = JSON.parse(localStorage.getItem('utilizator') || '{}');
+  const token = localStorage.getItem('token') || '';
   const navigate = useNavigate();
   const [exams, setExams] = useState<ExamData[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -36,10 +39,11 @@ const goToExamAnswers = (examId: number) => {
   };
 
   useEffect(() => {
-    fetch("http://localhost:8192/exam/summarise/idStudent= 219", {
+    fetch(`http://localhost:8192/exam/summarise/idStudent=${user.id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
       },
     })
       .then((response) => response.json())
@@ -54,10 +58,11 @@ const goToExamAnswers = (examId: number) => {
         setIsLoading(false);
       });
 
-    fetch("http://localhost:8192/exam/points/idStudent= 219", {
+    fetch(`http://localhost:8192/exam/points/idStudent=${user.id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
       },
     })
       .then((response) => response.json())
@@ -136,4 +141,4 @@ const MyResults: React.FC<{}> = () => {
   );
 };
 
-export default MyResults;
+export default withAuth(MyResults, [2]);
