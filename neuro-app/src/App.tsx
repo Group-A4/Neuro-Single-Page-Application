@@ -43,7 +43,6 @@ import ViewMaterial from "./Scripts/ProfessorFolder/pages/ViewMaterialPage/ViewM
 
 import ModifyOptionsPage from "./Scripts/AdminFolder/ModifyOptionsPage";
 import EditFirstNamePage from "./Scripts/AdminFolder/EditFirstNamePage";
-import EditCode from "./Scripts/AdminFolder/EditCode";
 import EditLastNamePage from "./Scripts/AdminFolder/EditLastNamePage";
 import EditUnivEmailPage from "./Scripts/AdminFolder/EditUnivEmailPage";
 import EditPersEmailPage from "./Scripts/AdminFolder/EditPersEmailPage";
@@ -122,7 +121,6 @@ function App(): JSX.Element {
       <Route path="EditUnivEmailPage" element={<EditUnivEmailPage />}></Route>
       <Route path="EditPersEmailPage" element={<EditPersEmailPage />}></Route>
       <Route path="EditPasswordPage" element={<EditPasswordPage />}></Route>
-      <Route path="EditCode" element={<EditCode />}></Route>
       <Route path="ModifyOptionsPage" element={<ModifyOptionsPage />}></Route>
       <Route path="ProfilePage" element={<ProfilePage />}></Route>
       <Route path="ChooseSubjects" element={<ChooseSubjects />}></Route>
