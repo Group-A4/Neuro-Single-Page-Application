@@ -49,48 +49,50 @@ const Body: React.FC<{}> = () => {
     setQuestions(updatedQuestions);
   };
 
-  const handleFinishMockExam = () => {
-    let totalQuestions = 0;
-    let correctAnswers = 0;
+const handleFinishMockExam = () => {
+  let totalQuestions = 0;
+  let correctAnswers = 0;
 
-    questions.forEach((question) => {
-      let correctCount = 0;
-      let chosenCount = 0;
+  questions.forEach((question) => {
+    let correctCount = 0;
+    let chosenCount = 0;
 
-      question.answersQuestion.forEach((answer) => {
-        if (answer.correct) {
-          correctCount++;
-          if (answer.chosen) {
-            chosenCount++;
-          }
-        }  
-    
-      });
-
-      if (correctCount > 0) {
-        totalQuestions++;
-        if (chosenCount > 0) {
-          correctAnswers += Math.max(chosenCount, 0) / correctCount;
+    question.answersQuestion.forEach((answer) => {
+      if (answer.correct) {
+        correctCount++;
+        if (answer.chosen) {
+          chosenCount++;
         }
-      } else if (chosenCount === 0) {
-        totalQuestions++;
-        correctAnswers += 1;
+      } else if (answer.chosen) {
+        chosenCount--;
       }
-
-      const score = correctCount === 0 ? 0 : Math.max(chosenCount, 0) / correctCount;
-      question.score = score.toFixed(2);
     });
 
-    const grade = totalQuestions > 0 ? (correctAnswers / totalQuestions) * 100 : 0;
-    const formattedGrade = grade.toFixed(2);
+    if (correctCount > 0) {
+      totalQuestions++;
+      correctAnswers += Math.max(chosenCount, 0) / correctCount;
+    } else if (chosenCount === 0 && correctCount === 0) {
+      totalQuestions++;
+      correctAnswers += 0;
+    } else if (chosenCount === 0) {
+      totalQuestions++;
+      correctAnswers += 1;
+    }
 
-     const state = {
-      questions,
-      grade: formattedGrade,
-    };
+    const score = correctCount === 0 ? 0 : Math.max(chosenCount, 0) / correctCount;
+    question.score = score.toFixed(2);
+  });
 
-     navigate('/ResultMockExam', { state });
+  const grade = totalQuestions > 0 ? (correctAnswers / totalQuestions) * 100 : 0;
+  const formattedGrade = grade.toFixed(2);
+
+  const state = {
+    questions,
+    grade: formattedGrade,
   };
+
+  navigate('/ResultMockExam', { state });
+};
 
   const apiUrl = 'http://localhost:8192/quizz/course=';
   const completeUrl = `${apiUrl}${courseId}`;
