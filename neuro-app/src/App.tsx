@@ -39,6 +39,8 @@ import CreateMaterial from "./Scripts/ProfessorFolder/pages/CreateMaterialPage/C
 import UpdateMaterial from "./Scripts/ProfessorFolder/pages/UpdateMaterialPage/UpdateMaterial";
 import ViewLectureMaterials from "./Scripts/ProfessorFolder/pages/ViewLectureMaterialsPage/ViewLectureMaterials";
 import ViewMaterial from "./Scripts/ProfessorFolder/pages/ViewMaterialPage/ViewMaterial";
+import ViewMaterialPageStudent from "./Scripts/StudentFolder/ViewMaterialPage/ViewMaterialPage";
+
 
 import ModifyOptionsPage from "./Scripts/AdminFolder/ModifyOptionsPage";
 import EditFirstNamePage from "./Scripts/AdminFolder/EditFirstNamePage";
@@ -86,6 +88,7 @@ function App(): JSX.Element {
       <Route path="ResultExam" element={<ResultExam />}></Route>
       <Route path="ViewMaterialsStudent" element={<ViewMaterialsStudent />}></Route>
       <Route path="ViewLectures/:courseId" element={<ViewLectures />} />
+      <Route path="ViewMaterialPageStudent/:lectureId" element={<ViewMaterialPageStudent />}></Route>
       <Route path="ProfileStudent" element={<ProfileStudent />} />
       <Route path="/" element={<Home />} />
 
