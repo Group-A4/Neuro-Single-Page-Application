@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import Nav from "../NavBarStudent/Nav";
 import styles from "./ViewMyExamAnswers.module.css";
 import "../QuestionMockExamPage/QuestionMockExamPage";
-import Frame from "../Components/Frame";
 import { useParams, Link, useNavigate } from 'react-router-dom';
+import withAuth from "../../../WithAuth";
 
 interface Answer {
   id: number;
@@ -50,12 +50,19 @@ interface Exam {
 const Body: React.FC<{}> = () => {
   const [exam, setExam] = useState<Exam | null>(null);
   const { examId } = useParams<{ examId: string }>();
+  const token = localStorage.getItem("token") || "";
+  const user = JSON.parse(localStorage.getItem("utilizator") || "{}");
 
   useEffect(() => {
     // Fetch data using the GET method
     fetch(
-       `http://localhost:8192/exam/viewExamResult/idExam=${examId}/idStudent=219`
-
+       `http://localhost:8192/exam/viewExamResult/idExam=${examId}/idStudent=${user.id}`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
     )
       .then((response) => response.json())
       .then((data) => setExam(data))
@@ -189,5 +196,5 @@ const ExamAnswers: React.FC<{}> = () => {
   );
 };
 
-export default ExamAnswers;
+export default withAuth(ExamAnswers, [2]);
 

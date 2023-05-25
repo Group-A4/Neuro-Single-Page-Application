@@ -40,6 +40,7 @@ import UpdateMaterial from "./Scripts/ProfessorFolder/pages/UpdateMaterialPage/U
 import ViewLectureMaterials from "./Scripts/ProfessorFolder/pages/ViewLectureMaterialsPage/ViewLectureMaterials";
 import ViewMaterial from "./Scripts/ProfessorFolder/pages/ViewMaterialPage/ViewMaterial";
 
+
 import ModifyOptionsPage from "./Scripts/AdminFolder/ModifyOptionsPage";
 import EditFirstNamePage from "./Scripts/AdminFolder/EditFirstNamePage";
 import EditCode from "./Scripts/AdminFolder/EditCode";

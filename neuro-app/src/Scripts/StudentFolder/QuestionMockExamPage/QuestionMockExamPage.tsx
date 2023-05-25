@@ -3,6 +3,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import Nav from '../NavBarStudent/Nav';
 import './QuestionMockExamPage.css';
 import Frame from '../Components/Frame';
+import withAuth from '../../../WithAuth';
 
 interface QuizQuestion {
   idCourse: number;
@@ -20,6 +21,7 @@ interface QuizAnswer {
 }
 
 const Body: React.FC<{}> = () => {
+  const token = localStorage.getItem('token') || '';
   const { courseId } = useParams<{ courseId: string }>();
   const [questions, setQuestions] = useState<QuizQuestion[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -101,7 +103,7 @@ const handleFinishMockExam = () => {
 
   useEffect(() => {
     const fetchQuestions = async () => {
-      const response = await fetch(completeUrl);
+      const response = await fetch(completeUrl, { headers: { Authorization: `Bearer ${token}` } });
       const data = await response.json();
       setQuestions(data);
       setLoading(false);
@@ -184,4 +186,4 @@ function Question() {
   );
 }
 
-export default Question;
+export default withAuth(Question, [2]);
