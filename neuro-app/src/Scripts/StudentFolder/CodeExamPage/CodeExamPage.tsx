@@ -22,6 +22,8 @@ const CodeExamPage: React.FC = () => {
     event.preventDefault();
      
     const apiUrl = `http://localhost:8192/exam/code=${codeExam}/idStudent=${user.id}`;
+  
+      console.log('first'+apiUrl);
     try {
       const response = await fetch(apiUrl, {
         method: 'GET',
@@ -37,9 +39,9 @@ const CodeExamPage: React.FC = () => {
         setErrorMessage('You have already given this exam.');}
        else if (response.status === 404) {
          setErrorMessage('The exam code introduced is not valid.');
- 
-  } else {
-    navigate(`/QuestionTextPage/${codeExam}`);
+      } 
+        else {
+           navigate(`/QuestionTextPage/${codeExam}`);
   }
     } catch (error) {
       console.error('An error occurred:', error);
