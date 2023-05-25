@@ -1,6 +1,8 @@
 import React from 'react'
 import { useState } from "react";
 import styles from './Body.module.css'
+import withAuth from '../../../../WithAuth';
+
 type Answer ={
     id: number;
     text: string;
@@ -106,4 +108,6 @@ const Questions:  React.FC<{}> = () => {
     </div>
   );
 };
-export default Questions;
+
+
+export default withAuth(Questions, [1]);

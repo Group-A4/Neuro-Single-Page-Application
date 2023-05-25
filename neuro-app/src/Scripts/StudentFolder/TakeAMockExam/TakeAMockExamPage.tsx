@@ -18,33 +18,35 @@ const Body: React.FC<{}> = () => {
     const token = localStorage.getItem('token') || '';
 
     const navigate = useNavigate();
-    const goToTakeExam = (courseId : number) => {
-        navigate(`/QuestionMockExam/${courseId}`); 
-      };
+    const goToTakeExam = (courseId: number) => {
+        navigate(`/QuestionMockExam/${courseId}`);
+    };
 
     const [courses, setCourses] = useState<Course[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
+
 
     useEffect(() => {
-       const fetchData = async () => {
-        const response = await fetch(`http://localhost:8192/courses/student=${user.id}`,
-            { headers: { 'Authorization': `Bearer ${token}` } });
+    const fetchData = async () => {
+        const response = await fetch(`http://localhost:8192/courses/student=${user.id}`, { headers: { 'Authorization': `Bearer ${token}` } });
         const data = await response.json();
         setCourses(data);
-      };
-      fetchData();
-    }, []);
+        setIsLoading(false);
+    };
+    fetchData();
+}, []);
 
     return (
         <>
             <div className={styles['body--container']}>
                 <div className={styles['column']}>
                     <div className={styles['body--title']}>
-                            Let’s prepare you for exams!
+                        Let’s prepare you for exams!
                     </div>
                 </div>
                 <div className={styles['column']}>
                     <div className={styles['body--subtitle']}>
-                            {courses.length > 0 ? 'Subjects: ': 'Loading...'}
+                          {isLoading ? 'Loading...' : (courses.length > 0 ? 'Subjects: ' : 'No courses available.')}
                     </div>
                 </div>
 
@@ -52,19 +54,19 @@ const Body: React.FC<{}> = () => {
                     <div className={styles['body--line']}></div>
                 </div>
 
-                {courses.map(course => (
+            {Array.isArray(courses) && courses.length > 0 && courses.map(course => (
                   <div className={styles['course-container']} key={course.title}>
-                    <div className={styles['course-title']}>
-                        {course.title}
-                    </div>
-                    <button  onClick={() => goToTakeExam(course.id)}>Start</button>
-                  </div>
-                ))}
+                  <div className={styles['course-title']}>
+            {course.title}
+            </div>
+
+              <button onClick={() => goToTakeExam(course.id)}>Start</button>
+             </div>
+            ))}
             </div>
         </>
     )
 }
-
 
 const TakeAMockExam: React.FC<{}> = () => {
     return (
@@ -73,8 +75,6 @@ const TakeAMockExam: React.FC<{}> = () => {
                 <Nav />
                 <Body />
             </body>
-
-            
         </>
     );
 }

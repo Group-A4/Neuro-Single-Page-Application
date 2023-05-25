@@ -58,7 +58,7 @@ const CreateProfessor = () => {
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
-      console.log("Crearea contului a fost realizata cu succes!");
+      alert("Account has been successfully created!");
       return response.text();
     })
     .then(text => {

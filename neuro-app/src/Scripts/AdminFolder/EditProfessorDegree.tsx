@@ -17,8 +17,9 @@ const Body: React.FC<{}> = () => {
     const inputRef = useRef<HTMLInputElement>(null);
     const [defaultValueObject, setDefaultValueObject] = useState<{ degree: string } | null>(null);
 
+
     useEffect(() => {
-        var defaultValue = localStorage.getItem('userDataModify');
+        var defaultValue = localStorage.getItem('profDataModify');
         if (defaultValue !== null) {
             var parsedDefaultValue = JSON.parse(defaultValue);
             setDefaultValueObject(parsedDefaultValue);
@@ -45,17 +46,17 @@ const Body: React.FC<{}> = () => {
         event.preventDefault();
         setFormValues((prevFormValues: FormValues) => ({ ...prevFormValues, submitted: true }));
 
-        var defaultValue = localStorage.getItem('userDataModify');
+        var defaultValue = localStorage.getItem('profDataModify');
         if (defaultValue !== null) {
             var parsedDefaultValue = JSON.parse(defaultValue);
-            parsedDefaultValue.lastName = formValues.newDegree;
-            localStorage.setItem('userDataModify', JSON.stringify(parsedDefaultValue));
+            parsedDefaultValue.degree = formValues.newDegree;
+            localStorage.setItem('profDataModify', JSON.stringify(parsedDefaultValue));
         }
 
         var idUs = localStorage.getItem('userToModify');
         const degreeData = async () => {
             try {
-                const response = await fetch(`http://localhost:8192/users/update/${idUs}`, {
+                const response = await fetch(`http://localhost:8192/professors/update/${idUs}`, {
                     method: 'PUT',
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('token')}`,
