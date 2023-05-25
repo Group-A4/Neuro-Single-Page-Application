@@ -61,4 +61,4 @@ function EditPassword() {
   );
 }
 
-export default WithAuth(EditPassword, [0]);
+export default WithAuth(EditPassword, [0,1,2]);
