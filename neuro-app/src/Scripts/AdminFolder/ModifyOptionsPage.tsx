@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Nav from './NavBarAdmin/Nav';
 import "./ModifyOptions.css";
@@ -5,27 +6,26 @@ import WithAuth from "../../WithAuth";
 
 const BodyAdmin: React.FC<{}> = () => {
   return (
-      <div className='edit-options-container'>
+    <div className='edit-options-container'>
       <Link to='/EditFirstNamePage'>
-          <img className='button-category' src='images/AdminPageImages/first-name.png' alt="" />
-        </Link>
-        <Link to='/EditLastNamePage'>
-          <img className='button-category' src='images/AdminPageImages/last-name.png' alt="" />
-        </Link>
-          <Link to='/EditUnivEmailPage'>
-          <img className='button-category'src='images/AdminPageImages/univ-email.png' alt=""  />
-          </Link>
-          <Link to='/EditPersEmailPage'>
-          <img className='button-category' src='images/AdminPageImages/pers-email.png' alt="" />
-          </Link>
-        </div>
+        <img className='button-category' src='images/AdminPageImages/first-name.png' alt="" />
+      </Link>
+      <Link to='/EditLastNamePage'>
+        <img className='button-category' src='images/AdminPageImages/last-name.png' alt="" />
+      </Link>
+      <Link to='/EditUnivEmailPage'>
+        <img className='button-category' src='images/AdminPageImages/univ-email.png' alt="" />
+      </Link>
+      <Link to='/EditPersEmailPage'>
+        <img className='button-category' src='images/AdminPageImages/pers-email.png' alt="" />
+      </Link>
+    </div>
   );
 }
 
-
 const BodyStudent: React.FC<{}> = () => {
   return (
-      <div className='edit-student-options-container'>
+    <div className='edit-student-options-container'>
       <Link to='/EditFirstNamePage'>
           <img className='button-category' src='images/AdminPageImages/first-name.png' alt="" />
         </Link>
@@ -52,82 +52,91 @@ const BodyStudent: React.FC<{}> = () => {
           </Link>
           
         </div>
+
   );
 }
 
 const BodyProfessor: React.FC<{}> = () => {
   return (
-      <div className='edit-professor-container'>
+    <div className='edit-professor-container'>
       <Link to='/EditFirstNamePage'>
-          <img className='button-category' src='images/AdminPageImages/first-name.png' alt="" />
-        </Link>
-        <Link to='/EditLastNamePage'>
-          <img className='button-category' src='images/AdminPageImages/last-name.png' alt="" />
-        </Link>
-          <Link to='/EditUnivEmailPage'>
-          <img className='button-category'src='images/AdminPageImages/univ-email.png' alt=""  />
-          </Link>
-          <Link to='/EditPersEmailPage'>
-          <img className='button-category' src='images/AdminPageImages/pers-email.png' alt="" />
-          </Link>
-          <Link to='/EditProfessorDegree'>
-          <img className='button-category' src='images/AdminPageImages/edit-degree.png' alt="" />
-          </Link>
-          <Link to='/EditCode'>
+        <img className='button-category' src='images/AdminPageImages/first-name.png' alt="" />
+      </Link>
+      <Link to='/EditLastNamePage'>
+        <img className='button-category' src='images/AdminPageImages/last-name.png' alt="" />
+      </Link>
+      <Link to='/EditUnivEmailPage'>
+        <img className='button-category' src='images/AdminPageImages/univ-email.png' alt="" />
+      </Link>
+      <Link to='/EditPersEmailPage'>
+        <img className='button-category' src='images/AdminPageImages/pers-email.png' alt="" />
+      </Link>
+      <Link to='/EditProfessorDegree'>
+        <img className='button-category' src='images/AdminPageImages/edit-degree.png' alt="" />
+      </Link>
+      <Link to='/EditCode'>
           <img className='button-category' src='images/AdminPageImages/edit-code-y.png' alt="" />
-          </Link>
-        </div>
+      </Link>
+    
+    </div>
   );
 }
 
 function AdminPage() {
+  const [rolul, setRolul] = useState<number | undefined>(undefined);
 
-  var idUs = localStorage.getItem('userToModify');
-  var rolul;
-  const fetchUsers = async () => {
-    try {
-      const response = await fetch(`http://localhost:8192/users/${idUs}`, {
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`,
-          'Access-Control-Allow-Origin': '*'
+  useEffect(() => {
+    const idUs = localStorage.getItem('userToModify');
+    const fetchUsers = async () => {
+      try {
+        const response = await fetch(`http://localhost:8192/users/${idUs}`, {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            'Access-Control-Allow-Origin': '*'
+          }
+        });
+
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
         }
-      });
 
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
+        const data = await response.json();
+        setRolul(data.role);
+        localStorage.setItem('userDataModify', JSON.stringify(data));
+      } catch (error) {
+        console.error(error);
       }
+    };
 
-      const data = await response.json();
-      rolul = data.role;
-      localStorage.setItem('userDataModify', JSON.stringify(data));
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  fetchUsers();
+    fetchUsers();
+  }, []);
 
-  ///profesor
-  if(rolul == 1)
-    return (
+  const renderContent = () => {
+    if (rolul === 1) {
+      return (
         <div>
-            <Nav />
-            <BodyProfessor  />
+          <Nav />
+          <BodyProfessor />
         </div>
-    );
-  else if(rolul == 2)
-    return (
-      <div>
+      );
+    } else if (rolul === 2) {
+      return (
+        <div>
           <Nav />
           <BodyStudent />
-      </div>
-    );
-  else
-  return (
-    <div>
-        <Nav />
-        <BodyAdmin  />
-    </div>
-  );
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <Nav />
+          <BodyAdmin />
+        </div>
+      );
+    }
+  };
+
+  return renderContent();
 }
 
 export default WithAuth(AdminPage, [0]);
