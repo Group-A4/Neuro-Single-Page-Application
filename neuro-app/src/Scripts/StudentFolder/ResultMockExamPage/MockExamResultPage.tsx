@@ -55,9 +55,15 @@ const Body: React.FC<{}> = () => {
                 {question.answersQuestion.map((answer, answerIndex) => (
                   <li
                     key={answerIndex}
-                    className={
-                      answer.correct ? styles.correctAnswers : styles.choices
-                    }
+                      className={`${
+                            answer.correct
+                              ? styles.correctAnswers
+                              : answer.chosen
+                              ? styles.incorrectAnswer
+                              : styles.choices
+                          } ${
+                            answer.chosen ? styles.selectedAnswer : ""
+                          }`}
                   >
                     {String.fromCharCode(97 + answerIndex)}. {answer.answerText}
                   </li>

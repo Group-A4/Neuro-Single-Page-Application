@@ -278,17 +278,16 @@ h3 {
     border-radius: 10px;
     margin-left: 10%;
 }
-
-input {
+ /* input {
     font-size: calc(16px + 1.0vw);
 
 }
 
-label {
+ label {
     margin-right: 0%;
     font-size: calc(16px + 1.0vw);
 
-}
+}    */
 
 .error {
     color: red;

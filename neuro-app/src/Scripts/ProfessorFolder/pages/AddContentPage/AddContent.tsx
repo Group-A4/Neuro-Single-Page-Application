@@ -3,6 +3,7 @@ import styles from "./AddContent.module.css";
 import { Link } from "react-router-dom";
 import { SERVER_ADDRESS } from "../../../../config/config";
 import { useDropzone } from "react-dropzone";
+import withAuth from "../../../../WithAuth";
 
 interface FormValues {
   fileName: string;
@@ -14,11 +15,14 @@ interface FormValues {
 const initialValues: FormValues = {
   fileName: "",
   contentFile: new File([], ""),
-  professorId: 53,
+  professorId: -1,
   submitted: false,
 };
 
 const ContentInput: React.FC<{}> = () => {
+  const user = JSON.parse(localStorage.getItem('utilizator') || '{}');
+  const token = localStorage.getItem('token');
+
   const [formValues, setFormValues] = React.useState<FormValues>(initialValues);
   const [message, setMessage] = React.useState<string>("");
   const [uploadStatus, setUploadStatus] = React.useState<"idle" | "pending" | "success" | "error">("idle");
@@ -29,6 +33,7 @@ const ContentInput: React.FC<{}> = () => {
       ...prevFormValues,
       contentFile: file,
       fileName: file.name,
+      professorId: user.id,
     }));
   }, []);
 
@@ -51,6 +56,9 @@ const ContentInput: React.FC<{}> = () => {
 
     fetch(url, {
       method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
       body: formData,
     })
       .then((response) => {
@@ -140,4 +148,4 @@ const ContentInput: React.FC<{}> = () => {
   );
 };
 
-export default ContentInput;
+export default withAuth(ContentInput, [1]);

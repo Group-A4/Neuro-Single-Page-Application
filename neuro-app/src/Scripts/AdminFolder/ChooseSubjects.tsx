@@ -4,6 +4,7 @@ import Nav from "./NavBarAdmin/Nav";
 import "./ChooseSubjects.css";
 
 interface User {
+  id: number;
   title: string;
   year: number;
   semester: number;
@@ -36,14 +37,14 @@ function ChooseSubjects() {
     fetchUsers();
   }, []);
 
-  const handleModify = (userId: string) => {
+  const handleModify = (userId: number) => {
     
     localStorage.setItem('subjectToModify', userId.toString());
 
   }
 
-  const handleDeleteUser = (userId: string) => {
-    const updatedUsers = users.filter((user) => user.title !== userId);
+  const handleDeleteUser = (userId: number) => {
+    const updatedUsers = users.filter((user) => user.id !== userId);
     setUsers(updatedUsers);
 
     
@@ -82,14 +83,14 @@ function ChooseSubjects() {
                 <div className="buttons">
                   <Link to="/ModifySubjectsOptions">
                     <button className="modify-button"
-                    onClick={() => handleModify(user.title)}
-                    >Modify account</button>
+                    onClick={() => handleModify(user.id)}
+                    >Modify subject</button>
                   </Link>
                   <button
                     className="delete-button"
-                    onClick={() => handleDeleteUser(user.title)}
+                    onClick={() => handleDeleteUser(user.id)}
                   >
-                    Delete account
+                    Delete subject
                   </button>
                 </div>
               </div>
