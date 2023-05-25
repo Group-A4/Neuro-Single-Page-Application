@@ -1,16 +1,16 @@
 import React from 'react';
 import styles from './Body.module.css';
 import { useState, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import photo_option from './dots.png';
 import withAuth from '../../../../WithAuth';
 
 interface ScrollBlackProps {
   idExam?: number | null;
-  code?: string | null;
+  codeExam?: string | null;
 }
 
-const ScrollBlack: React.FC<ScrollBlackProps> = ({ idExam,code }) => {
+const ScrollBlack: React.FC<ScrollBlackProps> = ({ idExam, codeExam }) => {
   const [open, setOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const token = localStorage.getItem('token');
@@ -18,6 +18,12 @@ const ScrollBlack: React.FC<ScrollBlackProps> = ({ idExam,code }) => {
     setOpen(!state);
   };
   console.log(open, dropdownRef.current);
+
+  const navigate = useNavigate();
+
+  const handleEditQuestions = () => {
+    navigate('/EditQuestions', { state: { prop1: codeExam } });
+  };
 
   const handleClickOutsideDropDown = (e: any) => {
     if (open && !dropdownRef.current?.contains(e.target as Node))
@@ -35,6 +41,7 @@ const ScrollBlack: React.FC<ScrollBlackProps> = ({ idExam,code }) => {
       } catch (error) {
         console.log('Error deleting exam:', error);
       }
+      window.location.reload();
     }
   };
 
@@ -47,8 +54,9 @@ const ScrollBlack: React.FC<ScrollBlackProps> = ({ idExam,code }) => {
       </button>
       {open && (
         <ul>
+
           <li>
-            <Link to="/EditQuestions">Edit</Link>
+            <div className={styles.edit} onClick={handleEditQuestions}>Edit</div>
           </li>
           <li>
             <a href="" onClick={handleDeleteExam}>
