@@ -17,8 +17,9 @@ const Body: React.FC<{}> = () => {
     const inputRef = useRef<HTMLInputElement>(null);
     const [defaultValueObject, setDefaultValueObject] = useState<{ birthdate: string } | null>(null);
 
+
     useEffect(() => {
-        var defaultValue = localStorage.getItem('userDataModify');
+        var defaultValue = localStorage.getItem('studentDataModify');
         if (defaultValue !== null) {
             var parsedDefaultValue = JSON.parse(defaultValue);
             setDefaultValueObject(parsedDefaultValue);
@@ -27,7 +28,8 @@ const Body: React.FC<{}> = () => {
 
     useEffect(() => {
         if (inputRef.current && defaultValueObject) {
-            inputRef.current.value = defaultValueObject.birthdate.toString();
+            
+            inputRef.current.value = defaultValueObject.birthdate;
         }
     }, [defaultValueObject]);
 
@@ -45,17 +47,17 @@ const Body: React.FC<{}> = () => {
         event.preventDefault();
         setFormValues((prevFormValues: FormValues) => ({ ...prevFormValues, submitted: true }));
 
-        var defaultValue = localStorage.getItem('userDataModify');
+        var defaultValue = localStorage.getItem('studentDataModify');
         if (defaultValue !== null) {
             var parsedDefaultValue = JSON.parse(defaultValue);
-            parsedDefaultValue.lastName = formValues.newBirthdate;
-            localStorage.setItem('userDataModify', JSON.stringify(parsedDefaultValue));
+            parsedDefaultValue.birthDate = formValues.newBirthdate;
+            localStorage.setItem('studentDataModify', JSON.stringify(parsedDefaultValue));
         }
 
         var idUs = localStorage.getItem('userToModify');
         const birthdateData = async () => {
             try {
-                const response = await fetch(`http://localhost:8192/users/update/${idUs}`, {
+                const response = await fetch(`http://localhost:8192/students/update/${idUs}`, {
                     method: 'PUT',
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -85,11 +87,6 @@ const Body: React.FC<{}> = () => {
         <div>
             <div className="center-bubble">
                 <form onSubmit={handleSubmit}>
-
-                    <label htmlFor="default-birthdate">Current birthdate:</label>
-                    <br />
-                    <input  type="date" id="default-birthdate" name="default-birthdate" onChange={handleChange} ref={inputRef} readOnly />
-                    <br /><br />
                     <label htmlFor="newBirthdate">New birthdate:</label>
                     <br />
                     <input  type="date" id="newBirthdate" name="newBirthdate" value={formValues.newBirthdate} onChange={handleChange} />

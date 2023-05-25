@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './ProfilePage.module.css';
 import Nav from '../NavBarStudent/Nav';
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import withAuth from '../../../WithAuth';
 
 type Student ={
   id: number;
@@ -17,13 +16,16 @@ type Student ={
 }
 
 const Body: React.FC<{}> = () => {
+  const user = JSON.parse(localStorage.getItem('utilizator') || '{}');
+  const token = localStorage.getItem('token') || '';
 
   const [student, setStudent] = useState<Student | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:8192/students/210');
+        const response = await fetch(`http://localhost:8192/students/${user.id}`,
+          { headers: { Authorization: `Bearer ${token}`, } });
         const data = await response.json();
         setStudent(data);
       } catch (error) {
@@ -76,4 +78,4 @@ const ProfileStudent: React.FC<{}> = () => {
     );
 }
 
-export default ProfileStudent;
+export default withAuth(ProfileStudent, [2]);

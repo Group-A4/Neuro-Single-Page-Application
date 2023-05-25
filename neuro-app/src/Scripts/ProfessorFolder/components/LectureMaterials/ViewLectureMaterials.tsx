@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './LectureMaterials.module.css';
-import Nav from '../nav/Nav';
+import NavProf from '../nav/Nav';
+import NavStud from '../../../StudentFolder/NavBarStudent/Nav';
 import { SERVER_ADDRESS } from '../../../../config/config';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -68,7 +69,8 @@ const ViewLessonMaterials: React.FC<Props> = ({ id_lecture }) => {
 
   return (
     <>
-      <Nav />
+      {user.role === 1 && <NavProf />}
+      {user.role === 2 && <NavStud />}
       <body className={styles['body']}>
         <div className={styles['body--text']}>
           <p className={styles['p-style']}>

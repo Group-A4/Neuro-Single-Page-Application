@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import Nav from '../NavBarStudent/Nav';
 import Frame from '../Components/Frame';
+import withAuth from '../../../WithAuth';
  
 
 interface Exam {
@@ -49,12 +50,14 @@ const Body: React.FC<{}> = () => {
   const [selectedChoices, setSelectedChoices] = useState<{ [key: number]: boolean }>({});
   const [inputAnswers, setInputAnswers] = useState<{ [key: number]: string }>({});
   const [remainingTime, setRemainingTime] = useState<number>(0);
+  const user = JSON.parse(localStorage.getItem('utilizator') || '{}');
+  const token = localStorage.getItem('token') || '';
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const apiUrl = 'http://localhost:8192/exam/code=' + courseExam + '/idStudent=219';
-        const response = await fetch(apiUrl);
+        const apiUrl = `http://localhost:8192/exam/code=${courseExam}/idStudent=${user.id}`;
+        const response = await fetch(apiUrl, { headers: { Authorization: `Bearer ${token}`, } });
         const data = await response.json();
         setExamData(data);
 
@@ -167,8 +170,7 @@ const handleInputAnswer = (answer: string, id: number) => {
 
 const handleFinishMockExam = async () => {
   try {
-    const apiUrl = 'http://localhost:8192/exam/evaluate/idStudent=219';
-    const token = localStorage.getItem('token');
+    const apiUrl = `http://localhost:8192/exam/evaluate/idStudent=${user.id}`;
     const response = await fetch(apiUrl, {
       method: 'POST',
       headers: {
@@ -305,4 +307,4 @@ function QuestionTextPage() {
   );
 }
 
-export default QuestionTextPage;
+export default withAuth(QuestionTextPage, [2]);

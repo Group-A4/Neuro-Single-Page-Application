@@ -40,6 +40,7 @@ import UpdateMaterial from "./Scripts/ProfessorFolder/pages/UpdateMaterialPage/U
 import ViewLectureMaterials from "./Scripts/ProfessorFolder/pages/ViewLectureMaterialsPage/ViewLectureMaterials";
 import ViewMaterial from "./Scripts/ProfessorFolder/pages/ViewMaterialPage/ViewMaterial";
 
+
 import ModifyOptionsPage from "./Scripts/AdminFolder/ModifyOptionsPage";
 import EditFirstNamePage from "./Scripts/AdminFolder/EditFirstNamePage";
 import EditCode from "./Scripts/AdminFolder/EditCode";
@@ -67,6 +68,9 @@ import SelectCreateAccount from "./Scripts/AdminFolder/SelectCreateAccount";
 import CreateAdmin from "./Scripts/AdminFolder/CreateAdmin";
 import CreateProfessor from "./Scripts/AdminFolder/CreateProfessor";
 import CreateStudent from "./Scripts/AdminFolder/CreateStudent";
+import EditStudentCode from "./Scripts/AdminFolder/EditStudentCode";
+import EditProfessorCode from "./Scripts/AdminFolder/EditProfessorCode";
+
 
 function App(): JSX.Element {
   return (
@@ -137,6 +141,8 @@ function App(): JSX.Element {
       <Route path="CreateAdmin" element={<CreateAdmin />}></Route>
       <Route path="CreateProfessor" element={<CreateProfessor />}></Route>
       <Route path="CreateStudent" element={<CreateStudent />}></Route>
+      <Route path="EditStudentCode" element={<EditStudentCode />}></Route>
+      <Route path="EditProfessorCode" element={<EditProfessorCode />}></Route>
 
 
       <Route path="modifyquizztime" element={<ModifyQuizzTime />}></Route>
