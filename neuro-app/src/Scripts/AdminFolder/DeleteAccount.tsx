@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Nav from "./NavBarAdmin/Nav";
-import "./DeleteAccount.css"
+import "./DeleteAccount.css";
+import WithAuth from "../../WithAuth";
 
 interface FormValues {
     id: string;
@@ -75,4 +76,4 @@ function DeleteAccount (){
     )   
 }
 
-export default DeleteAccount;
+export default WithAuth(DeleteAccount, [0]);

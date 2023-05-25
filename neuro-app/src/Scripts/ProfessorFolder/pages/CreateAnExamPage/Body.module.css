@@ -1,4 +1,5 @@
 .body {
+    background-image: url("Background.png");
     background-color: #CFCFCF;
     min-height: 100%;
     background-size: cover;
@@ -160,8 +161,8 @@ table {
 
 th,
 td {
-    padding: 15px;
-    background-color: rgba(255, 255, 255, 0.2);
+    /* padding: 15px; */
+    background-color: white;
     color: black;
 }
 
@@ -173,6 +174,7 @@ thead th {
     color: white;
     background-color: #005863;
 }
+
 
 tbody tr:hover {
     background-color: rgba(255, 255, 255, 0.3);
@@ -212,39 +214,17 @@ tbody div td:hover:before {
 
 
 .body--img {
-
+    width: 20px;
     margin: 0;
     padding: 0;
-    margin-left: -2.9vw;
+    /* margin-left: -2.9vw; */
     margin-top: 10px;
 }
 
-@media only screen and (max-width:600px) {
+@media only screen and (max-width:988px) {
 
     table {
-        width: calc(20.0vw);
-    }
-
-    th,
-    td {
-        font-size: 15px;
-    }
-
-
-    .body--img {
-
-        margin: 0;
-        padding: 0;
-        margin-left: -4.9vw;
-        margin-top: 10px;
-    }
-}
-
-@media only screen and (max-width:420px) {
-
-
-    table {
-        width: calc(12.0vw);
+        width: calc(15.0vw);
     }
 
     th,
@@ -260,4 +240,43 @@ tbody div td:hover:before {
         margin-left: -4.9vw;
         margin-top: 10px;
     }
+}
+
+@media only screen and (max-width:780px) {
+
+
+    table {
+        width: calc(8.0vw);
+    }
+
+    th,
+    td {
+        font-size: 10px;
+        padding: 0px;
+    }
+
+
+    .body--img {
+
+        margin: 0;
+        padding: 0;
+        /* margin-left: -4.9vw; */
+        margin-top: 10px;
+    }
+}
+
+.last--td button{
+    margin: 0;
+    text-align: center;
+    width: 100px;
+    font-size: calc(8px + 1vw);
+}
+
+
+.button-start {
+    background-color: green;
+}
+
+.button-stop {
+    background-color: red;
 }

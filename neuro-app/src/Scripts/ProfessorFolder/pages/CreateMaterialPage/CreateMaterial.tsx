@@ -9,6 +9,9 @@ import Nav from '../../components/nav/Nav';
 import { renderToString } from 'react-dom/server';
 import { SERVER_ADDRESS } from "../../../../config/config";
 import withAuth from "../../../../WithAuth";
+import {useLocation} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from "react";
 
 interface FormValues {
     idLecture: number;
@@ -20,7 +23,7 @@ interface FormValues {
 }
 
 const initialFormValues: FormValues = {
-    idLecture: 1,
+    idLecture: -1,
     idProfessor: -1,
     title: "",
     markdownText: "",
@@ -34,11 +37,22 @@ const initialFormValues: FormValues = {
 const Markdown = () =>{
     const user = JSON.parse(localStorage.getItem('utilizator') || '{}');
     const token = localStorage.getItem('token');
+    const navigate = useNavigate();
+
+    const lectureId = useLocation().state?.lectureId;
+
+    useEffect(() => {
+        if(!lectureId){
+            navigate('/');
+        }
+    }, [lectureId, navigate]);
+
 
     const filesName = useGetContents(user.id).map(content => content.name);
 
     const [formValues, setFormValues] = useState<FormValues>(initialFormValues);
     formValues.idProfessor = user.id;
+    formValues.idLecture = Number(lectureId);
 
     const markdownParser = new MarkdownParser("neuroapi", "professor" + formValues.idProfessor, filesName);
 
@@ -85,7 +99,7 @@ const Markdown = () =>{
                 }
                 console.log("Crearea materialului a fost realizata cu succes!");
                 if (response.status === 201) {
-                    window.location.href = "/viewLectureMaterials";
+                    navigate('/viewLectureMaterials', { state: { lectureId: formValues.idLecture } });
                 }
                 return response.text();
             })

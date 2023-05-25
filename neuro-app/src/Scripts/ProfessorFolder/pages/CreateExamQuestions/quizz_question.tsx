@@ -5,6 +5,7 @@ import Header from './header'
 //import { Link } from "react-router-dom";
 
 interface MultipleChoice {
+  id: number;
   idProfessor: number;
   questionText: string;
   points: number;
@@ -12,6 +13,7 @@ interface MultipleChoice {
 }
 
 interface MultipleChoiceAnswers {
+  id: number;
   answerText: string;
   correct: boolean;
 }
@@ -22,16 +24,27 @@ interface LongResponse {
   points: number;
   expectedResponse: string;
 }
+interface Quizz_questionProps {
+  questionsMultipleChoice: MultipleChoice[];
+  questionsLongResponse: LongResponse[];
+  setQuestionsMultipleChoice: (questionsMultipleChoice: MultipleChoice[]) => void;
+  setQuestionsLongResponse: (questionsLongResponse: LongResponse[]) => void;
+}
 
-
-const Quizz_question: React.FC<{}> = () => {
-  
-  const [questionsMultipleChoice, setQuestionsMultipleChoice] = useState<MultipleChoice[]>([]);
-  const [questionsLongResponse, setQuestionsLongResponse] = useState<LongResponse[]>([]); 
+const Quizz_question: React.FC<Quizz_questionProps> = ({
+  questionsMultipleChoice: propQuestionsMultipleChoice,
+  questionsLongResponse: propQuestionsLongResponse,
+  setQuestionsMultipleChoice: propSetQuestionsMultipleChoice,
+  setQuestionsLongResponse: propSetQuestionsLongResponse,
+}) => {
+  const [questionsMultipleChoice, setQuestionsMultipleChoice] = useState<MultipleChoice[]>(propQuestionsMultipleChoice);
+  const [questionsLongResponse, setQuestionsLongResponse] = useState<LongResponse[]>(propQuestionsLongResponse);
   const [successMessageVisible, setSuccessMessageVisible] = useState(false);
   const lastQuestionRef = useRef<HTMLDivElement>(null);
   const lastLongResponseRef = useRef<HTMLDivElement>(null);
-  
+
+
+
   const addQuestionLong = () => {
     const newQuestion: LongResponse = {
       idProfessor: 52,
@@ -47,6 +60,7 @@ const Quizz_question: React.FC<{}> = () => {
 
   const addMultipleChoice = () => {
     const newQuestion: MultipleChoice = {
+      id:0,
       idProfessor: 52,
       questionText: '',
       points: 0,
@@ -63,7 +77,8 @@ const Quizz_question: React.FC<{}> = () => {
   const addAnswer = (questionIndex: number) => {
     const newQuestions = [...questionsMultipleChoice];
     const newAnswer: MultipleChoiceAnswers = {
-      answerText: '',
+      id: newQuestions[questionIndex].answersQuestion.length, // Generate unique id for answer
+      answerText: "",
       correct: false,
     };
     newQuestions[questionIndex].answersQuestion.push(newAnswer);
@@ -73,6 +88,14 @@ const Quizz_question: React.FC<{}> = () => {
   
   const handleQuestionTextChange = (event: React.ChangeEvent<HTMLInputElement>, questionIndex: number) => {
     setQuestionsMultipleChoice((prevQuestions) => {
+      const newQuestions = [...prevQuestions];
+      newQuestions[questionIndex].questionText = event.target.value;
+      return newQuestions;
+    });
+  };
+
+  const handleQuestionTextChangeLong = (event: React.ChangeEvent<HTMLInputElement>, questionIndex: number) => {
+    setQuestionsLongResponse((prevQuestions) => {
       const newQuestions = [...prevQuestions];
       newQuestions[questionIndex].questionText = event.target.value;
       return newQuestions;
@@ -113,29 +136,40 @@ const Quizz_question: React.FC<{}> = () => {
     });
   };
 
-  const removeQuestionMultipleChoice = (questionIndex: number) => {
+  const removeMultipleChoiceQuestion = (questionIndex: number) => {
+    const confirmDelete = window.confirm("Are you sure you want to remove this question?");
+    if (confirmDelete) {
+      setQuestionsMultipleChoice((prevQuestions) => {
+        const newQuestions = [...prevQuestions];
+        newQuestions.splice(questionIndex, 1);
+        return newQuestions;
+      });
+    }
+
+  };
+
+  const removeMultipleChoiceAnswer = (questionIndex: number, answerIndex: number) => {
     setQuestionsMultipleChoice((prevQuestions) => {
       const newQuestions = [...prevQuestions];
-      newQuestions.splice(questionIndex, 1);
+      newQuestions[questionIndex] = {
+        ...newQuestions[questionIndex],
+        answersQuestion: newQuestions[questionIndex].answersQuestion.filter(
+          (_, index) => index !== answerIndex
+        ),
+      };
       return newQuestions;
     });
   };
 
   const removeQuestionLongResponse = (questionIndex: number) => {
-    setQuestionsLongResponse((prevQuestions) => {
-      const newQuestions = [...prevQuestions];
-      newQuestions.splice(questionIndex, 1);
-      return newQuestions;
-    });
-  };
-
- 
-  const removeAnswer = (questionIndex: number, answerIndex: number) => {
-    setQuestionsMultipleChoice((prevQuestions) => {
-      const newQuestions = [...prevQuestions];
-      newQuestions[questionIndex].answersQuestion.splice(answerIndex, 1);
-      return newQuestions;
-    });
+    const confirmDelete = window.confirm("Are you sure you want to remove this question?");
+    if (confirmDelete) {
+      setQuestionsLongResponse((prevQuestions) => {
+        const newQuestions = [...prevQuestions];
+        newQuestions.splice(questionIndex, 1);
+        return newQuestions;
+      });
+    }
   };
 
 
@@ -150,10 +184,44 @@ const Quizz_question: React.FC<{}> = () => {
     console.log('Long Response Questions:', questionsLongResponse);
   };
 
-  const setPoint = (questionIndex: number, value: number) => {
-    const newQuestions = [...questionsMultipleChoice];
-    newQuestions[questionIndex].points = value;
-    setQuestionsMultipleChoice(newQuestions);
+  const setPointMultipleChoice = (questionIndex: number, value: number) => {
+    const newQuestionsMultipleChoice = [...questionsMultipleChoice];
+    newQuestionsMultipleChoice[questionIndex].points = value;
+    setQuestionsMultipleChoice(newQuestionsMultipleChoice);
+
+  };
+
+  const setPointLongResponse = (questionIndex: number, value: number) => {
+    const newQuestionsLongResponse = [...questionsLongResponse];
+    newQuestionsLongResponse[questionIndex].points = value;
+    setQuestionsLongResponse(newQuestionsLongResponse);
+  };
+
+  const handleSaveMultipleChoiceQuestion = (questionIndex: number) => {
+    const question = questionsMultipleChoice[questionIndex];
+    const idExam = 123; // ID-ul examenului specific, înlocuiți cu valoarea corespunzătoare
+    const endpoint = `http://localhost:8192/questionExam/multipleChoice/create/idExam=${idExam}`;
+
+    // Realizați cererea HTTP folosind metoda preferată (fetch, axios, etc.)
+    // În exemplul de mai jos, se utilizează metoda fetch pentru a efectua o cerere POST
+    fetch(endpoint, {
+      method: 'POST',
+      body: JSON.stringify(question),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        // Verificați răspunsul pentru a gestiona erorile sau a afișa un mesaj de succes
+        if (response.ok) {
+          console.log('Question saved successfully.');
+        } else {
+          console.error('Error saving question:', response.statusText);
+        }
+      })
+      .catch((error) => {
+        console.error('Error saving question:', error);
+      });
   };
 
 
@@ -164,9 +232,10 @@ const Quizz_question: React.FC<{}> = () => {
       {questionsMultipleChoice.map((question, questionIndex) => (
         <div key={questionIndex}  ref={questionIndex === questionsMultipleChoice.length - 1 ? lastQuestionRef : null}>
         <div className={styles['box']}>
-          <Header 
-            point={question.points}  
-            setPoint={(newPoints) => setPoint(questionIndex, newPoints)}/>
+            <Header
+              point={question.points.toString()}
+              setPoint={(newPoints) => setPointMultipleChoice(questionIndex, Number(newPoints))}
+            />
               <label>
                 <input
                   type="text"
@@ -176,7 +245,7 @@ const Quizz_question: React.FC<{}> = () => {
                   onChange={(event) => handleQuestionTextChange(event, questionIndex)}
                 />
               </label>
-            <button type="button" onClick={() => removeQuestionMultipleChoice(questionIndex)} className={styles.removeq}>
+            <button type="button" onClick={() => removeMultipleChoiceQuestion(questionIndex)} className={styles.removeq}>
               Remove 
             </button>
           <div>
@@ -199,7 +268,7 @@ const Quizz_question: React.FC<{}> = () => {
                     />
                     <button 
                       type="button" 
-                      onClick={() => removeAnswer(questionIndex, answerIndex)} 
+                      onClick={() => removeMultipleChoiceAnswer(questionIndex, answerIndex)} 
                       className={styles.removea}> 
                         Remove
                       </button> 
@@ -219,15 +288,25 @@ const Quizz_question: React.FC<{}> = () => {
         <div key={questionIndex} ref={questionIndex === questionsLongResponse.length - 1 ? lastLongResponseRef : null}>          
         <div className={styles['box']}>
 
-          <Header point={question.points} setPoint={(newPoints) => setPoint(questionIndex, newPoints)} />
-          <input
+            <Header
+              point={question.points.toString()}
+              setPoint={(newPoints) => setPointLongResponse(questionIndex, Number(newPoints))}
+            />
+            <input
             type="text"
-            value={question.expectedResponse}
-            placeholder="Expected response"
+            value={question.questionText}
+              placeholder="Type question here"
             className={styles.quest}
-            onChange={(event) => handleExpectedResponseChange(event, questionIndex)}
+              onChange={(event) => handleQuestionTextChangeLong(event, questionIndex)}
           />
-          <button type="button" onClick={() => removeQuestionLongResponse(questionIndex)} className={styles.removeq}>
+            <input
+              type="text"
+              value={question.expectedResponse}
+              placeholder="Expected response"
+              className={styles.resplong}
+              onChange={(event) => handleExpectedResponseChange(event, questionIndex)}
+            />
+          <button type="button" onClick={() => removeQuestionLongResponse(questionIndex)} className={styles.removeq2}>
             Remove
           </button>
           </div>
@@ -236,6 +315,7 @@ const Quizz_question: React.FC<{}> = () => {
 
       <button type="button" className={styles.addquest} onClick={addMultipleChoice}>+ Add Multiple Choice</button>
       <button type="button" className={styles.addquestL} onClick={addQuestionLong}>+ Add Short Answer</button>
+      <button type="submit">Submit</button>
     </form>
   );
 };

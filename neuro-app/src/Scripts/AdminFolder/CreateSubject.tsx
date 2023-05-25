@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Nav from "./NavBarAdmin/Nav";
-import "./CreateSubject.css"
+import "./CreateSubject.css";
+import WithAuth from "../../WithAuth";
 
 interface FormValues {
   title: string;
@@ -97,5 +98,5 @@ function CreateSubject() {
 };
 
 
-export default CreateSubject;
+export default WithAuth(CreateSubject, [0]);
 

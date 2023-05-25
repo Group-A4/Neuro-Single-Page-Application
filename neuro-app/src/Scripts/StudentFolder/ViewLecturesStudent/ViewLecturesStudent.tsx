@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import styles from './ViewLecturesStudent.module.css';
 import Nav from '../NavBarStudent/Nav';
+import { useLocation } from 'react-router-dom';
 
 
 interface ViewLecture {
@@ -22,11 +23,11 @@ interface ViewCourse {
 
 
 const Body: React.FC<{}> = () => {
-
+    const location = useLocation();
     const { courseId } = useParams<{ courseId: string }>();
     const navigate = useNavigate();
     const goToViewLectures = (lectureId : number) => {
-        navigate(`/ViewMaterial`); 
+        navigate(`/ViewMaterialPageStudent/${lectureId}`); 
       };
 
     const [lectures, setCourses] = useState<ViewLecture[]>([]);

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Nav from './NavBarAdmin/Nav';
 import "./AdminPage.css";
+import WithAuth from "../../WithAuth";
 
 interface FormValues {
     oldSemester: string;
@@ -96,7 +97,6 @@ function EditSubjectYear() {
                     <input className="label-number" type="number" id="newSemester" name="newSemester"  min="1" max="2" step="1" value={formValues.newSemester} onChange={handleChange} />
                     <br /><br />
                         <input type="submit" value="Edit semester" />
-                    
 
                 </form>
             </div>
@@ -104,4 +104,4 @@ function EditSubjectYear() {
     );
 }
 
-export default EditSubjectYear;
+export default WithAuth(EditSubjectYear, [0]);

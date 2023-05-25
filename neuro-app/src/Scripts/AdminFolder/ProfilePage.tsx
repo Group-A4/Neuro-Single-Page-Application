@@ -1,9 +1,7 @@
-
-
 import { Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
 import Nav from "./NavBarAdmin/Nav";
 import "./ProfilePage.css";
+import WithAuth from "../../WithAuth";
 
 const Body: React.FC<{}> = () => {
  /* const [userDetails,setUserDetails]=useState({});
@@ -69,4 +67,4 @@ const styles = {
   }
   
 
-export default ProfilePage;
+export default WithAuth(ProfilePage, [0]);
