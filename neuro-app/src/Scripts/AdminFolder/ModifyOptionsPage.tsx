@@ -75,9 +75,6 @@ const BodyProfessor: React.FC<{}> = () => {
       <Link to='/EditProfessorDegree'>
         <img className='button-category' src='images/AdminPageImages/edit-degree.png' alt="" />
       </Link>
-      <Link to='/EditCode'>
-          <img className='button-category' src='images/AdminPageImages/edit-code-y.png' alt="" />
-      </Link>
     
     </div>
   );
