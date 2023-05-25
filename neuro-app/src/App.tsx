@@ -43,7 +43,6 @@ import ViewMaterial from "./Scripts/ProfessorFolder/pages/ViewMaterialPage/ViewM
 
 import ModifyOptionsPage from "./Scripts/AdminFolder/ModifyOptionsPage";
 import EditFirstNamePage from "./Scripts/AdminFolder/EditFirstNamePage";
-import EditCode from "./Scripts/AdminFolder/EditCode";
 import EditLastNamePage from "./Scripts/AdminFolder/EditLastNamePage";
 import EditUnivEmailPage from "./Scripts/AdminFolder/EditUnivEmailPage";
 import EditPersEmailPage from "./Scripts/AdminFolder/EditPersEmailPage";
@@ -68,6 +67,9 @@ import SelectCreateAccount from "./Scripts/AdminFolder/SelectCreateAccount";
 import CreateAdmin from "./Scripts/AdminFolder/CreateAdmin";
 import CreateProfessor from "./Scripts/AdminFolder/CreateProfessor";
 import CreateStudent from "./Scripts/AdminFolder/CreateStudent";
+import EditStudentCode from "./Scripts/AdminFolder/EditStudentCode";
+import EditProfessorCode from "./Scripts/AdminFolder/EditProfessorCode";
+
 
 function App(): JSX.Element {
   return (
@@ -119,7 +121,6 @@ function App(): JSX.Element {
       <Route path="EditUnivEmailPage" element={<EditUnivEmailPage />}></Route>
       <Route path="EditPersEmailPage" element={<EditPersEmailPage />}></Route>
       <Route path="EditPasswordPage" element={<EditPasswordPage />}></Route>
-      <Route path="EditCode" element={<EditCode />}></Route>
       <Route path="ModifyOptionsPage" element={<ModifyOptionsPage />}></Route>
       <Route path="ProfilePage" element={<ProfilePage />}></Route>
       <Route path="ChooseSubjects" element={<ChooseSubjects />}></Route>
@@ -138,6 +139,8 @@ function App(): JSX.Element {
       <Route path="CreateAdmin" element={<CreateAdmin />}></Route>
       <Route path="CreateProfessor" element={<CreateProfessor />}></Route>
       <Route path="CreateStudent" element={<CreateStudent />}></Route>
+      <Route path="EditStudentCode" element={<EditStudentCode />}></Route>
+      <Route path="EditProfessorCode" element={<EditProfessorCode />}></Route>
 
 
       <Route path="modifyquizztime" element={<ModifyQuizzTime />}></Route>
