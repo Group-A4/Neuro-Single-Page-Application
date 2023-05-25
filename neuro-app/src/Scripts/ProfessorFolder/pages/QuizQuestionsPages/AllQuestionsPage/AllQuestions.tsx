@@ -57,7 +57,7 @@ const SelectCourse: React.FC<{ onSelectCourse: (id: number) => void }> = ({ onSe
                 </option>
 
 
-                {courses.map((course) => (
+                {Array.isArray(courses) && courses.map((course) => (
                     <option
                         className={styles['subject-options']}
                         key={course.id}
