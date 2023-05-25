@@ -47,6 +47,9 @@ const BodyStudent: React.FC<{}> = () => {
           <Link to='/EditStudentBirthdate'>
           <img className='button-category' src='images/AdminPageImages/edit-birthdate.png' alt="" />
           </Link>
+          <Link to='/EditCode'>
+          <img className='button-category' src='images/AdminPageImages/edit-code-g.png' alt="" />
+          </Link>
         </div>
   );
 }
@@ -68,6 +71,9 @@ const BodyProfessor: React.FC<{}> = () => {
           </Link>
           <Link to='/EditProfessorDegree'>
           <img className='button-category' src='images/AdminPageImages/edit-degree.png' alt="" />
+          </Link>
+          <Link to='/EditCode'>
+          <img className='button-category' src='images/AdminPageImages/edit-code-y.png' alt="" />
           </Link>
         </div>
   );
@@ -118,7 +124,7 @@ function AdminPage() {
   return (
     <div>
         <Nav />
-        <BodyProfessor  />
+        <BodyAdmin  />
     </div>
   );
 }
