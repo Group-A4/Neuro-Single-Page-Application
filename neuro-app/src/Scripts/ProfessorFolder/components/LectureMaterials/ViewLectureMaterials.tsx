@@ -7,6 +7,7 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { Link, LinkProps } from 'react-router-dom';
 import withAuth from '../../../../WithAuth';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -15,13 +16,15 @@ type Props = {
 };
 
 const useGetMaterials = (id_lecture: string) => {
+  const token = localStorage.getItem('token');
 
   const [materials, setMaterials] = useState<any[]>([]);
 
   const fetchMaterials = async (id_lecture: string) => {
     try {
       const response = await fetch(
-        SERVER_ADDRESS + `/materials/id_lecture=${id_lecture}`
+        SERVER_ADDRESS + `/materials/id_lecture=${id_lecture}`,
+        { headers: { Authorization: `Bearer ${token}` } }
       );
       const data = await response.json();
       setMaterials(data);
@@ -38,14 +41,18 @@ const useGetMaterials = (id_lecture: string) => {
 };
 
 const ViewLessonMaterials: React.FC<Props> = ({ id_lecture }) => {
+  const token = localStorage.getItem('token');
   const { materials, fetchMaterials } = useGetMaterials(id_lecture); // Destructure fetchMaterials
+
+  const navigate = useNavigate();
 
   const handleDelete = async (materialId: string) => {
     if (window.confirm('Are you sure you want to delete this material?')) {
       try {
         await fetch(
           SERVER_ADDRESS + `/materials/${materialId}`,
-          { method: 'DELETE' }
+          { method: 'DELETE' ,
+           headers: { Authorization: `Bearer ${token}` } }
         );
         // Refresh the materials after deleting
         fetchMaterials(id_lecture);
@@ -74,23 +81,19 @@ const ViewLessonMaterials: React.FC<Props> = ({ id_lecture }) => {
             {materials.map((material) => (
               <li key={material.id} className={styles['li-style']}>
                 <div className={styles['left-side']}>
-                  <a
-                    className={styles['a--style']}
-                    href="http://localhost:3000/ViewMaterial"
-                    rel="noopener noreferrer"
-                  >
+                  <a onClick={() => {navigate('/ViewMaterial', {state:{materialId: material.id, lectureId: id_lecture}})} } className={styles['a--style']}>
                     {material.title}
                   </a>
                 </div>
                 {user.role === 1 && (
                   <div className={styles['right-side']}>
-                    <Link to={`/UpdateMaterial?id=${material.id}`}>
+                    <a onClick={()=>{navigate('/UpdateMaterial',{state:{materialId: material.id, lectureId: id_lecture}});}} >
                     <button
                       className={styles['editButton']} 
                     >
                       <FontAwesomeIcon icon={faEdit} className={styles['Icon']} /> <p className={styles['p-delete']}>Edit</p>
                     </button>
-                    </Link>
+                    </a>
                     <button
                       className={styles['deleteButton']}
                       onClick={() => handleDelete(material.id)}
@@ -103,11 +106,11 @@ const ViewLessonMaterials: React.FC<Props> = ({ id_lecture }) => {
             ))}
           </ol>
           {user.role === 1 && (
-            <Link to={`/CreateMaterial`}>
+            <a onClick={()=>{navigate('/CreateMaterial',{state:{lectureId: id_lecture}});}}>
               <button className={styles['createButton']}>
                 Create new material
               </button>
-            </Link>
+            </a>
           )} 
         </div>
       </body>

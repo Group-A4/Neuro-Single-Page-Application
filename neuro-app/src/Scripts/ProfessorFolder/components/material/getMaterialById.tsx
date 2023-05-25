@@ -19,8 +19,9 @@ const GetMaterialById = (id: number): Material => {
   const url = SERVER_ADDRESS + `/materials/${id}`;
 
   useEffect(() => {
+    const token = localStorage.getItem('token');
     const fetchData = async () => {
-      const response = await fetch(url);
+      const response = await fetch(url, { method: 'GET', headers: { Authorization: `Bearer ${token}` } });
       const data = await response.json();
       setMaterial(data);
     };

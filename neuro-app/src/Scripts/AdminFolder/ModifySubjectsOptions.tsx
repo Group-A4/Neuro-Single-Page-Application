@@ -1,8 +1,7 @@
-
-
 import { Link } from 'react-router-dom';
 import Nav from './NavBarAdmin/Nav';
 import "./ModifySubjects.css";
+import WithAuth from "../../WithAuth";
 
 
 function ModifySubjects() {
@@ -53,4 +52,4 @@ function ModifySubjects() {
     );
 }
 
-export default ModifySubjects;
+export default WithAuth(ModifySubjects, [0]);

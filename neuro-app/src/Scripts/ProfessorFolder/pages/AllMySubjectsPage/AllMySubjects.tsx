@@ -1,7 +1,5 @@
 import React, { useEffect, useState, } from 'react'
-import styles from './Body.module.css'
-import photo_option from './option.png';
-import Scroll from '../../components/ScrollComp/Scroll';
+import styles from './Body.module.css';
 import ButtonAddCourse from '../../components/buttonAddCourse/ButtonAddCourse';
 import Nav from '../../components/nav/Nav';
 import Lectures from './Lectures';
@@ -18,9 +16,14 @@ const SelectCourse: React.FC<{ onSelectCourse: (id: number) => void }> = ({ onSe
     const [courses, setCourses] = useState<Course[]>([]);
     const [selectedCourseId, setSelectedCourseId] = useState<number | null>(null);
 
+    const user = JSON.parse(localStorage.getItem('utilizator') || '{}');
+    const token = localStorage.getItem('token');
+
     useEffect(() => {
         const fetchCourses = async () => {
-            const response = await fetch("http://localhost:8192/courses/professor=52");
+            const response = await fetch(`http://localhost:8192/courses/professor=${user.id}`, 
+            {headers: { Authorization: `Bearer ${token}` }}
+            );
             const data = await response.json();
             setCourses(data);
         };

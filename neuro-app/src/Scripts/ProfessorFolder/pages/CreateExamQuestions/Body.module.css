@@ -243,8 +243,25 @@ body .quest {
     margin-top: 5%;
 }
 body .removeq {
+
     font-weight: bold;
-    margin-left: 4%;
+    /* margin-left: 4%; */
+    background-color: #ff5151;
+    font-size: 1.2vi;
+    padding-top: 0.5%;
+    padding-bottom: 0.5%;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    padding: 1%
+}
+
+body .removeq2 {
+    margin-top: calc(1px - 11.5%);
+    margin-right: 14%;
+    float: right;
+    font-weight: bold;
+
     background-color: #ff5151;
     font-size: 1.2vi;
     padding-top: 0.5%;
@@ -268,6 +285,20 @@ body .answ {
     margin-left: 1%;
     border: none;
     margin-top: 2%;
+}
+
+
+body .resplong{
+        display: inherit;
+        background-color: white;
+        width: 60%;
+        font-size: 1.5vi;
+        padding-top: 1%;
+        padding-bottom: 1%;
+        border-radius: 10px;
+        margin-left: 15%;
+        border: none;
+        margin-top: 2%;
 }
 .body .addansw {
     white-space: nowrap;
@@ -438,7 +469,8 @@ body .removea:hover {
     margin-top: 5%;
 }
 body .removeq {
-    margin-left: 5%;
+    /* margin-left: 5%; */
+    
     font-size: 1.4vi;
     padding-top: 0.5%;
     padding-bottom: 0.5%;
@@ -446,6 +478,20 @@ body .removeq {
     border: none;
     cursor: pointer;
 }
+
+body .removeq2 {
+    /* margin-left: 5%; */
+    margin-right: 6%;
+    font-size: 1.4vi;
+    padding-top: 0.5%;
+    padding-bottom: 0.5%;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+
+
 body .answ
 {
     display: inherit;
@@ -490,4 +536,45 @@ body .removea {
 
           margin-bottom: 10px;
       }
+  }
+
+  .incomplete {
+      border: 2px solid red;
+  }
+
+  .error-message {
+      color: red;
+      font-weight: bold;
+      margin-left: -4%;
+      font-size: calc(8px + 0.8vw);
+  }
+  .error-message-answer{
+        color: red;
+        font-weight: bold;
+        margin-left: 10%;
+        margin-top: 1%;
+        font-size: calc(8px + 0.8vw);
+  }
+  .error-message-quest{
+        color: red;
+        font-weight: bold;
+        margin-left: 10%;
+        margin-top: 5%;
+        margin-bottom: -5%;
+        font-size: calc(8px + 0.8vw);
+  }
+  .error-message-text-answer{
+        color: red;
+        font-weight: bold;
+        margin-left: 17%;
+        margin-top: 1%;
+        margin-bottom: -5%;
+        font-size: calc(8px + 0.8vw);
+  }
+  .error-message-points{
+        color: rgb(220, 143, 0);
+        font-size: calc(8px + 0.8vw);
+        font-weight: bold;
+        float: right;
+        margin-right: 4%;
   }

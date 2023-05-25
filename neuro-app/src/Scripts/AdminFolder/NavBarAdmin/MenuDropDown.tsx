@@ -32,8 +32,6 @@ const MenuDropDown:React.FC<{}> = () => {
             <Link to='/ChooseCreate'> Create an account or a subject </Link>  
           </li>
           <li>
-            <Link to='/ViewMaterials'>  View materials </Link> </li>
-          <li>
             <Link to='/ChooseAccountPage'> Modify/Delete an account </Link> 
           </li>
           <li>

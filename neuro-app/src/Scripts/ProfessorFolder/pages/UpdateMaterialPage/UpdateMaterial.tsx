@@ -11,6 +11,7 @@ import { SERVER_ADDRESS } from "../../../../config/config";
 import {GetMaterialById} from "../../components/material/getMaterialById";
 import { useLocation } from 'react-router-dom';
 import withAuth from "../../../../WithAuth";
+import { useNavigate } from 'react-router-dom';
 
 interface FormValues {
     idLecture: number;
@@ -22,8 +23,8 @@ interface FormValues {
 }
 
 const initialFormValues: FormValues = {
-    idLecture: 1,
-    idProfessor: 53,
+    idLecture: -1,
+    idProfessor: -1,
     title: "",
     markdownText: "",
     html: "",
@@ -34,13 +35,26 @@ const initialFormValues: FormValues = {
 
 const UpdateMaterial = () =>{
     const location = useLocation();
-    const queryParams = new URLSearchParams(location.search);
-    const materialId = queryParams.get('id');
-    const material = GetMaterialById(Number(materialId));
+    const navigate = useNavigate();
+    const materialId = location.state?.materialId;
+    const lectureId = location.state?.lectureId;
 
-    const filesName = useGetContents(53).map(content => content.name);
+    useEffect(() => {
+        if(!materialId || !lectureId){
+            navigate('/');
+        }
+    }, [materialId, lectureId, navigate]);
+
+    const material = GetMaterialById(Number(materialId));
+    
+    const user = JSON.parse(localStorage.getItem('utilizator') || '{}');
+    const token = localStorage.getItem('token');
+
+    const filesName = useGetContents(user.id).map(content => content.name);
 
     const [formValues, setFormValues] = useState<FormValues>(initialFormValues);
+    formValues.idProfessor = user.id;
+    formValues.idLecture = Number(lectureId);
 
     const markdownParser = new MarkdownParser("neuroapi", "professor" + formValues.idProfessor, filesName);
 
@@ -78,12 +92,14 @@ const UpdateMaterial = () =>{
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         setFormValues((prevFormValues: FormValues) => ({ ...prevFormValues, submitted: true }));
+        formValues.idProfessor = user.id;
 
         const url = SERVER_ADDRESS + `/materials/update/${materialId}`;
 
         fetch(url, {
             method: "PUT",
             headers: {
+                Authorization: `Bearer ${token}`,
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(formValues)
@@ -91,6 +107,8 @@ const UpdateMaterial = () =>{
             .then(response => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
+                }else if (response.status === 204) {
+                    navigate('/viewLectureMaterials',{state:{lectureId: formValues.idLecture}});
                 }
                 console.log("Actualizarea materialului a fost realizata cu succes!");
                 return response.text();
@@ -111,7 +129,7 @@ const UpdateMaterial = () =>{
     return (
         <>
             <div className={styles['body']}>
-                <ContentList professorId={53} />
+                <ContentList professorId={user.id} />
                 <form className={styles['markdown-form']} onSubmit={handleSubmit}>
                     <label className={styles['title-lable']}>
                         <p className={styles.p}>Titlul materialului:</p>

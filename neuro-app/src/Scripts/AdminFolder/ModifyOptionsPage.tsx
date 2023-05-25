@@ -1,10 +1,7 @@
-
-
 import { Link } from 'react-router-dom';
 import Nav from './NavBarAdmin/Nav';
 import "./ModifyOptions.css";
-import { json } from 'stream/consumers';
-import { info } from 'console';
+import WithAuth from "../../WithAuth";
 
 const BodyAdmin: React.FC<{}> = () => {
   return (
@@ -126,4 +123,4 @@ function AdminPage() {
   );
 }
 
-export default AdminPage;
+export default WithAuth(AdminPage, [0]);
