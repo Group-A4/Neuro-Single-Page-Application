@@ -3,6 +3,7 @@ import styles from './MockExam.module.css';
 import Nav from '../NavBarStudent/Nav';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import withAuth from '../../../WithAuth';
 
 interface Course {
   id: number;
@@ -13,6 +14,8 @@ interface Course {
 }
 
 const Body: React.FC<{}> = () => {
+    const user = JSON.parse(localStorage.getItem('utilizator') || '{}');
+    const token = localStorage.getItem('token') || '';
 
     const navigate = useNavigate();
     const goToTakeExam = (courseId : number) => {
@@ -23,7 +26,8 @@ const Body: React.FC<{}> = () => {
 
     useEffect(() => {
        const fetchData = async () => {
-        const response = await fetch('http://localhost:8192/courses/student=210');
+        const response = await fetch(`http://localhost:8192/courses/student=${user.id}`,
+            { headers: { 'Authorization': `Bearer ${token}` } });
         const data = await response.json();
         setCourses(data);
       };
@@ -75,4 +79,4 @@ const TakeAMockExam: React.FC<{}> = () => {
     );
 }
 
-export default TakeAMockExam;
+export default withAuth(TakeAMockExam, [2]);

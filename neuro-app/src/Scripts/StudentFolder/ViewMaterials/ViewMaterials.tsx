@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import styles from './ViewMaterials.module.css';
 import Nav from '../NavBarStudent/Nav';
-import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import withAuth from '../../../WithAuth';
 
 interface Course {
   id: number;
@@ -20,14 +20,25 @@ const Body: React.FC<{}> = () => {
       };
 
     const [courses, setCourses] = useState<Course[]>([]);
+    const user = JSON.parse(localStorage.getItem('utilizator') || '{}');
+    console.log(user);
+    const token = localStorage.getItem('token') || '';
 
     useEffect(() => {
-       const fetchData = async () => {
-        const response = await fetch('http://localhost:8192/courses/student=37');
-        const data = await response.json();
-        setCourses(data);
-      };
-      fetchData();
+        const fetchData = async () => {
+            const response = await fetch(`http://localhost:8192/courses/student=${user.id}`, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+
+            if (response.status === 400) {
+                console.log('error');
+            } else {
+                const data = await response.json();
+                setCourses(data);
+            }
+        };
+
+        fetchData();
     }, []);
 
     return (
@@ -40,7 +51,7 @@ const Body: React.FC<{}> = () => {
                 </div>
                 <div className={styles['column']}>
                     <div className={styles['body--subtitle']}>
-                            {courses.length > 0 ? 'Subjects: ': 'Loading...'}
+                            {courses.length > 0 ? 'Subjects: ': 'You are not enrolled in any subjects'}
                     </div>
                 </div>
 
@@ -48,7 +59,7 @@ const Body: React.FC<{}> = () => {
                     <div className={styles['body--line']}></div>
                 </div>
 
-                {courses.map(course => (
+                {courses && courses.map(course => (
                   <div className={styles['course-container']} key={course.title}>
                     <div className={styles['course-title']}>
                         {course.title}
@@ -75,4 +86,4 @@ const ViewMaterialsStudent: React.FC<{}> = () => {
     );
 }
 
-export default ViewMaterialsStudent;
+export default withAuth(ViewMaterialsStudent, [2]);
