@@ -1,20 +1,27 @@
 import React from 'react';
 import styles from './Body.module.css';
 import { useState, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link , useNavigate } from 'react-router-dom';
 import photo_option from './dots.png';
 
 interface ScrollBlackProps {
   idExam?: number | null;
+  codeExam?: string | null;
 }
 
-const ScrollBlack: React.FC<ScrollBlackProps> = ({ idExam }) => {
+const ScrollBlack: React.FC<ScrollBlackProps> = ({ idExam, codeExam}) => {
   const [open, setOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const handleDropDownFocus = (state: boolean) => {
     setOpen(!state);
   };
   console.log(open, dropdownRef.current);
+
+  const navigate = useNavigate();
+
+  const handleEditQuestions = () => {
+    navigate('/EditQuestions', { state: { prop1: codeExam } });
+  };
 
   const handleClickOutsideDropDown = (e: any) => {
     if (open && !dropdownRef.current?.contains(e.target as Node))
@@ -43,11 +50,9 @@ const ScrollBlack: React.FC<ScrollBlackProps> = ({ idExam }) => {
       </button>
       {open && (
         <ul>
+          
           <li>
-            <Link to="/ViewExamAnswers">View</Link>
-          </li>
-          <li>
-            <Link to="/EditQuestions">Edit</Link>
+          <div className={styles.edit} onClick={handleEditQuestions}>Edit</div>
           </li>
           <li>
             <a href="" onClick={handleDeleteExam}>

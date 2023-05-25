@@ -168,7 +168,7 @@ function Table({ examData }: { examData: ExamData[] }) {
                                         </button>
                                     </td>
                                     <td className={styles['body--img']}>
-                                        <ScrollBlack idExam={row.original.id} />
+                                        <ScrollBlack idExam={row.original.id} codeExam={row.original.code} />
                                     </td>
                                 </tr>
                             );

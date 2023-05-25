@@ -23,7 +23,7 @@
 }
 
 .body--title {
-    width: 180%;
+    width: 80%;
     text-align: left;
     justify-content: center;
     font-weight: bold;
@@ -58,12 +58,13 @@
     padding-bottom: 1%;
     padding-left: 3%;
 }
-.correct-answer
+.correct_answer
 {
     list-style:url('checked.png');
     font-size: calc(20px + 1.0vw);
     margin-left:3%;
     margin-top: 1%;
+    
 }
 .ull
 {
@@ -91,6 +92,15 @@ h3 .points
     margin-left: auto;
     float:right;
     margin-right:2%;
+    display: flex;
+    flex-direction: row;
+    padding-left: 5%;
+}
+.points .date-input 
+{
+    width: fit-content;
+    padding-left: 1%;
+    padding-right: 1%;
 }
 .body form
 {
@@ -110,7 +120,7 @@ body .quest
 {
     display: inherit;
     background-color: #D9D9D9;
-    width: 75%;
+    width: 65%;
     font-size: 2vi;
     padding-top: 1%;
     padding-bottom: 1%;
@@ -138,7 +148,7 @@ body .answ
 {
     display: inherit;
     background-color: #D9D9D9;
-    width: 69%;
+    width:59%;
     font-size: 1.5vi;
     padding-top: 1%;
     padding-bottom: 1%;
@@ -159,6 +169,18 @@ body .answ
     border-radius: 10px;
     border-width: 1px;
     border-color: black;
+    
+}
+.addAnswer
+{
+    background-color:#6AFFC7;
+    color:#002F35;
+}
+.deleteAnswer
+{
+    background-color: red;
+    width: fit-content;
+    font-size: 1em;
     
 }
 .body .addquest
@@ -238,7 +260,7 @@ body .answ
 body .removea
 {
  margin-left: 5%;
- background-color: #6AFFC7;
+ background-color:red;
  font-size:1.2vi;
  padding-top: 1%;
  padding-bottom: 1%;
@@ -300,7 +322,249 @@ body .removeq:hover{
     padding-left: 1%;
     font-size: 2vi;
 }
-  @media (max-width:1000px) {
+ 
+.delete
+{
+    background-color: white;
+    border-color:red;
+    border-width: 1%;
+    color:red;
+   font-size: 2vi;
+   margin-left:1%;
+   border-radius: 10px;
+}
+.text{
+    font-size: 5vi;
+}
+.body--details{
+    margin-top:2%;
+    border-top: 1px solid #919191;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: white;
+    padding-left: 10%;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    display: flex;
+    flex-direction: column;
+}
+.body--second_text
+{
+    text-decoration:overline gray;
+    background-color:#D9D9D9;
+    height: 7%;
+    position:relative;
+    /* margin-top: 1%; */
+    padding-top: 1%;
+    padding-bottom: 1%;
+    padding-left: 6%;
+    position: relative;
+    text-align: left;
+    font-weight:800;
+    justify-content: center;
+    font-size: calc(12px + 1.0vw);
+}
+.body--subtitle--container2 {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    margin-left: -4.5%;
+    width: fit-content;
+}
+.time-input {
+    width: fit-content;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: #555;
+    margin-top: 1%;
+    margin-left: -4.5%;
+    padding-left: 1%;
+}
+
+.exam-name-input{
+        width: fit-content;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        color: #555;
+        margin-top: 1%;
+        margin-left: -4.5%;
+        padding-left: 1%;
+}
+.date-input{
+        width: fit-content;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        color: #555;
+        margin-top: 1%;
+        margin-left: -4.5%;
+        padding-left: 1%;
+}
+.evaluationContainer {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    margin-right: 4.5%;
+}
+
+.evaluationContainer select {
+    width: 100%;
+    height: auto;
+    font-size: calc(15px + 0.8vw);
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    padding: 5px;
+    overflow: auto;
+    white-space: normal;
+}
+
+.evaluationContainer select:focus {
+    outline: none;
+    box-shadow: 0 0 3px #808080;
+}
+
+.evaluationOption {
+    font-size: calc(10px + 0.8vw);
+    color: #ffffff;
+    word-break: break-all;
+    width: 400px;
+    overflow: auto;
+    white-space: normal
+}
+
+
+.time-input {
+    width: fit-content;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: #555;
+    margin-top: 1%;
+    margin-left: -4.5%;
+    padding-left: 1%;
+}
+
+.exam-name-input{
+        width: fit-content;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        color: #555;
+        margin-top: 1%;
+        margin-left: -4.5%;
+        padding-left: 1%;
+}
+.date-input{
+        width: fit-content;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        color: #555;
+        margin-top: 1%;
+        margin-left: -4.5%;
+        padding-left: 1%;
+}
+.but 
+{
+    width: 20px;
+    margin-right: 10%;
+}
+.resplong{
+    display: inherit;
+    background-color: rgb(208, 200, 200);
+    width: 60%;
+    font-size: 1.5vi;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    border-radius: 10px;
+    margin-left: 15%;
+    border: none;
+    margin-top: 2%;
+}
+.removeq2 {
+    margin-top: calc(1px - 13.5%);
+    margin-right: 5%;
+    float: right;
+    font-weight: bold;
+    background-color: #ff5151;
+    font-size: 1.2vi;
+    padding-top: 0.5%;
+    padding-bottom: 0.5%;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    padding: 1%
+}
+body .removeq {
+
+    font-weight: bold;
+    /* margin-left: 4%; */
+    background-color: #ff5151;
+    font-size: 1.2vi;
+    padding-top: 0.5%;
+    padding-bottom: 0.5%;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    padding: 1%
+}
+.error {
+    color: red;
+    font-size: 20px;
+    margin-top: 4px;
+}
+.error-message {
+    color: red;
+    font-weight: bold;
+    margin-left: -4%;
+    font-size: calc(8px + 0.8vw);
+}
+.error-message-answer{
+      color: red;
+      font-weight: bold;
+      margin-left: 10%;
+      margin-top: 1%;
+      font-size: calc(8px + 0.8vw);
+}
+.error-message-quest{
+      color: red;
+      font-weight: bold;
+      margin-left: 10%;
+      margin-top: 5%;
+      margin-bottom: -5%;
+      font-size: calc(8px + 0.8vw);
+}
+.error-message-text-answer{
+      color: red;
+      font-weight: bold;
+      margin-left: 17%;
+      margin-top: 1%;
+      margin-bottom: -5%;
+      font-size: calc(8px + 0.8vw);
+}
+.error-message-points{
+      color: rgb(220, 143, 0);
+      font-size: calc(8px + 0.8vw);
+      font-weight: bold;
+      float: right;
+      margin-right: 4%;
+}
+.answw
+{
+  
+    background-color: #D9D9D9;
+    width:60%;
+    font-size: 1.5vi;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    border-radius: 10px;
+    margin-left:1%;
+    border:none;
+    margin-top: 2%;
+}
+@media (max-width:1000px) {
     body .quest
 {
     display: inherit;
@@ -377,17 +641,20 @@ body .removea
     margin-left:30%;
     margin-right: 5%;
 }
-  }
-.delete
+.answw
 {
-    background-color: white;
-    border-color:red;
-    border-width: 1%;
-    color:red;
-   font-size: 2vi;
-   margin-left:1%;
-   border-radius: 10px;
+    font-size: 2.5vi;
 }
-.text{
-    font-size: 5vi;
+.resplong
+{
+    font-size: 2vi;
 }
+.deleteAnswer
+{
+    font-size: 2vi;
+}
+.addAnswer
+{
+    font-size: 2vi;
+}
+  }

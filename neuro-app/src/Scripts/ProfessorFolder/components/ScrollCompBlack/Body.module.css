@@ -70,5 +70,17 @@
     border-radius: 20px;
     
 }
-
+.edit {
+    all:unset;
+    border-color: #555;
+    text-decoration: none;
+    position: relative;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    text-decoration: none;
+    color:#002F35;
+    font-weight: bold;
+    cursor: pointer;
+    appearance:none;
+}
 
