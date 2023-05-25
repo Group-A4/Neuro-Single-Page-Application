@@ -112,4 +112,4 @@ function EditPersEmail() {
   );
 }
 
-export default WithAuth(EditPersEmail, [0]);
+export default WithAuth(EditPersEmail, [0,1,2]);

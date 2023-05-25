@@ -1,19 +1,17 @@
   import React, { useState, useEffect } from 'react';
   import styles from './ProfilePage.module.css';
-  import Nav from '../NavBarStudent/Nav';
-  import withAuth from '../../../WithAuth';
+  import Nav from '../../components/nav/Nav';
+  import withAuth from '../../../../WithAuth';
   import { Link } from 'react-router-dom';
-  type Student ={
-    id: number;
-    lastName: string;
-    firstName: string;
-    code: string;
-    emailFaculty: string;
-    emailPersonal: string;
-    year: number;
-    semester: number;
+  type Proffesor ={
+    id: number,
+    lastName: string,
+    firstName: string,
+    code: string,
+    emailFaculty: string,
+    emailPersonal: string,
+    degree: string
   }
-
   type Course = { 
   id: number,
   title: string,
@@ -24,15 +22,15 @@
 
   const Body: React.FC<{}> = () => {
     const user = JSON.parse(localStorage.getItem('utilizator') || '{}');
+  
     const token = localStorage.getItem('token') || '';
-    console.log(user.id);
-    const student = useGetStudent(token,user.id);
+    const proffesor = useGetProffesor(token,user.id);
     const courses = useGetCourses(token,user.id);
     
   
-    console.log(student);
+    console.log(proffesor);
     console.log(courses);
-    if (!student || !courses) {
+    if (!proffesor || !courses) {
       return <div>Loading...</div>;
     }
 
@@ -41,13 +39,12 @@
       <div className="tables">
         <div className="profile-page">
           <h5>GENERAL INFORMATION</h5>
-          <span className="categories">FIRST NAME: {student.firstName}</span>
-          <span className="categories">LAST NAME: {student.lastName}</span>
-          <span className="categories">REGISTRATION NUMBER: {student.code}</span>
-          <span className="categories">YEAR OF STUDY: {student.year}</span>
+          <span className="categories">FIRST NAME: {proffesor.firstName}</span>
+          <span className="categories">LAST NAME: {proffesor.lastName}</span>
+          <span className="categories">CODE : {proffesor.code}</span>
           <span className="categories">COURSES:</span>
           <div className="courses-list">
-          {
+            {
             Array.isArray(courses)?
               courses.map((course) => (
                 <div className="course" key={course.id}>
@@ -63,8 +60,8 @@
         </div>
         <div className="profile-page">
           <h5>ACCOUNT INFORMATION</h5>
-          <span className="categories">PERSONAL EMAIL: {student.emailPersonal}</span>
-          <span className="categories">UNIVERSITY EMAIL: {student.emailFaculty}</span>
+          <span className="categories">PERSONAL EMAIL: {proffesor.emailPersonal}</span>
+          <span className="categories">UNIVERSITY EMAIL: {proffesor.emailFaculty}</span>
           <Link to='/EditPasswordPage'>
             <button className="change-password">CHANGE PASSWORD</button>
           </Link>
@@ -78,15 +75,15 @@
   }
 
 
-  const useGetStudent = (token: string,studentId : number) => {
-    const [student, setStudent] = useState<Student | null>(null);
+  const useGetProffesor = (token: string,proffesorId : number) => {
+    const [proffesor, setProfessor] = useState<Proffesor | null>(null);
     useEffect(() => {
       const fetchData = async () => {
         try {
-          const response = await fetch(`http://localhost:8192/students/${studentId}`,
+          const response = await fetch(`http://localhost:8192/professors/${proffesorId}`,
             { headers: { Authorization: `Bearer ${token}`, } });
           const data = await response.json();
-          setStudent(data);
+          setProfessor(data);
         } catch (error) {
           console.error('Error fetching student data:', error);
         }
@@ -94,15 +91,15 @@
 
       fetchData();
     }, []);
-    return student;
+    return proffesor;
   }
 
-  const useGetCourses = (token: string,studentId : number) => {
+  const useGetCourses = (token: string,professorId : number) => {
     const [courses, setCourses] = useState<Course[]>([]);
     useEffect(() => {
       const fetchData = async () => {
         try {
-          const response = await fetch(`http://localhost:8192/courses/student=${studentId}`,
+          const response = await fetch(`http://localhost:8192/courses/professor=${professorId}`,
             { headers: { Authorization: `Bearer ${token}`, } });
           const data = await response.json();
           setCourses(data);
@@ -116,7 +113,7 @@
     return courses;
   }
 
-  const ProfileStudent: React.FC<{}> = () => {
+  const ProfileProfessor: React.FC<{}> = () => {
     return (
       <div className={styles['Body']}>
         <Nav />
@@ -124,4 +121,4 @@
       </div>
     );
   };
-  export default withAuth(ProfileStudent, [2]);
+  export default withAuth(ProfileProfessor, [1]);
