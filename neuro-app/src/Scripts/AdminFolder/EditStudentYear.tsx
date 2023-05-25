@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Nav from './NavBarAdmin/Nav';
 import "./AdminPage.css";
+import WithAuth from "../../WithAuth";
+
 
 interface FormValues {
     oldYear: number;
@@ -16,9 +18,10 @@ const Body: React.FC<{}> = () => {
 
     const inputRef = useRef<HTMLInputElement>(null);
     const [defaultValueObject, setDefaultValueObject] = useState<{ year: number } | null>(null);
+    
 
     useEffect(() => {
-        var defaultValue = localStorage.getItem('userDataModify');
+        var defaultValue = localStorage.getItem('studentDataModify');
         if (defaultValue !== null) {
             var parsedDefaultValue = JSON.parse(defaultValue);
             setDefaultValueObject(parsedDefaultValue);
@@ -45,17 +48,17 @@ const Body: React.FC<{}> = () => {
         event.preventDefault();
         setFormValues((prevFormValues: FormValues) => ({ ...prevFormValues, submitted: true }));
 
-        var defaultValue = localStorage.getItem('userDataModify');
+        var defaultValue = localStorage.getItem('studentDataModify');
         if (defaultValue !== null) {
             var parsedDefaultValue = JSON.parse(defaultValue);
-            parsedDefaultValue.lastName = formValues.newYear;
-            localStorage.setItem('userDataModify', JSON.stringify(parsedDefaultValue));
+            parsedDefaultValue.year = formValues.newYear;
+            localStorage.setItem('studentDataModify', JSON.stringify(parsedDefaultValue));
         }
 
         var idUs = localStorage.getItem('userToModify');
         const yearData = async () => {
             try {
-                const response = await fetch(`http://localhost:8192/users/update/${idUs}`, {
+                const response = await fetch(`http://localhost:8192/students/update/${idUs}`, {
                     method: 'PUT',
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -92,7 +95,7 @@ const Body: React.FC<{}> = () => {
                     <br /><br />
                     <label htmlFor="newYear">New year:</label>
                     <br />
-                    <input className="label-number" type="number" id="newYear" name="newYear" min="1" max="10" step="1" value={formValues.newYear} onChange={handleChange} />
+                    <input className="label-number" type="number" id="newYear" name="newYear" min="1" max="6" step="1" value={formValues.newYear} onChange={handleChange} />
                     <br /><br />
                     <input type="submit" value="Edit year" />
                 </form>
@@ -111,4 +114,4 @@ function EditStudentYear() {
     );
 }
 
-export default EditStudentYear;
+export default  WithAuth(EditStudentYear, [0]);
