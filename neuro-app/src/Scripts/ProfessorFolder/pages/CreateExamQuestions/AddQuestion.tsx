@@ -234,7 +234,7 @@ const AddQuestion: React.FC<{}> = () => {
 
     
     const handleTimeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const enteredTime = parseFloat(event.target.value);
+        const enteredTime = parseInt(event.target.value);
         if (enteredTime >= 0) {
             setTime(enteredTime);
             setIsTimeValid(true);
@@ -526,7 +526,7 @@ const AddQuestion: React.FC<{}> = () => {
             setExamName(savedExamName);
         }
         if (savedTime) {
-            setTime(parseFloat(savedTime));
+            setTime(parseInt(savedTime));
         }
         if (savedExamDate) {
             setExamDate(savedExamDate);

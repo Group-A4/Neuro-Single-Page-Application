@@ -1,15 +1,11 @@
 import React from 'react';
 import styles from './Button.module.css';
 
-interface ButtonSaveExitProps {
-    type: "button" | "submit" | "reset";
-    onClick?: () => void;
-}
 
-const EditExam: React.FC<ButtonSaveExitProps> = ({ type, onClick }) => {
+const EditExam: React.FC<{}> = () => {
     return (
-        <button type={type} className={styles['button--create']} onClick={onClick}>
-            Save exam
+        <button type="submit" className={styles['button--create']} >
+            Save and exit
         </button>
     );
 };

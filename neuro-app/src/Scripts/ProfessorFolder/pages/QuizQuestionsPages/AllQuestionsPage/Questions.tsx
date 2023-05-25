@@ -97,6 +97,17 @@ const Questions: React.FC<QuestionsProps> = ({ idCourse, idLecture }) => {
       return;
     }
 
+    const hasAnswersNoText = questionToSave.answersQuestion.some((answer) => answer.answerText.trim() === '');
+    if (hasAnswersNoText) {
+      setQuestions((prevQuestions) =>
+        prevQuestions.map((question) =>
+          question.id === questionId ? { ...question, error: 'Please add text for all answers.' } : question
+        )
+      );
+      return;
+    }
+
+
     setQuestions((prevQuestions) =>
       prevQuestions.map((question) =>
         question.id === questionId ? { ...question, error: '' } : question
