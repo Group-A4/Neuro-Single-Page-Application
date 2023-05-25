@@ -53,13 +53,13 @@ const Body: React.FC<{}> = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const apiUrl = 'http://localhost:8192/exam/code=' + courseExam + '/idStudent=218';
+        const apiUrl = 'http://localhost:8192/exam/code=' + courseExam + '/idStudent=219';
         const response = await fetch(apiUrl);
         const data = await response.json();
         setExamData(data);
 
         if (data && data.timeExam) {
-          setRemainingTime(data.timeExam*10);  
+          setRemainingTime(data.timeExam*60);  
         }
       } catch (error) {
         console.error('Error fetching exam data:', error);
@@ -67,6 +67,8 @@ const Body: React.FC<{}> = () => {
     };
     fetchData();
   }, [courseExam]);
+
+
 
   useEffect(() => {
      const timer = setInterval(() => {
@@ -85,7 +87,7 @@ const Body: React.FC<{}> = () => {
       clearInterval(timer);
     };
   }, [navigate, remainingTime]);
-  
+
 
 const handleChoiceSelect = (id: number) => {
   setExamData((prevData) => {
@@ -165,15 +167,18 @@ const handleInputAnswer = (answer: string, id: number) => {
 
 const handleFinishMockExam = async () => {
   try {
-    const apiUrl = 'http://localhost:8192/exam/evaluate/idStudent=218';
+    const apiUrl = 'http://localhost:8192/exam/evaluate/idStudent=219';
+    const token = localStorage.getItem('token');
     const response = await fetch(apiUrl, {
       method: 'POST',
       headers: {
+        accept: 'application/json',
         'Content-Type': 'application/json',
-        'accept': '*/*',
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(examData),
     });
+
 
     if (response.ok) {
         console.log("Evaluation succeeded.");
@@ -187,13 +192,15 @@ const handleFinishMockExam = async () => {
 };
 
 
+const formatTime = (time: number) => {
+  const hours = Math.floor(time / 60 / 60).toString().padStart(2, '0');
+  const minutes = Math.floor((time / 60) % 60).toString().padStart(2, '0');
+  const seconds = (time % 60).toString().padStart(2, '0');
+  return `${hours}:${minutes}:${seconds}`;
+};
 
-  const formatTime = (time: number) => {
-    const minutes = time;
-    const seconds = time % 60;
 
-    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-  };
+
 
   if (!examData || !examData.questionsMultipleChoice) {
     return (

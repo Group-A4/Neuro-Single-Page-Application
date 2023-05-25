@@ -17,17 +17,19 @@ const CodeExamPage: React.FC = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
-    const apiUrl = 'http://localhost:8192/exam/code='+ codeExam +'/idStudent= 218';
-
+     
+    const apiUrl = 'http://localhost:8192/exam/code='+ codeExam +'/idStudent=219';
+    const token = localStorage.getItem('token');
     try {
       const response = await fetch(apiUrl, {
         method: 'GET',
         headers: {
-          accept: 'application/json',
+        accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
         },
       });
-      console.log(codeExam);
+ 
 
       if (response.status === 405) {
         setErrorMessage('You have already given this exam.');}

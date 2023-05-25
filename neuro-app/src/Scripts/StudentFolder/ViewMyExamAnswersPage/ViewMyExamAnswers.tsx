@@ -54,7 +54,7 @@ const Body: React.FC<{}> = () => {
   useEffect(() => {
     // Fetch data using the GET method
     fetch(
-       `http://localhost:8192/exam/viewExamResult/idExam=${examId}/idStudent=218`
+       `http://localhost:8192/exam/viewExamResult/idExam=${examId}/idStudent=219`
 
     )
       .then((response) => response.json())
