@@ -8,7 +8,7 @@ import { info } from 'console';
 
 const BodyAdmin: React.FC<{}> = () => {
   return (
-      <div className='edit-container'>
+      <div className='edit-options-container'>
       <Link to='/EditFirstNamePage'>
           <img className='button-category' src='images/AdminPageImages/first-name.png' alt="" />
         </Link>
@@ -28,7 +28,7 @@ const BodyAdmin: React.FC<{}> = () => {
 
 const BodyStudent: React.FC<{}> = () => {
   return (
-      <div className='edit-container'>
+      <div className='edit-student-options-container'>
       <Link to='/EditFirstNamePage'>
           <img className='button-category' src='images/AdminPageImages/first-name.png' alt="" />
         </Link>
@@ -40,6 +40,15 @@ const BodyStudent: React.FC<{}> = () => {
           </Link>
           <Link to='/EditPersEmailPage'>
           <img className='button-category' src='images/AdminPageImages/pers-email.png' alt="" />
+          </Link>
+          <Link to='/EditStudentYear'>
+          <img className='button-category' src='images/AdminPageImages/edit-year.png' alt="" />
+          </Link>
+          <Link to='/EditStudentSemester'>
+          <img className='button-category' src='images/AdminPageImages/edit-semester.png' alt="" />
+          </Link>
+          <Link to='/EditStudentBirthdate'>
+          <img className='button-category' src='images/AdminPageImages/edit-birthdate.png' alt="" />
           </Link>
         </div>
   );
@@ -47,7 +56,7 @@ const BodyStudent: React.FC<{}> = () => {
 
 const BodyProfessor: React.FC<{}> = () => {
   return (
-      <div className='edit-container'>
+      <div className='edit-professor-container'>
       <Link to='/EditFirstNamePage'>
           <img className='button-category' src='images/AdminPageImages/first-name.png' alt="" />
         </Link>
@@ -59,6 +68,9 @@ const BodyProfessor: React.FC<{}> = () => {
           </Link>
           <Link to='/EditPersEmailPage'>
           <img className='button-category' src='images/AdminPageImages/pers-email.png' alt="" />
+          </Link>
+          <Link to='/EditProfessorDegree'>
+          <img className='button-category' src='images/AdminPageImages/edit-degree.png' alt="" />
           </Link>
         </div>
   );
@@ -95,7 +107,7 @@ function AdminPage() {
     return (
         <div>
             <Nav />
-            <BodyProfessor />
+            <BodyProfessor  />
         </div>
     );
   else if(rolul == 2)
@@ -109,7 +121,7 @@ function AdminPage() {
   return (
     <div>
         <Nav />
-        <BodyAdmin />
+        <BodyProfessor  />
     </div>
   );
 }

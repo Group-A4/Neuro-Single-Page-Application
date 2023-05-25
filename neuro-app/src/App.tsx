@@ -47,6 +47,10 @@ import EditLastNamePage from "./Scripts/AdminFolder/EditLastNamePage";
 import EditUnivEmailPage from "./Scripts/AdminFolder/EditUnivEmailPage";
 import EditPersEmailPage from "./Scripts/AdminFolder/EditPersEmailPage";
 import EditPasswordPage from "./Scripts/AdminFolder/EditPasswordPage";
+import EditStudentYear from "./Scripts/AdminFolder/EditStudentYear";
+import EditStudentSemester from "./Scripts/AdminFolder/EditStudentSemester";
+import EditStudentBirthdate from "./Scripts/AdminFolder/EditStudentBirthdate";
+import EditProfessorDegree from "./Scripts/AdminFolder/EditProfessorDegree";
 import ChooseAccountPage from "./Scripts/AdminFolder/ChooseAccountPage";
 import ProfilePage from "./Scripts/AdminFolder/ProfilePage";
 import ChooseSubjects from "./Scripts/AdminFolder/ChooseSubjects";
@@ -119,7 +123,11 @@ function App(): JSX.Element {
       <Route path="EditSubjectTitle" element={<EditSubjectTitle />}></Route>
       <Route path="EditSubjectYear" element={<EditSubjectYear />}></Route>
       <Route path="EditSubjectSemester" element={<EditSubjectSemester />}></Route>
+      <Route path="EditStudentBirthdate" element={<EditStudentBirthdate />}></Route>
       <Route path="EditSubjectCredits" element={<EditSubjectCredits />}></Route>
+      <Route path="EditStudentYear" element={<EditStudentYear />}></Route>
+      <Route path="EditStudentSemester" element={<EditStudentSemester />}></Route>
+      <Route path="EditProfessorDegree" element={<EditProfessorDegree />}></Route>
       <Route path="ChooseCreate" element={<ChooseCreate />}></Route>
       <Route path="CreateSubject" element={<CreateSubject />}></Route>
 
