@@ -1,5 +1,6 @@
 import React from 'react'
 import styles from './Body.module.css';
+import withAuth from '../../../../WithAuth';
 
 // import { Link } from 'react-router-dom';
 interface HeaderProps {

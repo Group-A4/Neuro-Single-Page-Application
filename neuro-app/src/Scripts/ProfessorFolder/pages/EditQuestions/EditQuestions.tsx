@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { useLocation } from 'react-router-dom';
 import Header from './header'
 import EditExam from '../../components/buttonEditExam/EditExam';
+import withAuth from '../../../../WithAuth';
 
 interface AnswerInterface {
     id: number;
@@ -90,10 +91,19 @@ const EditQuestion: React.FC<{}> = () => {
     const [editedLongQuestion, setEditedLongQuestion] = useState<QuestionLongResponseInterface | null>(null);
     const [editedMultipleQuestion, setEditedMultipleQuestion] = useState<QuestionMultipleChoiceInterface | null>(null);
 
+    const token = localStorage.getItem('token');
+    const user = JSON.parse(localStorage.getItem('utilizator') || '{}');
+
     useEffect(() => {
         const url = `http://localhost:8192/exam/code=${prop1}`;
 
-        fetch(url)
+        fetch(url, 
+            { method: 'GET',
+            headers: { 
+                'Content-Type': 'application/json',
+                authorization: `Bearer ${token}`,
+            }}
+                )
             .then(response => {
                 if (response.ok) {
                     return response.json();
@@ -309,6 +319,10 @@ const EditQuestion: React.FC<{}> = () => {
         try {
             const response = await fetch(`http://localhost:8192/questionExam/delete/idQuestion=${idQuestion}`, {
                 method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    authorization: `Bearer ${token}`
+                },
             });
 
             if (response.ok) {
@@ -503,7 +517,7 @@ const EditQuestion: React.FC<{}> = () => {
             const url = `http://localhost:8192/questionExam/multipleChoice/create/idExam=${exam?.id}`;
             const requestOptions = {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json', authorization: `Bearer ${token}` },
                 body: JSON.stringify(question),
             };
 
@@ -527,7 +541,7 @@ const EditQuestion: React.FC<{}> = () => {
             const url = `http://localhost:8192/questionExam/longResponse/create/idExam=${exam?.id}`;
             const requestOptions = {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json', authorization: `Bearer ${token}` },
                 body: JSON.stringify(question),
             };
 
@@ -553,6 +567,7 @@ const EditQuestion: React.FC<{}> = () => {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
+                    authorization: `Bearer ${token}`
                 },
                 body: JSON.stringify(question),
             })
@@ -573,6 +588,7 @@ const EditQuestion: React.FC<{}> = () => {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
+                    authorization: `Bearer ${token}`
                 },
                 body: JSON.stringify(question),
             })
@@ -703,7 +719,8 @@ const EditQuestion: React.FC<{}> = () => {
                     const response = await fetch(`http://localhost:8192/exam/update/idExam=${exam.id}`, {
                         method: 'PUT',
                         headers: {
-                            'Content-Type': 'application/json'
+                            'Content-Type': 'application/json',
+                            authorization: `Bearer ${token}`
                         },
                         body: JSON.stringify(examData)
                     });
@@ -721,10 +738,10 @@ const EditQuestion: React.FC<{}> = () => {
             // Call the fetchExamData function to initiate the fetch
             fetchExamData();
             
-            // setTimeout(() => {
-            //     window.location.reload();
-            // }, 2000);
-            navigate("/CreateAnExam");
+            setTimeout(() => {
+                navigate("/CreateAnExam");
+            }, 2000);
+            // navigate("/CreateAnExam");
         }
     };
 
@@ -1128,4 +1145,4 @@ const EditQuestion: React.FC<{}> = () => {
     );
 }
 
-export default EditQuestion;
+export default withAuth(EditQuestion, [1]);
