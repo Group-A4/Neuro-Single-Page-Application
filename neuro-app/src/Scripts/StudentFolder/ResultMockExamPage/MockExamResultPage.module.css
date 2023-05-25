@@ -20,7 +20,6 @@ Body {
 
 .headingTitle h1{
     font-size: 3em;
-    /* text-decoration: underline; */
     font-style: italic;
     color: #efcb94;
 }
@@ -67,7 +66,16 @@ Body {
     font-size: 1.5rem;
     padding-left: 1em;
     font-style: italic;
-    font-weight: bold;
+ }
+
+.incorrectAnswer {
+    background-color: #fb2121;
+    margin-top: 1rem;
+    margin-right: 2rem;
+    border-radius: 10px;
+    font-size: 1.5rem;
+    padding-left: 1em;
+    font-style: italic;
 }
 
 .yourAnswers {
@@ -131,6 +139,10 @@ Body {
 .buttonTake {
     display: flex;
     justify-content: center;
+}
+
+.selectedAnswer {
+    font-weight: bold;
 }
 
 
