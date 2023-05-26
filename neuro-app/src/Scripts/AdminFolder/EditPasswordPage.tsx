@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Nav from './NavBarAdmin/Nav';
 import "./AdminPage.css";
 import WithAuth from "../../WithAuth";
+import Swal from 'sweetalert2';
 
 interface FormValues {
   oldPassword: string;
