@@ -99,3 +99,12 @@
     opacity: 100%;
     background-color:#00191d;
 }
+
+.loading, .no-lectures {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    font-size: 18px;
+    color: #555;
+  }

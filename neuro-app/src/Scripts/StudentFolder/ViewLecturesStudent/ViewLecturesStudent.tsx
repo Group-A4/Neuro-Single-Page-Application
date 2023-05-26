@@ -28,6 +28,7 @@ const Body: React.FC<{}> = () => {
     const { courseId } = useParams<{ courseId: string }>();
     const navigate = useNavigate();
     const token = localStorage.getItem('token') || '';
+    const [isLoading, setIsLoading] = useState(true);
 
     const goToViewLectures = (lectureId : number) => {
         navigate('/ViewLectureMaterials',{state:{lectureId}});
@@ -58,7 +59,7 @@ const Body: React.FC<{}> = () => {
                 </div>
                 <div className={styles['column']}>
                     <div className={styles['body--subtitle']}>
-                            {lectures.length > 0 ? 'Lectures: ': 'Loading...'}
+                            {lectures.length > 0 ? 'Lectures: ': 'Lectures'}
                     </div>
                 </div>
 
@@ -66,14 +67,18 @@ const Body: React.FC<{}> = () => {
                     <div className={styles['body--line']}></div>
                 </div>
 
-                {lectures.map(lecture => (
+                {isLoading ? (
+                <div className={styles["loading"]}>Loading...</div>
+                ) : lectures.length === 0 ? (
+                <div className={styles["no-lectures"]}>No lectures to show</div>
+                ) : (lectures.map(lecture => (
                   <div className={styles['course-container']} key={lecture.title}>
                     <div className={styles['course-title']}>
                         {lecture.title}
                     </div>
                     <button  onClick={() => goToViewLectures(lecture.id)}>View</button>
                   </div>
-                ))}
+                )))}
             </div>
         </>
     )

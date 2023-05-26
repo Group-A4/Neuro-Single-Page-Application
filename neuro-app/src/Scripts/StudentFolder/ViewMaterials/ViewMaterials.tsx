@@ -18,7 +18,7 @@ const Body: React.FC<{}> = () => {
         navigate(`/ViewLectures/${courseId}`);
     };
 
-    const [loading, setLoading] = useState(true);
+    const [isLoading, setLoading] = useState(true);
     const [courses, setCourses] = useState<Course[]>([]);
     const user = JSON.parse(localStorage.getItem('utilizator') || '{}');
     const token = localStorage.getItem('token') || '';
@@ -56,7 +56,7 @@ const Body: React.FC<{}> = () => {
                 </div>
                 <div className={styles['column']}>
                     <div className={styles['body--subtitle']}>
-                        {loading ? 'Loading...' : (courses.length > 0 ? 'Subjects: ' : 'You are not enrolled in any subjects')}
+                        { (courses.length > 0 ? 'Subjects: ' : 'Subjects:')}
                     </div>
                 </div>
 
@@ -64,14 +64,20 @@ const Body: React.FC<{}> = () => {
                     <div className={styles['body--line']}></div>
                 </div>
 
-                {!loading && courses.map(course => (
+
+                {isLoading ? (
+                <div className={styles["loading"]}>Loading...</div>
+                ) : courses.length === 0 ? (
+                <div className={styles["no-courses"]}>No subjects to show</div>
+                ) : ( courses.map(course => (
                     <div className={styles['course-container']} key={course.title}>
                         <div className={styles['course-title']}>
                             {course.title}
                         </div>
                         <button onClick={() => goToViewSubjects(course.id)}>View</button>
                     </div>
-                ))}
+                )))}
+
             </div>
         </>
     )
