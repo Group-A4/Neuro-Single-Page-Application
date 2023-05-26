@@ -71,6 +71,8 @@ import CreateStudent from "./Scripts/AdminFolder/CreateStudent";
 import EditStudentCode from "./Scripts/AdminFolder/EditStudentCode";
 import EditProfessorCode from "./Scripts/AdminFolder/EditProfessorCode";
 
+import Enroll from "./Scripts/AdminFolder/Enroll";
+
 
 function App(): JSX.Element {
   return (
@@ -148,6 +150,7 @@ function App(): JSX.Element {
 
 
       <Route path="modifyquizztime" element={<ModifyQuizzTime />}></Route>
+      <Route path="Enroll" element={<Enroll />}></Route>
 
     </Routes>
   );

@@ -52,15 +52,19 @@ function CreateSubject() {
             throw new Error("Network response was not ok");
             }
 
-            Swal.fire({
-              title: "Subject created!",
-              icon: "success",
-              confirmButtonText: "Ok",
-            }).then((result) => {
-              if (result.isConfirmed) {
-                window.location.href = "/ChooseCreate";
-              }
-            });
+            return response.text();
+        })
+        .then(data => { 
+          Swal.fire({
+            title: "Subject created!",
+            text: `The code for the subject is ${data}`,
+            icon: "success",
+            confirmButtonText: "Ok",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              window.location.href = "/ChooseCreate";
+            }
+          });
         })
         .catch(error => console.error(error));
   }

@@ -36,6 +36,9 @@ const MenuDropDown: React.FC<{}> = () => {
           {/* <li><Link to='/MyStudentExams'> Student's exams </Link> </li> */}
           <li><a href='/AllExams'> Student's exams </a> </li>
           <li>
+            <Link to='/Enroll'> Enroll to a course </Link>
+          </li>
+          <li>
             <Link to='/' onClick={handleLogout}> Logout </Link>
           </li>
         </ul>

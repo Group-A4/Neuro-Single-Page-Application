@@ -6,6 +6,7 @@ import WithAuth from "../../WithAuth";
 import Swal from "sweetalert2";
 
 interface User {
+  code: string;
   id: number;
   title: string;
   year: number;
@@ -88,7 +89,8 @@ function ChooseSubjects() {
           {users.map((user) => (
             <div key={user.title} className="user-options">
               <p>
-                {user.title}
+                {user.title} [{user.code}]
+                <br />
               </p>
               <div className="buttons">
                 <Link to="/ModifySubjectsOptions">
