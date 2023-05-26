@@ -347,7 +347,7 @@ select {
 }
 
 .button--create {
-    background-color: #6AFFC7;
+    background-color: #002F35;
 
     text-align: center;
     font-size: calc(10px + 0.8vw);
@@ -363,13 +363,20 @@ select {
     padding-right: 2.0vw;
 
     border-radius: 20px;
-    border-width: 0.2vh;
+    border-width: 1px;
     border-color: black;
     font-weight: bold;
+    font-family: 'Outfit';
+    transition-duration: 0.4s;
+    box-shadow: 3px 5px 18px #002F35;
+    color: white;
+    border: none;
+    cursor: pointer;
 }
 
 .button--create:hover {
-    background-color: #9dffd9;
+    opacity: 100%;
+    background-color: #006e7f;
 }
 
 .successMessage {

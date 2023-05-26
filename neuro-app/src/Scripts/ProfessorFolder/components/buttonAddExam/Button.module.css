@@ -4,7 +4,6 @@
     /* text-align: center; */
     font-size: calc(10px + 0.8vw);
 
-
     width: fit-content;
 
     padding: 0.8vw;
@@ -17,8 +16,17 @@
     font-weight: bold;
     /* float: right; */
     /* margin-right: 8%; */
+
+    font-family: 'Outfit';
+    background-color: #002F35;
+    transition-duration: 0.4s;
+    box-shadow: 3px 5px 18px #002F35;
+    color: white;
+    border: none;
+    cursor: pointer;
 }
 
 .button--create:hover {
-    background-color:#9dffd9;
+    opacity: 100%;
+    background-color: #006e7f;
 }
