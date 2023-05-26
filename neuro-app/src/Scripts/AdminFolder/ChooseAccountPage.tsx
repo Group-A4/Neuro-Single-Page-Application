@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import Nav from "./NavBarAdmin/Nav";
 import "./ChooseAccount.css";
 import WithAuth from "../../WithAuth";
+import Swal from "sweetalert2";
 
 interface User {
   id: number;
@@ -17,7 +18,7 @@ const Bod: React.FC<{}> = () => {
       <div className="user-list"></div>
     </div>
   );
-}
+};
 
 function ChooseAccount() {
   const [users, setUsers] = useState<User[]>([]);
@@ -27,9 +28,9 @@ function ChooseAccount() {
       try {
         const response = await fetch("http://localhost:8192/users", {
           headers: {
-            'Authorization': `Bearer ${localStorage.getItem('token')}`,
-            'Access-Control-Allow-Origin': '*'
-          }
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Access-Control-Allow-Origin": "*",
+          },
         });
 
         if (!response.ok) {
@@ -47,37 +48,46 @@ function ChooseAccount() {
   }, []);
 
   const handleModify = (userId: number) => {
-    
-    localStorage.setItem('userToModify', userId.toString());
-
-  }
+    localStorage.setItem("userToModify", userId.toString());
+  };
 
   const handleDeleteUser = (userId: number) => {
-    const updatedUsers = users.filter((user) => user.id !== userId);
-    setUsers(updatedUsers);
+    Swal.fire({
+      title: "Are you sure you want to delete this user?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
 
-    
-      const fetchUsers = async () => {
-        try {
-          const response = await fetch(`http://localhost:8192/users/${userId}`, {
-            method: 'DELETE',
-            headers: {
-              'Authorization': `Bearer ${localStorage.getItem('token')}`,
-              'Access-Control-Allow-Origin': '*'
+        Swal.fire("Deleted!", "The user has been deleted.", "success");
+        const updatedUsers = users.filter((user) => user.id !== userId);
+        setUsers(updatedUsers);
+
+        const fetchUsers = async () => {
+          try {
+            const response = await fetch(
+              `http://localhost:8192/users/${userId}`,
+              {
+                method: "DELETE",
+                headers: {
+                  Authorization: `Bearer ${localStorage.getItem("token")}`,
+                  "Access-Control-Allow-Origin": "*",
+                },
+              }
+            );
+
+            if (!response.ok) {
+              throw new Error("Network response was not ok");
             }
-          });
-  
-          if (!response.ok) {
-            throw new Error("Network response was not ok");
+          } catch (error) {
+            console.error(error);
           }
-  
-        } catch (error) {
-          console.error(error);
-        }
-      };
-      fetchUsers();
-
-
+        };
+        fetchUsers();
+      }
+    });
   };
 
   return (
@@ -88,12 +98,17 @@ function ChooseAccount() {
         <div className="user-list">
           {users.map((user) => (
             <div key={user.id} className="user-options">
-              <p>{user.id} {user.lastName} {user.firstName}</p>
+              <p>
+                {user.lastName} {user.firstName}
+              </p>
               <div className="buttons">
                 <Link to="/ModifyOptionsPage">
-                  <button className="modify-button"
-                  onClick={() => handleModify(user.id)}
-                  >Modify account</button>
+                  <button
+                    className="modify-button"
+                    onClick={() => handleModify(user.id)}
+                  >
+                    Modify account
+                  </button>
                 </Link>
                 <button
                   className="delete-button"

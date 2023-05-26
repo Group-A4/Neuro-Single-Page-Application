@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import Nav from "./NavBarAdmin/Nav";
 import "./AdminPage.css";
 import WithAuth from "../../WithAuth";
+import Swall from "sweetalert2";
+import { wait } from "@testing-library/user-event/dist/utils";
 
 interface FormValues {
   quizTime: string;
@@ -38,17 +40,21 @@ const Body: React.FC<{}> = () => {
             body: JSON.stringify(formValues)
           }
         );
-        const data = await response;
-        if (data.status === 204) {
-          alert("Time for quiz has been updated!");
-          window.location.href = "/Admin";
-        }
       } catch (error) {
         console.error(error);
       }
     };
 
     timeData();
+    Swall.fire({ 
+      title: "Time updated!",
+      icon: "success",
+      confirmButtonText: "Ok",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.href = "/Admin";
+      }
+    });
   };
 
   return (

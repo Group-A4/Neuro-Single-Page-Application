@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { SERVER_ADDRESS } from "../../../../config/config";
 import { useDropzone } from "react-dropzone";
 import withAuth from "../../../../WithAuth";
+import Swal from "sweetalert2";
 
 interface FormValues {
   fileName: string;
@@ -67,9 +68,15 @@ const ContentInput: React.FC<{}> = () => {
           throw new Error("Network response was not ok");
         }
         console.log("Content created successfully!");
-        if(window.confirm("Content created successfully!")){
-          window.location.reload();
-        }
+        Swal.fire({
+          title: "Content created!",
+          icon: "success",
+          confirmButtonText: "Ok",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.reload();
+          }
+        });
         setUploadStatus("success");
         return response.text();
       })

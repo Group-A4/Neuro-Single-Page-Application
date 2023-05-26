@@ -6,6 +6,7 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import Nav from '../nav/Nav';
 import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 interface Props {
   professorId: number;
@@ -43,21 +44,38 @@ const ContentList: React.FC<Props> = ({ professorId }) => {
   const contents = useGetContents(professorId);
   const setContents = useState<Content[]>([])[1]; // Added setContents declaration
 
-  const handleDelete = async (contentId: number) => {
-    if (window.confirm('Are you sure you want to delete this content?')) {
-      try {
-        await fetch(SERVER_ADDRESS + `/content/${contentId}`, {
-          method: 'DELETE',
-          headers: { Authorization: `Bearer ${token}` },
-        }).then((response) => {
-          if (response.status === 204) {
-            window.location.reload();
-          }});
-      } catch (error) {
-        console.error(error);
+
+  const handleContent = (contentId: number) => {
+    Swal.fire({
+      title: 'Are you sure you want to delete this content?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      confirmButtonColor: '#d33',
+      cancelButtonText: 'Cancel',
+      cancelButtonColor: '#3085d6',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const handleDelete = async (contentId: number) => {
+          try {
+            await fetch(SERVER_ADDRESS + `/content/${contentId}`, {
+              method: 'DELETE',
+              headers: { Authorization: `Bearer ${token}` },
+            }).then((response) => {
+              if (response.status === 204) {
+                window.location.reload();
+              }});
+          } catch (error) {
+            console.error(error);
+          }
+      };
+        handleDelete(contentId);
+        Swal.fire('Deleted!', 'Your content has been deleted.', 'success');
       }
-    }
-  };
+    });
+
+  }
 
   return (
     <>
@@ -86,7 +104,7 @@ const ContentList: React.FC<Props> = ({ professorId }) => {
                 <div className={styles['right-side']}>
                   <button
                     className={styles['deleteButton']}
-                    onClick={() => handleDelete(content.id)}
+                    onClick={() => handleContent(content.id)}
                   >
                     <FontAwesomeIcon
                       icon={faTrash}
