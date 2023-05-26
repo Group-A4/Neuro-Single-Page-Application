@@ -711,11 +711,7 @@ const EditQuestion: React.FC<{}> = () => {
         let isFormValid = true;
         console.log("save");
         console.log(exam);
-        if(examTitle===""){
-            isFormValid = false;
-            alert('Please enter the data for the exam title.');
-            return;
-        }
+
         const hasEmptyQuestionMultipleChoice = questionsMultipleChoice.some(
             (question) => question.questionText.length === 0 || question.answersQuestion.some((answer) => answer.answerText.length === 0)
         );
