@@ -162,7 +162,7 @@ body .answ {
         border-color: black;
         border-width: 1%;
         color: white;
-        font-size: 1.4vi;
+        font-size: 1.8vi;
         border-radius: 5px;
         font-family: 'Outfit';
         transition-duration: 0.4s;
@@ -183,7 +183,7 @@ body .answ {
     border-color: black;
     border-width: 1%;
     color: white;
-    font-size: 1.4vi;
+    font-size: 1.8vi;
     border-radius: 5px;
     font-family: 'Outfit';
     transition-duration: 0.4s;

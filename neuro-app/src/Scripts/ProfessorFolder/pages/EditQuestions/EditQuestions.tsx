@@ -708,8 +708,22 @@ const EditQuestion: React.FC<{}> = () => {
 
 
     const handleSave = () => {
+        let isFormValid = true;
         console.log("save");
         console.log(exam);
+        if(examTitle===""){
+            isFormValid = false;
+            alert('Please enter the data for the exam title.');
+            return;
+        }
+        const hasEmptyQuestionMultipleChoice = questionsMultipleChoice.some(
+            (question) => question.questionText.length === 0 || question.answersQuestion.some((answer) => answer.answerText.length === 0)
+        );
+        if (hasEmptyQuestionMultipleChoice) {
+            isFormValid = false;
+            alert('Please enter data for all questions');
+            return;
+        }
         if (exam) {
             const examData: ExamData = {
                 id: exam.id,
@@ -969,20 +983,6 @@ const EditQuestion: React.FC<{}> = () => {
                                                 {editedMultipleQuestion && editedMultipleQuestion.id === question.id ? (
                                                     <>
                                                         <input
-                                                            type="text"
-                                                            className={styles.answw}
-                                                            value={
-                                                                editedMultipleQuestion.answersQuestion[index].answerText
-                                                            }
-                                                            onChange={(e) =>
-                                                                handleEditAnswerTextChange(
-                                                                    e.target.value,
-                                                                    question.id,
-                                                                    index
-                                                                )
-                                                            }
-                                                        />
-                                                        <input
                                                             type="checkbox"
                                                             checked={
                                                                 editedMultipleQuestion && editedMultipleQuestion.id === question.id
@@ -997,6 +997,21 @@ const EditQuestion: React.FC<{}> = () => {
                                                                 )
                                                             }
                                                         />
+                                                        <input
+                                                            type="text"
+                                                            className={styles.answw}
+                                                            value={
+                                                                editedMultipleQuestion.answersQuestion[index].answerText
+                                                            }
+                                                            onChange={(e) =>
+                                                                handleEditAnswerTextChange(
+                                                                    e.target.value,
+                                                                    question.id,
+                                                                    index
+                                                                )
+                                                            }
+                                                        />
+                                                        
                                                         <button className={styles.deleteAnswer}
                                                             onClick={() =>
                                                                 handleDeleteAnswer(
