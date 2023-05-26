@@ -318,7 +318,7 @@ const Questions: React.FC<QuestionsProps> = ({ idCourse, idLecture }) => {
                         type="text"
                         value={answer.answerText}
                         onChange={(e) => handleAnswerTextChange(e.target.value, question.id, index)}
-
+                        className={styles.answStyle}
                       />
                       <button
                         type="button"

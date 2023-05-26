@@ -159,14 +159,44 @@
 
 .green-button {
     background-color: rgb(0, 132, 0);
+    font-size: 1.5em;
+    font-family: 'Outfit';
+    border-radius: 4px;
+    transition-duration: 0.4s;
+    box-shadow: 3px 5px 18px #002F35;
+    color: white;
+    border: none;
+    cursor: pointer;
 }
+
+ .green-button:hover {
+     opacity: 100%;
+     background-color: #00191d;
+ }
 
 .red-button {
     background-color: rgb(160, 0, 0);
+    font-size: 1.5em;
+    font-family: 'Outfit';
+    border-radius: 4px;
+    transition-duration: 0.4s;
+    box-shadow: 3px 5px 18px #002F35;
+    color: white;
+    border: none;
+    cursor: pointer;
 }
+ .red-button:hover {
+     opacity: 100%;
+     background-color: #00191d;
+ }
 .lecture-title-edit {
     width: fit-content;
     box-sizing: border-box;
+    font-size: 1.2em;
+    padding: 0.5em;
+    border-radius: 4px;
+    border: 2px solid #ccc;
+    margin-right: 1em;
 }
 
 @media (max-width: 768px) {
