@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
 import { GetMaterialById } from '../../components/material/getMaterialById';
-import Nav from '../../../NavBarFolder/Nav';
+import NavProf from '../../../NavBarFolder/Nav';
+import NavStud from '../../../StudentFolder/NavBarStudent/Nav';
 import styles from './ViewMaterial.module.css';
 import withAuth from '../../../../WithAuth';
 import { useLocation } from 'react-router-dom';
@@ -24,7 +25,7 @@ const ViewMaterial: React.FC<{}> = () => {
 
     return (
         <>
-            <Nav />
+            {localStorage.getItem('role') === '1' ? <NavProf /> : <NavStud />}
             <body className={styles['body']}>
                 <div className={styles['body--content']}>
                     <div className={styles['body--content--description']}>

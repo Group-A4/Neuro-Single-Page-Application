@@ -149,6 +149,7 @@ function LoginRender() {
     })
       .then((response) => {
         if (!response.ok) {
+          alert("Invalid username or password!");
           throw new Error("Network response was not ok");
         }
 

@@ -46,21 +46,19 @@ ul{
     font-size: 1.8rem;
   }
 
-.button-container {
+.button-container1 {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
     margin-left: 5rem;
     margin-right: 5rem;
     margin-top: 5rem;
-
-    display: flex;
+     display: flex;
     flex-wrap: wrap;
-    /* font-size: calc(8px + 1.0vw); */
     color: #fff;
  }
 
-.button-container button {
+.button-container1 .button1 {
 
     padding-top: 1%;
     padding-bottom: 1%;
@@ -81,13 +79,13 @@ ul{
     cursor: pointer;
 }
 
-.button-container button:hover{
+.button-container1 button:hover{
     opacity: 100%;
     background-color:#00191d;
 }
 
 
-.button-container button:disabled {
+.button-container1 button:disabled {
     background-color: #ccc;
     cursor: not-allowed;
 }

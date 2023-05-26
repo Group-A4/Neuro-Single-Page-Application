@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import styles from './ViewMaterials.module.css';
 import Nav from '../NavBarStudent/Nav';
-import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
+import withAuth from '../../../WithAuth';
 
 interface Course {
   id: number;
@@ -14,21 +13,37 @@ interface Course {
 }
 
 const Body: React.FC<{}> = () => {
-
     const navigate = useNavigate();
-    const goToViewSubjects = (courseId : number) => {
-        navigate(`/ViewLectures/${courseId}`); 
-      };
+    const goToViewSubjects = (courseId: number) => {
+        navigate(`/ViewLectures/${courseId}`);
+    };
 
+    const [loading, setLoading] = useState(true);
     const [courses, setCourses] = useState<Course[]>([]);
+    const user = JSON.parse(localStorage.getItem('utilizator') || '{}');
+    const token = localStorage.getItem('token') || '';
 
     useEffect(() => {
-       const fetchData = async () => {
-        const response = await fetch('http://localhost:8192/courses/student=51');
-        const data = await response.json();
-        setCourses(data);
-      };
-      fetchData();
+        const fetchData = async () => {
+            try {
+                const response = await fetch(`http://localhost:8192/courses/student=${user.id}`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                if (response.status === 400) {
+                    console.log('error');
+                } else {
+                    const data = await response.json();
+                    setCourses(data);
+                }
+            } catch (error) {
+                console.error('Error fetching courses:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchData();
     }, []);
 
     return (
@@ -41,7 +56,7 @@ const Body: React.FC<{}> = () => {
                 </div>
                 <div className={styles['column']}>
                     <div className={styles['body--subtitle']}>
-                            {courses.length > 0 ? 'Subjects: ': 'Loading...'}
+                        {loading ? 'Loading...' : (courses.length > 0 ? 'Subjects: ' : 'You are not enrolled in any subjects')}
                     </div>
                 </div>
 
@@ -49,19 +64,18 @@ const Body: React.FC<{}> = () => {
                     <div className={styles['body--line']}></div>
                 </div>
 
-                {courses.map(course => (
-                  <div className={styles['course-container']} key={course.title}>
-                    <div className={styles['course-title']}>
-                        {course.title}
+                {!loading && courses.map(course => (
+                    <div className={styles['course-container']} key={course.title}>
+                        <div className={styles['course-title']}>
+                            {course.title}
+                        </div>
+                        <button onClick={() => goToViewSubjects(course.id)}>View</button>
                     </div>
-                    <button  onClick={() => goToViewSubjects(course.id)}>View</button>
-                  </div>
                 ))}
             </div>
         </>
     )
 }
-
 
 const ViewMaterialsStudent: React.FC<{}> = () => {
     return (
@@ -70,10 +84,8 @@ const ViewMaterialsStudent: React.FC<{}> = () => {
                 <Nav />
                 <Body />
             </body>
-
-            
         </>
     );
 }
 
-export default ViewMaterialsStudent;
+export default withAuth(ViewMaterialsStudent, [2]);

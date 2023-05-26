@@ -1,337 +1,359 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Nav from '../../components/nav/Nav';
 import styles from './Body.module.css';
 import { useNavigate } from "react-router-dom";
-import AddExam from '../../components/buttonAddExam/AddExam';
-import Header from './header1'
+import Questions from './Questions';
+
+import { Link } from "react-router-dom";
+import { useLocation } from 'react-router-dom';
+import Header from './header'
 import EditExam from '../../components/buttonEditExam/EditExam';
+import withAuth from '../../../../WithAuth';
 
-interface Exam {
-    idCourse: number;
-    idProfessor: number;
-    title: string;
-    timeExam: number;
-    date: Date;
-    evaluationType: number;
-    questionsMultipleChoice: MultipleChoice[];
-    questionsLongResponse: LongResponse[];
-}
-
-
-interface MultipleChoice {
+interface AnswerInterface {
     id: number;
-    idProfessor: number;
-    questionText: string;
-    points: number;
-    answersQuestion: MultipleChoiceAnswers[];
-}
-
-
-interface MultipleChoiceAnswers {
-    id: number;
+    idQuestion: number;
     answerText: string;
     correct: boolean;
 }
+interface ExamData {
 
+    id: number,
+    title: string,
+    date: string;
+    timeExam: number,
+    evaluationType: number
+
+}
+
+interface QuestionMultipleChoiceInterface {
+    id: number;
+    idExam: number;
+    idProfessor: number;
+    questionText: string;
+    points: number;
+    answersQuestion: AnswerInterface[];
+    error?: string;
+}
+
+interface QuestionLongResponseInterface {
+    id: number;
+    idExam: number;
+    idProfessor: number;
+    questionText: string;
+    points: number;
+    expectedResponse: string;
+    error?: string;
+}
+
+interface ExamInterface {
+    id: number;
+    idCourse: number;
+    idProfessor: number;
+    title: string;
+    date: string;
+    timeExam: number;
+    evaluationType: number;
+    questionsMultipleChoice: QuestionMultipleChoiceInterface[];
+    questionsLongResponse: QuestionLongResponseInterface[];
+}
+interface QuestionLong {
+    idProfessor: number;
+    questionText: string;
+    points: number;
+    expectedResponse: string;
+}
 interface LongResponse {
     idProfessor: number;
     questionText: string;
     points: number;
     expectedResponse: string;
 }
-
-interface Course {
-    id: number,
-    title: string,
-    year: number
-    semester: number,
-    credits: number
+interface MultipleChoiceAnswers {
+    answerText: string;
+    correct: boolean;
 }
-
-interface ExamData {
-
-    id: number;
-    idCourse: number;
+interface MultipleChoice {
     idProfessor: number;
-    code: string;
-    title: string;
-    date: Date;
-    timeExam: number;
-    evaluationType: number;
-}
-
-const SelectCourse: React.FC<{ onSelectCourse: (id: number) => void }> = ({ onSelectCourse }) => {
-    const [courses, setCourses] = useState<Course[]>([]);
-    const [selectedCourseId, setSelectedCourseId] = useState<number | null>(null);
-    const [examData, setExamData] = useState<ExamData[]>([]);
-
-    useEffect(() => {
-        const fetchCourses = async () => {
-            const response = await fetch('http://localhost:8192/courses/professor=52');
-            const data = await response.json();
-            setCourses(data);
-        };
-        fetchCourses();
-
-        const savedCourseId = localStorage.getItem('selectedCourseId');
-        if (savedCourseId) {
-            const courseId = parseInt(savedCourseId);
-            setSelectedCourseId(courseId);
-            onSelectCourse(courseId);
-        }
-    }, []);
-    const handleCourseSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        const courseId = parseInt(event.target.value);
-        setSelectedCourseId(courseId);
-        onSelectCourse(courseId);
-        localStorage.setItem('selectedCourseId', String(courseId));
-    };
-
-    return (
-        <>
-            <div className={styles['subject-container']}>
-                <select value={selectedCourseId ?? ""} onChange={handleCourseSelect}>
-                    <option value="" disabled hidden>
-                        Courses options
-                    </option>
-                    {courses.map((course) => (
-                        <option
-                            className={styles['subject-options']}
-                            key={course.id}
-                            value={course.id}
-                        >
-                            {course.title}
-                        </option>
-                    ))}
-                </select>
-
-            </div>
-        </>
-    );
-};
-
-
-const SelectEvaluationType: React.FC<{ onSelectEvaluationType: (evaluationType: string) => void }> = ({ onSelectEvaluationType }) => {
-    const [selectedEvaluationType, setSelectedEvaluationType] = useState<string | null>(null);
-
-    const handleEvaluationTypeSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        const evaluationType = event.target.value;
-        setSelectedEvaluationType(evaluationType);
-        onSelectEvaluationType(evaluationType);
-    };
-
-    return (
-        <div className={styles.evaluationContainer}>
-            <select value={selectedEvaluationType ?? ''} onChange={handleEvaluationTypeSelect}>
-                <option className={styles.evaluationOption} value="" disabled hidden>
-                    Evaluation Types
-                </option>
-                <option className={styles.evaluationOption} value="Perfect match">
-                    Perfect match
-                </option>
-                <option className={styles.evaluationOption} value="Option 1">
-                    One wrong answer cancels one correct answer
-                </option>
-                <option className={styles.evaluationOption} value="Option 2">
-                    Two wrong answers cancel one correct answer
-                </option>
-            </select>
-        </div>
-    );
+    questionText: string;
+    points: number;
+    answersQuestion: MultipleChoiceAnswers[];
 }
 
 const EditQuestion: React.FC<{}> = () => {
+    const [error, setError] = useState('');
     const navigate = useNavigate();
+    const location = useLocation();
+    const { prop1 } = location.state;
+    const [exam, setExam] = useState<ExamInterface | undefined>();
+    const [questionsLong, setQuestionsLong] = useState<QuestionLongResponseInterface[]>([]);
+    const [questionsMultiple, setQuestionsMultiple] = useState<QuestionMultipleChoiceInterface[]>([]);
+    const [editedLongQuestion, setEditedLongQuestion] = useState<QuestionLongResponseInterface | null>(null);
+    const [editedMultipleQuestion, setEditedMultipleQuestion] = useState<QuestionMultipleChoiceInterface | null>(null);
+    const [showConfirmation, setShowConfirmation] = useState(false);
 
-    const [idC, setIdC] = useState<number | null>(() => {
-        const savedCourseId = localStorage.getItem('selectedCourseId');
-        return savedCourseId ? parseInt(savedCourseId) : null;
-    });
+    const token = localStorage.getItem('token');
+    const user = JSON.parse(localStorage.getItem('utilizator') || '{}');
 
-    const [time, setTime] = useState<number>(0);
-    const [examName, setExamName] = useState('');
-    const [examDate, setExamDate] = useState<string>('');
-    const [evaluationType, setEvaluationType] = useState<string>('');
+    useEffect(() => {
+        const url = `http://localhost:8192/exam/code=${prop1}`;
 
-    const [errorMessage, setErrorMessage] = useState('');
+        fetch(url, 
+            { method: 'GET',
+            headers: { 
+                'Content-Type': 'application/json',
+                authorization: `Bearer ${token}`,
+            }}
+                )
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error('Network response was not ok.');
+            })
+            .then(data => {
+                // Update the exam state with the fetched data
+                setExam(data);
+                setQuestionsLong(data?.questionsLongResponse);
+                setQuestionsMultiple(data?.questionsMultipleChoice);
+                console.log(questionsMultiple);
+            })
+            .catch(error => {
+                // Handle any errors
+                console.error('Error:', error);
+            });
+    }, [prop1]); // Run the effect whenever prop1 changes
+    console.log(exam);
 
-    const [exam, setExam] = useState<Exam>({
-        idCourse: 0,
-        idProfessor: 0,
-        title: "",
-        timeExam: 0,
-        date: new Date(),
-        evaluationType: 0,
-        questionsMultipleChoice: [],
-        questionsLongResponse: [],
-    });
+    /////edit question
 
-    const editExam = async () => {
+    const handleEditLongQuestion = (question: QuestionLongResponseInterface) => {
+        setEditedLongQuestion(question);
+    };
 
-        const examData: Exam = {
-            idCourse: idC!,
-            idProfessor: 52,
-            title: examName,
-            timeExam: time,
-            date: new Date(examDate),
-            evaluationType: evaluationType === 'Option 1' ? 1 : evaluationType === 'Option 2' ? 2 : 0,
-            // questionsMultipleChoiceExam: examQuestionsMultipleChoice,
-            questionsMultipleChoice: questionsMultipleChoice,
-            questionsLongResponse: questionsLongResponse,
+    const handleEditMultipleQuestion = (question: QuestionMultipleChoiceInterface) => {
+        setEditedMultipleQuestion(question);
+    };
+
+    const handleSaveLongQuestion = (question: QuestionLongResponseInterface) => {
+        
+        if (question.questionText.trim() === '') {
+            const updatedQuestions = questionsLong.map((q) =>
+                q.id === question.id ? { ...q, error: 'Please add question text.' } : q
+            );
+            setQuestionsLong(updatedQuestions);
+            return;
+        }
+
+        if (question.expectedResponse.trim() === '') {
+            const updatedQuestions = questionsLong.map((q) =>
+                q.id === question.id ? { ...q, error: 'Please add text for expected response.' } : q
+            );
+            setQuestionsLong(updatedQuestions);
+            return;
+        }
+        
+        
+        setQuestionsLong((prevQuestions) =>
+            prevQuestions.map((q) => (q.id === question.id ? question : q))
+        );
+        const QuestionLong: QuestionLong = {
+            idProfessor: question.idProfessor,
+            questionText: question.questionText,
+            points: question.points,
+            expectedResponse: question.expectedResponse,
         };
-        try {
+        console.log(QuestionLong);
 
-            const response = await fetch('http://localhost:8192/exam/create', {
-                method: 'POST',
+        setEditedLongQuestion(null);
+    };
+
+    const handleSaveMultipleQuestion = (question: QuestionMultipleChoiceInterface) => {
+
+        if (question.questionText.trim() === '') {
+            const updatedQuestions = questionsMultiple.map((q) =>
+                q.id === question.id ? { ...q, error: 'Please add question text.' } : q
+            );
+            setQuestionsMultiple(updatedQuestions);
+            return;
+        }
+
+        const hasNoAnswers = question.answersQuestion.every((answer) => answer.answerText.trim() === '');
+        if (hasNoAnswers) {
+            const updatedQuestions = questionsMultiple.map((q) =>
+                q.id === question.id ? { ...q, error: 'Please add at least one answer.' } : q
+            );
+            setQuestionsMultiple(updatedQuestions);
+            return;
+        }
+
+        const hasAnswersNoText = question.answersQuestion.some(
+            (answer) => answer.answerText.trim() === ''
+        );
+        if (hasAnswersNoText) {
+            const updatedQuestions = questionsMultiple.map((q) =>
+                q.id === question.id ? { ...q, error: 'Please add text for all answers.' } : q
+            );
+            setQuestionsMultiple(updatedQuestions);
+            return;
+        }
+
+        // Clear the error for the current question
+        const updatedQuestions = questionsMultiple.map((q) =>
+            q.id === question.id ? { ...q, error: undefined } : q
+        );
+        setQuestionsMultiple(updatedQuestions);
+
+        const updatedQuestion: QuestionMultipleChoiceInterface = {
+            ...question,
+            // Update question properties if needed
+        };
+        console.log("ceva");
+        console.log(updatedQuestion)
+        // Send the updated question to the server
+
+        // Update the client-side state
+        setQuestionsMultiple(prevQuestions => {
+            const updatedQuestions = prevQuestions.map(q =>
+                q.id === question.id ? updatedQuestion : q
+            );
+            return updatedQuestions;
+        });
+
+        // Clear the edited question state
+        setEditedMultipleQuestion(null);
+    };
+
+
+    const handleEditAnswerTextChange = (
+        value: string,
+        questionId: number,
+        answerIndex: number
+    ) => {
+        setEditedMultipleQuestion((prevQuestion) => {
+            if (!prevQuestion) return null;
+
+            const updatedAnswers = prevQuestion.answersQuestion.map((answer, index) =>
+                index === answerIndex ? { ...answer, answerText: value } : answer
+            );
+
+            return {
+                ...prevQuestion,
+                answersQuestion: updatedAnswers,
+            };
+        });
+    };
+
+    const handleEditAnswerCorrectChange = (
+        checked: boolean,
+        questionId: number,
+        answerIndex: number
+    ) => {
+        setEditedMultipleQuestion((prevQuestion) => {
+            if (!prevQuestion) return null;
+
+            const updatedAnswers = prevQuestion.answersQuestion.map((answer, index) =>
+                index === answerIndex ? { ...answer, correct: checked } : answer
+            );
+
+            return {
+                ...prevQuestion,
+                answersQuestion: updatedAnswers,
+            };
+        });
+    };
+
+
+    const handleDeleteAnswer = (questionId: number, answerId: number): void => {
+        setQuestionsMultiple((prevQuestions) => {
+            return prevQuestions.map((question) => {
+                if (question.id === questionId) {
+                    const updatedAnswers = question.answersQuestion.filter(
+                        (answer) => answer.id !== answerId
+                    );
+
+                    // Update editedMultipleQuestion if it matches the deleted question
+                    if (
+                        editedMultipleQuestion &&
+                        editedMultipleQuestion.id === questionId
+                    ) {
+                        const updatedQuestion: QuestionMultipleChoiceInterface = {
+                            ...editedMultipleQuestion,
+                            answersQuestion: updatedAnswers,
+                        };
+                        setEditedMultipleQuestion(updatedQuestion);
+                    }
+
+                    return {
+                        ...question,
+                        answersQuestion: updatedAnswers,
+                    };
+                }
+                return question;
+            });
+        });
+    };
+    const handleAddAnswer = (questionId: number) => {
+        setEditedMultipleQuestion((prevQuestion) => {
+            if (!prevQuestion) return null;
+
+            const newAnswer: AnswerInterface = {
+                id: Date.now(),
+                idQuestion: questionId,
+                answerText: '',
+                correct: false,
+            };
+
+            const updatedAnswers = [...prevQuestion.answersQuestion, newAnswer];
+
+            const updatedQuestion: QuestionMultipleChoiceInterface = {
+                ...prevQuestion,
+                answersQuestion: updatedAnswers,
+            };
+
+            setEditedMultipleQuestion(updatedQuestion);
+
+            return updatedQuestion;
+        });
+    };
+    const handleDelete = async (idQuestion: number) => {
+        setShowConfirmation(true);
+        const confirmDelete = window.confirm("Are you sure you want to remove this question?");
+        if (confirmDelete) {
+        try {
+            const response = await fetch(`http://localhost:8192/questionExam/delete/idQuestion=${idQuestion}`, {
+                method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
+                    authorization: `Bearer ${token}`
                 },
-                body: JSON.stringify(examData),
             });
+
             if (response.ok) {
-                // Examenul a fost creat cu succes
-                console.log('Examen creat!');
+                console.log('Question deleted successfully');
 
-
-                navigate("/CreateAnExam");
+                // Remove the deleted question from the state
+                setQuestionsMultiple((prevQuestions) =>
+                    prevQuestions.filter((question) => question.id !== idQuestion)
+                );
+            } else {
+                console.log('Failed to delete question');
+                // Handle the error case
             }
         } catch (error) {
-            console.error('Eroare la crearea examenului:', error);
+            console.log('Error occurred while deleting question:', error);
+            // Handle any errors that occurred during the fetch request
         }
+    }
     };
-
-    const handleCourseSelect = (courseId: number) => {
-        setIdC(courseId);
-        localStorage.setItem('selectedCourseId', String(courseId));
-    };
-    const handleEvaluationTypeSelect = (evaluationType: string) => {
-        setEvaluationType(evaluationType);
-    };
-
-    const [isExamTitleValid, setIsExamTitleValid] = useState(true);
-    const [isTimeValid, setIsTimeValid] = useState(true);
-    const [isExamDateValid, setIsExamDateValid] = useState(true);
-    const [isFormValid, setIsFormValid] = useState(true);
-
-    const handleExamNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setExamName(event.target.value);
-        setIsExamTitleValid(true);
-    };
-
-
-    const handleTimeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const enteredTime = parseFloat(event.target.value);
-        if (enteredTime >= 0) {
-            setTime(enteredTime);
-            setIsTimeValid(true);
-        } else {
-            setIsTimeValid(false);
-        }
-    };
-
-    const handleExamDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setExamDate(event.target.value);
-        setIsExamDateValid(true);
-    };
-
-    const handleSubmit = (event: React.FormEvent) => {
-        event.preventDefault();
-
-        let isFormValid = true;
-
-        if (!examName) {
-            setIsExamTitleValid(false);
-            isFormValid = false;
-        } else {
-            setIsExamTitleValid(true);
-        }
-
-        if (time <= 0) {
-            setIsTimeValid(false);
-            isFormValid = false;
-        } else {
-            setIsTimeValid(true);
-        }
-
-        if (!examDate) {
-            setIsExamDateValid(false);
-            isFormValid = false;
-        } else {
-            setIsExamDateValid(true);
-        }
-
-        if (!isQuestionTextChangeValid) {
-            setQuestionTextLongValid(false);
-            isFormValid = false;
-        } else {
-            setQuestionTextLongValid(true);
-        }
-        if (!isAnswerTextValid) {
-            setAnswerTextValid(false);
-            isFormValid = false;
-        } else {
-            setAnswerTextValid(true);
-        }
-
-        if (!isQuestionTextLongValid) {
-            setQuestionTextLongValid(false);
-            isFormValid = false;
-        } else {
-            setQuestionTextLongValid(true);
-        }
-
-        const hasEmptyQuestionMultipleChoice = questionsMultipleChoice.some(
-            (question) => question.questionText.length === 0 || question.answersQuestion.some((answer) => answer.answerText.length === 0)
-        );
-        if (hasEmptyQuestionMultipleChoice) {
-            isFormValid = false;
-            alert('Please enter data for all questions');
-            return;
-        }
-
-        const hasQuestionsWithoutAnswers = questionsMultipleChoice.some(
-            (question) => question.answersQuestion.length === 0
-        );
-
-        if (hasQuestionsWithoutAnswers) {
-            setIsFormValid(false);
-            alert('There are questions without answer choices');
-            return;
-        }
-
-        const hasEmptyQuestionLong = questionsLongResponse.some(
-            (question) => question.questionText.length === 0 || question.expectedResponse.length === 0
-        );
-        if (hasEmptyQuestionLong) {
-            isFormValid = false;
-            alert('Please enter data for all questions');
-            return;
-        }
-
-        setIsFormValid(isFormValid);
-
-        if (isFormValid) {
-            editExam()
-                .catch((error) => {
-                    console.error('Failed to create exam:', error);
-                    setErrorMessage('Failed to create exam. Please try again.');
-                });
-        } else {
-            alert('Unable to create the exam. Please check the error messages and try again.');
-        }
-    };
-
-    ////////////////////////////////////////////////////////////
+    ///question 
     const [questionsMultipleChoice, setQuestionsMultipleChoice] = useState<MultipleChoice[]>([]);
     const [questionsLongResponse, setQuestionsLongResponse] = useState<LongResponse[]>([]);
     const lastQuestionRef = useRef<HTMLDivElement>(null);
     const lastLongResponseRef = useRef<HTMLDivElement>(null);
-
-
-
     const addQuestionLong = () => {
         const newQuestion: LongResponse = {
-            idProfessor: 52,
+            idProfessor: exam?.idProfessor || 52,
             questionText: '',
             points: 0,
             expectedResponse: '',
@@ -344,7 +366,6 @@ const EditQuestion: React.FC<{}> = () => {
 
     const addMultipleChoice = () => {
         const newQuestion: MultipleChoice = {
-            id: 0,
             idProfessor: 52,
             questionText: '',
             points: 0,
@@ -359,14 +380,20 @@ const EditQuestion: React.FC<{}> = () => {
 
 
     const addAnswer = (questionIndex: number) => {
-        const newQuestions = [...questionsMultipleChoice];
-        const newAnswer: MultipleChoiceAnswers = {
-            id: newQuestions[questionIndex].answersQuestion.length, // Generate unique id for answer
-            answerText: "",
-            correct: false,
-        };
-        newQuestions[questionIndex].answersQuestion.push(newAnswer);
-        setQuestionsMultipleChoice(newQuestions);
+        setQuestionsMultipleChoice((prevQuestions) => {
+            const newQuestions = [...prevQuestions];
+            const newAnswer: MultipleChoiceAnswers = {
+                answerText: "",
+                correct: false,
+            };
+            const answersQuestion = newQuestions[questionIndex].answersQuestion;
+            const isAnswerAlreadyAdded = answersQuestion.some((answer) => answer.answerText === newAnswer.answerText);
+            if (!isAnswerAlreadyAdded) {
+                answersQuestion.push(newAnswer);
+            }
+            console.log(newQuestions);
+            return newQuestions;
+        });
     };
 
 
@@ -474,205 +501,672 @@ const EditQuestion: React.FC<{}> = () => {
 
 
     const setPointMultipleChoice = (questionIndex: number, value: number) => {
-        const newQuestionsMultipleChoice = [...questionsMultipleChoice];
-        newQuestionsMultipleChoice[questionIndex].points = value;
-        setQuestionsMultipleChoice(newQuestionsMultipleChoice);
+        if (value >= 0) {
+            const newQuestionsMultipleChoice = [...questionsMultipleChoice];
+            newQuestionsMultipleChoice[questionIndex].points = value;
+            setQuestionsMultipleChoice(newQuestionsMultipleChoice);
+        }
 
     };
 
     const setPointLongResponse = (questionIndex: number, value: number) => {
+        if (value >= 0) {
         const newQuestionsLongResponse = [...questionsLongResponse];
         newQuestionsLongResponse[questionIndex].points = value;
         setQuestionsLongResponse(newQuestionsLongResponse);
+        }
+    };
+    const handleSubmit = () => {
+
+        questionsMultipleChoice.forEach((question) => {
+            const url = `http://localhost:8192/questionExam/multipleChoice/create/idExam=${exam?.id}`;
+            const requestOptions = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', authorization: `Bearer ${token}` },
+                body: JSON.stringify(question),
+            };
+
+            fetch(url, requestOptions)
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error('Failed to create multiple-choice question');
+                    }
+                    return response.json();
+                })
+                .then((data) => {
+                    // Handle the response data if needed
+                    console.log('Multiple-choice question created:', data);
+                })
+                .catch((error) => {
+                    // Handle any errors
+                    console.error('Error creating multiple-choice question:', error);
+                });
+        });
+        questionsLongResponse.forEach((question) => {
+            const url = `http://localhost:8192/questionExam/longResponse/create/idExam=${exam?.id}`;
+            const requestOptions = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', authorization: `Bearer ${token}` },
+                body: JSON.stringify(question),
+            };
+
+            fetch(url, requestOptions)
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error('Failed to create long response question');
+                    }
+                    return response.json();
+                })
+                .then((data) => {
+                    // Handle the response data if needed
+                    console.log('Long response question created:', data);
+
+                })
+                .catch((error) => {
+                    console.error('Error creating long response question:', error);
+                });
+
+        });
+        questionsLong.forEach((question) => {
+            fetch(`http://localhost:8192/questionExam/longResponse/update/idQuestion=${question.id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    authorization: `Bearer ${token}`
+                },
+                body: JSON.stringify(question),
+            })
+                .then(response => {
+                    if (response.ok) {
+                        console.log('Question saved successfully!');
+                    } else {
+                        throw new Error('Failed to save question.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+
+        });
+        questionsMultiple.forEach((question) => {
+            fetch(`http://localhost:8192/questionExam/multipleChoice/update/idQuestion=${question.id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    authorization: `Bearer ${token}`
+                },
+                body: JSON.stringify(question),
+            })
+                .then(response => {
+                    if (response.ok) {
+                        console.log('Question saved successfully!');
+                    } else {
+                        throw new Error('Failed to save question.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        });
+    };
+    ///select 
+    const SelectEvaluationType: React.FC<{ onSelectEvaluationType: (evaluationType: string) => void; examType: number | undefined; }> = ({ onSelectEvaluationType, examType }) => {
+        const [selectedEvaluationType, setSelectedEvaluationType] = useState<string | null>(null);
+
+        const handleEvaluationTypeSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
+            const evaluationType = event.target.value;
+            console.log(evaluationType);
+            if (exam)
+                if (evaluationType === 'Option 1') {
+                    exam.evaluationType = 1;
+                } else if (evaluationType === 'Option 2') {
+                    exam.evaluationType = 2;
+                } else {
+                    exam.evaluationType = 0;
+                }
+            setSelectedEvaluationType(evaluationType);
+            onSelectEvaluationType(evaluationType);
+        };
+
+        return (
+            <div className={styles.evaluationContainer}>
+                <select value={selectedEvaluationType ?? ''} onChange={handleEvaluationTypeSelect}>
+                    <option className={styles.evaluationOption} value="" disabled>
+                        {examType === 0 ? 'Perfect match' : examType === 1 ? "One wrong answer cancels one correct answer" : "Two wrong answers cancel one correct answer"}
+                    </option>
+                    <option className={styles.evaluationOption} value="Perfect match">
+                        Perfect match
+                    </option>
+                    <option className={styles.evaluationOption} value="Option 1">
+                        One wrong answer cancels one correct answer
+                    </option>
+                    <option className={styles.evaluationOption} value="Option 2">
+                        Two wrong answers cancel one correct answer
+                    </option>
+                </select>
+            </div>
+        );
+    }
+
+    ///exam
+
+    const [time, setTime] = useState<number>(0);
+    const [examName, setExamName] = useState('');
+    const [examDate, setExamDate] = useState<string>('');
+    const [evaluationType, setEvaluationType] = useState<string>('');
+
+    const handleExamNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const updatedName = event.target.value;
+
+    };
+    const [examTitle, setExamTitle] = useState('');
+
+    const handleTimeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        if (exam) {
+            const time = parseInt(event.target.value, 10); // Parse the value as a number
+            if (time > 0) {
+                setExam({ ...exam, timeExam: time });
+            }
+            else {
+                console.log('nimc');
+            }
+        }
+    };
+    const handleExamDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const inputDate = event.target.value;
+        if (exam) {
+            // Create a new exam object with the updated date
+            const updatedExam = {
+                ...exam,
+                date: inputDate,
+            };
+
+            // Update the state with the modified exam
+            setExam(updatedExam);
+            console.log(exam);
+        }
+    };
+    const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        if (exam)
+            setExam({ ...exam, title: event.target.value });
+    };
+    const handleEvaluationTypeSelect = (evaluationType: string) => {
+        setEvaluationType(evaluationType);
+    };
+    const formatDate = (dateString: string): string => {
+        const date = new Date(dateString);
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        const hours = String(date.getHours()).padStart(2, '0');
+        const minutes = String(date.getMinutes()).padStart(2, '0');
+        console.log(hours);
+        return `${year}-${month}-${day}T${hours}:${minutes}`;
     };
 
 
+
+
+    const handleSave = () => {
+        let isFormValid = true;
+        console.log("save");
+        console.log(exam);
+
+        const hasEmptyQuestionMultipleChoice = questionsMultipleChoice.some(
+            (question) => question.questionText.length === 0 || question.answersQuestion.some((answer) => answer.answerText.length === 0)
+        );
+        if (hasEmptyQuestionMultipleChoice) {
+            isFormValid = false;
+            alert('Please enter data for all questions');
+            return;
+        }
+        if (exam) {
+            const examData: ExamData = {
+                id: exam.id,
+                title: exam.title,
+                date: exam.date,
+                timeExam: exam.timeExam,
+                evaluationType: exam.evaluationType
+            };
+
+            const fetchExamData = async () => {
+                try {
+                    const response = await fetch(`http://localhost:8192/exam/update/idExam=${exam.id}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            authorization: `Bearer ${token}`
+                        },
+                        body: JSON.stringify(examData)
+                    });
+                    if (response.ok) {
+                        const responseData: ExamData = await response.json();
+                        console.log(responseData);
+                    } else {
+                        console.log('Error:', response.status);
+                    }
+                } catch (error) {
+                    console.log('Error:', error);
+                }
+            };
+            handleSubmit();
+            // Call the fetchExamData function to initiate the fetch
+            fetchExamData();
+            
+            setTimeout(() => {
+                navigate("/CreateAnExam");
+            }, 2000);
+            // navigate("/CreateAnExam");
+        }
+    };
+
     return (
         <>
-            <Nav />
-            <div className={styles['body']}>
-                <form onSubmit={handleSubmit}> {/* Adaugă formularul în jurul conținutului */}
-                    <div className={styles['textBoxx']}>
-                        <div className={styles['body--subtitle--container']}>
-                            <div className={styles['selects']}>
-                                <SelectCourse onSelectCourse={handleCourseSelect} />
-                            </div>
+            <body className={styles['body']}>
+                <Nav />
+                <div className={styles['body--content']}>
+                    <div className={styles['body--title']}>
+                        Edit your exam
+                    </div>
+                    <div onClick={handleSave} > <EditExam /> </div>
+
+                </div>
+                <div className={styles['body--details']}>
+                    <div className={styles['body--subtitle--container2']}>
+
+                        <SelectEvaluationType onSelectEvaluationType={handleEvaluationTypeSelect} examType={exam?.evaluationType} />
+                    </div>
+                    <label htmlFor="exam-name" className={styles['exam-label']}>
+                        Exam title:
+                    </label>
+                    <input
+                        type="text"
+                        value={exam?.title}
+                        onChange={handleTitleChange}
+                        placeholder="Enter exam title"
+                        className={styles['exam-name-input']}
+                    />
+                    <label htmlFor="exam-name" className={styles['exam-label']}>
+                        Time exam:
+                    </label>
+                    <input
+                        type="number"
+                        step="any"
+                        onChange={handleTimeChange}
+                        value={exam?.timeExam}
+                        className={styles['time-input']}
+
+                    />
+
+                    <label htmlFor="exam-name" className={styles['exam-label']}>
+                        Exam date:
+                    </label>
 
 
-                            <div className={styles['box--button']} onSubmit={handleSubmit}>
-                                {/* <Link to="/CreateAnExam"> */}
-                                <EditExam type="submit" />
-                                {/* </Link> */}
-                            </div>
+                    <input
+                        type="datetime-local"
+                        className={styles['date-input']}
+                        onChange={handleExamDateChange}
+                        value={exam ? formatDate(exam.date) : ''}
+                    />
+
+                </div>
+                <div className={styles['questions-container']}>
+                    {questionsLong.map((question) => (
+                        <div key={question.id} className={styles.questi}>
+                            {question.error && <p className={styles.error}>{question.error}</p>}
+                            <h3 className={styles.questionTitle}>
+                                {editedLongQuestion && editedLongQuestion.id === question.id ? (
+                                    <>
+                                        <input
+                                            type="text"
+                                            value={editedLongQuestion.questionText}
+                                            onChange={(e) =>
+                                                setEditedLongQuestion((prevState) => ({
+                                                    ...prevState!,
+                                                    questionText: e.target.value,
+                                                }))
+                                            }
+
+
+                                        />
+                                    </>
+                                ) : (
+                                    <>
+                                        {question.questionText}
+                                    </>
+                                )
+                                }
+                                {!editedLongQuestion || editedLongQuestion.id !== question.id ? (
+                                    <><button
+                                        className={styles.delete}
+                                        onClick={() => handleEditLongQuestion(question)}
+                                    >
+                                        Edit
+                                    </button>
+                                        <button className={styles.delete} onClick={() => handleDelete(question.id)}>Delete</button>
+
+                                        <div className={styles['points']}> Points: {question.points} </div>
+                                    </>
+
+                                ) : (
+                                    <><button
+                                        className={styles.delete}
+                                        onClick={() => handleSaveLongQuestion(editedLongQuestion)}
+                                    >
+                                        Save
+                                    </button>
+                                        <button className={styles.delete} onClick={() => handleDelete(question.id)}>Delete</button>
+
+                                        <div className={styles['points']}> Points:
+                                            <input
+                                                className={styles.inp}
+                                                type="number"
+                                                value={editedLongQuestion.points}
+                                                onChange={(e) => {
+                                                    const value = parseFloat(e.target.value);
+                                                    if (value >= 0) {
+                                                        setEditedLongQuestion((prevState) => ({
+                                                            ...prevState!,
+                                                            points: value,
+                                                        }));
+                                                    }
+                                                }}
+                                            />
+                                        </div>
+                                    </>
+                                )}
+                            </h3>
+                            <ul className={styles.ull}>
+                                <li className={styles['answer']}>
+                                    {editedLongQuestion && editedLongQuestion.id === question.id ? (
+                                        <>
+
+                                            <input
+                                                type="text"
+                                                value={editedLongQuestion.expectedResponse}
+                                                className={styles.resplong}
+                                                onChange={(e) =>
+                                                    setEditedLongQuestion((prevState) => ({
+                                                        ...prevState!,
+                                                        expectedResponse: e.target.value,
+                                                    }))
+                                                }
+                                            />
+                                        </>
+                                    ) : (
+                                        <>
+                                            {question.expectedResponse}
+
+                                        </>)
+                                    }
+                                </li>
+                            </ul>
+                        </div>
+
+                    ))}</div>
+                <div className={styles['questions-container']}>
+
+                    {questionsMultiple.map((question) => (
+                        <div key={question.id} className={styles.questi}>
+                            {question.error && <p className={styles.error}>{question.error}</p>}
+                            <h3 className={styles.questionTitle}>
+                                
+                                {editedMultipleQuestion && editedMultipleQuestion.id === question.id ? (
+                                    <>
+                                        <input
+                                            type="text"
+                                            value={editedMultipleQuestion.questionText}
+                                            onChange={(e) =>
+                                                setEditedMultipleQuestion((prevState) => ({
+                                                    ...prevState!,
+                                                    questionText: e.target.value,
+                                                }))
+                                            }
+                                        />
+                                    </>
+                                ) : (
+                                    <>
+                                        {question.questionText}
+                                    </>
+                                )}
+                                {!editedMultipleQuestion || editedMultipleQuestion.id !== question.id ? (
+                                    <>
+                                        
+                                        <button
+                                            className={styles.delete}
+                                            onClick={() => handleEditMultipleQuestion(question)}
+                                        >
+                                            Edit
+                                        </button>
+                                        <button className={styles.delete} onClick={() => handleDelete(question.id)}>Delete</button>
+                                        <div className={styles['points']}> Points: {question.points} </div>
+                                    </>
+                                ) : (
+                                    <>
+                                        <button
+                                            className={styles.delete}
+                                            onClick={() => handleSaveMultipleQuestion(editedMultipleQuestion)}
+                                        >
+                                            Save
+                                        </button>
+                                        <button className={styles.delete} onClick={() => handleDelete(question.id)}>Delete</button>
+                                        <div className={styles['points']}>
+                                            Points:
+                                            <input
+                                                type="number"
+                                                value={editedMultipleQuestion.points}
+                                                onChange={(e) => {
+                                                const value = parseFloat(e.target.value);
+                                                if (value >= 0) {
+                                                    setEditedMultipleQuestion((prevState) => ({
+                                                        ...prevState!,
+                                                        points: value,
+                                                    }));
+                                                }
+                                            }}
+                                            />
+                                        </div>
+                                    </>
+                                )}
+                            </h3>
+                            <ul className={styles.ull}>
+                                {editedMultipleQuestion &&
+                                    editedMultipleQuestion.id === question.id ? (
+                                    <>
+                                        {editedMultipleQuestion.answersQuestion.map((answer, index) => (
+                                            <li key={answer.id} className={styles['answer']}>
+                                                {editedMultipleQuestion && editedMultipleQuestion.id === question.id ? (
+                                                    <>
+                                                        <input
+                                                            type="checkbox"
+                                                            checked={
+                                                                editedMultipleQuestion && editedMultipleQuestion.id === question.id
+                                                                    ? editedMultipleQuestion.answersQuestion[index].correct
+                                                                    : answer.correct
+                                                            }
+                                                            onChange={(e) =>
+                                                                handleEditAnswerCorrectChange(
+                                                                    e.target.checked,
+                                                                    question.id,
+                                                                    index
+                                                                )
+                                                            }
+                                                        />
+                                                        <input
+                                                            type="text"
+                                                            className={styles.answw}
+                                                            value={
+                                                                editedMultipleQuestion.answersQuestion[index].answerText
+                                                            }
+                                                            onChange={(e) =>
+                                                                handleEditAnswerTextChange(
+                                                                    e.target.value,
+                                                                    question.id,
+                                                                    index
+                                                                )
+                                                            }
+                                                        />
+                                                        
+                                                        <button className={styles.deleteAnswer}
+                                                            onClick={() =>
+                                                                handleDeleteAnswer(
+                                                                    editedMultipleQuestion.id,
+                                                                    editedMultipleQuestion.answersQuestion[index].id
+                                                                )
+                                                            }
+                                                        >
+                                                            Remove
+                                                        </button>
+                                                    </>
+                                                ) : (
+                                                    <>
+                                                        {answer.answerText}
+                                                    </>
+                                                )}
+                                            </li>
+                                        ))}
+                                        {editedMultipleQuestion && editedMultipleQuestion.id === question.id && (
+                                            <button className={styles.addAnswer} onClick={() => handleAddAnswer(question.id)}>Add Answer</button>
+                                        )}
+                                    </>
+                                ) : (
+                                    // Render the answers from question.answersQuestion if editedMultipleQuestion is null
+                                    <>
+                                        {question.answersQuestion.map((answer, index) => (
+                                            <li key={answer.id} className={answer.correct ? styles['correct_answer'] : styles['answer']}>
+                                                {answer.answerText}
+                                                {/* Render other details */}
+                                            </li>
+                                        ))}
+                                    </>
+                                )}
+                            </ul>
 
 
                         </div>
+                    ))}
+                </div>
 
+                <>
+                    <form>
+                        {questionsMultipleChoice.map((question, questionIndex) => (
+                            <div key={questionIndex} ref={questionIndex === questionsMultipleChoice.length - 1 ? lastQuestionRef : null}>
+                                <div className={styles['box']}>
+                                    <Header
+                                        point={question.points.toString()}
+                                        setPoint={(newPoints) => setPointMultipleChoice(questionIndex, Number(newPoints))}
+                                    />
+                                    {question.points === 0 && (
+                                        <div className={styles['error-message-points']}>Attention, the number of points is 0!</div>
+                                    )}
+                                    {question.questionText.length === 0 && (
+                                        <div className={styles['error-message-quest']}>Please enter a question.</div>
+                                    )}
+                                    <label>
+                                        <input
+                                            type="text"
+                                            value={question.questionText}
+                                            placeholder="Type question here"
+                                            className={styles.quest}
+                                            onChange={(event) => handleQuestionTextChange(event, questionIndex)}
+                                        />
+                                    </label>
 
-                    </div>
+                                    <button type="button" onClick={() => removeMultipleChoiceQuestion(questionIndex)} className={styles.removeq}>
+                                        Remove
+                                    </button>
 
-                    <div className={styles['body--details']}>
-                        <div className={styles['body--subtitle--container2']}>
+                                    <div>
+                                        {question.answersQuestion.map((answer, answerIndex) => (
+                                            <div key={answerIndex}>
+                                                {answer.answerText.length === 0 && (
+                                                    <div className={styles['error-message-text-answer']}>Please enter an answer choice.</div>
+                                                )}
+                                                <label className={styles.lb}>
+                                                    <input
+                                                        type="checkbox"
+                                                        checked={answer.correct}
+                                                        className={styles.check}
+                                                        onChange={(event) => handleAnswerCheckboxChange(event, questionIndex, answerIndex)}
+                                                    />
+                                                    <input
+                                                        type="text"
+                                                        value={answer.answerText}
+                                                        placeholder="Answer choice"
+                                                        className={styles.answ}
+                                                        onChange={(event) => handleAnswerTextChange(event, questionIndex, answerIndex)}
+                                                    />
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => removeMultipleChoiceAnswer(questionIndex, answerIndex)}
+                                                        className={styles.removea}>
+                                                        Remove
+                                                    </button>
+                                                </label>
+                                            </div>
+                                        ))}
+                                        {question.answersQuestion.length === 0 && (
+                                            <div className={styles['error-message-answer']}>Please add at least one answer.</div>
+                                        )}
+                                        <button type="button" onClick={() => addAnswer(questionIndex)} className={styles.addansw}>
+                                            + Add Answer
+                                        </button>
+                                    </div>
+                                </div>
 
-                            <SelectEvaluationType onSelectEvaluationType={handleEvaluationTypeSelect} />
-                        </div>
+                            </div>
+                        ))}
 
+                        {questionsLongResponse.map((question, questionIndex) => (
+                            <div key={questionIndex} ref={questionIndex === questionsLongResponse.length - 1 ? lastLongResponseRef : null}>
+                                <div className={styles['box']}>
 
-                        <input
-                            type="text"
-                            value={examName}
-                            onChange={handleExamNameChange}
-                            placeholder="Enter exam title"
-                            className={`${styles['exam-name-input']} ${isExamTitleValid ? '' : styles['invalid-input']}`}
-                        />
-                        {!isExamTitleValid && <p className={styles['error-message']}>The exam title must be entered</p>}
-
-
-
-                        <input
-                            type="number"
-                            step="any"
-                            value={time !== 0 ? time : ''}
-                            onChange={handleTimeChange}
-                            placeholder="Enter time for exam"
-                            className={`${styles['time-input']} ${isTimeValid ? '' : styles['invalid-input']}`}
-                        />
-                        {!isTimeValid && <p className={styles['error-message']}>The time for the exam must be a positive number</p>}
-
-                        <input
-                            type="datetime-local"
-                            value={examDate}
-                            onChange={handleExamDateChange}
-                            className={`${styles['date-input']} ${isExamDateValid ? '' : styles['invalid-input']}`}
-                        />
-                        {!isExamDateValid && <p className={styles['error-message']}>The exam date must be selected</p>}
-                    </div>
-
-
-  
-
-
-
-                    <div className={styles['body--second_text']}>
-                       The content of your exam:</div>
-                    {questionsMultipleChoice.map((question, questionIndex) => (
-                        <div key={questionIndex} ref={questionIndex === questionsMultipleChoice.length - 1 ? lastQuestionRef : null}>
-                            <div className={styles['box']}>
-                                <Header
-                                    point={question.points.toString()}
-                                    setPoint={(newPoints) => setPointMultipleChoice(questionIndex, Number(newPoints))}
-                                />
-                                {question.points === 0 && (
-                                    <div className={styles['error-message-points']}>Attention, the number of points is 0!</div>
-                                )}
-                                {question.questionText.length === 0 && (
-                                    <div className={styles['error-message-quest']}>Please enter a question.</div>
-                                )}
-                                <label>
+                                    <Header
+                                        point={question.points.toString()}
+                                        setPoint={(newPoints) => setPointLongResponse(questionIndex, Number(newPoints))}
+                                    />
+                                    {question.points === 0 && (
+                                        <div className={styles['error-message-points']}>Attention, the number of points is 0!</div>
+                                    )}
+                                    {question.questionText.length === 0 && (
+                                        <div className={styles['error-message-quest']}>Please enter a question.</div>
+                                    )}
                                     <input
                                         type="text"
                                         value={question.questionText}
                                         placeholder="Type question here"
                                         className={styles.quest}
-                                        onChange={(event) => handleQuestionTextChange(event, questionIndex)}
+                                        onChange={(event) => handleQuestionTextChangeLong(event, questionIndex)}
                                     />
-                                </label>
 
-                                <button type="button" onClick={() => removeMultipleChoiceQuestion(questionIndex)} className={styles.removeq}>
-                                    Remove
-                                </button>
-
-                                <div>
-                                    {question.answersQuestion.map((answer, answerIndex) => (
-                                        <div key={answerIndex}>
-                                            {answer.answerText.length === 0 && (
-                                                <div className={styles['error-message-text-answer']}>Please enter an answer choice.</div>
-                                            )}
-                                            <label className={styles.lb}>
-                                                <input
-                                                    type="checkbox"
-                                                    checked={answer.correct}
-                                                    className={styles.check}
-                                                    onChange={(event) => handleAnswerCheckboxChange(event, questionIndex, answerIndex)}
-                                                />
-                                                <input
-                                                    type="text"
-                                                    value={answer.answerText}
-                                                    placeholder="Answer choice"
-                                                    className={styles.answ}
-                                                    onChange={(event) => handleAnswerTextChange(event, questionIndex, answerIndex)}
-                                                />
-                                                <button
-                                                    type="button"
-                                                    onClick={() => removeMultipleChoiceAnswer(questionIndex, answerIndex)}
-                                                    className={styles.removea}>
-                                                    Remove
-                                                </button>
-                                            </label>
-                                        </div>
-                                    ))}
-                                    {question.answersQuestion.length === 0 && (
-                                        <div className={styles['error-message-answer']}>Please add at least one answer.</div>
+                                    {question.expectedResponse.length === 0 && (
+                                        <div className={styles['error-message-answer']}> Please add the expected answer.</div>
                                     )}
-                                    <button type="button" onClick={() => addAnswer(questionIndex)} className={styles.addansw}>
-                                        + Add answer
+                                    <input
+                                        type="text"
+                                        value={question.expectedResponse}
+                                        placeholder="Expected response"
+                                        className={styles.resplong2}
+                                        onChange={(event) => handleExpectedResponseChange(event, questionIndex)}
+                                    />
+                                    <button type="button" onClick={() => removeQuestionLongResponse(questionIndex)} className={styles.removeq2}>
+                                        Remove
                                     </button>
                                 </div>
                             </div>
+                        ))}
 
-                        </div>
-                    ))}
+                        <button type="button" className={styles.addquest} onClick={addMultipleChoice}>+ Add Multiple Choice</button>
+                        <button type="button" className={styles.addquestL} onClick={addQuestionLong}>+ Add Short Answer</button>
 
-                    {questionsLongResponse.map((question, questionIndex) => (
-                        <div key={questionIndex} ref={questionIndex === questionsLongResponse.length - 1 ? lastLongResponseRef : null}>
-                            <div className={styles['box']}>
+                    </form>
 
-                                <Header
-                                    point={question.points.toString()}
-                                    setPoint={(newPoints) => setPointLongResponse(questionIndex, Number(newPoints))}
-                                />
-                                {question.points === 0 && (
-                                    <div className={styles['error-message-points']}>Attention, the number of points is 0!</div>
-                                )}
-                                {question.questionText.length === 0 && (
-                                    <div className={styles['error-message-quest']}>Please enter a question.</div>
-                                )}
-                                <input
-                                    type="text"
-                                    value={question.questionText}
-                                    placeholder="Type question here"
-                                    className={styles.quest}
-                                    onChange={(event) => handleQuestionTextChangeLong(event, questionIndex)}
-                                />
-                                {question.expectedResponse.length === 0 && (
-                                    <div className={styles['error-message-answer']}> Please add the expected answer.</div>
-                                )}
-                                <input
-                                    type="text"
-                                    value={question.expectedResponse}
-                                    placeholder="Expected response"
-                                    className={styles.resplong}
-                                    onChange={(event) => handleExpectedResponseChange(event, questionIndex)}
-                                />
-                                <button type="button" onClick={() => removeQuestionLongResponse(questionIndex)} className={styles.removeq2}>
-                                    Remove
-                                </button>
-                            </div>
-                        </div>
-                    ))}
+                </>
 
-                    <button type="button" className={styles.addquest} onClick={addMultipleChoice}>+ Add Multiple Choice</button>
-                    <button type="button" className={styles.addquestL} onClick={addQuestionLong}>+ Add Short Answer</button>
-
-                </form>
-
-            </div>
-
+            </body>
         </>
     );
 }
-export default EditQuestion;
 
-{/* <div className={styles['container']}>
-             <Questions/>
-            </div> */}
+export default withAuth(EditQuestion, [1]);

@@ -22,7 +22,7 @@ const AdminPage = () => {
         <Link to="/modifyquizztime">
           <img
             className="button-img"
-            src="images/AdminPageImages/create-account.png"
+            src="images/AdminPageImages/modify-quiz.png"
             alt="Modify Quizz Time"
           />
         </Link>

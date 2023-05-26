@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Nav from "./NavBarAdmin/Nav";
 import "./CreateSubject.css";
 import WithAuth from "../../WithAuth";
+import Swal from "sweetalert2";
 
 interface FormValues {
   title: string;
@@ -51,7 +52,19 @@ function CreateSubject() {
             throw new Error("Network response was not ok");
             }
 
-            alert("The subject was added successfully!");
+            return response.text();
+        })
+        .then(data => { 
+          Swal.fire({
+            title: "Subject created!",
+            text: `The code for the subject is ${data}`,
+            icon: "success",
+            confirmButtonText: "Ok",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              window.location.href = "/ChooseCreate";
+            }
+          });
         })
         .catch(error => console.error(error));
   }

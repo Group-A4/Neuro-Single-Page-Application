@@ -33,13 +33,13 @@ import AddQuestion from './Scripts/ProfessorFolder/pages/AddQuizQuestionsPage/Ad
 import ViewMaterialsStudent from "./Scripts/StudentFolder/ViewMaterials/ViewMaterials";
 import ViewLectures from './Scripts/StudentFolder/ViewLecturesStudent/ViewLecturesStudent';
 import ProfileStudent from './Scripts/StudentFolder/ProfilePage/ProfilePage';
+import ProfileProfessor from './Scripts/ProfessorFolder/pages/ProfilePage/ProfilePage';
 import ContentList from './Scripts/ProfessorFolder/pages/ContentListPage/ViewContentList';
 import AddContent from "./Scripts/ProfessorFolder/pages/AddContentPage/AddContent";
 import CreateMaterial from "./Scripts/ProfessorFolder/pages/CreateMaterialPage/CreateMaterial";
 import UpdateMaterial from "./Scripts/ProfessorFolder/pages/UpdateMaterialPage/UpdateMaterial";
 import ViewLectureMaterials from "./Scripts/ProfessorFolder/pages/ViewLectureMaterialsPage/ViewLectureMaterials";
 import ViewMaterial from "./Scripts/ProfessorFolder/pages/ViewMaterialPage/ViewMaterial";
-import ViewMaterialPageStudent from "./Scripts/StudentFolder/ViewMaterialPage/ViewMaterialPage";
 
 
 import ModifyOptionsPage from "./Scripts/AdminFolder/ModifyOptionsPage";
@@ -48,6 +48,10 @@ import EditLastNamePage from "./Scripts/AdminFolder/EditLastNamePage";
 import EditUnivEmailPage from "./Scripts/AdminFolder/EditUnivEmailPage";
 import EditPersEmailPage from "./Scripts/AdminFolder/EditPersEmailPage";
 import EditPasswordPage from "./Scripts/AdminFolder/EditPasswordPage";
+import EditStudentYear from "./Scripts/AdminFolder/EditStudentYear";
+import EditStudentSemester from "./Scripts/AdminFolder/EditStudentSemester";
+import EditStudentBirthdate from "./Scripts/AdminFolder/EditStudentBirthdate";
+import EditProfessorDegree from "./Scripts/AdminFolder/EditProfessorDegree";
 import ChooseAccountPage from "./Scripts/AdminFolder/ChooseAccountPage";
 import ProfilePage from "./Scripts/AdminFolder/ProfilePage";
 import ChooseSubjects from "./Scripts/AdminFolder/ChooseSubjects";
@@ -64,6 +68,11 @@ import SelectCreateAccount from "./Scripts/AdminFolder/SelectCreateAccount";
 import CreateAdmin from "./Scripts/AdminFolder/CreateAdmin";
 import CreateProfessor from "./Scripts/AdminFolder/CreateProfessor";
 import CreateStudent from "./Scripts/AdminFolder/CreateStudent";
+import EditStudentCode from "./Scripts/AdminFolder/EditStudentCode";
+import EditProfessorCode from "./Scripts/AdminFolder/EditProfessorCode";
+
+import Enroll from "./Scripts/AdminFolder/Enroll";
+
 
 function App(): JSX.Element {
   return (
@@ -84,11 +93,12 @@ function App(): JSX.Element {
       <Route path="ResultExam" element={<ResultExam />}></Route>
       <Route path="ViewMaterialsStudent" element={<ViewMaterialsStudent />}></Route>
       <Route path="ViewLectures/:courseId" element={<ViewLectures />} />
-      <Route path="ViewMaterialPageStudent/:lectureId" element={<ViewMaterialPageStudent />}></Route>
       <Route path="ProfileStudent" element={<ProfileStudent />} />
+
       <Route path="/" element={<Home />} />
 
-
+      <Route path="ProfileProfessor" element={<ProfileProfessor />} />
+      
       <Route path="/AllMySubjects" element={<AllMySubjects />} />
       <Route path="/ViewQuestions" element={<ViewQuestions />} />
       <Route path="/AddQuestion" element={<AddQuestion />} />
@@ -100,6 +110,7 @@ function App(): JSX.Element {
       <Route path="/ViewExamAnswers" element={<ViewExamAnswers />} />
       <Route path="/CreateExamQuestions" element={<CreateExamQuestions />} />
       <Route path="/ViewExam" element={<ViewExam />} />
+      <Route path="/ProfileProfessor" element={<ProfileProfessor />} />
       <Route path="/Exam" element={<Exam />} />
 
       <Route path="/AddContent" element={<AddContent />} />
@@ -123,16 +134,23 @@ function App(): JSX.Element {
       <Route path="EditSubjectTitle" element={<EditSubjectTitle />}></Route>
       <Route path="EditSubjectYear" element={<EditSubjectYear />}></Route>
       <Route path="EditSubjectSemester" element={<EditSubjectSemester />}></Route>
+      <Route path="EditStudentBirthdate" element={<EditStudentBirthdate />}></Route>
       <Route path="EditSubjectCredits" element={<EditSubjectCredits />}></Route>
+      <Route path="EditStudentYear" element={<EditStudentYear />}></Route>
+      <Route path="EditStudentSemester" element={<EditStudentSemester />}></Route>
+      <Route path="EditProfessorDegree" element={<EditProfessorDegree />}></Route>
       <Route path="ChooseCreate" element={<ChooseCreate />}></Route>
       <Route path="CreateSubject" element={<CreateSubject />}></Route>
       <Route path="SelectCreateAccount" element={<SelectCreateAccount />}></Route>
       <Route path="CreateAdmin" element={<CreateAdmin />}></Route>
       <Route path="CreateProfessor" element={<CreateProfessor />}></Route>
       <Route path="CreateStudent" element={<CreateStudent />}></Route>
+      <Route path="EditStudentCode" element={<EditStudentCode />}></Route>
+      <Route path="EditProfessorCode" element={<EditProfessorCode />}></Route>
 
 
       <Route path="modifyquizztime" element={<ModifyQuizzTime />}></Route>
+      <Route path="Enroll" element={<Enroll />}></Route>
 
     </Routes>
   );

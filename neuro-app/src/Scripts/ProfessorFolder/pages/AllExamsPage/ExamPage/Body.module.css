@@ -121,10 +121,19 @@
     padding-bottom: 1%;
     padding-left: 3%;
 }
+
+.question-points{
+    display: flex;
+    align-self: center;
+    font-size: calc(10px + 1.0vw);
+    margin-left: auto;
+    float: right;
+    margin-right: 2%;
+}
 .correct-answer
 {
     list-style:url('checked.png');
-    font-size: calc(20px + 1.0vw);
+    font-size: calc(21px + 1.0vw);
     margin-left:3%;
     margin-top: 1%;
 }
@@ -139,10 +148,22 @@
 h3{
     margin-bottom: 0;
 }
-.answer
+.wrong-answer
 {
-    font-size: calc(20px + 1.0vw);
+    list-style:url('wrong.png');
+    font-size: calc(10px + 1.0vw);
     margin-left:3%;
+    margin-top: 1%;
+}
+
+.answer{
+    font-size: calc(10px + 1.0vw);
+    margin-top: 1%;
+    margin-left:3%;
+}
+
+.answer-longResponse{
+    font-size: calc(10px + 1.0vw);
     margin-top: 1%;
 }
 

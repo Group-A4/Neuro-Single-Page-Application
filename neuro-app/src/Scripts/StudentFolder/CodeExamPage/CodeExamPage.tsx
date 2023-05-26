@@ -3,12 +3,15 @@ import Frame from '../Components/Frame';
 import Nav from '../NavBarStudent/Nav';
 import styles from './CodeExamPage.module.css';
 import { useNavigate } from 'react-router-dom';
+import withAuth from '../../../WithAuth';
 
 
 const CodeExamPage: React.FC = () => {
   const [codeExam, setCodeExam] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
+  const user = JSON.parse(localStorage.getItem('utilizator') || '{}');
+  const token = localStorage.getItem('token') || '';
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCodeExam(event.target.value);
@@ -17,23 +20,29 @@ const CodeExamPage: React.FC = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
-    const apiUrl = 'http://localhost:8192/exam/code='+ codeExam +'/idStudent=46';
-
+     
+    const apiUrl = `http://localhost:8192/exam/code=${codeExam}/idStudent=${user.id}`;
+  
+      console.log('first'+apiUrl);
     try {
       const response = await fetch(apiUrl, {
         method: 'GET',
         headers: {
-          accept: 'application/json',
+        accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
         },
       });
+ 
 
-      if (response.status === 400) {
-        setErrorMessage('The exam code introduced is not valid.'); // Set the error message state
-      } else {
-                  navigate(`/QuestionTextPage/${codeExam}`);
-
-      }
+      if (response.status === 405) {
+        setErrorMessage('You have already given this exam.');}
+       else if (response.status === 404) {
+         setErrorMessage('The exam code introduced is not valid.');
+      } 
+        else {
+           navigate(`/QuestionTextPage/${codeExam}`);
+  }
     } catch (error) {
       console.error('An error occurred:', error);
     }
@@ -61,4 +70,4 @@ const CodeExamPage: React.FC = () => {
   );
 };
 
-export default CodeExamPage;
+export default withAuth(CodeExamPage, [2]);

@@ -3,6 +3,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import styles from './ViewLecturesStudent.module.css';
 import Nav from '../NavBarStudent/Nav';
 import { useLocation } from 'react-router-dom';
+import withAuth from '../../../WithAuth';
 
 
 interface ViewLecture {
@@ -26,8 +27,10 @@ const Body: React.FC<{}> = () => {
     const location = useLocation();
     const { courseId } = useParams<{ courseId: string }>();
     const navigate = useNavigate();
+    const token = localStorage.getItem('token') || '';
+
     const goToViewLectures = (lectureId : number) => {
-        navigate(`/ViewMaterialPageStudent/${lectureId}`); 
+        navigate('/ViewLectureMaterials',{state:{lectureId}});
       };
 
     const [lectures, setCourses] = useState<ViewLecture[]>([]);
@@ -37,7 +40,8 @@ const Body: React.FC<{}> = () => {
 
     useEffect(() => {
        const fetchData = async () => {
-        const response = await fetch(completeUrl);
+        const response = await fetch(completeUrl, 
+            { headers: { 'Authorization': `Bearer ${token}` } });
         const data = await response.json();
         setCourses(data);
       };
@@ -89,4 +93,4 @@ const ViewMaterialsStudent: React.FC<{}> = () => {
     );
 }
 
-export default ViewMaterialsStudent;
+export default withAuth(ViewMaterialsStudent, [2]);

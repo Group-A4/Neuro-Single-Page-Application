@@ -1,25 +1,33 @@
 .button--create {
-    background-color: #C49C60;
+    background-color: #002F35;
 
-    text-align: center;
+    /* text-align: center; */
     font-size: calc(10px + 0.8vw);
-    color: white;
+
 
     width: fit-content;
 
-    padding: 1.2vw;
-    padding-bottom: 1.0vw;
+    padding: 0.8vw;
     padding-left: 2.0vw;
     padding-right: 2.0vw;
 
-    border-radius: 25px;
+    border-radius: 20px;
     border-width: 1px;
     border-color: black;
     font-weight: bold;
+
+    font-family: 'Outfit';
+    background-color: #002F35;
+    transition-duration: 0.4s;
+    box-shadow: 3px 5px 18px #002F35;
+    color: white;
+    border: none;
+    cursor: pointer;
 }
 
 .button--create:hover {
-    background-color: #5a5757;
+    opacity: 100%;
+    background-color: #006e7f;
 }
 
 .body form {

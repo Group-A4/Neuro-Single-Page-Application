@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Nav from "./NavBarAdmin/Nav";
 import "./CreateAccount.css";
 import WithAuth from "../../WithAuth";
+import Swal from "sweetalert2";
 
 interface FormValues {
   firstName: string;
@@ -54,7 +55,15 @@ const CreateAdmin = () => {
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
-      console.log("Crearea contului a fost realizata cu succes!");
+      Swal.fire({
+        title: "Account created!",
+        icon: "success",
+        confirmButtonText: "Ok",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = "/SelectCreateAccount";
+        }
+      });
       return response.text();
     })
     .then(text => {

@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import Nav from '../NavBarStudent/Nav';
 import Frame from '../Components/Frame';
+import withAuth from '../../../WithAuth';
+import Exam from '../../ProfessorFolder/pages/AllExamsPage/ExamPage/Exam';
+ 
 
 interface Exam {
   id: number;
@@ -48,33 +51,43 @@ const Body: React.FC<{}> = () => {
   const [selectedChoices, setSelectedChoices] = useState<{ [key: number]: boolean }>({});
   const [inputAnswers, setInputAnswers] = useState<{ [key: number]: string }>({});
   const [remainingTime, setRemainingTime] = useState<number>(0);
+  const user = JSON.parse(localStorage.getItem('utilizator') || '{}');
+  const token = localStorage.getItem('token') || '';
+  const [isDataFetched, setIsDataFetched] = useState(false);
+
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const apiUrl = 'http://localhost:8192/exam/code=' + courseExam;
-        const response = await fetch(apiUrl);
+        const apiUrl = `http://localhost:8192/exam/code=${courseExam}/idStudent=${user.id}`;
+         const response = await fetch(apiUrl, { headers: { Authorization: `Bearer ${token}`, } });
         const data = await response.json();
+
         setExamData(data);
 
         if (data && data.timeExam) {
-          setRemainingTime(data.timeExam*10); // Convert minutes to seconds
-        }
+            setRemainingTime(data.timeExam*60);  
+         }
       } catch (error) {
         console.error('Error fetching exam data:', error);
+      } finally{
+          setIsDataFetched(true); 
+
       }
     };
     fetchData();
   }, [courseExam]);
 
-  useEffect(() => {
-     const timer = setInterval(() => {
+
+useEffect(() => {
+  if (isDataFetched) {
+    const timer = setInterval(() => {
       setRemainingTime((prevTime) => {
         const updatedTime = prevTime - 1;
          if (updatedTime <= 0) {
           clearInterval(timer);
-          navigate('/ResultExam'); // Navigate to '/ResultExam' when time is up
           handleFinishMockExam();
+          navigate('/ResultExam');
         }
         return updatedTime;
       });
@@ -83,8 +96,11 @@ const Body: React.FC<{}> = () => {
     return () => {
       clearInterval(timer);
     };
-  }, [navigate, remainingTime]);
-  
+  }
+}, [isDataFetched, navigate, remainingTime]);
+
+
+
 
 const handleChoiceSelect = (id: number) => {
   setExamData((prevData) => {
@@ -164,16 +180,18 @@ const handleInputAnswer = (answer: string, id: number) => {
 
 const handleFinishMockExam = async () => {
   try {
-    const apiUrl = 'http://localhost:8192/exam/evaluate/idStudent=42';
+    const apiUrl = `http://localhost:8192/exam/evaluate/idStudent=${user.id}`;
     const response = await fetch(apiUrl, {
       method: 'POST',
       headers: {
+        accept: 'application/json',
         'Content-Type': 'application/json',
-        'accept': '*/*',
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(examData),
     });
 
+  
     if (response.ok) {
         console.log("Evaluation succeeded.");
 
@@ -186,15 +204,17 @@ const handleFinishMockExam = async () => {
 };
 
 
+const formatTime = (time: number) => {
+   const hours = Math.floor(time / 60 / 60).toString().padStart(2, '0');
+  const minutes = Math.floor((time / 60) % 60).toString().padStart(2, '0');
+  const seconds = (time % 60).toString().padStart(2, '0');
+  return `${hours}:${minutes}:${seconds}`;
+};
 
-  const formatTime = (time: number) => {
-    const minutes = Math.floor(time / 60);
-    const seconds = time % 60;
 
-    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-  };
 
-  if (!examData) {
+
+  if (!examData || !examData.questionsMultipleChoice) {
     return (
       <div className="body">
         <Frame>
@@ -262,9 +282,9 @@ const handleFinishMockExam = async () => {
         </Frame>
       )}
 
-      <div className="button-container">
+      <div className="button-container1">
         <button
-          className="button"
+          className="button1"
           onClick={handlePreviousQuestion}
           disabled={currentQuestionIndex === 0}
         >
@@ -272,6 +292,7 @@ const handleFinishMockExam = async () => {
         </button>
 
         <button
+          className="button1"
           onClick={
             currentQuestionIndex < questions.length - 1 ? handleNextQuestion : handleFinishMockExam
           }
@@ -296,4 +317,4 @@ function QuestionTextPage() {
   );
 }
 
-export default QuestionTextPage;
+export default withAuth(QuestionTextPage, [2]);

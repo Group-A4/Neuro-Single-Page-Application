@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Nav from './NavBarAdmin/Nav';
 import "./AdminPage.css";
 import WithAuth from "../../WithAuth";
+import Swal from 'sweetalert2';
 
 interface FormValues {
   oldName: string;
@@ -68,7 +69,17 @@ const Body: React.FC<{}> = () => {
           if (!response.ok) {
             throw new Error('Network response was not ok');
           } else {
-            window.location.href = "/ModifyOptionsPage"
+            Swal.fire({
+              title: 'Success!',
+              text: 'Personal email updated!',
+              icon: 'success',
+              confirmButtonText: 'Ok',
+            }).then((result) => {
+              if (result.isConfirmed) {
+                window.location.href = "/ModifyOptionsPage";
+              }
+            }
+            );
           }
       
         } catch (error) {
@@ -112,4 +123,4 @@ function EditPersEmail() {
   );
 }
 
-export default WithAuth(EditPersEmail, [0]);
+export default WithAuth(EditPersEmail, [0,1,2]);

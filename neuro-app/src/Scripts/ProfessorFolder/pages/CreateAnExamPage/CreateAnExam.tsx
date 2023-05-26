@@ -57,9 +57,13 @@ const EvaluationTypeCell: React.FC<EvaluationTypeCellProps> = ({ value }) => {
 
 function Table({ examData }: { examData: ExamData[] }) {
     const token = localStorage.getItem('token');
-
-
-    const [isExamStarted, setIsExamStarted] = useState(false);
+    const [isExamStarted, setIsExamStarted] = useState<{ [key: number]: boolean }>(() => {
+        const storedState = localStorage.getItem('examButtonState');
+        return storedState ? JSON.parse(storedState) : {};
+    });
+    useEffect(() => {
+        localStorage.setItem('examButtonState', JSON.stringify(isExamStarted));
+    }, [isExamStarted]);
 
     const handleStartExam = (idExam: number) => {
         const endpoint = `http://localhost:8192/exam/activate/idExam=${idExam}`;
@@ -68,7 +72,10 @@ function Table({ examData }: { examData: ExamData[] }) {
             .then(response => {
                 if (response.ok) {
                     console.log('Exam activation successful');
-                    setIsExamStarted(true); // Actualizăm starea pentru a indica că examenul a început
+                    setIsExamStarted(prevState => ({
+                        ...prevState,
+                        [idExam]: true
+                    }));
                 } else {
                     throw new Error('Exam activation failed');
                 }
@@ -85,7 +92,10 @@ function Table({ examData }: { examData: ExamData[] }) {
             .then(response => {
                 if (response.ok) {
                     console.log('Exam deactivation successful');
-                    setIsExamStarted(false); // Actualizăm starea pentru a indica că examenul s-a oprit
+                    setIsExamStarted(prevState => ({
+                        ...prevState,
+                        [idExam]: false
+                    }));
                 } else {
                     throw new Error('Exam deactivation failed');
                 }
@@ -166,15 +176,14 @@ function Table({ examData }: { examData: ExamData[] }) {
                                     ))}
                                     <td className={styles['last--td']}>
                                         <button
-                                            className={` ${isExamStarted ? styles['button-stop'] : styles['button-start']}`}
-                                            onClick={() => isExamStarted ? handleStopExam(row.original.id) : handleStartExam(row.original.id)}
-                                        
+                                            className={`${isExamStarted[row.original.id] ? styles['button-stop'] : styles['button-start']}`}
+                                            onClick={() => isExamStarted[row.original.id] ? handleStopExam(row.original.id) : handleStartExam(row.original.id)}
                                         >
-                                            {isExamStarted ? 'STOP' : 'START'}
+                                            {isExamStarted[row.original.id] ? 'STOP' : 'START'}
                                         </button>
                                     </td>
                                     <td className={styles['body--img']}>
-                                        <ScrollBlack idExam={row.original.id} code={row.original.code} />
+                                        <ScrollBlack idExam={row.original.id} codeExam={row.original.code} />
                                     </td>
                                 </tr>
                             );
@@ -218,7 +227,7 @@ const SelectCourse: React.FC<{ onSelectCourse: (id: number) => void }> = ({ onSe
                 { headers: { 'Authorization': `Bearer ${token}` } });
                 const data = await response.json();
 
-                const professorId = 52; // ID-ul profesorului curent
+                const professorId = user.id;
 
                 const filteredData = data.filter((exam: ExamData) => exam.idProfessor === professorId);
                 setExamData(filteredData);
@@ -241,7 +250,7 @@ const SelectCourse: React.FC<{ onSelectCourse: (id: number) => void }> = ({ onSe
                     <option value="" disabled hidden>
                         Courses options
                     </option>
-                    {courses.map((course) => (
+                    {Array.isArray(courses) && courses.map((course) => (
                         <option
                             className={styles['subject-options']}
                             key={course.id}
