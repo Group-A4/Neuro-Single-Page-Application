@@ -586,7 +586,9 @@ const AddQuestion: React.FC<{}> = () => {
                                 <SelectEvaluationType onSelectEvaluationType={handleEvaluationTypeSelect} />
                         </div>
 
-
+                        <label htmlFor="exam-name" className={styles['exam-label']}>
+                            Exam title:
+                        </label>
                         <input
                             type="text"
                             value={examName}
@@ -597,7 +599,9 @@ const AddQuestion: React.FC<{}> = () => {
                         {!isExamTitleValid && <p className={styles['error-message']}>The exam title must be entered</p>}
 
                         
-
+                        <label htmlFor="exam-name" className={styles['exam-label']}>
+                            Time exam:
+                        </label>
                         <input
                             type="number"
                             step="any"
@@ -607,6 +611,9 @@ const AddQuestion: React.FC<{}> = () => {
                             className={`${styles['time-input']} ${isTimeValid ? '' : styles['invalid-input']}`}
                         />
                         {!isTimeValid && <p className={styles['error-message']}>The time for the exam must be a positive number</p>}
+                        <label htmlFor="exam-name" className={styles['exam-label']}>
+                            Exam date:
+                        </label>
 
                         <input
                             type="datetime-local"

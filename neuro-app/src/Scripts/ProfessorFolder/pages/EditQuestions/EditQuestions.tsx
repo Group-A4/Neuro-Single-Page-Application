@@ -90,6 +90,7 @@ const EditQuestion: React.FC<{}> = () => {
     const [questionsMultiple, setQuestionsMultiple] = useState<QuestionMultipleChoiceInterface[]>([]);
     const [editedLongQuestion, setEditedLongQuestion] = useState<QuestionLongResponseInterface | null>(null);
     const [editedMultipleQuestion, setEditedMultipleQuestion] = useState<QuestionMultipleChoiceInterface | null>(null);
+    const [showConfirmation, setShowConfirmation] = useState(false);
 
     const token = localStorage.getItem('token');
     const user = JSON.parse(localStorage.getItem('utilizator') || '{}');
@@ -316,6 +317,9 @@ const EditQuestion: React.FC<{}> = () => {
         });
     };
     const handleDelete = async (idQuestion: number) => {
+        setShowConfirmation(true);
+        const confirmDelete = window.confirm("Are you sure you want to remove this question?");
+        if (confirmDelete) {
         try {
             const response = await fetch(`http://localhost:8192/questionExam/delete/idQuestion=${idQuestion}`, {
                 method: 'DELETE',
@@ -340,6 +344,7 @@ const EditQuestion: React.FC<{}> = () => {
             console.log('Error occurred while deleting question:', error);
             // Handle any errors that occurred during the fetch request
         }
+    }
     };
     ///question 
     const [questionsMultipleChoice, setQuestionsMultipleChoice] = useState<MultipleChoice[]>([]);
@@ -761,6 +766,9 @@ const EditQuestion: React.FC<{}> = () => {
 
                         <SelectEvaluationType onSelectEvaluationType={handleEvaluationTypeSelect} examType={exam?.evaluationType} />
                     </div>
+                    <label htmlFor="exam-name" className={styles['exam-label']}>
+                        Exam title:
+                    </label>
                     <input
                         type="text"
                         value={exam?.title}
@@ -768,6 +776,9 @@ const EditQuestion: React.FC<{}> = () => {
                         placeholder="Enter exam title"
                         className={styles['exam-name-input']}
                     />
+                    <label htmlFor="exam-name" className={styles['exam-label']}>
+                        Time exam:
+                    </label>
                     <input
                         type="number"
                         step="any"
@@ -777,7 +788,9 @@ const EditQuestion: React.FC<{}> = () => {
 
                     />
 
-
+                    <label htmlFor="exam-name" className={styles['exam-label']}>
+                        Exam date:
+                    </label>
 
 
                     <input
@@ -992,7 +1005,7 @@ const EditQuestion: React.FC<{}> = () => {
                                                                 )
                                                             }
                                                         >
-                                                            Delete
+                                                            Remove
                                                         </button>
                                                     </>
                                                 ) : (
@@ -1086,7 +1099,7 @@ const EditQuestion: React.FC<{}> = () => {
                                             <div className={styles['error-message-answer']}>Please add at least one answer.</div>
                                         )}
                                         <button type="button" onClick={() => addAnswer(questionIndex)} className={styles.addansw}>
-                                            + Add answer
+                                            + Add Answer
                                         </button>
                                     </div>
                                 </div>
@@ -1123,7 +1136,7 @@ const EditQuestion: React.FC<{}> = () => {
                                         type="text"
                                         value={question.expectedResponse}
                                         placeholder="Expected response"
-                                        className={styles.resplong}
+                                        className={styles.resplong2}
                                         onChange={(event) => handleExpectedResponseChange(event, questionIndex)}
                                     />
                                     <button type="button" onClick={() => removeQuestionLongResponse(questionIndex)} className={styles.removeq2}>

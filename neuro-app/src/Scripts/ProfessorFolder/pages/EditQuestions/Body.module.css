@@ -143,9 +143,6 @@ body .removeq {
     padding: 1%
 }
 
-body .removeq:hover {
-    background-color: #5a5757;
-}
 
 body .answ {
     display: inherit;
@@ -161,35 +158,73 @@ body .answ {
 }
 
 .body .addansw {
-    background-color: #F5E0BF;
-    margin-top: 2%;
-    margin-left: 14%;
-    font-size: 1.5vi;
-    padding-top: 0.5%;
-    padding-bottom: 0.5%;
-    width: 20%;
-    border-radius: 10px;
-    border-width: 1px;
-    border-color: black;
+    background-color: #002F35;
+        border-color: black;
+        border-width: 1%;
+        color: white;
+        font-size: 1.4vi;
+        border-radius: 5px;
+        font-family: 'Outfit';
+        transition-duration: 0.4s;
+        box-shadow: 3px 5px 18px #002F35;
+        border: none;
+        cursor: pointer;
+        margin-top: 2%;
+        margin-left: 10%;
 
 }
+ .addansw:hover {
+    opacity: 100%;
+    background-color: #008195;
+ }
 
 .addAnswer {
-    background-color: #6AFFC7;
-    color: #002F35;
+    background-color: #002F35;
+    border-color: black;
+    border-width: 1%;
+    color: white;
+    font-size: 1.4vi;
+    border-radius: 5px;
+    font-family: 'Outfit';
+    transition-duration: 0.4s;
+    box-shadow: 3px 5px 18px #002F35;
+    border: none;
+    cursor: pointer;
+    margin-top: 4%;
+    margin-left: 6%;
 }
+ .addAnswer:hover {
+    opacity: 100%;
+        background-color: #008195;
+ }
 
 .deleteAnswer {
-    background-color: red;
-    width: fit-content;
-    font-size: 1em;
+    font-weight: bold;
+    background-color: #ff5151;
+    border-width: 1%;
+    font-size: 1.2vi;
+    padding-top: 0.5%;
+    padding-bottom: 0.5%;
+    padding: 1%;
+    border: none;
+
+    border-radius: 10px;
+    font-family: 'Outfit';
+    transition-duration: 0.4s;
+    box-shadow: 3px 5px 18px #002F35;
+    border: none;
+    cursor: pointer;
 
 }
+ .deleteAnswer:hover {
+     opacity: 100%;
+     background-color: #ff9090;
+ }
 
 .body .addquest {
     background-color: #F5E0BF;
-
-    margin-left: 25%;
+    margin-top: 7%;
+    margin-left: 20%;
     font-size: 1.5vi;
     padding-top: 0.5%;
     padding-bottom: 0.5%;
@@ -212,8 +247,12 @@ body .answ {
     border-color: black;
 }
 
+.body .addquest:hover {
+    background-color: #ff7847;
+}
+
 .body .addquestL:hover {
-    background-color: #fddda9;
+    background-color: #ff7847;
 }
 
 .body .sub {
@@ -261,28 +300,31 @@ body .answ {
 
 body .removea {
     margin-left: 5%;
-    background-color: red;
+    font-weight: bold;
+    background-color: #ff5151;
+    border-width: 1%;
     font-size: 1.2vi;
-    padding-top: 1%;
-    padding-bottom: 1%;
+    padding-top: 0.5%;
+    padding-bottom: 0.5%;
+    padding: 1%;
+    border: none;
+
     border-radius: 10px;
+    font-family: 'Outfit';
+    transition-duration: 0.4s;
+    box-shadow: 3px 5px 18px #002F35;
     border: none;
     cursor: pointer;
-    height: 50%;
-    margin-top: 3%;
-    padding: 1%;
 }
+ .removea:hover {
+     opacity: 100%;
+     background-color: #ff9090;
+ }
 
-body .removeq:hover {
-    background-color: #b1ffe1;
+.addquest:hover
+ {
+    background-color: #008195;
 }
-
-.addansw:hover,
-.addquest:hover,
-.removea:hover {
-    background-color: #b1ffe1;
-}
-
 .mess {
     background-color: #5a5757;
     color: black;
@@ -338,7 +380,16 @@ select {
     font-size: 2vi;
     margin-left: 1%;
     border-radius: 10px;
+    font-family: 'Outfit';
+    transition-duration: 0.4s;
+    box-shadow: 3px 5px 18px #002F35;
+    border: none;
+    cursor: pointer;
 }
+ .delete:hover {
+     opacity: 100%;
+     background-color: #00191d;
+ }
 
 .text {
     font-size: 5vi;
@@ -401,6 +452,10 @@ select {
     margin-top: 1%;
     margin-left: -4.5%;
     padding-left: 1%;
+
+    font-size: 1.2em;
+    padding: 0.5em;
+
 }
 
 .date-input {
@@ -456,6 +511,8 @@ select {
     margin-top: 1%;
     margin-left: -4.5%;
     padding-left: 1%;
+    font-size: 1.2em;
+    padding: 0.5em;
 }
 
 .exam-name-input {
@@ -469,6 +526,7 @@ select {
     padding-left: 1%;
 }
 
+
 .date-input {
     width: fit-content;
     padding: 8px;
@@ -478,6 +536,16 @@ select {
     margin-top: 1%;
     margin-left: -4.5%;
     padding-left: 1%;
+    font-size: 1.2em;
+    padding: 0.5em;
+
+}
+
+.exam-label {
+    margin-left: -4.5%;
+    font-size: calc(10px + 0.8vw);
+    color: #333;
+    margin-bottom: -1%;
 }
 
 .but {
@@ -493,44 +561,85 @@ select {
     padding-top: 1%;
     padding-bottom: 1%;
     border-radius: 10px;
-    margin-left: 15%;
     border: none;
     margin-top: 2%;
 }
 
+.resplong2 {
+    display: inherit;
+    background-color: rgb(208, 200, 200);
+    width: 60%;
+    font-size: 1.5vi;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    border-radius: 10px;
+    border: none;
+    margin-top: 2%;
+    margin-left: 12%;
+}
+
 .removeq2 {
-    margin-top: calc(1px - 13.5%);
-    margin-right: 5%;
-    float: right;
+    /* margin-top: calc(1px - 14.5%);
+    margin-right: 13%;
+    float: right; */
+    margin-left: auto;
+    margin-right: 6%;
+    margin-top: 2%;
+    display: flex;
+    justify-content: flex-end;
     font-weight: bold;
     background-color: #ff5151;
+    border-width: 1%;
     font-size: 1.2vi;
     padding-top: 0.5%;
     padding-bottom: 0.5%;
     border-radius: 10px;
     border: none;
     cursor: pointer;
-    padding: 1%
+    padding: 1%;
+
+    font-family: 'Outfit';
+    transition-duration: 0.4s;
+    box-shadow: 3px 5px 18px #002F35;
+    border: none;
+    cursor: pointer;
 }
+ .removeq2:hover {
+     opacity: 100%;
+     background-color: #ff9090;
+ }
 
 body .removeq {
 
     font-weight: bold;
     /* margin-left: 4%; */
     background-color: #ff5151;
+    border-width: 1%;
     font-size: 1.2vi;
     padding-top: 0.5%;
     padding-bottom: 0.5%;
     border-radius: 10px;
     border: none;
     cursor: pointer;
-    padding: 1%
+    padding: 1%;
+
+    font-family: 'Outfit';
+    transition-duration: 0.4s;
+    box-shadow: 3px 5px 18px #002F35;
+    border: none;
+    cursor: pointer;
 }
+
+ .removeq:hover {
+     opacity: 100%;
+     background-color: #ff9090;
+ }
 
 .error {
     color: red;
     font-size: 20px;
     margin-top: 4px;
+    background-color: white;
 }
 
 .error-message {
@@ -589,53 +698,22 @@ body .removeq {
 
 @media (max-width:1000px) {
     body .quest {
-        display: inherit;
-        background-color: #D9D9D9;
-        width: 70%;
-        font-size: 3vi;
-        padding-top: 1%;
-        padding-bottom: 1%;
-        border-radius: 10px;
-        margin-left: 10%;
-        border: none;
-        margin-top: 5%;
+        font-size: 2vi;
     }
 
     body .removeq {
-        margin-left: 5%;
-        background-color: #6AFFC7;
-        font-size: 1.4vi;
-        padding-top: 0.5%;
-        padding-bottom: 0.5%;
-        border-radius: 10px;
-        border: none;
-        cursor: pointer;
+        font-size: 2vi;
+    }
+    body .removeq2 {
+        font-size: 2vi;
     }
 
     body .answ {
-        display: inherit;
-        background-color: #D9D9D9;
-        width: 64%;
         font-size: 2vi;
-        padding-top: 1%;
-        padding-bottom: 1%;
-        border-radius: 10px;
-        margin-left: 2%;
-        border: none;
-        margin-top: 2%;
     }
 
     body .removea {
-        margin-left: 5%;
-        background-color: #6AFFC7;
-        font-size: 1.5vi;
-        padding-top: 0.5%;
-        padding-bottom: 0.5%;
-        border-radius: 10px;
-        border: none;
-        cursor: pointer;
-        height: 50%;
-        margin-top: 3%;
+        font-size: 2vi;
     }
 
     .body input[type="checkbox"] {
@@ -668,6 +746,9 @@ body .removeq {
     }
 
     .resplong {
+        font-size: 2vi;
+    }
+    .resplong2 {
         font-size: 2vi;
     }
 

@@ -275,8 +275,34 @@ tbody div td:hover:before {
 
 .button-start {
     background-color: green;
+    font-size: 1.5em;
+    font-family: 'Outfit';
+    border-radius: 4px;
+    transition-duration: 0.4s;
+    box-shadow: 3px 5px 18px #002F35;
+    color: white;
+    border: none;
+    cursor: pointer;
 }
 
 .button-stop {
     background-color: red;
+    font-size: 1.5em;
+    font-family: 'Outfit';
+    border-radius: 4px;
+    transition-duration: 0.4s;
+    box-shadow: 3px 5px 18px #002F35;
+    color: white;
+    border: none;
+    cursor: pointer;
 }
+
+ .button-start:hover {
+     opacity: 100%;
+     background-color: #00191d;
+ }
+ 
+  .button-stop:hover {
+      opacity: 100%;
+      background-color: #00191d;
+  }

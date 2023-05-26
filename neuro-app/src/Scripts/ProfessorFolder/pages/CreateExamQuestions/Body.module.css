@@ -58,27 +58,42 @@
     margin-top: 1%;
     margin-left: -4.5%;
     padding-left: 1%;
+    font-size: 1.2em;
+    padding: 0.5em;
 }
 
 .exam-name-input{
-        width: fit-content;
-        padding: 8px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        color: #555;
-        margin-top: 1%;
-        margin-left: -4.5%;
-        padding-left: 1%;
+    width: fit-content;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: #555;
+    margin-top: 1%;
+    margin-left: -4.5%;
+    padding-left: 1%;
+
+    font-size: 1.2em;
+    padding: 0.5em;
+
 }
 .date-input{
-        width: fit-content;
-        padding: 8px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        color: #555;
-        margin-top: 1%;
-        margin-left: -4.5%;
-        padding-left: 1%;
+    width: fit-content;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: #555;
+    margin-top: 1%;
+    margin-left: -4.5%;
+    padding-left: 1%;
+    font-size: 1.2em;
+    padding: 0.5em;
+        
+}
+.exam-label {
+    margin-left: -4.5%;
+    font-size: calc(10px + 0.8vw);
+    color: #333;
+    margin-bottom: -1%;
 }
 
 .body--subtitle--container {
@@ -192,6 +207,8 @@
     padding-bottom: 2%;
     display: flex;
     flex-direction: column;
+
+
 }
 .body--second_text
 {
@@ -241,6 +258,8 @@ body .quest {
     margin-left: 10%;
     border: none;
     margin-top: 5%;
+
+    
 }
 body .removeq {
 
@@ -340,9 +359,13 @@ body .resplong{
     border-width: 1px;
     border-color: black;
 }
+
+.body .addquest:hover {
+    background-color: #ff7847;
+}
 .body .addquestL:hover
 {
-    background-color:  #fddda9;
+    background-color:  #ff7847;
 }
 .body .sub
 {
