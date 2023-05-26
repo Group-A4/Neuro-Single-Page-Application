@@ -25,6 +25,7 @@ const Body: React.FC<{}> = () => {
     const [courses, setCourses] = useState<Course[]>([]);
     const [isLoading, setIsLoading] = useState(true);
 
+
     useEffect(() => {
     const fetchData = async () => {
         const response = await fetch(`http://localhost:8192/courses/student=${user.id}`, { headers: { 'Authorization': `Bearer ${token}` } });
@@ -53,7 +54,7 @@ const Body: React.FC<{}> = () => {
                     <div className={styles['body--line']}></div>
                 </div>
 
-            {courses.length > 0 && courses.map(course => (
+            {Array.isArray(courses) && courses.length > 0 && courses.map(course => (
                   <div className={styles['course-container']} key={course.title}>
                   <div className={styles['course-title']}>
             {course.title}
