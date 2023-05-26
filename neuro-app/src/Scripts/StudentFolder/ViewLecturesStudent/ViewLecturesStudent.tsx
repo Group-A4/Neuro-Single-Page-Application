@@ -39,12 +39,15 @@ const Body: React.FC<{}> = () => {
     const apiUrl = 'http://localhost:8192/lectures/course_id=';
     const completeUrl = `${apiUrl}${courseId}`;
 
+    console.log(completeUrl);
+
     useEffect(() => {
        const fetchData = async () => {
         const response = await fetch(completeUrl, 
             { headers: { 'Authorization': `Bearer ${token}` } });
         const data = await response.json();
         setCourses(data);
+        setIsLoading(false);
       };
       fetchData();
     }, []);
